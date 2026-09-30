@@ -1,26 +1,25 @@
-import type {
-  Faction,
-  GeneratedList,
-  ListEntry,
-  Mode,
-  PointsBracket,
-  Unit,
-} from '../types'
+import type { Faction, GeneratedList, ListEntry, PointsBracket, Unit } from '../types'
 import { isCharacter, pointsPerEuro } from './value'
 
 // ---------------------------------------------------------------------------
-// List generation
+// Casual list generation — "affordable above all", with a thematic backbone.
 //
-// Two modes:
-//  - casual: "affordable above all". Seed the whole Combat Patrol, guarantee a
-//    leader, then fill the remaining points with the best points-per-euro kits.
-//  - competitive: use the faction's curated 11th-edition event netlist.
+// Process:
+//  1. Seed the whole Combat Patrol (all units it builds) unless its points
+//     exceed the limit — the cheapest way to buy several units at once.
+//  2. Ensure a battleline backbone: at least 100 pts of battleline per 1000 pts.
+//  3. Guarantee a leader character.
+//  4. Fill the rest by best points-per-euro.
 //
-// Casual legality / taste rules:
-//  - Epic Heroes are unique (max 1 of each).
-//  - Any other datasheet: max 1 copy at 500 pts, max 2 copies at higher brackets
-//    (keep lists varied, avoid spamming the same box).
+// Copy caps: max 1 of any datasheet at 500 pts, max 2 at higher brackets;
+// Epic Heroes unique.
+//
+// (Competitive netlists were removed for now — see faction competitiveLists,
+//  kept as a future TODO.)
 // ---------------------------------------------------------------------------
+
+/** Battleline points wanted per 1000 pts of army. */
+const BATTLELINE_PTS_PER_1000 = 100
 
 /** Small seeded RNG so a given "seed" reproduces the same list. */
 function mulberry32(seed: number): () => number {
@@ -49,6 +48,12 @@ function pointsOf(entries: ListEntry[]): number {
   return entries.reduce((s, e) => s + e.unit.points * e.count, 0)
 }
 
+function battlelinePointsOf(entries: ListEntry[]): number {
+  return entries
+    .filter((e) => e.unit.role === 'battleline')
+    .reduce((s, e) => s + e.unit.points * e.count, 0)
+}
+
 function countIn(entries: ListEntry[], unitId: string): number {
   return entries.find((e) => e.unit.id === unitId)?.count ?? 0
 }
@@ -73,9 +78,11 @@ function roleOrder(u: Unit): number {
   return order[u.role] ?? 9
 }
 
-// --- Casual --------------------------------------------------------------
-
-function generateCasual(faction: Faction, target: PointsBracket, seed: number): GeneratedList {
+export function generateList(
+  faction: Faction,
+  target: PointsBracket,
+  seed = Date.now(),
+): GeneratedList {
   const rand = mulberry32(seed)
   const entries: ListEntry[] = []
   const notes: string[] = []
@@ -84,8 +91,7 @@ function generateCasual(faction: Faction, target: PointsBracket, seed: number): 
   const dupeCap = target === 500 ? 1 : 2
   const capFor = (u: Unit) => (u.epicHero ? 1 : dupeCap)
 
-  // 1. Seed the whole Combat Patrol (all its units) — the cheapest way to start
-  //    an army — unless the models it builds already cost more than the limit.
+  // 1. Seed the whole Combat Patrol unless its models already exceed the limit.
   const cp = faction.valueBoxes[0]
   if (cp) {
     const cpEntries: ListEntry[] = []
@@ -109,16 +115,34 @@ function generateCasual(faction: Faction, target: PointsBracket, seed: number): 
     notes.push('No Combat Patrol exists for this faction — built from individual kits.')
   }
 
-  // 2. Guarantee a leader if the Combat Patrol didn't already provide one.
-  const hasLeader = entries.some((e) => isCharacter(e.unit))
-  if (!hasLeader) {
+  // 2. Battleline backbone — at least 100 pts of battleline per 1000 pts.
+  const minBattleline = Math.round((target / 1000) * BATTLELINE_PTS_PER_1000)
+  let bGuard = 0
+  while (battlelinePointsOf(entries) < minBattleline && bGuard++ < 50) {
+    const remaining = target - pointsOf(entries)
+    const legal = faction.units.filter(
+      (u) => u.role === 'battleline' && u.points <= remaining && countIn(entries, u.id) < capFor(u),
+    )
+    if (!legal.length) break
+    const pick = pickWeighted(legal, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
+    if (!pick) break
+    addUnit(entries, pick)
+  }
+  const blNow = battlelinePointsOf(entries)
+  if (blNow >= minBattleline) {
+    notes.push(`Battleline backbone: ${blNow} pts (target ≥ ${minBattleline}).`)
+  } else if (minBattleline > 0) {
+    notes.push(`Only ${blNow} pts of battleline available (wanted ≥ ${minBattleline}).`)
+  }
+
+  // 3. Guarantee a leader if nothing so far is a character.
+  if (!entries.some((e) => isCharacter(e.unit))) {
     const chars = faction.units.filter((u) => u.role === 'character')
     const leader = pickWeighted(chars, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
     if (leader && pointsOf(entries) + leader.points <= target) addUnit(entries, leader)
   }
 
-  // 3. Fill the rest with the best points-per-euro kits (value dominates, with a
-  //    light flavour nudge and randomness so rerolls vary), honouring the caps.
+  // 4. Fill the rest with the best points-per-euro kits.
   const weight = (u: Unit) => Math.pow(pointsPerEuro(u), 2) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5))
   let guard = 0
   while (guard++ < 500) {
@@ -144,44 +168,4 @@ function generateCasual(faction: Faction, target: PointsBracket, seed: number): 
 
   entries.sort((a, b) => roleOrder(a.unit) - roleOrder(b.unit) || b.unit.points - a.unit.points)
   return { faction, mode: 'casual', targetPoints: target, entries, totalPoints: total, notes }
-}
-
-// --- Competitive ---------------------------------------------------------
-
-function generateCompetitive(faction: Faction, target: PointsBracket): GeneratedList {
-  const notes: string[] = []
-  const base = faction.competitiveLists[2000] ?? faction.competitiveLists[target]
-
-  if (!base) {
-    return {
-      faction,
-      mode: 'competitive',
-      targetPoints: target,
-      entries: [],
-      totalPoints: 0,
-      notes: ['No competitive list is seeded for this faction yet.'],
-    }
-  }
-
-  const entries: ListEntry[] = []
-  for (const e of base) {
-    const unit = faction.units.find((u) => u.id === e.unitId)
-    if (unit) addUnit(entries, unit, e.count)
-  }
-  notes.push('Curated 2000 pt list based on recent 11th-edition event archetypes.')
-
-  const total = pointsOf(entries)
-  entries.sort((a, b) => roleOrder(a.unit) - roleOrder(b.unit) || b.unit.points - a.unit.points)
-  return { faction, mode: 'competitive', targetPoints: target, entries, totalPoints: total, notes }
-}
-
-export function generateList(
-  faction: Faction,
-  mode: Mode,
-  target: PointsBracket,
-  seed = Date.now(),
-): GeneratedList {
-  return mode === 'competitive'
-    ? generateCompetitive(faction, target)
-    : generateCasual(faction, target, seed)
 }

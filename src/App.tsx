@@ -3,7 +3,7 @@ import { factions, getFaction } from './data'
 import { generateList } from './lib/generateList'
 import { costList, discountedTotal } from './lib/costList'
 import { isCharacter } from './lib/value'
-import type { DiscountPercent, ListEntry, Mode, PointsBracket } from './types'
+import type { DiscountPercent, ListEntry, PointsBracket } from './types'
 
 const BRACKETS: PointsBracket[] = [500, 1000, 1500, 2000]
 const DISCOUNTS: DiscountPercent[] = [0, 10, 15, 20]
@@ -15,16 +15,12 @@ function eur(n: number): string {
 export default function App() {
   const [factionId, setFactionId] = useState(factions[0].id)
   const [bracket, setBracket] = useState<PointsBracket>(2000)
-  const [mode, setMode] = useState<Mode>('casual')
   const [discount, setDiscount] = useState<DiscountPercent>(0)
   const [seed, setSeed] = useState(() => Date.now())
 
   const faction = getFaction(factionId)!
 
-  const list = useMemo(
-    () => generateList(faction, mode, bracket, seed),
-    [faction, mode, bracket, seed],
-  )
+  const list = useMemo(() => generateList(faction, bracket, seed), [faction, bracket, seed])
   const cost = useMemo(() => costList(list), [list])
   const finalTotal = useMemo(() => discountedTotal(cost, discount), [cost, discount])
 
@@ -83,11 +79,7 @@ export default function App() {
               <button
                 key={b}
                 className={b === bracket ? 'seg active' : 'seg'}
-                onClick={() => {
-                  setBracket(b)
-                  // Competitive lists are only meaningful at 2000 pts.
-                  if (b !== 2000) setMode('casual')
-                }}
+                onClick={() => setBracket(b)}
               >
                 {b}
               </button>
@@ -95,30 +87,10 @@ export default function App() {
           </div>
         </div>
 
-        <div className="control">
-          <label>Play style</label>
-          <div className="segmented">
-            <button
-              className={mode === 'casual' ? 'seg active' : 'seg'}
-              onClick={() => setMode('casual')}
-            >
-              Casual
-            </button>
-            <button
-              className={mode === 'competitive' ? 'seg active' : 'seg'}
-              onClick={() => setMode('competitive')}
-              disabled={bracket !== 2000}
-              title={bracket !== 2000 ? 'Competitive lists are only available at 2000 pts' : undefined}
-            >
-              Competitive
-            </button>
-          </div>
-        </div>
-
         <div className="control grow">
           <label>&nbsp;</label>
-          <button className="primary" onClick={() => setSeed(Date.now())} disabled={mode === 'competitive'}>
-            {mode === 'competitive' ? 'Competitive list is fixed' : '🎲 Reroll casual list'}
+          <button className="primary" onClick={() => setSeed(Date.now())}>
+            🎲 Reroll list
           </button>
         </div>
       </section>
