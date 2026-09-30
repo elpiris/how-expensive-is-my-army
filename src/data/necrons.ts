@@ -10,8 +10,10 @@ import type { Faction } from '../types'
 // points low.
 //
 // Combat Patrol contents + €135 price confirmed on the product page.
-// Not-sold-separately kits (Technomancer via Royal Court, Scarabs via Combat
-// Patrol) keep unverified prices and show a ≈ badge.
+// Canoptek Scarabs are not sold separately (only in the Combat Patrol) so their
+// price is unverified (≈). Technomancer was removed: it is not sold individually
+// and the Royal Court box builds a Skorpekh Lord / Plasmancer / Cryptothralls /
+// Reanimator, none of which is a Technomancer.
 // ---------------------------------------------------------------------------
 
 export const necrons: Faction = {
@@ -32,6 +34,7 @@ export const necrons: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['immortals', 'lychguard', 'necron-warriors'],
       kit: {
         name: 'Overlord with Tachyon Arrow',
         priceEUR: 34,
@@ -48,18 +51,8 @@ export const necrons: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['immortals', 'necron-warriors'],
       kit: { name: 'Royal Warden', priceEUR: 32.5, models: 1, verified: true, onlineOnly: true },
-    },
-    {
-      id: 'technomancer',
-      name: 'Technomancer',
-      role: 'character',
-      points: 80,
-      models: 1,
-      flavor: 3,
-      keywords: ['Character', 'Infantry', 'Leader'],
-      // Not sold individually — only in the online-only Necrons Royal Court (€105).
-      kit: { name: 'Necrons Royal Court', priceEUR: 105, models: 1, onlineOnly: true },
     },
     {
       id: 'psychomancer',
@@ -69,6 +62,7 @@ export const necrons: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['immortals', 'necron-warriors'],
       kit: { name: 'Psychomancer', priceEUR: 32.5, models: 1, verified: true },
     },
     {

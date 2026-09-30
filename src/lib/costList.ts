@@ -110,12 +110,28 @@ export function costList(list: GeneratedList): CostBreakdown {
     })
   }
 
-  // 3. Cover the remainder with individual kits.
-  for (const need of needs.values()) {
-    if (need.modelsNeeded <= 0) continue
+  // 3. Cover the remainder with individual kits, crediting bonus sprues that a
+  //    box also builds (e.g. a Termagants box also yields a Ripper Swarm base),
+  //    so we don't buy models we already got for free. Producers (kits with
+  //    `alsoBuilds`) are costed first so their credits reach the byproducts.
+  const credits = new Map<string, number>() // unitId -> free models already owned
+  const remainingNeeds = [...needs.values()].filter((n) => n.modelsNeeded > 0)
+  remainingNeeds.sort(
+    (a, b) =>
+      (unitById.get(b.unitId)?.kit.alsoBuilds ? 1 : 0) -
+      (unitById.get(a.unitId)?.kit.alsoBuilds ? 1 : 0),
+  )
+  for (const need of remainingNeeds) {
     const unit = unitById.get(need.unitId)!
-    const boxes = Math.ceil(need.modelsNeeded / unit.kit.models)
-    const surplus = boxes * unit.kit.models - need.modelsNeeded
+    const credit = credits.get(need.unitId) ?? 0
+    const netModels = Math.max(0, need.modelsNeeded - credit)
+    credits.set(need.unitId, Math.max(0, credit - need.modelsNeeded))
+    if (netModels <= 0) {
+      notes.push(`${unit.name}: covered by bonus models from other kits.`)
+      continue
+    }
+    const boxes = Math.ceil(netModels / unit.kit.models)
+    const surplus = boxes * unit.kit.models - netModels
     lines.push({
       name: unit.kit.name,
       quantity: boxes,
@@ -124,9 +140,12 @@ export function costList(list: GeneratedList): CostBreakdown {
       isValueBox: false,
       onlineOnly: !!unit.kit.onlineOnly,
       verified: !!unit.kit.verified,
-      covers: [`${need.modelsNeeded}× ${unit.name}`],
+      covers: [`${netModels}× ${unit.name}`],
       url: unit.kit.url,
     })
+    for (const ab of unit.kit.alsoBuilds ?? []) {
+      credits.set(ab.unitId, (credits.get(ab.unitId) ?? 0) + boxes * ab.models)
+    }
     if (surplus > 0) {
       notes.push(`${unit.name}: ${boxes} box(es) leaves ${surplus} spare model(s).`)
     }

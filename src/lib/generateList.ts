@@ -135,14 +135,39 @@ export function generateList(
     notes.push(`Only ${blNow} pts of battleline available (wanted ≥ ${minBattleline}).`)
   }
 
-  // 3. Guarantee a leader if nothing so far is a character.
+  // 3. Leaders: give a leadable unit already in the list a character to lead it
+  //    — usually, not always (follows Wahapedia LEADER data).
+  const leadableSet = new Set(faction.units.flatMap((u) => u.leads ?? []))
+  const hasLeaderFor = (unitId: string) =>
+    entries.some((e) => (e.unit.leads ?? []).includes(unitId))
+  let attachedLeaders = 0
+  for (const e of [...entries]) {
+    if (!leadableSet.has(e.unit.id) || hasLeaderFor(e.unit.id)) continue
+    if (rand() > 0.75) continue // ~1-in-4 chance a leadable unit goes unled
+    const candidates = faction.units.filter(
+      (u) =>
+        (u.leads ?? []).includes(e.unit.id) &&
+        countIn(entries, u.id) < capFor(u) &&
+        pointsOf(entries) + u.points <= target,
+    )
+    const leader = pickWeighted(candidates, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
+    if (leader) {
+      addUnit(entries, leader)
+      attachedLeaders++
+    }
+  }
+  if (attachedLeaders) {
+    notes.push(`Added ${attachedLeaders} character(s) to lead units that can be led.`)
+  }
+
+  // 4. Guarantee at least one leader character if nothing so far is a character.
   if (!entries.some((e) => isCharacter(e.unit))) {
     const chars = faction.units.filter((u) => u.role === 'character')
     const leader = pickWeighted(chars, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
     if (leader && pointsOf(entries) + leader.points <= target) addUnit(entries, leader)
   }
 
-  // 4. Fill the rest with the best points-per-euro kits.
+  // 5. Fill the rest with the best points-per-euro kits.
   const weight = (u: Unit) => Math.pow(pointsPerEuro(u), 2) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5))
   let guard = 0
   while (guard++ < 500) {

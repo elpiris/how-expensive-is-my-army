@@ -52,6 +52,7 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Monster', 'Synapse'],
+      leads: ['zoanthropes'],
       // Not sold as a standalone kit in the current range.
       kit: { name: 'Neurotyrant', priceEUR: 40, models: 1 },
     },
@@ -63,6 +64,7 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Synapse', 'Leader'],
+      leads: ['genestealers'],
       kit: { name: 'Broodlord', priceEUR: 37, models: 1, verified: true },
     },
     {
@@ -73,6 +75,7 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Synapse', 'Leader'],
+      leads: ['hormagaunts', 'termagants', 'tyranid-warriors'],
       kit: { name: 'Tyranid Prime with Lash Whip', priceEUR: 34.5, models: 1, verified: true },
     },
     {
@@ -116,7 +119,15 @@ export const tyranids: Faction = {
       models: 10,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
-      kit: { name: 'Termagants', priceEUR: 37, models: 10, verified: true },
+      // The Termagants box builds 10 Termagants + 1 bonus Ripper Swarm base
+      // (confirmed on the product page 2026-09-30).
+      kit: {
+        name: 'Termagants',
+        priceEUR: 38.5,
+        models: 10,
+        verified: true,
+        alsoBuilds: [{ unitId: 'ripper-swarms', models: 1 }],
+      },
     },
     {
       id: 'hormagaunts',

@@ -32,6 +32,11 @@ export interface Kit {
   verified?: boolean
   /** Webstore-exclusive kits cannot be discounted by third-party retailers. */
   onlineOnly?: boolean
+  /**
+   * Bonus units the same physical box also builds (e.g. a Termagants box also
+   * yields a Ripper Swarm base). Their models are credited when costing.
+   */
+  alsoBuilds?: { unitId: string; models: number }[]
   url?: string
 }
 
@@ -47,6 +52,11 @@ export interface Unit {
   keywords?: string[]
   /** 1 (filler) .. 5 (iconic centrepiece) — biases casual list generation. */
   flavor?: number
+  /**
+   * Unit ids this character can be attached to as a Leader (from Wahapedia).
+   * Used to give leadable units a character to lead them.
+   */
+  leads?: string[]
   /** Standard box you buy to field this datasheet. */
   kit: Kit
 }

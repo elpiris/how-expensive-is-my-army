@@ -29,6 +29,7 @@ export const spaceMarines: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['aggressors', 'eradicators'],
       kit: { name: 'Captain in Gravis Armour', priceEUR: 34.5, models: 1, verified: true },
     },
     {
@@ -39,6 +40,7 @@ export const spaceMarines: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['assault-intercessors', 'bladeguard', 'hellblasters', 'infernus', 'intercessors'],
       kit: { name: 'Primaris Lieutenant', priceEUR: 32.5, models: 1 },
     },
     {
@@ -49,6 +51,7 @@ export const spaceMarines: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Terminator', 'Leader'],
+      leads: ['terminators'],
       kit: { name: 'Librarian in Terminator Armour', priceEUR: 34, models: 1, verified: true },
     },
     {
@@ -59,6 +62,7 @@ export const spaceMarines: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['aggressors', 'eradicators'],
       kit: { name: 'Apothecary Biologis', priceEUR: 30, models: 1 },
     },
     {
@@ -70,6 +74,15 @@ export const spaceMarines: Faction = {
       models: 1,
       flavor: 5,
       keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
+      leads: [
+        'aggressors',
+        'assault-intercessors',
+        'bladeguard',
+        'eradicators',
+        'infernus',
+        'intercessors',
+        'terminators',
+      ],
       kit: {
         name: 'Marneus Calgar in Armour of Antilochus',
         priceEUR: 43.5,
@@ -86,6 +99,7 @@ export const spaceMarines: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
+      leads: ['assault-intercessors', 'bladeguard', 'intercessors'],
       kit: {
         name: 'Chief Librarian Tigurius',
         priceEUR: 37,
