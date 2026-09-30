@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { factions, getFaction } from './data'
 import { generateList } from './lib/generateList'
 import { costList, discountedTotal } from './lib/costList'
-import type { DiscountPercent, Mode, PointsBracket } from './types'
+import type { DiscountPercent, ListEntry, Mode, PointsBracket } from './types'
 
 const BRACKETS: PointsBracket[] = [500, 1000, 1500, 2000]
 const DISCOUNTS: DiscountPercent[] = [0, 10, 15, 20]
@@ -28,6 +28,22 @@ export default function App() {
   const finalTotal = useMemo(() => discountedTotal(cost, discount), [cost, discount])
 
   const saved = cost.rrpTotalEUR - finalTotal
+
+  // Group the list into Characters / Battleline / Other for display.
+  const listGroups = useMemo(() => {
+    const isChar = (r: string) => r === 'epic-hero' || r === 'character'
+    const groups: { label: string; entries: ListEntry[] }[] = [
+      { label: 'Characters', entries: list.entries.filter((e) => isChar(e.unit.role)) },
+      { label: 'Battleline', entries: list.entries.filter((e) => e.unit.role === 'battleline') },
+      {
+        label: 'Other units',
+        entries: list.entries.filter(
+          (e) => !isChar(e.unit.role) && e.unit.role !== 'battleline',
+        ),
+      },
+    ]
+    return groups.filter((g) => g.entries.length > 0)
+  }, [list])
 
   return (
     <div className="app">
@@ -131,17 +147,28 @@ export default function App() {
                 </tr>
               </thead>
               <tbody>
-                {list.entries.map((e) => (
-                  <tr key={e.unit.id}>
-                    <td>
-                      {e.unit.epicHero && <span className="tag epic">Epic</span>}
-                      {e.unit.name}
-                    </td>
-                    <td className="num">{e.count}</td>
-                    <td className="num">{e.unit.models * e.count}</td>
-                    <td className="num">{e.unit.points * e.count}</td>
-                  </tr>
-                ))}
+                {listGroups.map((g) => {
+                  const sub = g.entries.reduce((s, e) => s + e.unit.points * e.count, 0)
+                  return (
+                    <Fragment key={g.label}>
+                      <tr className="group-row">
+                        <td colSpan={3}>{g.label}</td>
+                        <td className="num">{sub} pts</td>
+                      </tr>
+                      {g.entries.map((e) => (
+                        <tr key={e.unit.id}>
+                          <td>
+                            {e.unit.epicHero && <span className="tag epic">Epic</span>}
+                            {e.unit.name}
+                          </td>
+                          <td className="num">{e.count}</td>
+                          <td className="num">{e.unit.models * e.count}</td>
+                          <td className="num">{e.unit.points * e.count}</td>
+                        </tr>
+                      ))}
+                    </Fragment>
+                  )
+                })}
               </tbody>
               <tfoot>
                 <tr>

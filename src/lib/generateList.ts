@@ -6,24 +6,21 @@ import type {
   PointsBracket,
   Unit,
 } from '../types'
+import { pointsPerEuro } from './value'
 
 // ---------------------------------------------------------------------------
 // List generation
 //
 // Two modes:
-//  - casual: build a legal, flavourful list up to the points target, honouring
-//    a simplified version of the 40k rules of engagement.
-//  - competitive: use the faction's curated netlist, trimmed to fit the target.
+//  - casual: "affordable above all". Seed the whole Combat Patrol, guarantee a
+//    leader, then fill the remaining points with the best points-per-euro kits.
+//  - competitive: use the faction's curated 11th-edition event netlist.
 //
-// Simplified legality rules enforced for casual lists:
-//  - Exactly one WARLORD-tier leader minimum (we always include >=1 character).
-//  - Epic Heroes are unique (max 1 of each, and they are 0-3 total by taste).
-//  - Any non-character datasheet may appear at most 3 times.
-//  - Battleline units may appear more often (up to 6) to fill bodies.
+// Casual legality / taste rules:
+//  - Epic Heroes are unique (max 1 of each).
+//  - Any other datasheet: max 1 copy at 500 pts, max 2 copies at higher brackets
+//    (keep lists varied, avoid spamming the same box).
 // ---------------------------------------------------------------------------
-
-const MAX_DUPES_DEFAULT = 3
-const MAX_DUPES_BATTLELINE = 6
 
 /** Small seeded RNG so a given "seed" reproduces the same list. */
 function mulberry32(seed: number): () => number {
@@ -39,19 +36,13 @@ function mulberry32(seed: number): () => number {
 
 function pickWeighted<T>(items: T[], weightOf: (t: T) => number, rand: () => number): T | undefined {
   const total = items.reduce((s, it) => s + Math.max(0, weightOf(it)), 0)
-  if (total <= 0) return undefined
+  if (total <= 0) return items.length ? items[Math.floor(rand() * items.length)] : undefined
   let r = rand() * total
   for (const it of items) {
     r -= Math.max(0, weightOf(it))
     if (r <= 0) return it
   }
   return items[items.length - 1]
-}
-
-function maxDupesFor(unit: Unit): number {
-  if (unit.epicHero) return 1
-  if (unit.role === 'battleline') return MAX_DUPES_BATTLELINE
-  return MAX_DUPES_DEFAULT
 }
 
 function pointsOf(entries: ListEntry[]): number {
@@ -68,6 +59,20 @@ function addUnit(entries: ListEntry[], unit: Unit, n = 1): void {
   else entries.push({ unit, count: n })
 }
 
+function roleOrder(u: Unit): number {
+  const order: Record<string, number> = {
+    'epic-hero': 0,
+    character: 1,
+    battleline: 2,
+    infantry: 3,
+    mounted: 4,
+    monster: 5,
+    vehicle: 6,
+    transport: 7,
+  }
+  return order[u.role] ?? 9
+}
+
 // --- Casual --------------------------------------------------------------
 
 function generateCasual(faction: Faction, target: PointsBracket, seed: number): GeneratedList {
@@ -75,65 +80,64 @@ function generateCasual(faction: Faction, target: PointsBracket, seed: number): 
   const entries: ListEntry[] = []
   const notes: string[] = []
 
-  const characters = faction.units.filter((u) => u.role === 'character')
-  const epicHeroes = faction.units.filter((u) => u.epicHero)
-  const battleline = faction.units.filter((u) => u.role === 'battleline')
-  const others = faction.units.filter(
-    (u) => u.role !== 'character' && u.role !== 'battleline' && !u.epicHero,
-  )
+  // Per-datasheet copy cap: no duplicates at 500, otherwise up to two.
+  const dupeCap = target === 500 ? 1 : 2
+  const capFor = (u: Unit) => (u.epicHero ? 1 : dupeCap)
 
-  // 1. Always start with at least one leader.
-  if (characters.length) {
-    const leader = pickWeighted(characters, (u) => u.flavor ?? 1, rand)!
-    addUnit(entries, leader)
+  // 1. Seed the whole Combat Patrol (all its units) — the cheapest way to start
+  //    an army — unless the models it builds already cost more than the limit.
+  const cp = faction.valueBoxes[0]
+  if (cp) {
+    const cpEntries: ListEntry[] = []
+    let cpPoints = 0
+    for (const b of cp.builds) {
+      const unit = faction.units.find((u) => u.id === b.unitId)
+      if (!unit) continue
+      const count = Math.max(1, Math.round(b.models / unit.models))
+      cpEntries.push({ unit, count })
+      cpPoints += unit.points * count
+    }
+    if (cpEntries.length && cpPoints <= target) {
+      for (const e of cpEntries) addUnit(entries, e.unit, e.count)
+      notes.push(
+        `Seeded ${cp.name} (${cpPoints} pts of models) first — it's the cheapest way to buy these units.`,
+      )
+    } else if (cpEntries.length) {
+      notes.push(`${cp.name} skipped: its ${cpPoints} pts of models exceed the ${target} pt limit.`)
+    }
   }
 
-  // 2. At larger games, sometimes headline an Epic Hero (never over-budget it).
-  if (epicHeroes.length && target >= 1000 && rand() < 0.7) {
-    const affordable = epicHeroes.filter((u) => u.points <= target * 0.3)
-    const hero = pickWeighted(affordable.length ? affordable : epicHeroes, (u) => u.flavor ?? 1, rand)
-    if (hero && pointsOf(entries) + hero.points <= target) addUnit(entries, hero)
+  // 2. Guarantee a leader if the Combat Patrol didn't already provide one.
+  const hasLeader = entries.some((e) => e.unit.role === 'character' || e.unit.epicHero)
+  if (!hasLeader) {
+    const chars = faction.units.filter((u) => u.role === 'character')
+    const leader = pickWeighted(chars, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
+    if (leader && pointsOf(entries) + leader.points <= target) addUnit(entries, leader)
   }
 
-  // 3. Guarantee some battleline bodies (roughly one unit per 500 pts).
-  const wantBattleline = Math.max(1, Math.round(target / 500))
-  for (let i = 0; i < wantBattleline && battleline.length; i++) {
-    const bl = pickWeighted(
-      battleline.filter((u) => countIn(entries, u.id) < maxDupesFor(u)),
-      (u) => u.flavor ?? 1,
-      rand,
-    )
-    if (bl && pointsOf(entries) + bl.points <= target) addUnit(entries, bl)
-  }
-
-  // 4. Fill the remaining points, biased toward flavourful picks.
-  const pool = [...battleline, ...others, ...characters]
+  // 3. Fill the rest with the best points-per-euro kits (value dominates, with a
+  //    light flavour nudge and randomness so rerolls vary), honouring the caps.
+  const weight = (u: Unit) => Math.pow(pointsPerEuro(u), 2) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5))
   let guard = 0
   while (guard++ < 500) {
     const remaining = target - pointsOf(entries)
     if (remaining <= 0) break
-
-    const legal = pool.filter(
-      (u) => u.points <= remaining && countIn(entries, u.id) < maxDupesFor(u),
+    const legal = faction.units.filter(
+      (u) => u.points <= remaining && countIn(entries, u.id) < capFor(u),
     )
     if (!legal.length) break
-
-    // Bias toward bigger, iconic units early and cheaper filler as we top off.
-    const pick = pickWeighted(
-      legal,
-      (u) => (u.flavor ?? 1) * (remaining > target * 0.25 ? u.points : 100 / Math.max(1, u.points)),
-      rand,
-    )
+    const pick = pickWeighted(legal, weight, rand)
     if (!pick) break
     addUnit(entries, pick)
   }
 
   const total = pointsOf(entries)
   notes.push(
-    `Casual list assembled to ${total} / ${target} pts. Max 3 of any datasheet (6 for battleline); Epic Heroes are unique.`,
+    `Built for value: best points-per-euro kits, max ${dupeCap} of any datasheet` +
+      `${dupeCap === 1 ? ' (no duplicates at 500 pts)' : ''}; Epic Heroes are unique.`,
   )
-  if (target - total > 40) {
-    notes.push(`~${target - total} pts left over — reroll for a tighter fit, or add wargear/upgrades.`)
+  if (target - total > 45) {
+    notes.push(`${total} / ${target} pts — reroll for a tighter fit, or spend the rest on wargear.`)
   }
 
   entries.sort((a, b) => roleOrder(a.unit) - roleOrder(b.unit) || b.unit.points - a.unit.points)
@@ -157,54 +161,16 @@ function generateCompetitive(faction: Faction, target: PointsBracket): Generated
     }
   }
 
-  // Materialise the netlist.
   const entries: ListEntry[] = []
   for (const e of base) {
     const unit = faction.units.find((u) => u.id === e.unitId)
     if (unit) addUnit(entries, unit, e.count)
   }
-
-  // Trim to fit smaller brackets: drop the least "core" units (lowest flavor,
-  // then cheapest support) until we are at or under the target.
-  if (target < 2000) {
-    notes.push(
-      `Scaled a 2000 pt tournament list down to ${target} pts by trimming support units. ` +
-        `Treat this as a starting skeleton, not an event-legal list.`,
-    )
-    const trimOrder = [...entries].sort(
-      (a, b) => (a.unit.flavor ?? 1) - (b.unit.flavor ?? 1) || a.unit.points - b.unit.points,
-    )
-    let ti = 0
-    while (pointsOf(entries) > target && ti < trimOrder.length * 4) {
-      const target2 = trimOrder[ti % trimOrder.length]
-      const live = entries.find((e) => e.unit.id === target2.unit.id)
-      if (live && live.count > 0) {
-        live.count -= 1
-        if (live.count === 0) entries.splice(entries.indexOf(live), 1)
-      }
-      ti++
-    }
-  } else {
-    notes.push('Curated 2000 pt list based on recent 11th-edition event archetypes.')
-  }
+  notes.push('Curated 2000 pt list based on recent 11th-edition event archetypes.')
 
   const total = pointsOf(entries)
   entries.sort((a, b) => roleOrder(a.unit) - roleOrder(b.unit) || b.unit.points - a.unit.points)
   return { faction, mode: 'competitive', targetPoints: target, entries, totalPoints: total, notes }
-}
-
-function roleOrder(u: Unit): number {
-  const order: Record<string, number> = {
-    'epic-hero': 0,
-    character: 1,
-    battleline: 2,
-    infantry: 3,
-    mounted: 4,
-    monster: 5,
-    vehicle: 6,
-    transport: 7,
-  }
-  return order[u.role] ?? 9
 }
 
 export function generateList(
