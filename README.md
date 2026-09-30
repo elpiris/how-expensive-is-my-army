@@ -83,9 +83,8 @@ src/
 - **Add a value box:** add a `ValueBox` to the faction's `valueBoxes`, listing what
   it `builds` (unit id + model count).
 
-## Possible next steps
+## Outstanding work
 
-- More factions (all ~25 official 40k armies).
-- Multiple unit sizes / wargear points.
-- Live price lookups instead of static tiers.
-- Shareable/exportable lists; other game systems (AoS, Old World).
+See [TODO.md](TODO.md) for the current to-do list — data verification (price
+refresh, remaining Space Marines box-count checks), model/rules refinements, and
+backlog features.
