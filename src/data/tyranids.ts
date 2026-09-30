@@ -100,12 +100,11 @@ export const tyranids: Faction = {
     {
       id: 'parasite-of-mortrex',
       name: 'Parasite of Mortrex',
-      role: 'epic-hero',
-      epicHero: true,
+      role: 'character',
       points: 70,
       models: 1,
       flavor: 4,
-      keywords: ['Character', 'Infantry', 'Fly', 'Synapse', 'Epic Hero'],
+      keywords: ['Character', 'Infantry', 'Fly', 'Synapse'],
       kit: { name: 'Parasite of Mortrex', priceEUR: 34.5, models: 1, verified: true },
     },
     // --- Battleline ---
@@ -258,7 +257,7 @@ export const tyranids: Faction = {
     {
       id: 'cp-tyranids',
       name: 'Combat Patrol: Tyranid Assault Brood',
-      priceEUR: 135,
+      priceEUR: 139,
       verified: true,
       url: 'https://www.warhammer.com/en-EU/shop/combat-patrol-tyranid-assault-brood-2025',
       // Contents confirmed on the product page 2026-09-10. The 3 Tyrant Guard

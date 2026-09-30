@@ -108,11 +108,11 @@ export const necrons: Faction = {
     {
       id: 'immortals',
       name: 'Immortals',
-      role: 'infantry',
+      role: 'battleline',
       points: 70,
       models: 5,
       flavor: 3,
-      keywords: ['Infantry'],
+      keywords: ['Battleline', 'Infantry'],
       kit: { name: 'Necron Immortals', priceEUR: 37, models: 5, verified: true },
     },
     {
@@ -213,7 +213,7 @@ export const necrons: Faction = {
     {
       id: 'cp-necrons',
       name: 'Combat Patrol: Necrons',
-      priceEUR: 135,
+      priceEUR: 139,
       verified: true,
       url: 'https://www.warhammer.com/en-EU/shop/combat-patrol-necrons-2023',
       // Contents confirmed on the product page (2026-09-10).

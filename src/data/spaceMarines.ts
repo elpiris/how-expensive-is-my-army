@@ -7,9 +7,8 @@ import type { Faction } from '../types'
 // cost at the default model count. The 3rd+ copy of a unit costs more
 // (escalating-cost rule, not modelled here).
 //
-// The generic Space Marines Combat Patrol could not be confirmed (its old
-// product URL 404s — it may be renamed/replaced in 11th edition), so the value
-// box below stays unverified (≈) with last-known contents.
+// There is no generic Space Marines Combat Patrol in GW's current range (checked
+// 2026-09-30) — only chapter-specific ones — so this faction has no value box.
 // ---------------------------------------------------------------------------
 
 export const spaceMarines: Faction = {
@@ -260,22 +259,13 @@ export const spaceMarines: Faction = {
       kit: { name: 'Gladiator Lancer', priceEUR: 76, models: 1, verified: true },
     },
   ],
-  valueBoxes: [
-    {
-      id: 'cp-space-marines',
-      name: 'Combat Patrol: Space Marines',
-      priceEUR: 135,
-      // Not confirmed — the 2023 product URL 404s (the SM Combat Patrol may have
-      // been renamed/replaced in 11th edition). Contents are last-known.
-      url: 'https://www.warhammer.com/en-EU/shop/warhammer-40000/space-marines',
-      builds: [
-        { unitId: 'captain-gravis', models: 1 },
-        { unitId: 'aggressors', models: 3 },
-        { unitId: 'assault-intercessors', models: 5 },
-        { unitId: 'ballistus', models: 1 },
-      ],
-    },
-  ],
+  // No value box: as of 2026-09-30 GW's Combat Patrol range has NO generic
+  // "Combat Patrol: Space Marines" (the vanilla/Ultramarines box was
+  // discontinued). Only chapter-specific Combat Patrols exist (Space Wolves,
+  // Black Templars, Blood Angels, Dark Angels, Grey Knights, …), whose contents
+  // are chapter units not modelled in this generic roster. A generic Space
+  // Marines list therefore can't lean on a Combat Patrol for savings.
+  valueBoxes: [],
   competitiveLists: {
     // ~2000 pts Gladius-style combined arms — Calgar leading Terminators, dread
     // support and Gladiator. In-collection units, real Wahapedia points. 1960 pts.

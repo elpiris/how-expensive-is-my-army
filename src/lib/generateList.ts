@@ -105,6 +105,8 @@ function generateCasual(faction: Faction, target: PointsBracket, seed: number): 
     } else if (cpEntries.length) {
       notes.push(`${cp.name} skipped: its ${cpPoints} pts of models exceed the ${target} pt limit.`)
     }
+  } else {
+    notes.push('No Combat Patrol exists for this faction — built from individual kits.')
   }
 
   // 2. Guarantee a leader if the Combat Patrol didn't already provide one.
