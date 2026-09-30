@@ -214,14 +214,15 @@ export const tyranids: Faction = {
     // --- Monsters ---
     {
       id: 'carnifex',
-      name: 'Carnifex',
+      name: 'Carnifexes',
       role: 'monster',
-      points: 90,
-      models: 1,
+      points: 180,
+      // The Carnifexes datasheet is a 1-2 model unit; the Carnifex Brood box
+      // builds exactly 2 (€87), so a box = one full 2-model unit, no waste.
+      models: 2,
       flavor: 4,
       keywords: ['Monster'],
-      // Sold as "Carnifex Brood" (€84, online only) — models-per-box unconfirmed.
-      kit: { name: 'Carnifex Brood', priceEUR: 84, models: 1, onlineOnly: true },
+      kit: { name: 'Carnifex Brood', priceEUR: 87, models: 2, onlineOnly: true, verified: true },
     },
     {
       id: 'screamer-killer',
@@ -231,7 +232,9 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Monster'],
-      kit: { name: 'Screamer-Killer Brood', priceEUR: 84, models: 1, onlineOnly: true },
+      // Box builds 2 Carnifex chassis (€87); a single Screamer-Killer wastes one,
+      // so the whole-box value math correctly rates a lone one as poor value.
+      kit: { name: 'Screamer-Killer Brood', priceEUR: 87, models: 2, onlineOnly: true, verified: true },
     },
     {
       id: 'exocrine',
@@ -262,6 +265,26 @@ export const tyranids: Faction = {
       flavor: 4,
       keywords: ['Monster'],
       kit: { name: 'Trygon', priceEUR: 76, models: 1, verified: true, onlineOnly: true },
+    },
+    {
+      id: 'norn-emissary',
+      name: 'Norn Emissary',
+      role: 'monster',
+      points: 250,
+      models: 1,
+      flavor: 5,
+      keywords: ['Monster', 'Synapse'],
+      kit: { name: 'Norn Emissary', priceEUR: 97, models: 1, verified: true },
+    },
+    {
+      id: 'norn-assimilator',
+      name: 'Norn Assimilator',
+      role: 'monster',
+      points: 250,
+      models: 1,
+      flavor: 5,
+      keywords: ['Monster', 'Synapse'],
+      kit: { name: 'Norn Assimilator', priceEUR: 97, models: 1, verified: true },
     },
   ],
   valueBoxes: [

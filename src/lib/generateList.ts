@@ -167,8 +167,9 @@ export function generateList(
     if (leader && pointsOf(entries) + leader.points <= target) addUnit(entries, leader)
   }
 
-  // 5. Fill the rest with the best points-per-euro kits.
-  const weight = (u: Unit) => Math.pow(pointsPerEuro(u), 2) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5))
+  // 5. Fill the rest with the best points-per-euro kits. A cubic weight makes
+  //    good-value kits strongly dominant so cheap low-value filler stays rare.
+  const weight = (u: Unit) => Math.pow(pointsPerEuro(u), 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5))
   let guard = 0
   while (guard++ < 500) {
     const remaining = target - pointsOf(entries)

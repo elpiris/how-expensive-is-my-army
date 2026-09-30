@@ -8,10 +8,14 @@ import type { Unit } from '../types'
 // to prefer good-value kits when filling a list.
 // ---------------------------------------------------------------------------
 
-/** Euro cost to field one unit at its default model count (fractional boxes). */
+/**
+ * Euro cost to actually field one unit at its default size — you buy WHOLE
+ * boxes, so a unit that only uses part of a box (e.g. one Screamer-Killer from a
+ * €87 box that builds two) costs the full box and is correctly poor value.
+ */
 export function unitCostEUR(unit: Unit): number {
-  const perModel = unit.kit.priceEUR / unit.kit.models
-  return perModel * unit.models
+  const boxes = Math.ceil(unit.models / unit.kit.models)
+  return boxes * unit.kit.priceEUR
 }
 
 /** Points obtained per euro spent on this unit at its default size. */
