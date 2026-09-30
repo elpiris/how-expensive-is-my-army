@@ -96,7 +96,14 @@ export const necrons: Faction = {
       models: 10,
       flavor: 4,
       keywords: ['Battleline', 'Infantry'],
-      kit: { name: 'Necron Warriors', priceEUR: 42, models: 10, verified: true },
+      // The Necron Warriors box also builds 3 Canoptek Scarab Swarms (verified).
+      kit: {
+        name: 'Necron Warriors',
+        priceEUR: 42,
+        models: 10,
+        verified: true,
+        alsoBuilds: [{ unitId: 'canoptek-scarabs', models: 3 }],
+      },
     },
     // --- Infantry ---
     {
@@ -158,7 +165,8 @@ export const necrons: Faction = {
       models: 3,
       flavor: 3,
       keywords: ['Swarm', 'Canoptek'],
-      // Not sold separately in the current range — only inside the Combat Patrol.
+      // Not sold as their own box — 3 come free in the Necron Warriors box (and
+      // in the Combat Patrol), so the standalone price here is a placeholder (≈).
       kit: { name: 'Canoptek Scarab Swarms', priceEUR: 30, models: 3 },
     },
     {

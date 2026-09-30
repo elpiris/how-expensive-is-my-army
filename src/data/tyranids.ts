@@ -137,7 +137,14 @@ export const tyranids: Faction = {
       models: 10,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
-      kit: { name: 'Hormagaunts', priceEUR: 42, models: 10, verified: true },
+      // The Hormagaunts box also builds a bonus Ripper Swarm base (verified).
+      kit: {
+        name: 'Hormagaunts',
+        priceEUR: 42,
+        models: 10,
+        verified: true,
+        alsoBuilds: [{ unitId: 'ripper-swarms', models: 1 }],
+      },
     },
     // --- Infantry ---
     {
@@ -154,11 +161,12 @@ export const tyranids: Faction = {
       id: 'genestealers',
       name: 'Genestealers',
       role: 'infantry',
-      points: 75,
-      models: 5,
+      // Box builds 10 (verified 2026-09-30); fielded as a full 10-model unit.
+      points: 140,
+      models: 10,
       flavor: 4,
       keywords: ['Infantry'],
-      kit: { name: 'Genestealers', priceEUR: 45, models: 5, verified: true },
+      kit: { name: 'Genestealers', priceEUR: 45, models: 10, verified: true },
     },
     {
       id: 'zoanthropes',
