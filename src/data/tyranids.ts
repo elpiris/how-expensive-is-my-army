@@ -8,11 +8,10 @@ import type { Faction } from '../types'
 // (escalating-cost rule, not modelled here).
 //
 // Combat Patrol is "Combat Patrol: Tyranid Assault Brood" (€135). Its confirmed
-// contents (Parasite of Mortrex, 3 Tyrant Guard / Hive Guard, Biovore, Spore
-// Mines, 10 Genestealers) only partly overlap the units modelled here, so the
-// value box below lists just the parts this tool can use (Hive Guard,
-// Genestealers). Box model-counts use standard kit sizes and haven't all been
-// individually confirmed.
+// contents — Parasite of Mortrex, 3 Tyrant Guard (built as Hive Guard), a
+// Biovore, 3 Spore Mines and 10 Genestealers — are modelled in the value box
+// below (Spore Mines omitted; they are summoned tokens, not a purchase). Box
+// model-counts use standard kit sizes and haven't all been individually confirmed.
 // ---------------------------------------------------------------------------
 
 export const tyranids: Faction = {
@@ -98,6 +97,17 @@ export const tyranids: Faction = {
       keywords: ['Character', 'Infantry', 'Epic Hero', 'Lictor'],
       kit: { name: 'Deathleaper', priceEUR: 51.5, models: 1, verified: true },
     },
+    {
+      id: 'parasite-of-mortrex',
+      name: 'Parasite of Mortrex',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 70,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Fly', 'Synapse', 'Epic Hero'],
+      kit: { name: 'Parasite of Mortrex', priceEUR: 34.5, models: 1, verified: true },
+    },
     // --- Battleline ---
     {
       id: 'termagants',
@@ -181,6 +191,16 @@ export const tyranids: Faction = {
       keywords: ['Infantry'],
       kit: { name: 'Hive Guard', priceEUR: 67, models: 3, verified: true },
     },
+    {
+      id: 'biovore',
+      name: 'Biovore',
+      role: 'infantry',
+      points: 60,
+      models: 1,
+      flavor: 2,
+      keywords: ['Infantry'],
+      kit: { name: 'Biovore', priceEUR: 42, models: 1, verified: true },
+    },
     // --- Monsters ---
     {
       id: 'carnifex',
@@ -241,11 +261,13 @@ export const tyranids: Faction = {
       priceEUR: 135,
       verified: true,
       url: 'https://www.warhammer.com/en-EU/shop/combat-patrol-tyranid-assault-brood-2025',
-      // Full box also contains Parasite of Mortrex, a Biovore and Spore Mines
-      // (not modelled here). Listed builds are the overlapping units this tool
-      // can cost — confirmed on the product page 2026-09-10.
+      // Contents confirmed on the product page 2026-09-10. The 3 Tyrant Guard
+      // are built as Hive Guard; the box also includes 3 Spore Mines (summoned
+      // tokens, not fielded as a purchase) which are omitted.
       builds: [
+        { unitId: 'parasite-of-mortrex', models: 1 },
         { unitId: 'hive-guard', models: 3 },
+        { unitId: 'biovore', models: 1 },
         { unitId: 'genestealers', models: 10 },
       ],
     },

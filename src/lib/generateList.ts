@@ -6,7 +6,7 @@ import type {
   PointsBracket,
   Unit,
 } from '../types'
-import { pointsPerEuro } from './value'
+import { isCharacter, pointsPerEuro } from './value'
 
 // ---------------------------------------------------------------------------
 // List generation
@@ -108,7 +108,7 @@ function generateCasual(faction: Faction, target: PointsBracket, seed: number): 
   }
 
   // 2. Guarantee a leader if the Combat Patrol didn't already provide one.
-  const hasLeader = entries.some((e) => e.unit.role === 'character' || e.unit.epicHero)
+  const hasLeader = entries.some((e) => isCharacter(e.unit))
   if (!hasLeader) {
     const chars = faction.units.filter((u) => u.role === 'character')
     const leader = pickWeighted(chars, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)

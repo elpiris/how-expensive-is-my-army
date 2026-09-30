@@ -19,3 +19,16 @@ export function pointsPerEuro(unit: Unit): number {
   const cost = unitCostEUR(unit)
   return cost > 0 ? unit.points / cost : 0
 }
+
+/**
+ * Whether a datasheet belongs in the "Characters" section. Driven by the actual
+ * CHARACTER keyword (from Wahapedia) rather than the coarse `role`, so units
+ * that are both Monster and Character (e.g. Hive Tyrant) group correctly.
+ */
+export function isCharacter(unit: Unit): boolean {
+  return (
+    unit.role === 'epic-hero' ||
+    unit.role === 'character' ||
+    !!unit.keywords?.some((k) => k.toLowerCase() === 'character')
+  )
+}

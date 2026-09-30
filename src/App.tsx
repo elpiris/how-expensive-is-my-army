@@ -2,6 +2,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { factions, getFaction } from './data'
 import { generateList } from './lib/generateList'
 import { costList, discountedTotal } from './lib/costList'
+import { isCharacter } from './lib/value'
 import type { DiscountPercent, ListEntry, Mode, PointsBracket } from './types'
 
 const BRACKETS: PointsBracket[] = [500, 1000, 1500, 2000]
@@ -31,14 +32,16 @@ export default function App() {
 
   // Group the list into Characters / Battleline / Other for display.
   const listGroups = useMemo(() => {
-    const isChar = (r: string) => r === 'epic-hero' || r === 'character'
     const groups: { label: string; entries: ListEntry[] }[] = [
-      { label: 'Characters', entries: list.entries.filter((e) => isChar(e.unit.role)) },
-      { label: 'Battleline', entries: list.entries.filter((e) => e.unit.role === 'battleline') },
+      { label: 'Characters', entries: list.entries.filter((e) => isCharacter(e.unit)) },
+      {
+        label: 'Battleline',
+        entries: list.entries.filter((e) => !isCharacter(e.unit) && e.unit.role === 'battleline'),
+      },
       {
         label: 'Other units',
         entries: list.entries.filter(
-          (e) => !isChar(e.unit.role) && e.unit.role !== 'battleline',
+          (e) => !isCharacter(e.unit) && e.unit.role !== 'battleline',
         ),
       },
     ]
