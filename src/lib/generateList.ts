@@ -89,7 +89,19 @@ export function generateList(
 
   // Per-datasheet copy cap: no duplicates at 500, otherwise up to two.
   const dupeCap = target === 500 ? 1 : 2
-  const capFor = (u: Unit) => (u.epicHero ? 1 : dupeCap)
+  // Characters are stricter — an army can't be all HQs. A character is unique
+  // UNLESS it costs < 100 pts AND there are at least two units it can lead in the
+  // list (e.g. 2 Broodlords only with 2 Genestealer units). Never 2 Hive Tyrants.
+  const capFor = (u: Unit): number => {
+    if (u.epicHero) return 1
+    if (!isCharacter(u)) return dupeCap
+    if (u.points >= 100) return 1
+    const leads = u.leads ?? []
+    const leadableUnits = leads.length
+      ? entries.filter((e) => leads.includes(e.unit.id)).reduce((s, e) => s + e.count, 0)
+      : 0
+    return Math.min(leadableUnits >= 2 ? 2 : 1, dupeCap)
+  }
 
   // 1. Seed the whole Combat Patrol unless its models already exceed the limit.
   const cp = faction.valueBoxes[0]
@@ -186,7 +198,8 @@ export function generateList(
   const total = pointsOf(entries)
   notes.push(
     `Built for value: best points-per-euro kits, max ${dupeCap} of any datasheet` +
-      `${dupeCap === 1 ? ' (no duplicates at 500 pts)' : ''}; Epic Heroes are unique.`,
+      `${dupeCap === 1 ? ' (no duplicates at 500 pts)' : ''}. Epic Heroes are unique; ` +
+      `characters are single unless a sub-100 pt leader has 2+ units to lead.`,
   )
   if (target - total > 45) {
     notes.push(`${total} / ${target} pts — reroll for a tighter fit, or spend the rest on wargear.`)
