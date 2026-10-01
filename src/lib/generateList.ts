@@ -103,14 +103,24 @@ export function generateList(
     return Math.min(leadableUnits >= 2 ? 2 : 1, dupeCap)
   }
 
-  // 1. Seed the whole Combat Patrol unless its models already exceed the limit.
+  // No single unit may exceed 20% of the army's points — avoids oppressive,
+  // list-eating centrepieces (max 100 pts at 500, 400 pts at 2000).
+  const maxUnitPoints = target * 0.2
+  const withinSize = (u: Unit) => u.points <= maxUnitPoints
+
+  // 1. Seed the Combat Patrol, but skip any unit over the 20% size cap.
   const cp = faction.valueBoxes[0]
   if (cp) {
     const cpEntries: ListEntry[] = []
     let cpPoints = 0
+    let cpSkipped = 0
     for (const b of cp.builds) {
       const unit = faction.units.find((u) => u.id === b.unitId)
       if (!unit) continue
+      if (!withinSize(unit)) {
+        cpSkipped++
+        continue
+      }
       const count = Math.max(1, Math.round(b.models / unit.models))
       cpEntries.push({ unit, count })
       cpPoints += unit.points * count
@@ -120,6 +130,9 @@ export function generateList(
       notes.push(
         `Seeded ${cp.name} (${cpPoints} pts of models) first — it's the cheapest way to buy these units.`,
       )
+      if (cpSkipped) {
+        notes.push(`Left ${cpSkipped} Combat Patrol unit(s) out of the list (over 20% of ${target} pts).`)
+      }
     } else if (cpEntries.length) {
       notes.push(`${cp.name} skipped: its ${cpPoints} pts of models exceed the ${target} pt limit.`)
     }
@@ -133,7 +146,11 @@ export function generateList(
   while (battlelinePointsOf(entries) < minBattleline && bGuard++ < 50) {
     const remaining = target - pointsOf(entries)
     const legal = faction.units.filter(
-      (u) => u.role === 'battleline' && u.points <= remaining && countIn(entries, u.id) < capFor(u),
+      (u) =>
+        u.role === 'battleline' &&
+        withinSize(u) &&
+        u.points <= remaining &&
+        countIn(entries, u.id) < capFor(u),
     )
     if (!legal.length) break
     const pick = pickWeighted(legal, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
@@ -159,6 +176,7 @@ export function generateList(
     const candidates = faction.units.filter(
       (u) =>
         (u.leads ?? []).includes(e.unit.id) &&
+        withinSize(u) &&
         countIn(entries, u.id) < capFor(u) &&
         pointsOf(entries) + u.points <= target,
     )
@@ -174,7 +192,7 @@ export function generateList(
 
   // 4. Guarantee at least one leader character if nothing so far is a character.
   if (!entries.some((e) => isCharacter(e.unit))) {
-    const chars = faction.units.filter((u) => u.role === 'character')
+    const chars = faction.units.filter((u) => u.role === 'character' && withinSize(u))
     const leader = pickWeighted(chars, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
     if (leader && pointsOf(entries) + leader.points <= target) addUnit(entries, leader)
   }
@@ -187,7 +205,7 @@ export function generateList(
     const remaining = target - pointsOf(entries)
     if (remaining <= 0) break
     const legal = faction.units.filter(
-      (u) => u.points <= remaining && countIn(entries, u.id) < capFor(u),
+      (u) => withinSize(u) && u.points <= remaining && countIn(entries, u.id) < capFor(u),
     )
     if (!legal.length) break
     const pick = pickWeighted(legal, weight, rand)
@@ -199,7 +217,8 @@ export function generateList(
   notes.push(
     `Built for value: best points-per-euro kits, max ${dupeCap} of any datasheet` +
       `${dupeCap === 1 ? ' (no duplicates at 500 pts)' : ''}. Epic Heroes are unique; ` +
-      `characters are single unless a sub-100 pt leader has 2+ units to lead.`,
+      `characters are single unless a sub-100 pt leader has 2+ units to lead; ` +
+      `no single unit over 20% of the list (${Math.floor(maxUnitPoints)} pts).`,
   )
   if (target - total > 45) {
     notes.push(`${total} / ${target} pts — reroll for a tighter fit, or spend the rest on wargear.`)
