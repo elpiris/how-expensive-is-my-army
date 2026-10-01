@@ -57,6 +57,11 @@ export interface Unit {
    * Used to give leadable units a character to lead them.
    */
   leads?: string[]
+  /**
+   * Mutually-exclusive flavour group: at most ONE model total may be taken across
+   * all units sharing this tag (e.g. the three Hive Tyrant variants).
+   */
+  exclusiveGroup?: string
   /** Standard box you buy to field this datasheet. */
   kit: Kit
 }

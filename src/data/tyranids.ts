@@ -35,6 +35,7 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 5,
       keywords: ['Character', 'Monster', 'Synapse'],
+      exclusiveGroup: 'hive-tyrant',
       kit: { name: 'Hive Tyrant', priceEUR: 51.5, models: 1, verified: true },
     },
     {
@@ -45,6 +46,7 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 5,
       keywords: ['Character', 'Monster', 'Synapse', 'Fly'],
+      exclusiveGroup: 'hive-tyrant',
       kit: { name: 'Winged Hive Tyrant', priceEUR: 51.5, models: 1, verified: true },
     },
     {
@@ -98,6 +100,7 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 5,
       keywords: ['Character', 'Monster', 'Epic Hero', 'Synapse'],
+      exclusiveGroup: 'hive-tyrant',
       kit: { name: 'The Swarmlord', priceEUR: 51.5, models: 1, verified: true },
     },
     {

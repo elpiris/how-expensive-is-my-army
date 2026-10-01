@@ -105,6 +105,13 @@ function augmentList(
   }
   const maxUnitPoints = SIZE_CAP[target] ?? Infinity
   const withinSize = (u: Unit) => u.points <= maxUnitPoints
+  // Flavour exclusivity: at most one model across a mutex group (e.g. the three
+  // Hive Tyrant variants) — addable only while the group is empty.
+  const groupFree = (u: Unit) =>
+    !u.exclusiveGroup ||
+    entries
+      .filter((e) => e.unit.exclusiveGroup === u.exclusiveGroup)
+      .reduce((s, e) => s + e.count, 0) === 0
 
   // 1. Combat Patrol — ensure its units are present, cheapest first, adding only
   //    what fits the budget (the rest waits for a bigger bracket). CP units are
@@ -150,6 +157,7 @@ function augmentList(
       (u) =>
         u.role === 'battleline' &&
         withinSize(u) &&
+        groupFree(u) &&
         u.points <= remaining &&
         countIn(entries, u.id) < capFor(u),
     )
@@ -169,6 +177,7 @@ function augmentList(
       (u) =>
         (u.leads ?? []).includes(e.unit.id) &&
         withinSize(u) &&
+        groupFree(u) &&
         countIn(entries, u.id) < capFor(u) &&
         pointsOf(entries) + u.points <= target,
     )
@@ -190,7 +199,11 @@ function augmentList(
     const remaining = target - pointsOf(entries)
     if (remaining <= 0) break
     const legal = faction.units.filter(
-      (u) => withinSize(u) && u.points <= remaining && countIn(entries, u.id) < capFor(u),
+      (u) =>
+        withinSize(u) &&
+        groupFree(u) &&
+        u.points <= remaining &&
+        countIn(entries, u.id) < capFor(u),
     )
     if (!legal.length) break
     const pick = pickWeighted(legal, weight, rand)
