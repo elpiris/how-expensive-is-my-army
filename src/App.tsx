@@ -116,7 +116,6 @@ export default function App() {
               <thead>
                 <tr>
                   <th>Unit</th>
-                  <th className="num">Qty</th>
                   <th className="num">Models</th>
                   <th className="num">Points</th>
                 </tr>
@@ -127,27 +126,29 @@ export default function App() {
                   return (
                     <Fragment key={g.label}>
                       <tr className="group-row">
-                        <td colSpan={3}>{g.label}</td>
+                        <td colSpan={2}>{g.label}</td>
                         <td className="num">{sub} pts</td>
                       </tr>
-                      {g.entries.map((e) => (
-                        <tr key={e.unit.id}>
-                          <td>
-                            {e.unit.epicHero && <span className="tag epic">Epic</span>}
-                            {e.unit.name}
-                          </td>
-                          <td className="num">{e.count}</td>
-                          <td className="num">{e.unit.models * e.count}</td>
-                          <td className="num">{e.unit.points * e.count}</td>
-                        </tr>
-                      ))}
+                      {/* One row per unit copy, so each squad is listed separately. */}
+                      {g.entries.flatMap((e) =>
+                        Array.from({ length: e.count }, (_, i) => (
+                          <tr key={`${e.unit.id}-${i}`}>
+                            <td>
+                              {e.unit.epicHero && <span className="tag epic">Epic</span>}
+                              {e.unit.name}
+                            </td>
+                            <td className="num">{e.unit.models}</td>
+                            <td className="num">{e.unit.points}</td>
+                          </tr>
+                        )),
+                      )}
                     </Fragment>
                   )
                 })}
               </tbody>
               <tfoot>
                 <tr>
-                  <td colSpan={3}>Total points</td>
+                  <td colSpan={2}>Total points</td>
                   <td className="num strong">{list.totalPoints}</td>
                 </tr>
               </tfoot>
