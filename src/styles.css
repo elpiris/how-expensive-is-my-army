@@ -330,6 +330,50 @@ table.data tfoot td {
   padding-left: 18px;
 }
 
+/* Summary bar (top, under controls) */
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  align-items: baseline;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  box-shadow: var(--shadow);
+  margin: 4px 0 2px;
+}
+.summary .stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.summary .lbl {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--muted);
+}
+.summary .v {
+  font-size: 17px;
+  font-weight: 600;
+}
+.summary .v.big {
+  font-size: 26px;
+  font-weight: 800;
+}
+.summary .v.green {
+  color: var(--green);
+}
+.summary .v.struck {
+  text-decoration: line-through;
+  color: var(--muted);
+  font-weight: 400;
+}
+.small {
+  font-size: 11px;
+}
+
 /* Totals */
 .totals {
   display: grid;
