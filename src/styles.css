@@ -121,6 +121,18 @@ select {
 .seg:disabled:hover {
   color: #55606c;
 }
+.seg.stage {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.15;
+  gap: 1px;
+}
+.seg.stage small {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.85;
+}
 
 .primary {
   background: linear-gradient(180deg, var(--accent-2), #337ab0);

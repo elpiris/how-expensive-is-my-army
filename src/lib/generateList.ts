@@ -2,26 +2,28 @@ import type { Faction, GeneratedList, ListEntry, PointsBracket, Unit } from '../
 import { isCharacter, pointsPerEuro } from './value'
 
 // ---------------------------------------------------------------------------
-// Casual list generation — "affordable above all", with a thematic backbone.
+// List generation — "affordable above all", with a thematic backbone.
 //
-// Process:
-//  1. Seed the whole Combat Patrol (all units it builds) unless its points
-//     exceed the limit — the cheapest way to buy several units at once.
-//  2. Ensure a battleline backbone: at least 100 pts of battleline per 1000 pts.
-//  3. Guarantee a leader character.
-//  4. Fill the rest by best points-per-euro.
+// `augmentList` grows an existing list up to a points target and is the shared
+// core of both modes:
+//   - Quick list: augment an empty list to the chosen bracket.
+//   - Escalation: augment 500 → 1000 → 1500 → 2000, carrying each list forward,
+//     so a collection grows by re-using everything already bought.
 //
-// Copy caps: max 1 of any datasheet at 500 pts, max 2 at higher brackets;
-// Epic Heroes unique.
+// Steps: (1) seed the Combat Patrol — cheapest units first, as many as fit the
+// budget (a >500pt Combat Patrol is fielded as a subset at 500 and completed as
+// the list escalates); (2) battleline backbone ≥100 pts per 1000; (3) leaders
+// for leadable units; (4) guarantee a character; (5) value fill.
 //
-// (Competitive netlists were removed for now — see faction competitiveLists,
-//  kept as a future TODO.)
+// Rules: max 1 of a datasheet at 500 / 2 otherwise; characters unique unless a
+// sub-100pt leader has 2+ units to lead; Epic Heroes unique; no non-Combat-Patrol
+// unit over the bracket size cap (120/200/350/∞).
 // ---------------------------------------------------------------------------
 
-/** Battleline points wanted per 1000 pts of army. */
 const BATTLELINE_PTS_PER_1000 = 100
+export const BRACKETS: PointsBracket[] = [500, 1000, 1500, 2000]
+const SIZE_CAP: Record<number, number> = { 500: 120, 1000: 200, 1500: 350, 2000: Infinity }
 
-/** Small seeded RNG so a given "seed" reproduces the same list. */
 function mulberry32(seed: number): () => number {
   let a = seed >>> 0
   return () => {
@@ -78,20 +80,19 @@ function roleOrder(u: Unit): number {
   return order[u.role] ?? 9
 }
 
-export function generateList(
+/** Grow `base` into a list of `target` points, carrying over everything in base. */
+function augmentList(
   faction: Faction,
+  base: ListEntry[],
   target: PointsBracket,
-  seed = Date.now(),
+  rand: () => number,
 ): GeneratedList {
-  const rand = mulberry32(seed)
-  const entries: ListEntry[] = []
+  // Clone so escalation never mutates the previous stage.
+  const entries: ListEntry[] = base.map((e) => ({ unit: e.unit, count: e.count }))
+  const startedEmpty = base.length === 0
   const notes: string[] = []
 
-  // Per-datasheet copy cap: no duplicates at 500, otherwise up to two.
   const dupeCap = target === 500 ? 1 : 2
-  // Characters are stricter — an army can't be all HQs. A character is unique
-  // UNLESS it costs < 100 pts AND there are at least two units it can lead in the
-  // list (e.g. 2 Broodlords only with 2 Genestealer units). Never 2 Hive Tyrants.
   const capFor = (u: Unit): number => {
     if (u.epicHero) return 1
     if (!isCharacter(u)) return dupeCap
@@ -102,36 +103,41 @@ export function generateList(
       : 0
     return Math.min(leadableUnits >= 2 ? 2 : 1, dupeCap)
   }
-
-  // No single unit may exceed the bracket's size cap — avoids oppressive,
-  // list-eating centrepieces. Combat Patrol units are EXEMPT (we always field
-  // everything the box builds). 2000 pts has no cap.
-  const SIZE_CAP: Record<number, number> = { 500: 120, 1000: 200, 1500: 350, 2000: Infinity }
   const maxUnitPoints = SIZE_CAP[target] ?? Infinity
   const withinSize = (u: Unit) => u.points <= maxUnitPoints
 
-  // 1. Seed the whole Combat Patrol — every unit it builds, exempt from the size
-  //    cap, since we always want to use everything we've bought.
+  // 1. Combat Patrol — ensure its units are present, cheapest first, adding only
+  //    what fits the budget (the rest waits for a bigger bracket). CP units are
+  //    exempt from the size cap.
   const cp = faction.valueBoxes[0]
   if (cp) {
-    const cpEntries: ListEntry[] = []
-    let cpPoints = 0
-    for (const b of cp.builds) {
-      const unit = faction.units.find((u) => u.id === b.unitId)
-      if (!unit) continue
-      const count = Math.max(1, Math.round(b.models / unit.models))
-      cpEntries.push({ unit, count })
-      cpPoints += unit.points * count
+    const builds = cp.builds
+      .map((b) => {
+        const unit = faction.units.find((u) => u.id === b.unitId)
+        return unit ? { unit, count: Math.max(1, Math.round(b.models / unit.models)) } : null
+      })
+      .filter((x): x is { unit: Unit; count: number } => !!x)
+      .sort((a, b) => a.unit.points - b.unit.points)
+    let added = 0
+    let deferred = 0
+    for (const { unit, count } of builds) {
+      for (let k = countIn(entries, unit.id); k < count; k++) {
+        if (pointsOf(entries) + unit.points <= target) {
+          addUnit(entries, unit, 1)
+          added++
+        } else {
+          deferred++
+        }
+      }
     }
-    if (cpEntries.length && cpPoints <= target) {
-      for (const e of cpEntries) addUnit(entries, e.unit, e.count)
+    if (added > 0) {
       notes.push(
-        `Seeded ${cp.name} (${cpPoints} pts of models) first — it's the cheapest way to buy these units.`,
+        deferred > 0
+          ? `Started with ${cp.name} — ${deferred} of its unit(s) held back until a larger list, but buy the whole box now.`
+          : `Includes the whole ${cp.name} (cheapest way to buy these units).`,
       )
-    } else if (cpEntries.length) {
-      notes.push(`${cp.name} skipped: its ${cpPoints} pts of models exceed the ${target} pt limit.`)
     }
-  } else {
+  } else if (startedEmpty) {
     notes.push('No Combat Patrol exists for this faction — built from individual kits.')
   }
 
@@ -152,22 +158,13 @@ export function generateList(
     if (!pick) break
     addUnit(entries, pick)
   }
-  const blNow = battlelinePointsOf(entries)
-  if (blNow >= minBattleline) {
-    notes.push(`Battleline backbone: ${blNow} pts (target ≥ ${minBattleline}).`)
-  } else if (minBattleline > 0) {
-    notes.push(`Only ${blNow} pts of battleline available (wanted ≥ ${minBattleline}).`)
-  }
 
-  // 3. Leaders: give a leadable unit already in the list a character to lead it
-  //    — usually, not always (follows Wahapedia LEADER data).
+  // 3. Leaders — give a leadable unit a character to lead it (usually).
   const leadableSet = new Set(faction.units.flatMap((u) => u.leads ?? []))
-  const hasLeaderFor = (unitId: string) =>
-    entries.some((e) => (e.unit.leads ?? []).includes(unitId))
-  let attachedLeaders = 0
+  const hasLeaderFor = (unitId: string) => entries.some((e) => (e.unit.leads ?? []).includes(unitId))
   for (const e of [...entries]) {
     if (!leadableSet.has(e.unit.id) || hasLeaderFor(e.unit.id)) continue
-    if (rand() > 0.75) continue // ~1-in-4 chance a leadable unit goes unled
+    if (rand() > 0.75) continue
     const candidates = faction.units.filter(
       (u) =>
         (u.leads ?? []).includes(e.unit.id) &&
@@ -176,24 +173,17 @@ export function generateList(
         pointsOf(entries) + u.points <= target,
     )
     const leader = pickWeighted(candidates, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
-    if (leader) {
-      addUnit(entries, leader)
-      attachedLeaders++
-    }
-  }
-  if (attachedLeaders) {
-    notes.push(`Added ${attachedLeaders} character(s) to lead units that can be led.`)
+    if (leader) addUnit(entries, leader)
   }
 
-  // 4. Guarantee at least one leader character if nothing so far is a character.
+  // 4. Guarantee at least one character.
   if (!entries.some((e) => isCharacter(e.unit))) {
     const chars = faction.units.filter((u) => u.role === 'character' && withinSize(u))
     const leader = pickWeighted(chars, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
     if (leader && pointsOf(entries) + leader.points <= target) addUnit(entries, leader)
   }
 
-  // 5. Fill the rest with the best points-per-euro kits. A cubic weight makes
-  //    good-value kits strongly dominant so cheap low-value filler stays rare.
+  // 5. Fill the rest with the best points-per-euro kits.
   const weight = (u: Unit) => Math.pow(pointsPerEuro(u), 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5))
   let guard = 0
   while (guard++ < 500) {
@@ -210,15 +200,36 @@ export function generateList(
 
   const total = pointsOf(entries)
   notes.push(
-    `Built for value: best points-per-euro kits, max ${dupeCap} of any datasheet` +
-      `${dupeCap === 1 ? ' (no duplicates at 500 pts)' : ''}. Epic Heroes are unique; ` +
-      `characters are single unless a sub-100 pt leader has 2+ units to lead` +
+    `Max ${dupeCap} of any datasheet${dupeCap === 1 ? ' (no duplicates at 500)' : ''}; Epic Heroes ` +
+      `unique; characters single unless a sub-100 pt leader has 2+ units to lead` +
       `${Number.isFinite(maxUnitPoints) ? `; no unit over ${maxUnitPoints} pts outside the Combat Patrol` : ''}.`,
   )
   if (target - total > 45) {
-    notes.push(`${total} / ${target} pts — reroll for a tighter fit, or spend the rest on wargear.`)
+    notes.push(`${total} / ${target} pts — reroll for a tighter fit, or add wargear.`)
   }
 
   entries.sort((a, b) => roleOrder(a.unit) - roleOrder(b.unit) || b.unit.points - a.unit.points)
   return { faction, mode: 'casual', targetPoints: target, entries, totalPoints: total, notes }
+}
+
+/** Quick list: build a single list at the chosen bracket. */
+export function generateList(
+  faction: Faction,
+  target: PointsBracket,
+  seed = Date.now(),
+): GeneratedList {
+  return augmentList(faction, [], target, mulberry32(seed))
+}
+
+/** Escalation: 500 → 2000, each list re-using the content of the previous one. */
+export function generateEscalation(faction: Faction, seed = Date.now()): GeneratedList[] {
+  const rand = mulberry32(seed)
+  const stages: GeneratedList[] = []
+  let base: ListEntry[] = []
+  for (const target of BRACKETS) {
+    const list = augmentList(faction, base, target, rand)
+    stages.push(list)
+    base = list.entries
+  }
+  return stages
 }

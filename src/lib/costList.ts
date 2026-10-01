@@ -169,6 +169,31 @@ export function discountedTotal(cost: CostBreakdown, pct: DiscountPercent): numb
   return round2(discounted + cost.nonDiscountableEUR)
 }
 
+/**
+ * New purchases needed to go from `prev` to `curr` (escalation step): boxes whose
+ * quantity grew. Since each escalation list is a superset, box counts only rise,
+ * so this is what you actually buy at this stage.
+ */
+export function purchaseDelta(prev: CostBreakdown | null, curr: CostBreakdown): PurchaseLine[] {
+  const prevQty = new Map<string, number>()
+  if (prev) for (const l of prev.lines) prevQty.set(l.name, (prevQty.get(l.name) ?? 0) + l.quantity)
+  const out: PurchaseLine[] = []
+  for (const l of curr.lines) {
+    const had = prevQty.get(l.name) ?? 0
+    const dq = l.quantity - had
+    if (dq > 0) out.push({ ...l, quantity: dq, lineTotalEUR: round2(l.unitPriceEUR * dq) })
+  }
+  return out
+}
+
+/** Totals for an arbitrary set of purchase lines, honouring online-only discount rules. */
+export function sumLines(lines: PurchaseLine[], pct: DiscountPercent): { rrp: number; pay: number } {
+  const rrp = round2(lines.reduce((s, l) => s + l.lineTotalEUR, 0))
+  const nonDisc = lines.filter((l) => l.onlineOnly).reduce((s, l) => s + l.lineTotalEUR, 0)
+  const pay = round2((rrp - nonDisc) * (1 - pct / 100) + nonDisc)
+  return { rrp, pay }
+}
+
 function round2(n: number): number {
   return Math.round(n * 100) / 100
 }
