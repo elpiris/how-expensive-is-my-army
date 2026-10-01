@@ -103,24 +103,22 @@ export function generateList(
     return Math.min(leadableUnits >= 2 ? 2 : 1, dupeCap)
   }
 
-  // No single unit may exceed 20% of the army's points — avoids oppressive,
-  // list-eating centrepieces (max 100 pts at 500, 400 pts at 2000).
-  const maxUnitPoints = target * 0.2
+  // No single unit may exceed the bracket's size cap — avoids oppressive,
+  // list-eating centrepieces. Combat Patrol units are EXEMPT (we always field
+  // everything the box builds). 2000 pts has no cap.
+  const SIZE_CAP: Record<number, number> = { 500: 120, 1000: 200, 1500: 350, 2000: Infinity }
+  const maxUnitPoints = SIZE_CAP[target] ?? Infinity
   const withinSize = (u: Unit) => u.points <= maxUnitPoints
 
-  // 1. Seed the Combat Patrol, but skip any unit over the 20% size cap.
+  // 1. Seed the whole Combat Patrol — every unit it builds, exempt from the size
+  //    cap, since we always want to use everything we've bought.
   const cp = faction.valueBoxes[0]
   if (cp) {
     const cpEntries: ListEntry[] = []
     let cpPoints = 0
-    let cpSkipped = 0
     for (const b of cp.builds) {
       const unit = faction.units.find((u) => u.id === b.unitId)
       if (!unit) continue
-      if (!withinSize(unit)) {
-        cpSkipped++
-        continue
-      }
       const count = Math.max(1, Math.round(b.models / unit.models))
       cpEntries.push({ unit, count })
       cpPoints += unit.points * count
@@ -130,9 +128,6 @@ export function generateList(
       notes.push(
         `Seeded ${cp.name} (${cpPoints} pts of models) first — it's the cheapest way to buy these units.`,
       )
-      if (cpSkipped) {
-        notes.push(`Left ${cpSkipped} Combat Patrol unit(s) out of the list (over 20% of ${target} pts).`)
-      }
     } else if (cpEntries.length) {
       notes.push(`${cp.name} skipped: its ${cpPoints} pts of models exceed the ${target} pt limit.`)
     }
@@ -217,8 +212,8 @@ export function generateList(
   notes.push(
     `Built for value: best points-per-euro kits, max ${dupeCap} of any datasheet` +
       `${dupeCap === 1 ? ' (no duplicates at 500 pts)' : ''}. Epic Heroes are unique; ` +
-      `characters are single unless a sub-100 pt leader has 2+ units to lead; ` +
-      `no single unit over 20% of the list (${Math.floor(maxUnitPoints)} pts).`,
+      `characters are single unless a sub-100 pt leader has 2+ units to lead` +
+      `${Number.isFinite(maxUnitPoints) ? `; no unit over ${maxUnitPoints} pts outside the Combat Patrol` : ''}.`,
   )
   if (target - total > 45) {
     notes.push(`${total} / ${target} pts — reroll for a tighter fit, or spend the rest on wargear.`)
