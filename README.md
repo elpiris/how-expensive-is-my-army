@@ -9,7 +9,8 @@ Built with **Vite + React + TypeScript**.
 
 ## Features
 
-- **Factions:** Space Marines, Necrons, Tyranids (more can be added — see below).
+- **Factions:** Necrons, Tyranids, Death Guard (more can be added — see below).
+  Space Marines are parked pending Chapter-system support (see TODO.md).
 - **Points brackets:** 500 / 1000 / 1500 / 2000.
 - **Casual mode:** generates a legal, flavourful list (max 3 of a datasheet, 6 for
   battleline; Epic Heroes are unique). Reroll for a new take.
