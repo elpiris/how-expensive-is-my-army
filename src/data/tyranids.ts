@@ -7,11 +7,14 @@ import type { Faction } from '../types'
 // cost at the default model count. The 3rd+ copy of a unit costs more
 // (escalating-cost rule, not modelled here).
 //
-// Combat Patrol is "Combat Patrol: Tyranid Assault Brood" (€135). Its confirmed
+// Combat Patrol is "Combat Patrol: Tyranid Assault Brood" (€139). Its confirmed
 // contents — Parasite of Mortrex, 3 Tyrant Guard (built as Hive Guard), a
 // Biovore, 3 Spore Mines and 10 Genestealers — are modelled in the value box
-// below (Spore Mines omitted; they are summoned tokens, not a purchase). Box
-// model-counts use standard kit sizes and haven't all been individually confirmed.
+// below (Spore Mines omitted; they are summoned tokens, not a purchase).
+//
+// Neurotyrant + Screamer-Killer both come from the one online "Horrors of the
+// Hive" box (€87.50); the standalone "Screamer-Killer Brood" box is 2 old
+// Carnifex-chassis models and maps to the Carnifexes datasheet, not here.
 // ---------------------------------------------------------------------------
 
 export const tyranids: Faction = {
@@ -53,8 +56,16 @@ export const tyranids: Faction = {
       flavor: 4,
       keywords: ['Character', 'Monster', 'Synapse'],
       leads: ['zoanthropes'],
-      // Not sold as a standalone kit in the current range.
-      kit: { name: 'Neurotyrant', priceEUR: 40, models: 1 },
+      // Comes in the online "Horrors of the Hive" box together with a
+      // Screamer-Killer — one box covers both (credited via alsoBuilds).
+      kit: {
+        name: 'Horrors of the Hive',
+        priceEUR: 87.5,
+        models: 1,
+        verified: true,
+        onlineOnly: true,
+        alsoBuilds: [{ unitId: 'screamer-killer', models: 1 }],
+      },
     },
     {
       id: 'broodlord',
@@ -240,9 +251,18 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Monster'],
-      // Box builds 2 Carnifex chassis (€87); a single Screamer-Killer wastes one,
-      // so the whole-box value math correctly rates a lone one as poor value.
-      kit: { name: 'Screamer-Killer Brood', priceEUR: 87, models: 2, onlineOnly: true, verified: true },
+      // The Screamer-Killer datasheet (Leviathan sculpt) is only sold in the
+      // online "Horrors of the Hive" box, together with a Neurotyrant — one box
+      // covers both (credited via alsoBuilds). (The "Screamer-Killer Brood" box
+      // is a different thing: 2 old Carnifex-chassis models = a Carnifexes unit.)
+      kit: {
+        name: 'Horrors of the Hive',
+        priceEUR: 87.5,
+        models: 1,
+        verified: true,
+        onlineOnly: true,
+        alsoBuilds: [{ unitId: 'neurotyrant', models: 1 }],
+      },
     },
     {
       id: 'exocrine',

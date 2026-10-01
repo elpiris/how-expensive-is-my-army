@@ -15,7 +15,8 @@ faction's `lastVerified`. Death Guard prices were verified 2026-10-01 (en-FI).
 - Known drift spotted: Combat Patrols €135 → **€139**; Termagants €37 → €38.50;
   Carnifex/Screamer-Killer Brood €84 → €87; Necrons Royal Court €105 → €107.50.
 - Re-confirm the `≈`-flagged kit prices and drop the badge once set: Necron
-  Scarabs (placeholder); Tyranid Neurotyrant, Ripper Swarms.
+  Scarabs and Tyranid Ripper Swarms — both are placeholder prices for units not
+  sold on their own (they come bundled in other boxes / the Combat Patrol).
 - **Tip:** the per-faction store grid can get throttled after heavy crawling, but
   individual product pages keep working; the **en-FI** store also shows euros and
   loaded when en-EU's grid didn't.
