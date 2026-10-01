@@ -18,10 +18,27 @@ export function unitCostEUR(unit: Unit): number {
   return boxes * unit.kit.priceEUR
 }
 
-/** Points obtained per euro spent on this unit at its default size. */
+/** Effective points for the 1st–2nd copy: base + the chosen (highest) wargear. */
+export function unitPoints(unit: Unit): number {
+  return unit.points + (unit.wargear?.points ?? 0)
+}
+
+/** Effective points for the 3rd+ copy (escalating cost) + wargear. */
+export function unitPointsThird(unit: Unit): number {
+  return (unit.pointsThird ?? unit.points) + (unit.wargear?.points ?? 0)
+}
+
+/** Total points for `count` copies, applying the 3rd+ escalation. */
+export function entryPoints(unit: Unit, count: number): number {
+  const nBase = Math.min(count, 2)
+  const nThird = Math.max(0, count - 2)
+  return unitPoints(unit) * nBase + unitPointsThird(unit) * nThird
+}
+
+/** Points obtained per euro spent on this unit at its default size (incl. wargear). */
 export function pointsPerEuro(unit: Unit): number {
   const cost = unitCostEUR(unit)
-  return cost > 0 ? unit.points / cost : 0
+  return cost > 0 ? unitPoints(unit) / cost : 0
 }
 
 /**

@@ -2,7 +2,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { factions, getFaction } from './data'
 import { generateList, generateEscalation, BRACKETS } from './lib/generateList'
 import { costList, discountedTotal, purchaseDelta, sumLines } from './lib/costList'
-import { isCharacter } from './lib/value'
+import { entryPoints, isCharacter, unitPoints, unitPointsThird } from './lib/value'
 import type { CostBreakdown, DiscountPercent, GeneratedList, ListEntry, PurchaseLine } from './types'
 
 const DISCOUNTS: DiscountPercent[] = [0, 10, 15, 20]
@@ -77,7 +77,7 @@ function ListPanel({ list }: { list: GeneratedList }) {
           </thead>
           <tbody>
             {groups.map((g) => {
-              const sub = g.entries.reduce((s, e) => s + e.unit.points * e.count, 0)
+              const sub = g.entries.reduce((s, e) => s + entryPoints(e.unit, e.count), 0)
               return (
                 <Fragment key={g.label}>
                   <tr className="group-row">
@@ -90,9 +90,14 @@ function ListPanel({ list }: { list: GeneratedList }) {
                         <td>
                           {e.unit.epicHero && <span className="tag epic">Epic</span>}
                           {e.unit.name}
+                          {e.unit.wargear && (
+                            <span className="wg">
+                              + {e.unit.wargear.name} ({e.unit.wargear.points})
+                            </span>
+                          )}
                         </td>
                         <td className="num">{e.unit.models}</td>
-                        <td className="num">{e.unit.points}</td>
+                        <td className="num">{i < 2 ? unitPoints(e.unit) : unitPointsThird(e.unit)}</td>
                       </tr>
                     )),
                   )}
@@ -344,9 +349,9 @@ export default function App() {
           <br />
           {faction.pointsVerified ? (
             <>
-              <strong>Points</strong> from Wahapedia (11th edition). The 3rd+ copy of a unit costs a
-              few points more than shown (escalating-cost rule, not modelled). Not affiliated with
-              Games Workshop.
+              <strong>Points</strong> from the Munitorum Field Manual (11th ed) — including the
+              highest-cost wargear on units that pay for it, and the 3rd+ escalating unit cost. Not
+              affiliated with Games Workshop.
             </>
           ) : (
             <>

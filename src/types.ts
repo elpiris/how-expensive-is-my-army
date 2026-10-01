@@ -44,8 +44,18 @@ export interface Unit {
   id: string
   name: string
   role: UnitRole
-  /** Points for a single unit at the default `models` size. */
+  /** Points for a single unit at the default `models` size (1st–2nd copy). */
   points: number
+  /**
+   * Points for the 3rd+ copy of this datasheet at the default size (11th-ed
+   * escalating cost). Omitted when the datasheet doesn't escalate.
+   */
+  pointsThird?: number
+  /**
+   * Highest-cost wargear upgrade the unit can take (MFM). Added to the unit's
+   * points and shown on its list row. Omitted when wargear is free.
+   */
+  wargear?: { name: string; points: number }
   /** Default number of models in one unit (for points + purchasing math). */
   models: number
   epicHero?: boolean

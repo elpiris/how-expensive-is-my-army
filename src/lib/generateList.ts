@@ -1,5 +1,5 @@
 import type { Faction, GeneratedList, ListEntry, PointsBracket, Unit } from '../types'
-import { isCharacter, pointsPerEuro } from './value'
+import { entryPoints, isCharacter, pointsPerEuro, unitPoints, unitPointsThird } from './value'
 
 // ---------------------------------------------------------------------------
 // List generation — "affordable above all", with a thematic backbone.
@@ -15,14 +15,18 @@ import { isCharacter, pointsPerEuro } from './value'
 // the list escalates); (2) battleline backbone ≥100 pts per 1000; (3) leaders
 // for leadable units; (4) guarantee a character; (5) value fill.
 //
-// Rules: max 1 of a datasheet at 500 / 2 otherwise; characters unique unless a
-// sub-100pt leader has 2+ units to lead; Epic Heroes unique; no non-Combat-Patrol
+// Rules (official MFM unit limits): per datasheet max 1 @500, 2 @1000, 3 @1500,
+// 3 @2000 — doubled for Battleline / Dedicated Transport (so 6 @2000). Epic
+// Heroes unique. Characters stricter: unique unless a sub-100pt leader has 2+
+// units to lead. The 3rd+ copy costs the escalated price. No non-Combat-Patrol
 // unit over the bracket size cap (120/200/350/∞).
 // ---------------------------------------------------------------------------
 
 const BATTLELINE_PTS_PER_1000 = 100
 export const BRACKETS: PointsBracket[] = [500, 1000, 1500, 2000]
 const SIZE_CAP: Record<number, number> = { 500: 120, 1000: 200, 1500: 350, 2000: Infinity }
+// Official per-datasheet copy limit by bracket (doubled for battleline/transport).
+const DATASHEET_LIMIT: Record<number, number> = { 500: 1, 1000: 2, 1500: 3, 2000: 3 }
 
 function mulberry32(seed: number): () => number {
   let a = seed >>> 0
@@ -47,13 +51,13 @@ function pickWeighted<T>(items: T[], weightOf: (t: T) => number, rand: () => num
 }
 
 function pointsOf(entries: ListEntry[]): number {
-  return entries.reduce((s, e) => s + e.unit.points * e.count, 0)
+  return entries.reduce((s, e) => s + entryPoints(e.unit, e.count), 0)
 }
 
 function battlelinePointsOf(entries: ListEntry[]): number {
   return entries
     .filter((e) => e.unit.role === 'battleline')
-    .reduce((s, e) => s + e.unit.points * e.count, 0)
+    .reduce((s, e) => s + entryPoints(e.unit, e.count), 0)
 }
 
 function countIn(entries: ListEntry[], unitId: string): number {
@@ -92,17 +96,23 @@ function augmentList(
   const startedEmpty = base.length === 0
   const notes: string[] = []
 
-  const dupeCap = target === 500 ? 1 : 2
+  // Official per-datasheet copy limit (doubled for battleline / dedicated transport).
+  const baseLimit = DATASHEET_LIMIT[target] ?? 3
+  const datasheetLimit = (u: Unit) =>
+    target === 500 ? 1 : baseLimit * (u.role === 'battleline' || u.role === 'transport' ? 2 : 1)
   const capFor = (u: Unit): number => {
     if (u.epicHero) return 1
-    if (!isCharacter(u)) return dupeCap
+    if (!isCharacter(u)) return datasheetLimit(u)
+    // Characters are stricter: unique, unless a sub-100pt leader has 2+ units to lead.
     if (u.points >= 100) return 1
     const leads = u.leads ?? []
     const leadableUnits = leads.length
       ? entries.filter((e) => leads.includes(e.unit.id)).reduce((s, e) => s + e.count, 0)
       : 0
-    return Math.min(leadableUnits >= 2 ? 2 : 1, dupeCap)
+    return Math.min(leadableUnits >= 2 ? 2 : 1, datasheetLimit(u))
   }
+  // Cost of adding the NEXT copy of a unit (3rd+ copy uses the escalated price).
+  const nextCopyCost = (u: Unit) => (countIn(entries, u.id) >= 2 ? unitPointsThird(u) : unitPoints(u))
   const maxUnitPoints = SIZE_CAP[target] ?? Infinity
   const withinSize = (u: Unit) => u.points <= maxUnitPoints
   // Flavour exclusivity: at most one model across a mutex group (e.g. the three
@@ -129,7 +139,7 @@ function augmentList(
     let deferred = 0
     for (const { unit, count } of builds) {
       for (let k = countIn(entries, unit.id); k < count; k++) {
-        if (pointsOf(entries) + unit.points <= target) {
+        if (pointsOf(entries) + nextCopyCost(unit) <= target) {
           addUnit(entries, unit, 1)
           added++
         } else {
@@ -158,7 +168,7 @@ function augmentList(
         u.role === 'battleline' &&
         withinSize(u) &&
         groupFree(u) &&
-        u.points <= remaining &&
+        nextCopyCost(u) <= remaining &&
         countIn(entries, u.id) < capFor(u),
     )
     if (!legal.length) break
@@ -179,7 +189,7 @@ function augmentList(
         withinSize(u) &&
         groupFree(u) &&
         countIn(entries, u.id) < capFor(u) &&
-        pointsOf(entries) + u.points <= target,
+        pointsOf(entries) + nextCopyCost(u) <= target,
     )
     const leader = pickWeighted(candidates, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
     if (leader) addUnit(entries, leader)
@@ -189,7 +199,7 @@ function augmentList(
   if (!entries.some((e) => isCharacter(e.unit))) {
     const chars = faction.units.filter((u) => u.role === 'character' && withinSize(u))
     const leader = pickWeighted(chars, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
-    if (leader && pointsOf(entries) + leader.points <= target) addUnit(entries, leader)
+    if (leader && pointsOf(entries) + nextCopyCost(leader) <= target) addUnit(entries, leader)
   }
 
   // 5. Fill the rest with the best points-per-euro kits.
@@ -202,7 +212,7 @@ function augmentList(
       (u) =>
         withinSize(u) &&
         groupFree(u) &&
-        u.points <= remaining &&
+        nextCopyCost(u) <= remaining &&
         countIn(entries, u.id) < capFor(u),
     )
     if (!legal.length) break
@@ -212,9 +222,10 @@ function augmentList(
   }
 
   const total = pointsOf(entries)
+  const limitNote =
+    target === 500 ? 'no duplicate datasheets' : `max ${baseLimit} of a datasheet (${baseLimit * 2} battleline)`
   notes.push(
-    `Max ${dupeCap} of any datasheet${dupeCap === 1 ? ' (no duplicates at 500)' : ''}; Epic Heroes ` +
-      `unique; characters single unless a sub-100 pt leader has 2+ units to lead` +
+    `${limitNote}; Epic Heroes unique; characters single unless a sub-100 pt leader has 2+ units to lead` +
       `${Number.isFinite(maxUnitPoints) ? `; no unit over ${maxUnitPoints} pts outside the Combat Patrol` : ''}.`,
   )
   if (target - total > 45) {
