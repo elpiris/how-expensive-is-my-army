@@ -46,7 +46,14 @@ longer sells one. Bump each faction's `lastVerified`.
   they have decent points-per-euro and would dominate the generator, breaking the
   "affordable above all" ethos (data in git history if ever wanted). No Combat
   Patrol exists.
-- **Aeldari — TODO.** Same (curated ~17 units).
+- **Aeldari — DONE (2026-10-02).** Focused ~38-unit Craftworlds roster from the
+  huge 76-datasheet MFM index (omitting Harlequins / Ynnari / Corsairs sub-factions,
+  FW Titans and support platforms). Prices verified on en-EU where surfaced (aspect
+  boxes €51.50, grav-tank kit €57.50 = Falcon/Fire Prism/Night Spinner); a few
+  core kits not loaded in the virtualised grid are best-effort (Farseer, Spiritseer,
+  Striking Scorpions, Wraith kits, Wraithknight, Vyper, War Walkers, Wave Serpent,
+  Yriel, Asurmen). Combat Patrol (€139) contents confirmed. TODO: confirm the
+  best-effort kit prices on individual product pages.
 - **Necrons — prices PENDING refresh.** Points verified (Wahapedia→MFM); kit
   prices mostly still at **2026-09-10** values and seen to drift (Necron Warriors
   €42→€43). Re-confirm `≈` placeholders (Canoptek Scarabs — not sold standalone).

@@ -1,10 +1,20 @@
 import type { Faction } from '../types'
 
 // ---------------------------------------------------------------------------
-// AELDARI (Xenos)
-// Points VERIFIED from the Munitorum Field Manual (11th edition) 2026-10-02.
-// Prices are BEST-EFFORT estimates (euros) not yet confirmed on warhammer.com
-// (flagged `verified: false` → "≈ price" tag). Combat Patrol contents approx.
+// AELDARI (Xenos)  — fine-tuned 2026-10-02
+// Points: from the Munitorum Field Manual (11th ed) 2026-10-02 (escalation +
+//   highest-cost wargear). The MFM index is huge (76 datasheets) because it folds
+//   in Harlequins, Ynnari, Corsairs and Forge World Titans; this is a focused
+//   CRAFTWORLDS roster (Aspect Warriors, Guardians, Wraith constructs, seers,
+//   Phoenix Lords, grav-tanks), omitting those sub-factions, the FW Titans
+//   (Phantom 2100 / Revenant 1100) and the support-weapon platforms.
+// Prices: warhammer.com en-EU (2026-10-02). Aspect boxes are €51.50 and the
+//   grav-tank kit (€57.50) builds Falcon / Fire Prism / Night Spinner. A few core
+//   kits weren't surfaced in the (virtualised) store grid this pass and are
+//   best-effort: Farseer (foot), Spiritseer, Striking Scorpions, the Wraith kits,
+//   Wraithknight, Vyper, War Walkers, Wave Serpent, Prince Yriel, Asurmen.
+// Combat Patrol: Aeldari (€139) — contents confirmed on the product page:
+//   1 Spiritseer, 5 Wraithblades, 5 Warp Spiders, 10 Dire Avengers.
 // ---------------------------------------------------------------------------
 
 export const aeldari: Faction = {
@@ -14,12 +24,12 @@ export const aeldari: Faction = {
   category: 'xenos',
   lastVerified: '2026-10-02',
   pointsVerified: true,
-  // Aspect Warrior infantry + graceful grav-tanks, led by a few seers/autarchs.
-  profile: { character: 1.5, infantry: 5, mounted: 1, vehicle: 2.5, monster: 0.5 },
+  // Fast elite Aspect-Warrior infantry + grav-tanks, led by seers and Phoenix Lords.
+  profile: { character: 2, infantry: 4.5, mounted: 1.5, vehicle: 2.5, monster: 1 },
   blurb:
     'The dying elder race. Lightning-fast Aspect Warriors, psychic seers and graceful grav-tanks — fragile but peerless.',
   units: [
-    // --- Characters / Epic Heroes ---
+    // --- Epic Heroes ---
     {
       id: 'avatar-of-khaine',
       name: 'Avatar of Khaine',
@@ -29,8 +39,93 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 5,
       keywords: ['Character', 'Monster', 'Epic Hero'],
-      kit: { name: 'Avatar of Khaine', priceEUR: 55, models: 1 },
+      kit: { name: 'Avatar of Khaine', priceEUR: 93, models: 1, verified: true },
     },
+    {
+      id: 'asurmen',
+      name: 'Asurmen',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 135,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      leads: ['dire-avengers'],
+      kit: { name: 'Asurmen', priceEUR: 38.5, models: 1 },
+    },
+    {
+      id: 'jain-zar',
+      name: 'Jain Zar',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 105,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      leads: ['howling-banshees'],
+      kit: { name: 'Jain Zar', priceEUR: 38.5, models: 1, verified: true },
+    },
+    {
+      id: 'fuegan',
+      name: 'Fuegan',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 130,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      leads: ['fire-dragons'],
+      kit: { name: 'Fuegan', priceEUR: 38.5, models: 1, verified: true },
+    },
+    {
+      id: 'maugan-ra',
+      name: 'Maugan Ra',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 100,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      leads: ['dark-reapers'],
+      kit: { name: 'Maugan Ra', priceEUR: 38.5, models: 1, verified: true },
+    },
+    {
+      id: 'baharroth',
+      name: 'Baharroth',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 125,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Fly', 'Epic Hero'],
+      leads: ['swooping-hawks'],
+      kit: { name: 'Baharroth', priceEUR: 38.5, models: 1, verified: true },
+    },
+    {
+      id: 'eldrad-ulthran',
+      name: 'Eldrad Ulthran',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 120,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Psyker', 'Epic Hero'],
+      leads: ['guardian-defenders', 'storm-guardians'],
+      kit: { name: 'Eldrad Ulthran', priceEUR: 34, models: 1, verified: true },
+    },
+    {
+      id: 'prince-yriel',
+      name: 'Prince Yriel',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 95,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      leads: ['guardian-defenders'],
+      kit: { name: 'Prince Yriel', priceEUR: 28, models: 1 },
+    },
+    // --- Characters ---
     {
       id: 'autarch',
       name: 'Autarch',
@@ -39,8 +134,8 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Leader'],
-      leads: ['dire-avengers', 'fire-dragons', 'guardian-defenders', 'howling-banshees', 'striking-scorpions'],
-      kit: { name: 'Autarch', priceEUR: 25, models: 1 },
+      leads: ['dark-reapers', 'dire-avengers', 'fire-dragons', 'guardian-defenders', 'howling-banshees', 'storm-guardians', 'striking-scorpions'],
+      kit: { name: 'Autarch', priceEUR: 36, models: 1, verified: true },
     },
     {
       id: 'farseer',
@@ -50,8 +145,19 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
-      leads: ['guardian-defenders'],
-      kit: { name: 'Farseer', priceEUR: 25, models: 1 },
+      leads: ['guardian-defenders', 'storm-guardians'],
+      kit: { name: 'Farseer', priceEUR: 28, models: 1 },
+    },
+    {
+      id: 'farseer-skyrunner',
+      name: 'Farseer Skyrunner',
+      role: 'character',
+      points: 60,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Mounted', 'Psyker', 'Fly', 'Leader'],
+      leads: ['windriders'],
+      kit: { name: 'Farseer Skyrunner', priceEUR: 36, models: 1, verified: true },
     },
     {
       id: 'spiritseer',
@@ -61,8 +167,19 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
-      leads: ['wraithguard'],
+      leads: ['wraithguard', 'wraithblades'],
       kit: { name: 'Spiritseer', priceEUR: 22, models: 1 },
+    },
+    {
+      id: 'warlock-skyrunner',
+      name: 'Warlock Skyrunner',
+      role: 'character',
+      points: 45,
+      models: 1,
+      flavor: 2,
+      keywords: ['Character', 'Mounted', 'Psyker', 'Fly', 'Leader'],
+      leads: ['windriders'],
+      kit: { name: 'Warlock Skyrunner', priceEUR: 36, models: 1, verified: true },
     },
     // --- Battleline ---
     {
@@ -74,7 +191,17 @@ export const aeldari: Faction = {
       models: 11,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
-      kit: { name: 'Guardian Defenders', priceEUR: 42, models: 11 },
+      kit: { name: 'Guardian Defenders', priceEUR: 51, models: 11, verified: true },
+    },
+    {
+      id: 'storm-guardians',
+      name: 'Storm Guardians',
+      role: 'battleline',
+      points: 100,
+      models: 11,
+      flavor: 3,
+      keywords: ['Battleline', 'Infantry'],
+      kit: { name: 'Storm Guardians', priceEUR: 51, models: 11, verified: true },
     },
     {
       id: 'rangers',
@@ -84,18 +211,19 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
-      kit: { name: 'Rangers', priceEUR: 27, models: 5 },
+      kit: { name: 'Rangers', priceEUR: 51.5, models: 5, verified: true },
     },
     // --- Aspect Warriors / infantry ---
     {
       id: 'dire-avengers',
       name: 'Dire Avengers',
       role: 'infantry',
-      points: 70,
-      models: 5,
+      // MFM: 5 models 70, 10 models 140 (box builds 10).
+      points: 140,
+      models: 10,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Dire Avengers', priceEUR: 35, models: 5 },
+      kit: { name: 'Dire Avengers', priceEUR: 38.5, models: 10, verified: true },
     },
     {
       id: 'howling-banshees',
@@ -105,7 +233,7 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Howling Banshees', priceEUR: 35, models: 5 },
+      kit: { name: 'Howling Banshees', priceEUR: 51.5, models: 5, verified: true },
     },
     {
       id: 'striking-scorpions',
@@ -115,7 +243,8 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Striking Scorpions', priceEUR: 35, models: 5 },
+      // Not surfaced in the store grid this pass — Aspect-box price pattern.
+      kit: { name: 'Striking Scorpions', priceEUR: 51.5, models: 5 },
     },
     {
       id: 'fire-dragons',
@@ -127,7 +256,17 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 4,
       keywords: ['Infantry'],
-      kit: { name: 'Fire Dragons', priceEUR: 35, models: 5 },
+      kit: { name: 'Fire Dragons', priceEUR: 51.5, models: 5, verified: true },
+    },
+    {
+      id: 'dark-reapers',
+      name: 'Dark Reapers',
+      role: 'infantry',
+      points: 95,
+      models: 5,
+      flavor: 4,
+      keywords: ['Infantry'],
+      kit: { name: 'Dark Reapers', priceEUR: 51.5, models: 5, verified: true },
     },
     {
       id: 'warp-spiders',
@@ -139,7 +278,19 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Infantry', 'Fly'],
-      kit: { name: 'Warp Spiders', priceEUR: 35, models: 5 },
+      kit: { name: 'Warp Spiders', priceEUR: 51.5, models: 5, verified: true },
+    },
+    {
+      id: 'swooping-hawks',
+      name: 'Swooping Hawks',
+      role: 'infantry',
+      // MFM @5 models: "1st to 2nd 95 / 3rd + 110".
+      points: 95,
+      pointsEscalated: 110,
+      models: 5,
+      flavor: 3,
+      keywords: ['Infantry', 'Fly'],
+      kit: { name: 'Swooping Hawks', priceEUR: 51.5, models: 5, verified: true },
     },
     {
       id: 'wraithguard',
@@ -149,7 +300,18 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 4,
       keywords: ['Infantry'],
-      kit: { name: 'Wraithguard', priceEUR: 60, models: 5 },
+      // One kit builds Wraithguard or Wraithblades — price best-effort this pass.
+      kit: { name: 'Wraithguard / Wraithblades', priceEUR: 60, models: 5 },
+    },
+    {
+      id: 'wraithblades',
+      name: 'Wraithblades',
+      role: 'infantry',
+      points: 140,
+      models: 5,
+      flavor: 4,
+      keywords: ['Infantry'],
+      kit: { name: 'Wraithguard / Wraithblades', priceEUR: 60, models: 5 },
     },
     // --- Mounted ---
     {
@@ -160,9 +322,40 @@ export const aeldari: Faction = {
       models: 3,
       flavor: 4,
       keywords: ['Mounted', 'Fly'],
-      kit: { name: 'Shining Spears', priceEUR: 45, models: 3 },
+      kit: { name: 'Shining Spears', priceEUR: 56.5, models: 3, verified: true },
     },
-    // --- Vehicles / monsters ---
+    {
+      id: 'windriders',
+      name: 'Windriders',
+      role: 'mounted',
+      points: 80,
+      models: 3,
+      flavor: 3,
+      keywords: ['Mounted', 'Fly'],
+      kit: { name: 'Windriders', priceEUR: 51, models: 3, verified: true },
+    },
+    {
+      id: 'shroud-runners',
+      name: 'Shroud Runners',
+      role: 'mounted',
+      points: 90,
+      models: 3,
+      flavor: 3,
+      keywords: ['Mounted', 'Fly'],
+      kit: { name: 'Shroud Runners', priceEUR: 60, models: 3, verified: true },
+    },
+    {
+      id: 'vypers',
+      name: 'Vypers',
+      role: 'mounted',
+      points: 75,
+      models: 1,
+      flavor: 2,
+      keywords: ['Mounted', 'Fly'],
+      // Not surfaced in the store grid this pass — price best-effort.
+      kit: { name: 'Vyper', priceEUR: 30, models: 1 },
+    },
+    // --- Vehicles / walkers ---
     {
       id: 'war-walkers',
       name: 'War Walkers',
@@ -171,7 +364,19 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Vehicle', 'Walker'],
+      // Not surfaced in the store grid this pass — price best-effort.
       kit: { name: 'War Walkers', priceEUR: 40, models: 1 },
+    },
+    {
+      id: 'falcon',
+      name: 'Falcon',
+      role: 'vehicle',
+      points: 130,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle', 'Fly'],
+      // Grav-tank kit (builds Falcon / Fire Prism / Night Spinner).
+      kit: { name: 'Falcon', priceEUR: 57.5, models: 1, verified: true },
     },
     {
       id: 'fire-prism',
@@ -180,8 +385,52 @@ export const aeldari: Faction = {
       points: 150,
       models: 1,
       flavor: 4,
-      keywords: ['Vehicle'],
-      kit: { name: 'Fire Prism', priceEUR: 55, models: 1 },
+      keywords: ['Vehicle', 'Fly'],
+      kit: { name: 'Fire Prism', priceEUR: 57.5, models: 1, verified: true },
+    },
+    {
+      id: 'night-spinner',
+      name: 'Night Spinner',
+      role: 'vehicle',
+      // MFM: "1st to 2nd 165 / 3rd + 195".
+      points: 165,
+      pointsEscalated: 195,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle', 'Fly'],
+      kit: { name: 'Night Spinner', priceEUR: 57.5, models: 1, verified: true },
+    },
+    {
+      id: 'crimson-hunter',
+      name: 'Crimson Hunter',
+      role: 'vehicle',
+      points: 160,
+      models: 1,
+      flavor: 4,
+      keywords: ['Vehicle', 'Fly', 'Aircraft'],
+      kit: { name: 'Crimson Hunter', priceEUR: 80, models: 1, verified: true },
+    },
+    {
+      id: 'hemlock-wraithfighter',
+      name: 'Hemlock Wraithfighter',
+      role: 'vehicle',
+      points: 155,
+      models: 1,
+      flavor: 4,
+      keywords: ['Vehicle', 'Fly', 'Aircraft'],
+      kit: { name: 'Hemlock Wraithfighter', priceEUR: 80, models: 1, verified: true },
+    },
+    // --- Monsters ---
+    {
+      id: 'wraithlord',
+      name: 'Wraithlord',
+      role: 'monster',
+      points: 125,
+      models: 1,
+      flavor: 3,
+      keywords: ['Monster', 'Walker'],
+      // Not surfaced in the store grid this pass — price best-effort.
+      kit: { name: 'Wraithlord', priceEUR: 45, models: 1 },
     },
     {
       id: 'wraithknight',
@@ -195,7 +444,8 @@ export const aeldari: Faction = {
       flavor: 5,
       keywords: ['Monster', 'Towering'],
       wargear: { name: 'Heavy Wraithcannon', points: 10 },
-      kit: { name: 'Wraithknight', priceEUR: 100, models: 1 },
+      // Not surfaced in the store grid this pass — price best-effort.
+      kit: { name: 'Wraithknight', priceEUR: 105, models: 1 },
     },
     // --- Dedicated Transport ---
     {
@@ -208,9 +458,9 @@ export const aeldari: Faction = {
       escalateAt: 4,
       models: 1,
       flavor: 3,
-      keywords: ['Vehicle', 'Transport'],
-      // Carries 12 Aeldari infantry.
-      transports: ['guardian-defenders', 'rangers', 'dire-avengers', 'howling-banshees', 'striking-scorpions', 'fire-dragons'],
+      keywords: ['Vehicle', 'Transport', 'Fly'],
+      transports: ['guardian-defenders', 'storm-guardians', 'rangers', 'dire-avengers', 'howling-banshees', 'striking-scorpions', 'fire-dragons', 'dark-reapers', 'wraithguard', 'wraithblades'],
+      // Not surfaced in the store grid this pass — price best-effort.
       kit: { name: 'Wave Serpent', priceEUR: 50, models: 1 },
     },
   ],
@@ -218,13 +468,15 @@ export const aeldari: Faction = {
     {
       id: 'cp-aeldari',
       name: 'Combat Patrol: Aeldari',
-      priceEUR: 120,
-      // Contents approximate — not yet confirmed on the product page.
+      priceEUR: 139,
+      verified: true,
+      url: 'https://www.warhammer.com/en-EU/shop/combat-patrol-aeldari-2025',
+      // Contents confirmed on the product page 2026-10-02.
       builds: [
-        { unitId: 'autarch', models: 1 },
-        { unitId: 'guardian-defenders', models: 11 },
-        { unitId: 'rangers', models: 5 },
-        { unitId: 'war-walkers', models: 1 },
+        { unitId: 'spiritseer', models: 1 },
+        { unitId: 'wraithblades', models: 5 },
+        { unitId: 'warp-spiders', models: 5 },
+        { unitId: 'dire-avengers', models: 10 },
       ],
     },
   ],
