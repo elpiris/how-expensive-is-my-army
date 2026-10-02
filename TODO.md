@@ -7,13 +7,15 @@ Active factions (9): **Imperium** — Adeptus Custodes, Adepta Sororitas,
 Adeptus Mechanicus; **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights;
 **Xenos** — Necrons, Tyranids, Aeldari.
 
-## Data verification (highest priority — accuracy)
+## Data verification
 
-Fine-tune each faction against the current MFM + warhammer.com: pull the **full**
-datasheet roster with MFM points (escalation thresholds + highest-cost wargear),
-set real kit `priceEUR` and drop the `verified:false` flag, and confirm the real
-Combat Patrol / value box (units + price) — or set `valueBoxes: []` if GW no
-longer sells one. Bump each faction's `lastVerified`.
+**All 9 factions fine-tuned as of 2026-10-02** — full MFM rosters (points +
+escalation + wargear), real en-EU kit prices, real Combat Patrols / value boxes,
+and composition profiles. Remaining data work is just confirming the handful of
+best-effort (`verified:false`) kit prices noted per faction below, on individual
+product pages — mostly Forge World / not-currently-stocked kits that didn't load
+in the (virtualised) store grid. Re-check everything periodically; GW points and
+prices drift.
 
 ### Per-faction status
 - **Adeptus Custodes — DONE (2026-10-02).** Full 31-datasheet MFM roster; prices
@@ -59,8 +61,11 @@ longer sells one. Bump each faction's `lastVerified`.
   Immortals €37→38.50, C'tan €105→107.50, CP €135→139, etc.). Canoptek Scarabs
   stay ≈ (not sold standalone); a few units best-effort (Imotekh, Trazyn,
   Reanimator). Re-added the Technomancer (it IS an MFM datasheet).
-- **Tyranids — prices PENDING refresh.** Same as Necrons (2026-09-10 prices);
-  re-confirm `≈` Ripper Swarms (not sold standalone).
+- **Tyranids — DONE (2026-10-02).** Expanded to a ~33-unit roster from the
+  52-datasheet MFM (omitting the FW Bio-Titans); prices RE-VERIFIED on en-EU
+  (drift fixed: Hive Tyrant/Warriors/Swarmlord €51.50→53, Trygon €76→80, Hive
+  Guard €67→70, Zoanthropes €64→66, Exocrine €70→74, Horrors €87.50→93, CP
+  €135→139). Ripper Swarms stay ≈ (bonus sprue, not sold standalone).
 - **Death Guard — DONE (2026-10-02).** Full 35-datasheet MFM roster (incl. the
   Nurgle daemon units; Miasmic Malignifier terrain omitted); every kit price
   verified on en-EU. Combat Patrol "Maggot Lords" (€139) contents confirmed.

@@ -1,22 +1,21 @@
 import type { Faction } from '../types'
 
 // ---------------------------------------------------------------------------
-// TYRANIDS
-// Prices VERIFIED from warhammer.com EU store (2026-09-10).
-// Points VERIFIED from the Munitorum Field Manual (11th edition) 2026-10-02 —
-// base "1st unit" cost at the default model count, plus the escalating cost for
-// later copies (`pointsEscalated`/`escalateAt`). Both Norns step up on the 2nd
-// copy; Genestealers, Hive Guard, Screamer-Killer, Exocrine and Tyrannofex on
-// the 3rd.
+// TYRANIDS (Xenos)  — full roster, fine-tuned 2026-10-02
+// Points: from the Munitorum Field Manual (11th ed) 2026-10-02 (escalation +
+//   highest-cost wargear). Comprehensive core roster of the 52-datasheet index
+//   (omitting the Forge World Bio-Titans — Harridan 610 / Hierophant 810).
+// Prices: RE-VERIFIED on warhammer.com en-EU (2026-10-02) — several had drifted
+//   from the 2026-09-10 pass (Hive Tyrant/Warriors/Swarmlord €51.50→53, Trygon
+//   €76→80, Hive Guard €67→70, Zoanthropes €64→66, Exocrine €70→74, Horrors of
+//   the Hive €87.50→93, Combat Patrol €135→139). Ripper Swarms aren't sold on
+//   their own (bonus-sprue in gaunt boxes / the Combat Patrol) so their price
+//   stays a placeholder (≈).
+// Combat Patrol: Tyranid Assault Brood (€139) — contents confirmed earlier:
+//   Parasite of Mortrex, 3 Tyrant Guard, a Biovore, 10 Genestealers (+ Spore Mines).
 //
-// Combat Patrol is "Combat Patrol: Tyranid Assault Brood" (€139). Its confirmed
-// contents — Parasite of Mortrex, 3 Tyrant Guard (built as Hive Guard), a
-// Biovore, 3 Spore Mines and 10 Genestealers — are modelled in the value box
-// below (Spore Mines omitted; they are summoned tokens, not a purchase).
-//
-// Neurotyrant + Screamer-Killer both come from the one online "Horrors of the
-// Hive" box (€87.50); the standalone "Screamer-Killer Brood" box is 2 old
-// Carnifex-chassis models and maps to the Carnifexes datasheet, not here.
+// Flavour mutex: only ONE "Hive Tyrant" model per army across the three variants
+// (Hive Tyrant / Winged Hive Tyrant / Swarmlord) via `exclusiveGroup`.
 // ---------------------------------------------------------------------------
 
 export const tyranids: Faction = {
@@ -24,7 +23,7 @@ export const tyranids: Faction = {
   name: 'Tyranids',
   system: 'w40k',
   category: 'xenos',
-  lastVerified: '2026-09-10',
+  lastVerified: '2026-10-02',
   pointsVerified: true,
   // Towering bio-monsters over endless gaunt swarms; synapse characters are few.
   profile: { character: 1, infantry: 4, mounted: 0.5, monster: 4 },
@@ -41,7 +40,8 @@ export const tyranids: Faction = {
       flavor: 5,
       keywords: ['Character', 'Monster', 'Synapse'],
       exclusiveGroup: 'hive-tyrant',
-      kit: { name: 'Hive Tyrant', priceEUR: 51.5, models: 1, verified: true },
+      leads: ['tyrant-guard'],
+      kit: { name: 'Hive Tyrant', priceEUR: 53, models: 1, verified: true },
     },
     {
       id: 'winged-hive-tyrant',
@@ -52,49 +52,7 @@ export const tyranids: Faction = {
       flavor: 5,
       keywords: ['Character', 'Monster', 'Synapse', 'Fly'],
       exclusiveGroup: 'hive-tyrant',
-      kit: { name: 'Winged Hive Tyrant', priceEUR: 51.5, models: 1, verified: true },
-    },
-    {
-      id: 'neurotyrant',
-      name: 'Neurotyrant',
-      role: 'character',
-      points: 120,
-      models: 1,
-      flavor: 4,
-      keywords: ['Character', 'Monster', 'Synapse'],
-      leads: ['zoanthropes'],
-      // Comes in the online "Horrors of the Hive" box together with a
-      // Screamer-Killer — one box covers both (credited via alsoBuilds).
-      kit: {
-        name: 'Horrors of the Hive',
-        priceEUR: 87.5,
-        models: 1,
-        verified: true,
-        onlineOnly: true,
-        alsoBuilds: [{ unitId: 'screamer-killer', models: 1 }],
-      },
-    },
-    {
-      id: 'broodlord',
-      name: 'Broodlord',
-      role: 'character',
-      points: 80,
-      models: 1,
-      flavor: 4,
-      keywords: ['Character', 'Infantry', 'Synapse', 'Leader'],
-      leads: ['genestealers'],
-      kit: { name: 'Broodlord', priceEUR: 37, models: 1, verified: true },
-    },
-    {
-      id: 'tyranid-prime',
-      name: 'Tyranid Prime',
-      role: 'character',
-      points: 75,
-      models: 1,
-      flavor: 3,
-      keywords: ['Character', 'Infantry', 'Synapse', 'Leader'],
-      leads: ['hormagaunts', 'termagants', 'tyranid-warriors'],
-      kit: { name: 'Tyranid Prime with Lash Whip', priceEUR: 34.5, models: 1, verified: true },
+      kit: { name: 'Winged Hive Tyrant', priceEUR: 53, models: 1, verified: true },
     },
     {
       id: 'swarmlord',
@@ -106,7 +64,20 @@ export const tyranids: Faction = {
       flavor: 5,
       keywords: ['Character', 'Monster', 'Epic Hero', 'Synapse'],
       exclusiveGroup: 'hive-tyrant',
-      kit: { name: 'The Swarmlord', priceEUR: 51.5, models: 1, verified: true },
+      leads: ['tyrant-guard'],
+      kit: { name: 'The Swarmlord', priceEUR: 53, models: 1, verified: true },
+    },
+    {
+      id: 'old-one-eye',
+      name: 'Old One Eye',
+      role: 'monster',
+      epicHero: true,
+      points: 130,
+      models: 1,
+      flavor: 4,
+      keywords: ['Monster', 'Epic Hero'],
+      leads: ['carnifex'],
+      kit: { name: 'Old One Eye’s Carnifex Brood', priceEUR: 87, models: 1, verified: true, onlineOnly: true },
     },
     {
       id: 'deathleaper',
@@ -120,6 +91,59 @@ export const tyranids: Faction = {
       kit: { name: 'Deathleaper', priceEUR: 51.5, models: 1, verified: true },
     },
     {
+      id: 'neurotyrant',
+      name: 'Neurotyrant',
+      role: 'character',
+      points: 120,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Monster', 'Synapse'],
+      leads: ['zoanthropes'],
+      // Online "Horrors of the Hive" box builds this + a Screamer-Killer.
+      kit: {
+        name: 'Horrors of the Hive',
+        priceEUR: 93,
+        models: 1,
+        verified: true,
+        onlineOnly: true,
+        alsoBuilds: [{ unitId: 'screamer-killer', models: 1 }],
+      },
+    },
+    {
+      id: 'maleceptor',
+      name: 'Maleceptor',
+      role: 'monster',
+      // MFM: "1st to 2nd 180 / 3rd + 190".
+      points: 180,
+      pointsEscalated: 190,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Monster', 'Synapse'],
+      kit: { name: 'Maleceptor', priceEUR: 74, models: 1, verified: true },
+    },
+    {
+      id: 'broodlord',
+      name: 'Broodlord',
+      role: 'character',
+      points: 80,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Synapse', 'Leader'],
+      leads: ['genestealers'],
+      kit: { name: 'Broodlord', priceEUR: 38.5, models: 1, verified: true },
+    },
+    {
+      id: 'tyranid-prime',
+      name: 'Tyranid Prime',
+      role: 'character',
+      points: 75,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Synapse', 'Leader'],
+      leads: ['hormagaunts', 'termagants', 'tyranid-warriors'],
+      kit: { name: 'Tyranid Prime with Lash Whip', priceEUR: 36, models: 1, verified: true },
+    },
+    {
       id: 'parasite-of-mortrex',
       name: 'Parasite of Mortrex',
       role: 'character',
@@ -127,7 +151,7 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Fly', 'Synapse'],
-      kit: { name: 'Parasite of Mortrex', priceEUR: 34.5, models: 1, verified: true },
+      kit: { name: 'Parasite of Mortrex', priceEUR: 36, models: 1, verified: true },
     },
     // --- Battleline ---
     {
@@ -138,8 +162,7 @@ export const tyranids: Faction = {
       models: 10,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
-      // The Termagants box builds 10 Termagants + 1 bonus Ripper Swarm base
-      // (confirmed on the product page 2026-09-30).
+      // The Termagants box also builds 1 bonus Ripper Swarm base.
       kit: {
         name: 'Termagants',
         priceEUR: 38.5,
@@ -156,7 +179,6 @@ export const tyranids: Faction = {
       models: 10,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
-      // The Hormagaunts box also builds a bonus Ripper Swarm base (verified).
       kit: {
         name: 'Hormagaunts',
         priceEUR: 42,
@@ -164,6 +186,16 @@ export const tyranids: Faction = {
         verified: true,
         alsoBuilds: [{ unitId: 'ripper-swarms', models: 1 }],
       },
+    },
+    {
+      id: 'gargoyles',
+      name: 'Gargoyles',
+      role: 'battleline',
+      points: 75,
+      models: 10,
+      flavor: 2,
+      keywords: ['Battleline', 'Infantry', 'Fly'],
+      kit: { name: 'Gargoyle Brood', priceEUR: 40, models: 10, verified: true },
     },
     // --- Infantry ---
     {
@@ -174,13 +206,13 @@ export const tyranids: Faction = {
       models: 3,
       flavor: 4,
       keywords: ['Infantry', 'Synapse'],
-      kit: { name: 'Tyranid Warriors', priceEUR: 51.5, models: 3, verified: true },
+      kit: { name: 'Tyranid Warriors', priceEUR: 53, models: 3, verified: true },
     },
     {
       id: 'genestealers',
       name: 'Genestealers',
       role: 'infantry',
-      // Box builds 10 (verified 2026-09-30); fielded as a full 10-model unit.
+      // MFM @10 models: "1st to 2nd 140 / 3rd + 150".
       points: 140,
       pointsEscalated: 150,
       models: 10,
@@ -196,7 +228,7 @@ export const tyranids: Faction = {
       models: 3,
       flavor: 3,
       keywords: ['Infantry', 'Monster', 'Synapse'],
-      kit: { name: 'Zoanthropes', priceEUR: 64, models: 3, verified: true },
+      kit: { name: 'Zoanthropes', priceEUR: 66, models: 3, verified: true },
     },
     {
       id: 'von-ryans-leapers',
@@ -216,19 +248,40 @@ export const tyranids: Faction = {
       models: 3,
       flavor: 2,
       keywords: ['Swarm'],
-      // Not sold separately in the current range.
+      // Not sold separately — a bonus sprue in gaunt boxes / the Combat Patrol.
       kit: { name: 'Ripper Swarms', priceEUR: 25, models: 3 },
     },
     {
       id: 'hive-guard',
       name: 'Hive Guard',
       role: 'infantry',
+      // MFM @3 models: "1st to 2nd 80 / 3rd + 90".
       points: 80,
       pointsEscalated: 90,
       models: 3,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Hive Guard', priceEUR: 67, models: 3, verified: true },
+      kit: { name: 'Hive Guard', priceEUR: 70, models: 3, verified: true },
+    },
+    {
+      id: 'venomthropes',
+      name: 'Venomthropes',
+      role: 'infantry',
+      points: 55,
+      models: 3,
+      flavor: 2,
+      keywords: ['Infantry'],
+      kit: { name: 'Venomthropes', priceEUR: 66, models: 3, verified: true },
+    },
+    {
+      id: 'tyrant-guard',
+      name: 'Tyrant Guard',
+      role: 'infantry',
+      points: 80,
+      models: 3,
+      flavor: 3,
+      keywords: ['Infantry', 'Synapse'],
+      kit: { name: 'Tyrant Guard', priceEUR: 70, models: 3, verified: true },
     },
     {
       id: 'biovore',
@@ -246,29 +299,24 @@ export const tyranids: Faction = {
       name: 'Carnifexes',
       role: 'monster',
       points: 180,
-      // The Carnifexes datasheet is a 1-2 model unit; the Carnifex Brood box
-      // builds exactly 2 (€87), so a box = one full 2-model unit, no waste.
       models: 2,
       flavor: 4,
       keywords: ['Monster'],
-      kit: { name: 'Carnifex Brood', priceEUR: 87, models: 2, onlineOnly: true, verified: true },
+      kit: { name: 'Carnifex Brood', priceEUR: 87, models: 2, verified: true, onlineOnly: true },
     },
     {
       id: 'screamer-killer',
       name: 'Screamer-Killer',
       role: 'monster',
+      // MFM: "1st to 2nd 125 / 3rd + 135".
       points: 125,
       pointsEscalated: 135,
       models: 1,
       flavor: 4,
       keywords: ['Monster'],
-      // The Screamer-Killer datasheet (Leviathan sculpt) is only sold in the
-      // online "Horrors of the Hive" box, together with a Neurotyrant — one box
-      // covers both (credited via alsoBuilds). (The "Screamer-Killer Brood" box
-      // is a different thing: 2 old Carnifex-chassis models = a Carnifexes unit.)
       kit: {
         name: 'Horrors of the Hive',
-        priceEUR: 87.5,
+        priceEUR: 93,
         models: 1,
         verified: true,
         onlineOnly: true,
@@ -279,23 +327,24 @@ export const tyranids: Faction = {
       id: 'exocrine',
       name: 'Exocrine',
       role: 'monster',
+      // MFM: "1st to 2nd 135 / 3rd + 145".
       points: 135,
       pointsEscalated: 145,
       models: 1,
       flavor: 4,
       keywords: ['Monster'],
-      kit: { name: 'Exocrine', priceEUR: 70, models: 1, verified: true, onlineOnly: true },
+      kit: { name: 'Exocrine', priceEUR: 74, models: 1, verified: true, onlineOnly: true },
     },
     {
       id: 'tyrannofex',
       name: 'Tyrannofex',
       role: 'monster',
+      // MFM: "1st to 2nd 170 / 3rd + 180". Highest-cost wargear: Rupture Cannon +20.
       points: 170,
       pointsEscalated: 180,
       models: 1,
       flavor: 4,
       keywords: ['Monster'],
-      // Highest-cost wargear per MFM (Rupture Cannon +20).
       wargear: { name: 'Rupture Cannon', points: 20 },
       kit: { name: 'Tyrannofex', priceEUR: 55, models: 1, verified: true },
     },
@@ -307,15 +356,49 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Monster'],
-      kit: { name: 'Trygon', priceEUR: 76, models: 1, verified: true, onlineOnly: true },
+      kit: { name: 'Trygon', priceEUR: 80, models: 1, verified: true, onlineOnly: true },
+    },
+    {
+      id: 'haruspex',
+      name: 'Haruspex',
+      role: 'monster',
+      // MFM: "1st to 2nd 125 / 3rd + 135".
+      points: 125,
+      pointsEscalated: 135,
+      models: 1,
+      flavor: 4,
+      keywords: ['Monster'],
+      // Haruspex / Toxicrene share one kit.
+      kit: { name: 'Haruspex', priceEUR: 74, models: 1, verified: true },
+    },
+    {
+      id: 'toxicrene',
+      name: 'Toxicrene',
+      role: 'monster',
+      points: 120,
+      models: 1,
+      flavor: 3,
+      keywords: ['Monster'],
+      kit: { name: 'Toxicrene', priceEUR: 74, models: 1, verified: true },
+    },
+    {
+      id: 'mawloc',
+      name: 'Mawloc',
+      role: 'monster',
+      points: 130,
+      models: 1,
+      flavor: 3,
+      keywords: ['Monster'],
+      kit: { name: 'Mawloc', priceEUR: 80, models: 1, verified: true },
     },
     {
       id: 'norn-emissary',
       name: 'Norn Emissary',
       role: 'monster',
+      // MFM: "1st unit 250 / 2nd + 270".
       points: 250,
       pointsEscalated: 270,
-      escalateAt: 2, // MFM: "1st unit 250 / 2nd + 270"
+      escalateAt: 2,
       models: 1,
       flavor: 5,
       keywords: ['Monster', 'Synapse'],
@@ -325,13 +408,29 @@ export const tyranids: Faction = {
       id: 'norn-assimilator',
       name: 'Norn Assimilator',
       role: 'monster',
+      // MFM: "1st unit 250 / 2nd + 270".
       points: 250,
       pointsEscalated: 270,
-      escalateAt: 2, // MFM: "1st unit 250 / 2nd + 270"
+      escalateAt: 2,
       models: 1,
       flavor: 5,
       keywords: ['Monster', 'Synapse'],
       kit: { name: 'Norn Assimilator', priceEUR: 97, models: 1, verified: true },
+    },
+    // --- Dedicated Transport ---
+    {
+      id: 'tyrannocyte',
+      name: 'Tyrannocyte',
+      role: 'transport',
+      // MFM: "1st to 3rd 80 / 4th + 90" — escalates on the 4th copy.
+      points: 80,
+      pointsEscalated: 90,
+      escalateAt: 4,
+      models: 1,
+      flavor: 2,
+      keywords: ['Monster', 'Transport'],
+      transports: ['termagants', 'hormagaunts', 'gargoyles', 'genestealers', 'tyranid-warriors', 'zoanthropes', 'venomthropes'],
+      kit: { name: 'Tyrannocyte', priceEUR: 66, models: 1, verified: true },
     },
   ],
   valueBoxes: [
@@ -341,35 +440,15 @@ export const tyranids: Faction = {
       priceEUR: 139,
       verified: true,
       url: 'https://www.warhammer.com/en-EU/shop/combat-patrol-tyranid-assault-brood-2025',
-      // Contents confirmed on the product page 2026-09-10. The 3 Tyrant Guard
-      // are built as Hive Guard; the box also includes 3 Spore Mines (summoned
-      // tokens, not fielded as a purchase) which are omitted.
+      // Contents confirmed on the product page. The box's Tyrant Guard models can
+      // also build Hive Guard; Spore Mines (summoned tokens) are omitted.
       builds: [
         { unitId: 'parasite-of-mortrex', models: 1 },
-        { unitId: 'hive-guard', models: 3 },
+        { unitId: 'tyrant-guard', models: 3 },
         { unitId: 'biovore', models: 1 },
         { unitId: 'genestealers', models: 10 },
       ],
     },
   ],
-  competitiveLists: {
-    // ~2000 pts Invasion Fleet style swarm — monsters + gaunts + genestealers.
-    // In-collection units, real Wahapedia points. Totals 1990 pts.
-    2000: [
-      { unitId: 'winged-hive-tyrant', count: 1 },
-      { unitId: 'neurotyrant', count: 1 },
-      { unitId: 'broodlord', count: 1 },
-      { unitId: 'termagants', count: 3 },
-      { unitId: 'genestealers', count: 3 },
-      { unitId: 'von-ryans-leapers', count: 2 },
-      { unitId: 'zoanthropes', count: 1 },
-      { unitId: 'ripper-swarms', count: 2 },
-      { unitId: 'exocrine', count: 1 },
-      { unitId: 'screamer-killer', count: 1 },
-      { unitId: 'carnifex', count: 2 },
-      { unitId: 'hive-guard', count: 2 },
-      { unitId: 'tyrannofex', count: 1 },
-      { unitId: 'trygon', count: 1 },
-    ],
-  },
+  competitiveLists: {},
 }
