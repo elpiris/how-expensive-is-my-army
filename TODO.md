@@ -39,7 +39,13 @@ longer sells one. Bump each faction's `lastVerified`.
   box, foot/jump Chaos Lords, Vindicator, Master of Possession). Combat Patrol
   (€139) contents confirmed (1 Master of Possession, 5 Possessed, 10 Legionaries,
   10 Cultists). TODO: confirm the best-effort kit prices on individual product pages.
-- **Chaos Knights — TODO.** Same (10 units; superheavy, no Combat Patrol).
+- **Chaos Knights — DONE (2026-10-02).** Points for all 20 MFM datasheets verified;
+  prices verified on en-EU. Active roster is the 12 affordable plastic/cheap units
+  (6 Questoris-class Knights incl. the newly-added Ruinator, 5 War Dogs, Moirax);
+  the 8 Forge World super-heavy Titans (€175–593 resin) are omitted on purpose —
+  they have decent points-per-euro and would dominate the generator, breaking the
+  "affordable above all" ethos (data in git history if ever wanted). No Combat
+  Patrol exists.
 - **Aeldari — TODO.** Same (curated ~17 units).
 - **Necrons — prices PENDING refresh.** Points verified (Wahapedia→MFM); kit
   prices mostly still at **2026-09-10** values and seen to drift (Necron Warriors
