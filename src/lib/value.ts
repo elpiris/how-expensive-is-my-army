@@ -42,6 +42,11 @@ export function copyPoints(unit: Unit, n: number): number {
   return n >= escalateAt(unit) ? unitPointsEscalated(unit) : unitPoints(unit)
 }
 
+/** Extra points the `n`-th copy pays over the base rate (0 if not escalated). */
+export function copySurcharge(unit: Unit, n: number): number {
+  return copyPoints(unit, n) - unitPoints(unit)
+}
+
 /** Total points for `count` copies, applying the escalation threshold. */
 export function entryPoints(unit: Unit, count: number): number {
   const nBase = Math.min(count, escalateAt(unit) - 1)

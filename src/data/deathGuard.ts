@@ -231,6 +231,9 @@ export const deathGuard: Faction = {
       models: 1,
       flavor: 2,
       keywords: ['Vehicle', 'Transport'],
+      // Wahapedia: 12 Death Guard Infantry, no Terminators — so Plague Marines
+      // or Poxwalkers (not the Terminator units; Plaguebearers aren't Death Guard).
+      transports: ['plague-marines', 'poxwalkers'],
       kit: { name: 'Chaos Rhino', priceEUR: 50, models: 1, verified: true },
     },
     // --- Monster ---

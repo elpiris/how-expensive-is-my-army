@@ -123,6 +123,16 @@ function augmentList(
     entries
       .filter((e) => e.unit.exclusiveGroup === u.exclusiveGroup)
       .reduce((s, e) => s + e.count, 0) === 0
+  // A Dedicated Transport is only ever added to carry a unit already in the
+  // list, and (as a simplification) each transport carries a single unit — so
+  // it's addable only while a transportable unit remains uncovered.
+  const transportOK = (u: Unit) => {
+    if (u.role !== 'transport') return true
+    const carriable = entries
+      .filter((e) => (u.transports ?? []).includes(e.unit.id))
+      .reduce((s, e) => s + e.count, 0)
+    return carriable > countIn(entries, u.id)
+  }
 
   // 1. Combat Patrol — ensure its units are present, cheapest first, adding only
   //    what fits the budget (the rest waits for a bigger bracket). CP units are
@@ -213,6 +223,7 @@ function augmentList(
       (u) =>
         withinSize(u) &&
         groupFree(u) &&
+        transportOK(u) &&
         nextCopyCost(u) <= remaining &&
         countIn(entries, u.id) < capFor(u),
     )

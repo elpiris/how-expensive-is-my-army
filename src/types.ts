@@ -76,6 +76,12 @@ export interface Unit {
    */
   leads?: string[]
   /**
+   * Unit ids a Dedicated Transport can carry (from Wahapedia). A transport is
+   * only ever added to carry a unit already in the list, and — as a
+   * simplification of the real rules — each transport carries a single unit.
+   */
+  transports?: string[]
+  /**
    * Mutually-exclusive flavour group: at most ONE model total may be taken across
    * all units sharing this tag (e.g. the three Hive Tyrant variants).
    */

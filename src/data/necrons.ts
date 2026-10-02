@@ -201,6 +201,8 @@ export const necrons: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Vehicle', 'Transport'],
+      // Wahapedia: carries 10 Necron Warrior models (+1 infantry character).
+      transports: ['necron-warriors'],
       kit: { name: 'Ghost Ark', priceEUR: 55, models: 1, verified: true },
     },
     {

@@ -277,6 +277,13 @@ table.data tfoot td {
   margin-left: 6px;
   white-space: nowrap;
 }
+.esc {
+  color: var(--accent);
+  font-size: 12px;
+  margin-left: 6px;
+  white-space: nowrap;
+  cursor: help;
+}
 
 /* Tags */
 .tag {

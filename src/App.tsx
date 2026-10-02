@@ -2,7 +2,13 @@ import { Fragment, useMemo, useState } from 'react'
 import { factions, getFaction } from './data'
 import { generateList, generateEscalation, BRACKETS } from './lib/generateList'
 import { costList, discountedTotal, purchaseDelta, sumLines } from './lib/costList'
-import { copyPoints, entryPoints, isCharacter } from './lib/value'
+import { copyPoints, copySurcharge, entryPoints, escalateAt, isCharacter } from './lib/value'
+
+/** "2nd+" / "3rd+" / "4th+" — the copy at which a datasheet's cost escalates. */
+function ordinalPlus(n: number): string {
+  const s = n === 2 ? '2nd' : n === 3 ? '3rd' : n === 4 ? '4th' : `${n}th`
+  return `${s}+`
+}
 import type { CostBreakdown, DiscountPercent, GeneratedList, ListEntry, PurchaseLine } from './types'
 
 const DISCOUNTS: DiscountPercent[] = [0, 10, 15, 20]
@@ -93,6 +99,14 @@ function ListPanel({ list }: { list: GeneratedList }) {
                           {e.unit.wargear && (
                             <span className="wg">
                               + {e.unit.wargear.name} ({e.unit.wargear.points})
+                            </span>
+                          )}
+                          {copySurcharge(e.unit, i + 1) > 0 && (
+                            <span
+                              className="esc"
+                              title="Repeat-unit surcharge — later copies of a datasheet cost more (Munitorum Field Manual escalating cost)"
+                            >
+                              + {copySurcharge(e.unit, i + 1)} ({ordinalPlus(escalateAt(e.unit))} unit)
                             </span>
                           )}
                         </td>
