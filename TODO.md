@@ -10,14 +10,18 @@ Adeptus Mechanicus; **Chaos** — Death Guard, Chaos Space Marines, Chaos Knight
 ## Data verification (highest priority — accuracy)
 
 ### New factions: verify best-effort prices + Combat Patrol contents
-The 6 factions added 2026-10-02 (Custodes, Sororitas, Mechanicus, Chaos Space
-Marines, Chaos Knights, Aeldari) have **MFM-verified points** but **best-effort
-kit prices** (every kit `verified: false` → "≈ price" tag) and **approximate
-Combat Patrol contents/prices**. Do a warhammer.com pass per faction: set real
-`priceEUR` + drop the flag, and confirm each Combat Patrol's units/price (Chaos
-Knights intentionally has none). Also sanity-check a few assumed box model-counts
-and the shared-kit mappings (e.g. Custodian Guard/Wardens, Kataphron
-Breachers/Destroyers, Sicarian Infiltrators/Ruststalkers share one kit).
+Fine-tune each 2026-10-02 faction against warhammer.com: set real `priceEUR` +
+drop the `verified:false` flag, confirm the Combat Patrol units/price, and
+sanity-check box model-counts + shared-kit mappings.
+- **Adeptus Custodes — DONE (2026-10-02).** Full 31-datasheet MFM roster; prices
+  verified for every GW-sold kit; Forge World / battle-group-only kits (Aquilon,
+  Agamatus, Caladius, both FW Contemptors, Telemon, Pallas, Coronus, Anathema
+  Rhino, Knight-Centura) stay best-effort (not sold standalone). **GW discontinued
+  the Custodes Combat Patrol** — only the heavy €180 Support Battle Group remains,
+  so the faction has no value box (`ignoreSizeCap` lets its 200+pt troops field
+  below 2000).
+- **Still best-effort (MFM points only):** Adepta Sororitas, Adeptus Mechanicus,
+  Chaos Space Marines, Chaos Knights, Aeldari.
 
 ### Refresh prices across all kits
 Necron & Tyranid kit prices are mostly still at their **2026-09-10** values and
