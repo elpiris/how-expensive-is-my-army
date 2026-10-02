@@ -25,6 +25,8 @@ export const deathGuard: Faction = {
   category: 'chaos',
   lastVerified: '2026-10-01',
   pointsVerified: true,
+  // Resilient Plague Marine infantry + daemon engines, a Daemon Primarch apex.
+  profile: { character: 1.5, infantry: 5, vehicle: 2.5, monster: 1 },
   blurb:
     'Nurgle’s plague legion. Resilient Plague Marines, shambling Poxwalkers and daemon engines that grind the foe down.',
   units: [

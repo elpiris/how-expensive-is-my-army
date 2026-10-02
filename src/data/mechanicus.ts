@@ -20,6 +20,8 @@ export const mechanicus: Faction = {
   category: 'imperium',
   lastVerified: '2026-10-02',
   pointsVerified: true,
+  // Skitarii legions + war engines; Tech-Priests are support, not the bulk.
+  profile: { character: 1, infantry: 5, mounted: 2, vehicle: 3 },
   blurb:
     'The Machine God’s cult. Cybernetic Skitarii legions, lumbering war engines and the relentless logic of the Omnissiah.',
   units: [

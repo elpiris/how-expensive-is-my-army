@@ -33,6 +33,8 @@ export const custodes: Faction = {
   lastVerified: '2026-10-02',
   pointsVerified: true,
   ignoreSizeCap: true,
+  // Elite golden warriors + war machines; few, individually mighty HQs.
+  profile: { character: 1.5, infantry: 5, mounted: 1.5, vehicle: 2 },
   blurb:
     'The Emperor’s golden guardians. A handful of near-peerless warriors, each worth a squad of lesser soldiers.',
   units: [

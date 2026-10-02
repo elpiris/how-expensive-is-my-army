@@ -115,6 +115,22 @@ export interface CompetitiveEntry {
 /** Top-level grand-alliance grouping for the faction dropdown. */
 export type FactionCategory = 'imperium' | 'chaos' | 'xenos'
 
+/**
+ * Coarse composition bucket a unit falls into, for shaping list generation.
+ * (Monsters/vehicles win over the CHARACTER keyword, so a Hive Tyrant counts as
+ * a monster, not a character.)
+ */
+export type UnitCategory = 'character' | 'infantry' | 'mounted' | 'vehicle' | 'monster'
+
+/**
+ * An army's thematic "shape": relative target share of a list's points per
+ * category. Values are weights (need not sum to anything — they're normalised),
+ * and an omitted/0 category is deliberately sparse. The generator softly biases
+ * the fill toward these shares, so e.g. character-light armies stop piling up
+ * cheap HQs. Omit entirely to leave a faction unshaped.
+ */
+export type FactionProfile = Partial<Record<UnitCategory, number>>
+
 export interface Faction {
   id: string
   name: string
@@ -131,6 +147,8 @@ export interface Faction {
    * would otherwise leave nothing to field at 500/1000/1500.
    */
   ignoreSizeCap?: boolean
+  /** Thematic composition shape — biases list generation (see FactionProfile). */
+  profile?: FactionProfile
   blurb?: string
   units: Unit[]
   valueBoxes: ValueBox[]

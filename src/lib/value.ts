@@ -1,4 +1,4 @@
-import type { Unit } from '../types'
+import type { Unit, UnitCategory } from '../types'
 
 // ---------------------------------------------------------------------------
 // Value metrics — the heart of the "affordable above all" philosophy.
@@ -71,4 +71,18 @@ export function isCharacter(unit: Unit): boolean {
     unit.role === 'character' ||
     !!unit.keywords?.some((k) => k.toLowerCase() === 'character')
   )
+}
+
+/**
+ * Coarse composition bucket for list shaping. A big monster/vehicle wins over the
+ * CHARACTER keyword (so a Hive Tyrant or Mortarion counts as a monster, not a
+ * cheap HQ), which keeps the profile's "character" share about actual HQs.
+ */
+export function unitCategory(unit: Unit): UnitCategory {
+  const kw = unit.keywords?.map((k) => k.toLowerCase()) ?? []
+  if (unit.role === 'monster' || kw.includes('monster')) return 'monster'
+  if (unit.role === 'vehicle' || unit.role === 'transport' || kw.includes('vehicle')) return 'vehicle'
+  if (unit.role === 'mounted') return 'mounted'
+  if (isCharacter(unit)) return 'character'
+  return 'infantry'
 }

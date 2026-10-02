@@ -14,6 +14,8 @@ export const aeldari: Faction = {
   category: 'xenos',
   lastVerified: '2026-10-02',
   pointsVerified: true,
+  // Aspect Warrior infantry + graceful grav-tanks, led by a few seers/autarchs.
+  profile: { character: 1.5, infantry: 5, mounted: 1, vehicle: 2.5, monster: 0.5 },
   blurb:
     'The dying elder race. Lightning-fast Aspect Warriors, psychic seers and graceful grav-tanks — fragile but peerless.',
   units: [

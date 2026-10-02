@@ -19,6 +19,8 @@ export const sororitas: Faction = {
   category: 'imperium',
   lastVerified: '2026-10-02',
   pointsVerified: true,
+  // Massed Sisters + holy war machines, a few leading characters.
+  profile: { character: 1.5, infantry: 5, mounted: 1, vehicle: 2.5 },
   blurb:
     'The Emperor’s zealous Sisters of Battle. Faith, flamer and bolter — resilient squads backed by holy war machines.',
   units: [

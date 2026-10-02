@@ -1,5 +1,6 @@
 import type { Faction, GeneratedList, ListEntry, PointsBracket, Unit } from '../types'
-import { copyPoints, entryPoints, isCharacter, pointsPerEuro } from './value'
+import { copyPoints, entryPoints, isCharacter, pointsPerEuro, unitCategory } from './value'
+import type { UnitCategory } from '../types'
 
 // ---------------------------------------------------------------------------
 // List generation — "affordable above all", with a thematic backbone.
@@ -134,6 +135,27 @@ function augmentList(
     return carriable > countIn(entries, u.id)
   }
 
+  // Composition profile — softly steer the list toward the army's thematic shape
+  // (target share of points per category). Unshaped factions keep a flat bias.
+  const profile = faction.profile
+  const profileSum = profile ? Object.values(profile).reduce((a, b) => a + (b ?? 0), 0) : 0
+  const targetPts = (cat: UnitCategory) =>
+    profile && profileSum > 0 ? ((profile[cat] ?? 0) / profileSum) * target : null
+  const pointsInCat = (cat: UnitCategory) =>
+    entries
+      .filter((e) => unitCategory(e.unit) === cat)
+      .reduce((s, e) => s + entryPoints(e.unit, e.count), 0)
+  // A gentle nudge: >1 when the unit's category is under its target share, easing
+  // toward a floor once it's over. Soft on purpose — an army that's meant to be
+  // character- or monster-heavy still fields 1–2 big centrepieces happily; this
+  // only stops a category from running away (e.g. a list of 15 cheap HQs).
+  const profileFactor = (u: Unit) => {
+    const tgt = targetPts(unitCategory(u))
+    if (tgt === null) return 1
+    const f = (tgt - pointsInCat(unitCategory(u))) / Math.max(tgt, 1) + 0.15
+    return Math.max(0.03, Math.min(1.2, f))
+  }
+
   // 1. Combat Patrol — ensure its units are present, cheapest first, adding only
   //    what fits the budget (the rest waits for a bigger bracket). CP units are
   //    exempt from the size cap.
@@ -194,6 +216,10 @@ function augmentList(
   for (const e of [...entries]) {
     if (!leadableSet.has(e.unit.id) || hasLeaderFor(e.unit.id)) continue
     if (rand() > 0.75) continue
+    // Respect a character-light profile: stop attaching extra HQs once characters
+    // run well past their share (keeps a sane cap without flattening HQ-led armies).
+    const charTgt = targetPts('character')
+    if (charTgt !== null && pointsInCat('character') > 1.3 * charTgt) continue
     const candidates = faction.units.filter(
       (u) =>
         (u.leads ?? []).includes(e.unit.id) &&
@@ -214,7 +240,8 @@ function augmentList(
   }
 
   // 5. Fill the rest with the best points-per-euro kits.
-  const weight = (u: Unit) => Math.pow(pointsPerEuro(u), 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5))
+  const weight = (u: Unit) =>
+    Math.pow(pointsPerEuro(u), 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5)) * profileFactor(u)
   let guard = 0
   while (guard++ < 500) {
     const remaining = target - pointsOf(entries)

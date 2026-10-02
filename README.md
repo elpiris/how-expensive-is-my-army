@@ -24,6 +24,11 @@ Built with **Vite + React + TypeScript**.
   faction's value box (Combat Patrol) when it has one, keeps a battleline backbone,
   gives leadable units a Leader, and respects the official MFM unit limits (max 3
   of a datasheet, 6 for Battleline at 2000; Epic Heroes unique).
+- **Army composition profiles:** each faction has a thematic "shape" (target share
+  of points across characters / infantry / mounted / vehicles / monsters), so lists
+  come out in-character — Tyranids lean on monsters + swarms, Chaos Knights are all
+  walkers, Mechanicus/Custodes favour troops and machines over HQs — rather than
+  every army defaulting to the same mix.
 - **Accurate points:** sourced from the **Munitorum Field Manual** (11th ed),
   including each datasheet's **escalating cost** for repeat copies (a unit can step
   up on its 2nd, 3rd or 4th copy — shown on the list row) and the single
@@ -112,6 +117,8 @@ src/
   Characters can `leads: [unitId, …]`; transports `transports: [unitId, …]`.
 - **Add a faction:** create `src/data/<faction>.ts` exporting a `Faction` (with a
   `category` of `imperium` / `chaos` / `xenos`), then add it to `src/data/index.ts`.
+  Optionally give it a `profile` (relative target share of points per category) to
+  shape its lists; omit it to leave the faction unshaped.
 - **Add a value box:** add a `ValueBox` to the faction's `valueBoxes`, listing what
   it `builds` (unit id + model count). Leave `valueBoxes: []` if the faction has no
   Combat Patrol.

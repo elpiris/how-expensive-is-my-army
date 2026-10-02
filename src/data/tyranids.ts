@@ -26,6 +26,8 @@ export const tyranids: Faction = {
   category: 'xenos',
   lastVerified: '2026-09-10',
   pointsVerified: true,
+  // Towering bio-monsters over endless gaunt swarms; synapse characters are few.
+  profile: { character: 1, infantry: 4, mounted: 0.5, monster: 4 },
   blurb:
     'The Great Devourer. Endless broods of gaunts screening towering bio-titans and synapse creatures.',
   units: [

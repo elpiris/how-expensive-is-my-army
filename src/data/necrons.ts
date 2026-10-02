@@ -22,6 +22,8 @@ export const necrons: Faction = {
   category: 'xenos',
   lastVerified: '2026-09-10',
   pointsVerified: true,
+  // Reanimating infantry legions + vehicles, with towering C'tan apex monsters.
+  profile: { character: 1.5, infantry: 4.5, mounted: 1, vehicle: 2.5, monster: 1 },
   blurb:
     'Ancient robotic legions of the Aeons. Durable infantry, reanimating warriors and towering C’tan shards.',
   units: [

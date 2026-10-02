@@ -14,6 +14,8 @@ export const chaosSpaceMarines: Faction = {
   category: 'chaos',
   lastVerified: '2026-10-02',
   pointsVerified: true,
+  // Traitor legionaries + cultist hordes + roaring daemon engines.
+  profile: { character: 1.5, infantry: 4, mounted: 1, vehicle: 3 },
   blurb:
     'The Heretic Astartes. Traitor legions of twisted Space Marines, cultist hordes and roaring daemon engines.',
   units: [
