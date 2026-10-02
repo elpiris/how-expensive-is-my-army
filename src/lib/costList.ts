@@ -140,7 +140,9 @@ export function costList(list: GeneratedList): CostBreakdown {
       isValueBox: false,
       onlineOnly: !!unit.kit.onlineOnly,
       verified: !!unit.kit.verified,
-      covers: [`${netModels}× ${unit.name}`],
+      // Describe ONE box (the quantity column says how many) so the label is
+      // correct both here and when an escalation step shows only the boxes added.
+      covers: [`${unit.kit.models}× ${unit.name}`],
       url: unit.kit.url,
     })
     for (const ab of unit.kit.alsoBuilds ?? []) {
