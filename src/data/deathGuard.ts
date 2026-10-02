@@ -1,21 +1,16 @@
 import type { Faction } from '../types'
 
 // ---------------------------------------------------------------------------
-// DEATH GUARD
-// Prices VERIFIED from warhammer.com EU store (en-FI, euros) 2026-10-01.
-// Points VERIFIED from the Munitorum Field Manual (11th edition) 2026-10-02
-// (base "1st unit" cost at the default model count, plus the escalating cost
-// for later copies via `pointsEscalated`/`escalateAt`). Keywords + LEADER data
-// from Wahapedia. The Chaos Rhino escalates only on its 4th copy; Deathshroud,
-// Foetid Bloat-drone, Plagueburst Crawler, Blightlord Terminators and the Great
-// Unclean One on the 3rd.
-//
-// Notes:
-//  - Combat Patrol: Death Guard ("Maggot Lords") contents confirmed.
-//  - Some characters only come in online-only / combo boxes (Lord of Contagion;
-//    the Malignant Plaguecaster shares the online "Chosen of Mortarion" box with
-//    a Noxious Blightbringer + Plague Marine Champion, so a lone one is poor
-//    value — reflected by the whole-box costing).
+// DEATH GUARD (Chaos)  — full roster, fine-tuned 2026-10-02
+// Points: ALL datasheets from the Munitorum Field Manual (11th ed) 2026-10-02
+//   (incl. the Nurgle daemon units in the DG index), with escalation thresholds
+//   + highest-cost wargear. The Miasmic Malignifier (terrain) is omitted.
+// Prices: warhammer.com en-EU (2026-10-02), verified for every kit. The online
+//   "Chosen of Mortarion" box (€60) builds the Malignant Plaguecaster + Noxious
+//   Blightbringer (credited via alsoBuilds).
+// Combat Patrol: Death Guard ("Maggot Lords", €139) — contents confirmed on the
+//   product page: 1 Lord of Virulence, 1 Tallyman, 1 Chaos Rhino, 3 Deathshroud,
+//   7 Plague Marines.
 // ---------------------------------------------------------------------------
 
 export const deathGuard: Faction = {
@@ -23,14 +18,25 @@ export const deathGuard: Faction = {
   name: 'Death Guard',
   system: 'w40k',
   category: 'chaos',
-  lastVerified: '2026-10-01',
+  lastVerified: '2026-10-02',
   pointsVerified: true,
-  // Resilient Plague Marine infantry + daemon engines, a Daemon Primarch apex.
-  profile: { character: 1.5, infantry: 5, vehicle: 2.5, monster: 1 },
+  // Resilient Plague Marine infantry + daemon engines, with Nurgle monsters apex.
+  profile: { character: 1.5, infantry: 5, mounted: 0.5, vehicle: 2.5, monster: 1.5 },
   blurb:
     'Nurgle’s plague legion. Resilient Plague Marines, shambling Poxwalkers and daemon engines that grind the foe down.',
   units: [
-    // --- Characters / Epic Heroes ---
+    // --- Epic Heroes ---
+    {
+      id: 'mortarion',
+      name: 'Mortarion',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 375,
+      models: 1,
+      flavor: 5,
+      keywords: ['Character', 'Monster', 'Daemon', 'Epic Hero'],
+      kit: { name: 'Mortarion, Daemon Primarch of Nurgle', priceEUR: 140.5, models: 1, verified: true },
+    },
     {
       id: 'typhus',
       name: 'Typhus',
@@ -41,19 +47,9 @@ export const deathGuard: Faction = {
       flavor: 5,
       keywords: ['Character', 'Infantry', 'Terminator', 'Epic Hero'],
       leads: ['blightlord-terminators', 'deathshroud-terminators', 'poxwalkers'],
-      kit: { name: 'Typhus', priceEUR: 38.5, models: 1, verified: true },
+      kit: { name: 'Typhus, Herald of the Plague God', priceEUR: 38.5, models: 1, verified: true },
     },
-    {
-      id: 'mortarion',
-      name: 'Mortarion',
-      role: 'epic-hero',
-      epicHero: true,
-      points: 375,
-      models: 1,
-      flavor: 5,
-      keywords: ['Character', 'Monster', 'Epic Hero'],
-      kit: { name: 'Mortarion, Daemon Primarch of Nurgle', priceEUR: 140.5, models: 1, verified: true },
-    },
+    // --- Characters ---
     {
       id: 'lord-of-contagion',
       name: 'Lord of Contagion',
@@ -63,7 +59,7 @@ export const deathGuard: Faction = {
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Terminator', 'Leader'],
       leads: ['blightlord-terminators', 'deathshroud-terminators'],
-      kit: { name: 'Lord of Contagion', priceEUR: 38.5, models: 1, verified: true, onlineOnly: true },
+      kit: { name: 'Lord of Contagion', priceEUR: 38.5, models: 1, verified: true },
     },
     {
       id: 'lord-of-virulence',
@@ -77,6 +73,17 @@ export const deathGuard: Faction = {
       kit: { name: 'Lord of Virulence', priceEUR: 36, models: 1, verified: true },
     },
     {
+      id: 'lord-of-poxes',
+      name: 'Lord of Poxes',
+      role: 'character',
+      points: 65,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['plague-marines'],
+      kit: { name: 'Lord of Poxes', priceEUR: 36, models: 1, verified: true },
+    },
+    {
       id: 'malignant-plaguecaster',
       name: 'Malignant Plaguecaster',
       role: 'character',
@@ -85,8 +92,33 @@ export const deathGuard: Faction = {
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
       leads: ['plague-marines', 'poxwalkers'],
-      // Online "Chosen of Mortarion" box builds this + a Blightbringer + Champion.
-      kit: { name: 'Chosen of Mortarion', priceEUR: 60, models: 1, verified: true, onlineOnly: true },
+      // Online "Chosen of Mortarion" box builds this + a Noxious Blightbringer.
+      kit: {
+        name: 'Chosen of Mortarion',
+        priceEUR: 60,
+        models: 1,
+        verified: true,
+        onlineOnly: true,
+        alsoBuilds: [{ unitId: 'noxious-blightbringer', models: 1 }],
+      },
+    },
+    {
+      id: 'noxious-blightbringer',
+      name: 'Noxious Blightbringer',
+      role: 'character',
+      points: 50,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['plague-marines', 'poxwalkers'],
+      kit: {
+        name: 'Chosen of Mortarion',
+        priceEUR: 60,
+        models: 1,
+        verified: true,
+        onlineOnly: true,
+        alsoBuilds: [{ unitId: 'malignant-plaguecaster', models: 1 }],
+      },
     },
     {
       id: 'biologus-putrifier',
@@ -132,12 +164,22 @@ export const deathGuard: Faction = {
       leads: ['plague-marines'],
       kit: { name: 'Foul Blightspawn', priceEUR: 27, models: 1, verified: true },
     },
+    {
+      id: 'icon-bearer',
+      name: 'Icon Bearer',
+      role: 'character',
+      points: 45,
+      models: 1,
+      flavor: 2,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['plague-marines'],
+      kit: { name: 'Icon Bearer', priceEUR: 27, models: 1, verified: true },
+    },
     // --- Battleline ---
     {
       id: 'plague-marines',
       name: 'Plague Marines',
       role: 'battleline',
-      // Box builds 7 (confirmed); fielded as a full 7-model unit.
       points: 125,
       models: 7,
       flavor: 4,
@@ -145,30 +187,21 @@ export const deathGuard: Faction = {
       kit: { name: 'Plague Marines', priceEUR: 51, models: 7, verified: true },
     },
     {
-      id: 'plaguebearers',
-      name: 'Plaguebearers',
-      role: 'battleline',
-      points: 115,
-      models: 10,
-      flavor: 3,
-      keywords: ['Battleline', 'Infantry', 'Daemon'],
-      kit: { name: 'Plaguebearers', priceEUR: 36, models: 10, verified: true },
-    },
-    // --- Infantry ---
-    {
       id: 'poxwalkers',
       name: 'Poxwalkers',
-      role: 'infantry',
+      role: 'battleline',
       points: 65,
       models: 10,
       flavor: 3,
-      keywords: ['Infantry'],
+      keywords: ['Battleline', 'Infantry'],
       kit: { name: 'Poxwalkers', priceEUR: 34, models: 10, verified: true },
     },
+    // --- Infantry ---
     {
       id: 'deathshroud-terminators',
       name: 'Deathshroud Terminators',
       role: 'infantry',
+      // MFM @3 models: "1st to 2nd 150 / 3rd + 160".
       points: 150,
       pointsEscalated: 160,
       models: 3,
@@ -180,7 +213,6 @@ export const deathGuard: Faction = {
       id: 'blightlord-terminators',
       name: 'Blightlord Terminators',
       role: 'infantry',
-      // Box builds 5; unit is 3-5-10, fielded as a box-filling 5.
       // MFM @5 models: "1st to 2nd 185 / 3rd + 215".
       points: 185,
       pointsEscalated: 215,
@@ -189,27 +221,114 @@ export const deathGuard: Faction = {
       keywords: ['Infantry', 'Terminator'],
       kit: { name: 'Blightlord Terminators', priceEUR: 53, models: 5, verified: true },
     },
-    // --- Vehicles / daemon engines ---
     {
-      id: 'plagueburst-crawler',
-      name: 'Plagueburst Crawler',
-      role: 'vehicle',
-      // MFM: "1st to 2nd 170 / 3rd + 200".
-      points: 170,
-      pointsEscalated: 200,
-      models: 1,
-      flavor: 5,
-      keywords: ['Vehicle', 'Daemon Engine'],
-      kit: { name: 'Plagueburst Crawler', priceEUR: 67, models: 1, verified: true },
+      id: 'plaguebearers',
+      name: 'Plaguebearers',
+      role: 'infantry',
+      points: 115,
+      models: 10,
+      flavor: 3,
+      keywords: ['Infantry', 'Daemon'],
+      kit: { name: 'Plaguebearers', priceEUR: 36, models: 10, verified: true },
     },
+    {
+      id: 'nurglings',
+      name: 'Nurglings',
+      role: 'infantry',
+      points: 45,
+      models: 3,
+      flavor: 2,
+      keywords: ['Infantry', 'Daemon', 'Swarm'],
+      kit: { name: 'Nurglings', priceEUR: 34, models: 3, verified: true },
+    },
+    // --- Mounted (daemon beasts / cavalry) ---
+    {
+      id: 'beasts-of-nurgle',
+      name: 'Beasts of Nurgle',
+      role: 'mounted',
+      // MFM: 1 model 70, 2 models 140 (box builds 1).
+      points: 70,
+      models: 1,
+      flavor: 3,
+      keywords: ['Mounted', 'Daemon'],
+      kit: { name: 'Beast of Nurgle', priceEUR: 46.5, models: 1, verified: true },
+    },
+    {
+      id: 'plague-drones',
+      name: 'Plague Drones',
+      role: 'mounted',
+      // MFM: 3 models 110, 6 models 220.
+      points: 110,
+      models: 3,
+      flavor: 3,
+      keywords: ['Mounted', 'Daemon', 'Fly'],
+      kit: { name: 'Plague Drones', priceEUR: 53, models: 3, verified: true },
+    },
+    // --- Monsters ---
+    {
+      id: 'daemon-prince',
+      name: 'Daemon Prince of Nurgle',
+      role: 'monster',
+      points: 185,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Monster', 'Daemon'],
+      kit: { name: 'Daemon Prince', priceEUR: 74, models: 1, verified: true },
+    },
+    {
+      id: 'daemon-prince-winged',
+      name: 'Daemon Prince of Nurgle with Wings',
+      role: 'monster',
+      points: 160,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Monster', 'Daemon', 'Fly'],
+      kit: { name: 'Daemon Prince', priceEUR: 74, models: 1, verified: true },
+    },
+    {
+      id: 'great-unclean-one',
+      name: 'Great Unclean One',
+      role: 'monster',
+      // MFM: "1st to 2nd 265 / 3rd + 280".
+      points: 265,
+      pointsEscalated: 280,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Monster', 'Daemon'],
+      kit: { name: 'Great Unclean One', priceEUR: 139, models: 1, verified: true },
+    },
+    {
+      id: 'rotigus',
+      name: 'Rotigus',
+      role: 'monster',
+      points: 280,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Monster', 'Daemon'],
+      kit: { name: 'Rotigus', priceEUR: 139, models: 1, verified: true },
+    },
+    // --- Daemon engines / vehicles ---
     {
       id: 'foetid-bloat-drone',
       name: 'Foetid Bloat-drone',
       role: 'vehicle',
+      // MFM: "1st to 2nd 100 / 3rd + 110".
       points: 100,
       pointsEscalated: 110,
       models: 1,
       flavor: 4,
+      keywords: ['Vehicle', 'Daemon Engine', 'Fly'],
+      kit: { name: 'Foetid Bloat-drone', priceEUR: 51, models: 1, verified: true },
+    },
+    {
+      id: 'foetid-bloat-drone-launcher',
+      name: 'Foetid Bloat-drone with Heavy Blight Launcher',
+      role: 'vehicle',
+      // MFM: "1st to 2nd 125 / 3rd + 135".
+      points: 125,
+      pointsEscalated: 135,
+      models: 1,
+      flavor: 3,
       keywords: ['Vehicle', 'Daemon Engine', 'Fly'],
       kit: { name: 'Foetid Bloat-drone', priceEUR: 51, models: 1, verified: true },
     },
@@ -224,32 +343,104 @@ export const deathGuard: Faction = {
       kit: { name: 'Myphitic Blight-hauler', priceEUR: 23.5, models: 1, verified: true },
     },
     {
+      id: 'plagueburst-crawler',
+      name: 'Plagueburst Crawler',
+      role: 'vehicle',
+      // MFM: "1st to 2nd 170 / 3rd + 200".
+      points: 170,
+      pointsEscalated: 200,
+      models: 1,
+      flavor: 5,
+      keywords: ['Vehicle', 'Daemon Engine'],
+      kit: { name: 'Plagueburst Crawler', priceEUR: 67, models: 1, verified: true },
+    },
+    {
+      id: 'helbrute',
+      name: 'Helbrute',
+      role: 'vehicle',
+      points: 105,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle', 'Walker'],
+      kit: { name: 'Helbrute', priceEUR: 53, models: 1, verified: true },
+    },
+    {
+      id: 'chaos-spawn',
+      name: 'Chaos Spawn',
+      role: 'mounted',
+      // MFM: 2 models 80 (box builds 2).
+      points: 80,
+      models: 2,
+      flavor: 2,
+      keywords: ['Mounted'],
+      kit: { name: 'Chaos Spawn', priceEUR: 47.5, models: 2, verified: true },
+    },
+    {
+      id: 'chaos-predator-destructor',
+      name: 'Chaos Predator Destructor',
+      role: 'vehicle',
+      // MFM: "1st to 2nd 130 / 3rd + 140".
+      points: 130,
+      pointsEscalated: 140,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle'],
+      kit: { name: 'Chaos Predator', priceEUR: 64, models: 1, verified: true },
+    },
+    {
+      id: 'chaos-predator-annihilator',
+      name: 'Chaos Predator Annihilator',
+      role: 'vehicle',
+      // MFM: "1st to 2nd 140 / 3rd + 150".
+      points: 140,
+      pointsEscalated: 150,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle'],
+      kit: { name: 'Chaos Predator', priceEUR: 64, models: 1, verified: true },
+    },
+    {
+      id: 'defiler',
+      name: 'Defiler',
+      role: 'vehicle',
+      // MFM: "1st unit 300 / 2nd + 350".
+      points: 300,
+      pointsEscalated: 350,
+      escalateAt: 2,
+      models: 1,
+      flavor: 4,
+      keywords: ['Vehicle', 'Daemon Engine'],
+      wargear: { name: 'Heavy Reaper Autocannon', points: 15 },
+      kit: { name: 'Defiler', priceEUR: 120, models: 1, verified: true },
+    },
+    // --- Dedicated Transports ---
+    {
       id: 'chaos-rhino',
       name: 'Chaos Rhino',
       role: 'transport',
-      // MFM: "1st to 3rd 75 / 4th + 85" — escalates only on the 4th copy.
+      // MFM: "1st to 3rd 75 / 4th + 85" — escalates on the 4th copy.
       points: 75,
       pointsEscalated: 85,
       escalateAt: 4,
       models: 1,
       flavor: 2,
       keywords: ['Vehicle', 'Transport'],
-      // Wahapedia: 12 Death Guard Infantry, no Terminators — so Plague Marines
-      // or Poxwalkers (not the Terminator units; Plaguebearers aren't Death Guard).
+      // Carries 12 Death Guard infantry (no Terminators).
       transports: ['plague-marines', 'poxwalkers'],
       kit: { name: 'Chaos Rhino', priceEUR: 50, models: 1, verified: true },
     },
-    // --- Monster ---
     {
-      id: 'great-unclean-one',
-      name: 'Great Unclean One',
-      role: 'monster',
-      points: 265,
-      pointsEscalated: 280,
+      id: 'chaos-land-raider',
+      name: 'Chaos Land Raider',
+      role: 'transport',
+      // MFM: "1st to 2nd 220 / 3rd + 240".
+      points: 220,
+      pointsEscalated: 240,
       models: 1,
-      flavor: 4,
-      keywords: ['Character', 'Monster', 'Daemon'],
-      kit: { name: 'Great Unclean One', priceEUR: 139, models: 1, verified: true },
+      flavor: 3,
+      keywords: ['Vehicle', 'Transport'],
+      transports: ['plague-marines', 'poxwalkers', 'deathshroud-terminators', 'blightlord-terminators'],
+      kit: { name: 'Chaos Land Raider', priceEUR: 80, models: 1, verified: true },
     },
   ],
   valueBoxes: [
@@ -259,7 +450,7 @@ export const deathGuard: Faction = {
       priceEUR: 139,
       verified: true,
       url: 'https://www.warhammer.com/en-EU/shop/combat-patrol-death-guard-2025',
-      // "Maggot Lords" box — contents confirmed 2026-10-01.
+      // "Maggot Lords" — contents confirmed on the product page 2026-10-02.
       builds: [
         { unitId: 'lord-of-virulence', models: 1 },
         { unitId: 'tallyman', models: 1 },

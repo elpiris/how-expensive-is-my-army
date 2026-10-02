@@ -40,9 +40,9 @@ longer sells one. Bump each faction's `lastVerified`.
   €42→€43). Re-confirm `≈` placeholders (Canoptek Scarabs — not sold standalone).
 - **Tyranids — prices PENDING refresh.** Same as Necrons (2026-09-10 prices);
   re-confirm `≈` Ripper Swarms (not sold standalone).
-- **Death Guard — prices verified 2026-10-01 (en-FI).** Recheck periodically.
-  Assumed box model-counts (not read off the page): Poxwalkers (10), Plaguebearers
-  (10), Blightlord Terminators (5); Deathshroud (3) + Plague Marines (7) confirmed.
+- **Death Guard — DONE (2026-10-02).** Full 35-datasheet MFM roster (incl. the
+  Nurgle daemon units; Miasmic Malignifier terrain omitted); every kit price
+  verified on en-EU. Combat Patrol "Maggot Lords" (€139) contents confirmed.
 
 Known price drift spotted earlier: Combat Patrols €135 → **€139**; Termagants
 €37 → €38.50; Carnifex/Screamer-Killer Brood €84 → €87; Necrons Royal Court
