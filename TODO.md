@@ -32,7 +32,13 @@ longer sells one. Bump each faction's `lastVerified`.
   Cybernetica Datasmith comes in the Kastelan box via alsoBuilds). Combat Patrol
   (€139) contents confirmed (1 Manipulus, 3 Serberys Sulphurhounds, 5 Pteraxii
   Sterylizors, 10 Skitarii Vanguard).
-- **Chaos Space Marines — TODO.** Same (curated ~17 units).
+- **Chaos Space Marines — DONE (2026-10-02).** Comprehensive ~41-unit roster from
+  the 54-datasheet MFM (omitting terrain, cross-faction kits, newest niche
+  sub-faction units). Prices verified on en-EU; shared Chaos vehicle kits reuse
+  DG's verified prices; a few not surfaced in the grid are best-effort (Legionaries
+  box, foot/jump Chaos Lords, Vindicator, Master of Possession). Combat Patrol
+  (€139) contents confirmed (1 Master of Possession, 5 Possessed, 10 Legionaries,
+  10 Cultists). TODO: confirm the best-effort kit prices on individual product pages.
 - **Chaos Knights — TODO.** Same (10 units; superheavy, no Combat Patrol).
 - **Aeldari — TODO.** Same (curated ~17 units).
 - **Necrons — prices PENDING refresh.** Points verified (Wahapedia→MFM); kit
