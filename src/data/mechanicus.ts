@@ -1,10 +1,16 @@
 import type { Faction } from '../types'
 
 // ---------------------------------------------------------------------------
-// ADEPTUS MECHANICUS (Imperium)
-// Points VERIFIED from the Munitorum Field Manual (11th edition) 2026-10-02.
-// Prices are BEST-EFFORT estimates (euros) not yet confirmed on warhammer.com
-// (flagged `verified: false` → "≈ price" tag). Combat Patrol contents approx.
+// ADEPTUS MECHANICUS (Imperium)  — full roster, fine-tuned 2026-10-02
+// Points: ALL datasheets from the Munitorum Field Manual (11th ed) 2026-10-02,
+//   with escalation thresholds + highest-cost wargear.
+// Prices: warhammer.com en-EU (2026-10-02), verified for everything GW sells.
+//   Tech-Priest Enginseer isn't in the current AdMech range, so it's best-effort.
+//   The Cybernetica Datasmith comes in the Kastelan Robots box (credited via
+//   alsoBuilds); on its own it costs that whole box.
+// Combat Patrol: Adeptus Mechanicus (€139) — real contents from the product page:
+//   1 Tech-Priest Manipulus, 3 Serberys Sulphurhounds, 5 Pteraxii Sterylizors,
+//   10 Skitarii Vanguard.
 // ---------------------------------------------------------------------------
 
 export const mechanicus: Faction = {
@@ -17,7 +23,7 @@ export const mechanicus: Faction = {
   blurb:
     'The Machine God’s cult. Cybernetic Skitarii legions, lumbering war engines and the relentless logic of the Omnissiah.',
   units: [
-    // --- Characters / Epic Heroes ---
+    // --- Epic Heroes ---
     {
       id: 'belisarius-cawl',
       name: 'Belisarius Cawl',
@@ -27,8 +33,20 @@ export const mechanicus: Faction = {
       models: 1,
       flavor: 5,
       keywords: ['Character', 'Infantry', 'Epic Hero'],
-      kit: { name: 'Belisarius Cawl', priceEUR: 45, models: 1 },
+      kit: { name: 'Belisarius Cawl', priceEUR: 53, models: 1, verified: true },
     },
+    {
+      id: 'thulia-ghuld',
+      name: 'Thulia Ghuld',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 180,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      kit: { name: 'Thulia Ghuld', priceEUR: 52, models: 1, verified: true },
+    },
+    // --- Characters ---
     {
       id: 'tech-priest-dominus',
       name: 'Tech-Priest Dominus',
@@ -37,8 +55,19 @@ export const mechanicus: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Leader'],
-      leads: ['fulgurite-electro-priests', 'kataphron-breachers', 'kataphron-destroyers'],
-      kit: { name: 'Tech-Priest Dominus', priceEUR: 30, models: 1 },
+      leads: ['corpuscarii-electro-priests', 'fulgurite-electro-priests', 'hastarii-exterminators', 'hastarii-fusiliers', 'kataphron-breachers', 'kataphron-destroyers'],
+      kit: { name: 'Tech-Priest Dominus', priceEUR: 36, models: 1, verified: true },
+    },
+    {
+      id: 'tech-priest-manipulus',
+      name: 'Tech-Priest Manipulus',
+      role: 'character',
+      points: 60,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['corpuscarii-electro-priests', 'fulgurite-electro-priests', 'hastarii-exterminators', 'hastarii-fusiliers', 'kataphron-breachers', 'kataphron-destroyers'],
+      kit: { name: 'Tech-Priest Manipulus', priceEUR: 31.5, models: 1, verified: true },
     },
     {
       id: 'tech-priest-enginseer',
@@ -48,8 +77,53 @@ export const mechanicus: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Leader'],
-      leads: ['kataphron-breachers', 'kataphron-destroyers'],
+      leads: ['corpuscarii-electro-priests', 'fulgurite-electro-priests', 'kataphron-breachers', 'kataphron-destroyers', 'skitarii-rangers', 'skitarii-vanguard'],
+      // Not in the current AdMech range — price best-effort.
       kit: { name: 'Tech-Priest Enginseer', priceEUR: 22, models: 1 },
+    },
+    {
+      id: 'technoarcheologist',
+      name: 'Technoarcheologist',
+      role: 'character',
+      points: 45,
+      models: 1,
+      flavor: 2,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['corpuscarii-electro-priests', 'fulgurite-electro-priests', 'kataphron-breachers', 'kataphron-destroyers'],
+      kit: { name: 'Technoarcheologist', priceEUR: 28.5, models: 1, verified: true },
+    },
+    {
+      id: 'skitarii-marshal',
+      name: 'Skitarii Marshal',
+      role: 'character',
+      points: 35,
+      models: 1,
+      flavor: 2,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['hastarii-exterminators', 'hastarii-fusiliers', 'skitarii-rangers', 'skitarii-vanguard'],
+      kit: { name: 'Skitarii Marshal', priceEUR: 28.5, models: 1, verified: true },
+    },
+    {
+      id: 'sydonian-skatros',
+      name: 'Sydonian Skatros',
+      role: 'character',
+      points: 45,
+      models: 1,
+      flavor: 2,
+      keywords: ['Character', 'Mounted'],
+      kit: { name: 'Sydonian Skatros', priceEUR: 34.5, models: 1, verified: true },
+    },
+    {
+      id: 'cybernetica-datasmith',
+      name: 'Cybernetica Datasmith',
+      role: 'character',
+      points: 20,
+      models: 1,
+      flavor: 2,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['kastelan-robots'],
+      // Comes in the Kastelan Robots box (credited via that kit's alsoBuilds).
+      kit: { name: 'Kastelan Robots', priceEUR: 70, models: 1, verified: true },
     },
     // --- Battleline ---
     {
@@ -60,7 +134,7 @@ export const mechanicus: Faction = {
       models: 10,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
-      kit: { name: 'Skitarii Rangers', priceEUR: 35, models: 10 },
+      kit: { name: 'Skitarii Rangers', priceEUR: 47.5, models: 10, verified: true },
     },
     {
       id: 'skitarii-vanguard',
@@ -70,18 +144,32 @@ export const mechanicus: Faction = {
       models: 10,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
-      kit: { name: 'Skitarii Vanguard', priceEUR: 35, models: 10 },
+      kit: { name: 'Skitarii Vanguard', priceEUR: 47.5, models: 10, verified: true },
     },
     // --- Infantry ---
     {
-      id: 'kataphron-destroyers',
-      name: 'Kataphron Destroyers',
+      id: 'hastarii-exterminators',
+      name: 'Hastarii Exterminators',
       role: 'infantry',
+      // MFM @5 models: "1st to 2nd 100 / 3rd + 115".
       points: 100,
-      models: 3,
+      pointsEscalated: 115,
+      models: 5,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Kataphron Destroyers', priceEUR: 60, models: 3 },
+      kit: { name: 'Hastarii', priceEUR: 50, models: 5, verified: true },
+    },
+    {
+      id: 'hastarii-fusiliers',
+      name: 'Hastarii Fusiliers',
+      role: 'infantry',
+      // MFM @5 models: "1st to 2nd 105 / 3rd + 120".
+      points: 105,
+      pointsEscalated: 120,
+      models: 5,
+      flavor: 3,
+      keywords: ['Infantry'],
+      kit: { name: 'Hastarii', priceEUR: 50, models: 5, verified: true },
     },
     {
       id: 'kataphron-breachers',
@@ -91,7 +179,17 @@ export const mechanicus: Faction = {
       models: 3,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Kataphron Breachers', priceEUR: 60, models: 3 },
+      kit: { name: 'Kataphron Breachers', priceEUR: 53, models: 3, verified: true },
+    },
+    {
+      id: 'kataphron-destroyers',
+      name: 'Kataphron Destroyers',
+      role: 'infantry',
+      points: 100,
+      models: 3,
+      flavor: 3,
+      keywords: ['Infantry'],
+      kit: { name: 'Kataphron Destroyers', priceEUR: 53, models: 3, verified: true },
     },
     {
       id: 'sicarian-infiltrators',
@@ -103,7 +201,19 @@ export const mechanicus: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Sicarian Infiltrators', priceEUR: 40, models: 5 },
+      kit: { name: 'Sicarian Infiltrators', priceEUR: 51, models: 5, verified: true },
+    },
+    {
+      id: 'sicarian-ruststalkers',
+      name: 'Sicarian Ruststalkers',
+      role: 'infantry',
+      // MFM @5 models: "1st to 2nd 75 / 3rd + 85".
+      points: 75,
+      pointsEscalated: 85,
+      models: 5,
+      flavor: 3,
+      keywords: ['Infantry'],
+      kit: { name: 'Sicarian Ruststalkers', priceEUR: 51, models: 5, verified: true },
     },
     {
       id: 'pteraxii-skystalkers',
@@ -115,20 +225,55 @@ export const mechanicus: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Infantry', 'Fly'],
-      kit: { name: 'Pteraxii Skystalkers', priceEUR: 40, models: 5 },
+      kit: { name: 'Pteraxii Skystalkers', priceEUR: 53, models: 5, verified: true },
+    },
+    {
+      id: 'pteraxii-sterylizors',
+      name: 'Pteraxii Sterylizors',
+      role: 'infantry',
+      // MFM @5 models: "1st to 2nd 75 / 3rd + 85".
+      points: 75,
+      pointsEscalated: 85,
+      models: 5,
+      flavor: 3,
+      keywords: ['Infantry', 'Fly'],
+      kit: { name: 'Pteraxii Sterylizors', priceEUR: 53, models: 5, verified: true },
+    },
+    {
+      id: 'corpuscarii-electro-priests',
+      name: 'Corpuscarii Electro-Priests',
+      role: 'infantry',
+      // MFM: 10 models 120 (box builds 10).
+      points: 120,
+      models: 10,
+      flavor: 3,
+      keywords: ['Infantry'],
+      kit: { name: 'Corpuscarii Electro-Priests', priceEUR: 47.5, models: 10, verified: true },
     },
     {
       id: 'fulgurite-electro-priests',
       name: 'Fulgurite Electro-Priests',
       role: 'infantry',
-      // MFM: 5 models 65, 10 models 130 (fielded as a full 10).
+      // MFM: 10 models 130 (box builds 10).
       points: 130,
       models: 10,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Fulgurite Electro-Priests', priceEUR: 45, models: 10 },
+      kit: { name: 'Fulgurite Electro-Priests', priceEUR: 47.5, models: 10, verified: true },
     },
-    // --- Mounted / walkers ---
+    {
+      id: 'servitor-battleclade',
+      name: 'Servitor Battleclade',
+      role: 'infantry',
+      // MFM @9 models: "1st to 2nd 75 / 3rd + 85".
+      points: 75,
+      pointsEscalated: 85,
+      models: 9,
+      flavor: 2,
+      keywords: ['Infantry'],
+      kit: { name: 'Kill Team: Battleclade', priceEUR: 60, models: 9, verified: true },
+    },
+    // --- Mounted ---
     {
       id: 'serberys-raiders',
       name: 'Serberys Raiders',
@@ -137,7 +282,17 @@ export const mechanicus: Faction = {
       models: 3,
       flavor: 3,
       keywords: ['Mounted'],
-      kit: { name: 'Serberys Raiders', priceEUR: 45, models: 3 },
+      kit: { name: 'Serberys Raiders', priceEUR: 53, models: 3, verified: true },
+    },
+    {
+      id: 'serberys-sulphurhounds',
+      name: 'Serberys Sulphurhounds',
+      role: 'mounted',
+      points: 55,
+      models: 3,
+      flavor: 3,
+      keywords: ['Mounted'],
+      kit: { name: 'Serberys Sulphurhounds', priceEUR: 53, models: 3, verified: true },
     },
     {
       id: 'ironstrider-ballistarii',
@@ -149,7 +304,30 @@ export const mechanicus: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Mounted', 'Walker'],
-      kit: { name: 'Ironstrider Ballistarii', priceEUR: 35, models: 1 },
+      wargear: { name: 'Twin Cognis Lascannon', points: 10 },
+      kit: { name: 'Ironstrider Ballistarius', priceEUR: 53, models: 1, verified: true },
+    },
+    {
+      id: 'sydonian-dragoons-jezzails',
+      name: 'Sydonian Dragoons with Radium Jezzails',
+      role: 'mounted',
+      // MFM: 1 model 55, 2 models 95, 3 models 140 (box builds 1).
+      points: 95,
+      models: 2,
+      flavor: 3,
+      keywords: ['Mounted', 'Walker'],
+      kit: { name: 'Sydonian Dragoon', priceEUR: 53, models: 1, verified: true },
+    },
+    {
+      id: 'sydonian-dragoons-taser',
+      name: 'Sydonian Dragoons with Taser Lances',
+      role: 'mounted',
+      // MFM: 1 model 60, 2 models 120, 3 models 170 (box builds 1).
+      points: 120,
+      models: 2,
+      flavor: 3,
+      keywords: ['Mounted', 'Walker'],
+      kit: { name: 'Sydonian Dragoon', priceEUR: 53, models: 1, verified: true },
     },
     // --- Vehicles ---
     {
@@ -160,7 +338,7 @@ export const mechanicus: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Vehicle', 'Walker'],
-      kit: { name: 'Onager Dunecrawler', priceEUR: 55, models: 1 },
+      kit: { name: 'Onager Dunecrawler', priceEUR: 70, models: 1, verified: true },
     },
     {
       id: 'kastelan-robots',
@@ -172,7 +350,14 @@ export const mechanicus: Faction = {
       models: 2,
       flavor: 4,
       keywords: ['Vehicle'],
-      kit: { name: 'Kastelan Robots', priceEUR: 60, models: 2 },
+      // Box also builds a Cybernetica Datasmith.
+      kit: {
+        name: 'Kastelan Robots',
+        priceEUR: 70,
+        models: 2,
+        verified: true,
+        alsoBuilds: [{ unitId: 'cybernetica-datasmith', models: 1 }],
+      },
     },
     {
       id: 'skorpius-disintegrator',
@@ -183,9 +368,29 @@ export const mechanicus: Faction = {
       flavor: 4,
       keywords: ['Vehicle'],
       wargear: { name: 'Ferrumite Cannon', points: 10 },
-      kit: { name: 'Skorpius Disintegrator', priceEUR: 60, models: 1 },
+      kit: { name: 'Skorpius Disintegrator', priceEUR: 70, models: 1, verified: true },
     },
-    // --- Dedicated Transport ---
+    {
+      id: 'archaeopter-fusilave',
+      name: 'Archaeopter Fusilave',
+      role: 'vehicle',
+      points: 160,
+      models: 1,
+      flavor: 4,
+      keywords: ['Vehicle', 'Fly'],
+      kit: { name: 'Archaeopter Fusilave', priceEUR: 100, models: 1, verified: true },
+    },
+    {
+      id: 'archaeopter-stratoraptor',
+      name: 'Archaeopter Stratoraptor',
+      role: 'vehicle',
+      points: 185,
+      models: 1,
+      flavor: 4,
+      keywords: ['Vehicle', 'Fly'],
+      kit: { name: 'Archaeopter Stratoraptor', priceEUR: 100, models: 1, verified: true },
+    },
+    // --- Dedicated Transports ---
     {
       id: 'skorpius-dunerider',
       name: 'Skorpius Dunerider',
@@ -197,22 +402,34 @@ export const mechanicus: Faction = {
       models: 1,
       flavor: 2,
       keywords: ['Vehicle', 'Transport'],
-      // Carries Adeptus Mechanicus infantry.
-      transports: ['skitarii-rangers', 'skitarii-vanguard', 'sicarian-infiltrators', 'pteraxii-skystalkers', 'fulgurite-electro-priests'],
-      kit: { name: 'Skorpius Dunerider', priceEUR: 60, models: 1 },
+      transports: ['skitarii-rangers', 'skitarii-vanguard', 'sicarian-infiltrators', 'sicarian-ruststalkers', 'pteraxii-skystalkers', 'pteraxii-sterylizors', 'hastarii-exterminators', 'hastarii-fusiliers', 'corpuscarii-electro-priests', 'fulgurite-electro-priests'],
+      kit: { name: 'Skorpius Dunerider', priceEUR: 70, models: 1, verified: true },
+    },
+    {
+      id: 'archaeopter-transvector',
+      name: 'Archaeopter Transvector',
+      role: 'transport',
+      points: 145,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle', 'Transport', 'Fly'],
+      transports: ['skitarii-rangers', 'skitarii-vanguard', 'sicarian-infiltrators', 'sicarian-ruststalkers', 'pteraxii-skystalkers', 'pteraxii-sterylizors', 'hastarii-exterminators', 'hastarii-fusiliers'],
+      kit: { name: 'Archaeopter Transvector', priceEUR: 100, models: 1, verified: true },
     },
   ],
   valueBoxes: [
     {
       id: 'cp-mechanicus',
       name: 'Combat Patrol: Adeptus Mechanicus',
-      priceEUR: 130,
-      // Contents approximate — not yet confirmed on the product page.
+      priceEUR: 139,
+      verified: true,
+      url: 'https://www.warhammer.com/en-EU/shop/combat-patrol-adeptus-mechanicus-2023',
+      // Contents confirmed on the product page 2026-10-02.
       builds: [
-        { unitId: 'tech-priest-dominus', models: 1 },
-        { unitId: 'skitarii-rangers', models: 10 },
-        { unitId: 'serberys-raiders', models: 3 },
-        { unitId: 'onager-dunecrawler', models: 1 },
+        { unitId: 'tech-priest-manipulus', models: 1 },
+        { unitId: 'serberys-sulphurhounds', models: 3 },
+        { unitId: 'pteraxii-sterylizors', models: 5 },
+        { unitId: 'skitarii-vanguard', models: 10 },
       ],
     },
   ],

@@ -27,7 +27,11 @@ longer sells one. Bump each faction's `lastVerified`.
   aren't currently sold, so those stay best-effort. Combat Patrol (€139) contents
   confirmed on the product page (1 Canoness, 5 Sacresants, 10 Battle Sisters,
   10 Arco-flagellants).
-- **Adeptus Mechanicus — TODO.** Same as Sororitas (curated ~16 units).
+- **Adeptus Mechanicus — DONE (2026-10-02).** Full 34-datasheet MFM roster; prices
+  verified for every GW-sold kit (Tech-Priest Enginseer isn't stocked → best-effort;
+  Cybernetica Datasmith comes in the Kastelan box via alsoBuilds). Combat Patrol
+  (€139) contents confirmed (1 Manipulus, 3 Serberys Sulphurhounds, 5 Pteraxii
+  Sterylizors, 10 Skitarii Vanguard).
 - **Chaos Space Marines — TODO.** Same (curated ~17 units).
 - **Chaos Knights — TODO.** Same (10 units; superheavy, no Combat Patrol).
 - **Aeldari — TODO.** Same (curated ~17 units).
