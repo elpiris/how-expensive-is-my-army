@@ -54,9 +54,11 @@ longer sells one. Bump each faction's `lastVerified`.
   Striking Scorpions, Wraith kits, Wraithknight, Vyper, War Walkers, Wave Serpent,
   Yriel, Asurmen). Combat Patrol (€139) contents confirmed. TODO: confirm the
   best-effort kit prices on individual product pages.
-- **Necrons — prices PENDING refresh.** Points verified (Wahapedia→MFM); kit
-  prices mostly still at **2026-09-10** values and seen to drift (Necron Warriors
-  €42→€43). Re-confirm `≈` placeholders (Canoptek Scarabs — not sold standalone).
+- **Necrons — DONE (2026-10-02).** Expanded to a ~34-unit roster from the
+  52-datasheet MFM; prices RE-VERIFIED on en-EU (drift fixed: Warriors €42→43,
+  Immortals €37→38.50, C'tan €105→107.50, CP €135→139, etc.). Canoptek Scarabs
+  stay ≈ (not sold standalone); a few units best-effort (Imotekh, Trazyn,
+  Reanimator). Re-added the Technomancer (it IS an MFM datasheet).
 - **Tyranids — prices PENDING refresh.** Same as Necrons (2026-09-10 prices);
   re-confirm `≈` Ripper Swarms (not sold standalone).
 - **Death Guard — DONE (2026-10-02).** Full 35-datasheet MFM roster (incl. the

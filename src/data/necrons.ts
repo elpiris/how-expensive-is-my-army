@@ -1,18 +1,18 @@
 import type { Faction } from '../types'
 
 // ---------------------------------------------------------------------------
-// NECRONS
-// Prices VERIFIED from warhammer.com EU store (2026-09-10).
-// Points VERIFIED from the Munitorum Field Manual (11th edition) 2026-10-02 —
-// base "1st unit" cost at the default model count shown, plus the escalating
-// surcharge for later copies (see `pointsEscalated`/`escalateAt`). Canoptek
-// Wraiths step up on the 2nd copy; the rest on the 3rd.
-//
-// Combat Patrol contents + €135 price confirmed on the product page.
-// Canoptek Scarabs are not sold separately (only in the Combat Patrol) so their
-// price is unverified (≈). Technomancer was removed: it is not sold individually
-// and the Royal Court box builds a Skorpekh Lord / Plasmancer / Cryptothralls /
-// Reanimator, none of which is a Technomancer.
+// NECRONS (Xenos)  — full roster, fine-tuned 2026-10-02
+// Points: from the Munitorum Field Manual (11th ed) 2026-10-02 (escalation +
+//   highest-cost wargear). Comprehensive core roster of the 52-datasheet index
+//   (omitting Forge World, terrain and the rarest named characters).
+// Prices: RE-VERIFIED on warhammer.com en-EU (2026-10-02) — several had drifted
+//   from the 2026-09-10 pass (Necron Warriors €42→43, Immortals €37→38.50,
+//   C'tan €105→107.50, Combat Patrol €135→139, etc.). Canoptek Scarabs aren't
+//   sold on their own (they come in the Warriors box / Combat Patrol) so their
+//   price stays a placeholder (≈). A few units not surfaced in the grid are
+//   best-effort (Imotekh, Trazyn, Canoptek Reanimator).
+// Combat Patrol: Necrons (€139) — contents confirmed earlier (Overlord, Doomstalker,
+//   3 Skorpekh Destroyers, 10 Necron Warriors, 3 Canoptek Scarabs).
 // ---------------------------------------------------------------------------
 
 export const necrons: Faction = {
@@ -20,14 +20,87 @@ export const necrons: Faction = {
   name: 'Necrons',
   system: 'w40k',
   category: 'xenos',
-  lastVerified: '2026-09-10',
+  lastVerified: '2026-10-02',
   pointsVerified: true,
-  // Reanimating infantry legions + vehicles, with towering C'tan apex monsters.
+  // Reanimating infantry legions + Canoptek constructs + vehicles, C'tan apex.
   profile: { character: 1.5, infantry: 4.5, mounted: 1, vehicle: 2.5, monster: 1 },
   blurb:
     'Ancient robotic legions of the Aeons. Durable infantry, reanimating warriors and towering C’tan shards.',
   units: [
-    // --- Characters / Epic Heroes ---
+    // --- Epic Heroes ---
+    {
+      id: 'szeras',
+      name: 'Illuminor Szeras',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 175,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Monster', 'Epic Hero'],
+      kit: { name: 'Illuminor Szeras', priceEUR: 51, models: 1, verified: true },
+    },
+    {
+      id: 'imotekh',
+      name: 'Imotekh the Stormlord',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 100,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      leads: ['immortals', 'lychguard', 'necron-warriors'],
+      kit: { name: 'Imotekh the Stormlord', priceEUR: 34, models: 1 },
+    },
+    {
+      id: 'trazyn',
+      name: 'Trazyn the Infinite',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 60,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      leads: ['immortals', 'lychguard', 'necron-warriors'],
+      kit: { name: 'Trazyn the Infinite', priceEUR: 28, models: 1 },
+    },
+    // --- C'tan Shards (monsters) ---
+    {
+      id: 'ctan-nightbringer',
+      name: 'C’tan Shard of the Nightbringer',
+      role: 'monster',
+      epicHero: true,
+      points: 360,
+      models: 1,
+      flavor: 5,
+      keywords: ['Character', 'Monster', 'Epic Hero'],
+      kit: { name: 'C’tan Shard of the Nightbringer', priceEUR: 107.5, models: 1, verified: true },
+    },
+    {
+      id: 'ctan-void-dragon',
+      name: 'C’tan Shard of the Void Dragon',
+      role: 'monster',
+      epicHero: true,
+      points: 345,
+      models: 1,
+      flavor: 5,
+      keywords: ['Character', 'Monster', 'Epic Hero'],
+      kit: { name: 'C’tan Shard of the Void Dragon', priceEUR: 107.5, models: 1, verified: true },
+    },
+    {
+      id: 'transcendent-ctan',
+      name: 'Transcendent C’tan',
+      role: 'monster',
+      // MFM: "1st unit 340 / 2nd + 360".
+      points: 340,
+      pointsEscalated: 360,
+      escalateAt: 2,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Monster'],
+      // The "Obelisk & Transcendent C'tan" kit (€160) builds either.
+      kit: { name: 'Obelisk & Transcendent C’tan', priceEUR: 160, models: 1, verified: true, onlineOnly: true },
+    },
+    // --- Characters ---
     {
       id: 'overlord',
       name: 'Overlord',
@@ -37,13 +110,7 @@ export const necrons: Faction = {
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Leader'],
       leads: ['immortals', 'lychguard', 'necron-warriors'],
-      kit: {
-        name: 'Overlord with Tachyon Arrow',
-        priceEUR: 34,
-        models: 1,
-        verified: true,
-        onlineOnly: true,
-      },
+      kit: { name: 'Overlord with Tachyon Arrow', priceEUR: 34.5, models: 1, verified: true, onlineOnly: true },
     },
     {
       id: 'royal-warden',
@@ -54,40 +121,74 @@ export const necrons: Faction = {
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Leader'],
       leads: ['immortals', 'necron-warriors'],
-      kit: { name: 'Royal Warden', priceEUR: 32.5, models: 1, verified: true, onlineOnly: true },
+      kit: { name: 'Royal Warden', priceEUR: 34, models: 1, verified: true },
     },
     {
       id: 'psychomancer',
       name: 'Psychomancer',
       role: 'character',
-      points: 55,
+      points: 65,
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Leader'],
       leads: ['immortals', 'necron-warriors'],
-      kit: { name: 'Psychomancer', priceEUR: 32.5, models: 1, verified: true },
+      kit: { name: 'Psychomancer', priceEUR: 34, models: 1, verified: true },
     },
     {
-      id: 'szeras',
-      name: 'Illuminor Szeras',
-      role: 'epic-hero',
-      epicHero: true,
-      points: 175,
+      id: 'technomancer',
+      name: 'Technomancer',
+      role: 'character',
+      // MFM: "1st unit 80 / 2nd + 90".
+      points: 80,
+      pointsEscalated: 90,
+      escalateAt: 2,
       models: 1,
-      flavor: 4,
-      keywords: ['Character', 'Monster', 'Epic Hero', 'Leader'],
-      kit: { name: 'Illuminor Szeras', priceEUR: 50, models: 1, verified: true },
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['immortals', 'lychguard'],
+      kit: { name: 'Cryptek', priceEUR: 34, models: 1, verified: true },
     },
     {
-      id: 'ctan-nightbringer',
-      name: 'C’tan Shard of the Nightbringer',
-      role: 'epic-hero',
-      epicHero: true,
-      points: 360,
+      id: 'plasmancer',
+      name: 'Plasmancer',
+      role: 'character',
+      points: 60,
       models: 1,
-      flavor: 5,
-      keywords: ['Character', 'Monster', 'Epic Hero'],
-      kit: { name: 'C’tan Shard of the Nightbringer', priceEUR: 105, models: 1, verified: true },
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['immortals', 'necron-warriors'],
+      kit: { name: 'Cryptek', priceEUR: 34, models: 1, verified: true },
+    },
+    {
+      id: 'hexmark-destroyer',
+      name: 'Hexmark Destroyer',
+      role: 'character',
+      points: 75,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Infantry'],
+      kit: { name: 'Hexmark Destroyer', priceEUR: 34, models: 1, verified: true },
+    },
+    {
+      id: 'orikan',
+      name: 'Orikan the Diviner',
+      role: 'character',
+      points: 90,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['immortals', 'necron-warriors'],
+      kit: { name: 'Orikan the Diviner', priceEUR: 38.5, models: 1, verified: true },
+    },
+    {
+      id: 'catacomb-command-barge',
+      name: 'Catacomb Command Barge',
+      role: 'character',
+      points: 120,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Vehicle'],
+      kit: { name: 'Catacomb Command Barge', priceEUR: 51, models: 1, verified: true },
     },
     // --- Battleline ---
     {
@@ -98,16 +199,15 @@ export const necrons: Faction = {
       models: 10,
       flavor: 4,
       keywords: ['Battleline', 'Infantry'],
-      // The Necron Warriors box also builds 3 Canoptek Scarab Swarms (verified).
+      // The Necron Warriors box also builds 3 Canoptek Scarab Swarms.
       kit: {
         name: 'Necron Warriors',
-        priceEUR: 42,
+        priceEUR: 43,
         models: 10,
         verified: true,
         alsoBuilds: [{ unitId: 'canoptek-scarabs', models: 3 }],
       },
     },
-    // --- Infantry ---
     {
       id: 'immortals',
       name: 'Immortals',
@@ -116,8 +216,9 @@ export const necrons: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
-      kit: { name: 'Necron Immortals', priceEUR: 37, models: 5, verified: true },
+      kit: { name: 'Immortals', priceEUR: 38.5, models: 5, verified: true },
     },
+    // --- Infantry ---
     {
       id: 'lychguard',
       name: 'Lychguard',
@@ -126,29 +227,19 @@ export const necrons: Faction = {
       models: 5,
       flavor: 4,
       keywords: ['Infantry'],
-      kit: { name: 'Lychguard', priceEUR: 50, models: 5, verified: true },
+      kit: { name: 'Lychguard', priceEUR: 51, models: 5, verified: true },
     },
     {
-      id: 'skorpekh-destroyers',
-      name: 'Skorpekh Destroyers',
+      id: 'deathmarks',
+      name: 'Deathmarks',
       role: 'infantry',
-      points: 85,
-      pointsEscalated: 95,
-      models: 3,
-      flavor: 4,
-      keywords: ['Infantry'],
-      kit: { name: 'Skorpekh Destroyers', priceEUR: 51.25, models: 3, verified: true },
-    },
-    {
-      id: 'lokhust-destroyers',
-      name: 'Lokhust Heavy Destroyers',
-      role: 'infantry',
-      points: 50,
-      pointsEscalated: 60,
-      models: 1,
+      // MFM @5 models: "1st to 2nd 60 / 3rd + 70".
+      points: 60,
+      pointsEscalated: 70,
+      models: 5,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Lokhust Heavy Destroyer', priceEUR: 32.5, models: 1, verified: true },
+      kit: { name: 'Deathmarks', priceEUR: 38.5, models: 5, verified: true },
     },
     {
       id: 'flayed-ones',
@@ -158,7 +249,65 @@ export const necrons: Faction = {
       models: 5,
       flavor: 2,
       keywords: ['Infantry'],
-      kit: { name: 'Flayed Ones', priceEUR: 45, models: 5, verified: true },
+      kit: { name: 'Flayed Ones', priceEUR: 47.5, models: 5, verified: true },
+    },
+    {
+      id: 'triarch-praetorians',
+      name: 'Triarch Praetorians',
+      role: 'infantry',
+      points: 80,
+      models: 5,
+      flavor: 3,
+      keywords: ['Infantry', 'Fly'],
+      kit: { name: 'Triarch Praetorians', priceEUR: 51, models: 5, verified: true },
+    },
+    {
+      id: 'skorpekh-destroyers',
+      name: 'Skorpekh Destroyers',
+      role: 'infantry',
+      // MFM @3 models: "1st to 2nd 85 / 3rd + 95".
+      points: 85,
+      pointsEscalated: 95,
+      models: 3,
+      flavor: 4,
+      keywords: ['Infantry'],
+      kit: { name: 'Skorpekh Destroyers', priceEUR: 53, models: 3, verified: true },
+    },
+    {
+      id: 'ophydian-destroyers',
+      name: 'Ophydian Destroyers',
+      role: 'infantry',
+      // MFM @3 models: "1st to 2nd 80 / 3rd + 90".
+      points: 80,
+      pointsEscalated: 90,
+      models: 3,
+      flavor: 3,
+      keywords: ['Infantry'],
+      kit: { name: 'Ophydian Destroyers', priceEUR: 53, models: 3, verified: true },
+    },
+    {
+      id: 'lokhust-destroyers',
+      name: 'Lokhust Destroyers',
+      role: 'infantry',
+      // MFM @3 models: "1st to 2nd 80 / 3rd + 110".
+      points: 80,
+      pointsEscalated: 110,
+      models: 3,
+      flavor: 3,
+      keywords: ['Infantry', 'Fly'],
+      kit: { name: 'Lokhust Destroyer Squadron', priceEUR: 51, models: 3, verified: true },
+    },
+    {
+      id: 'lokhust-heavy-destroyers',
+      name: 'Lokhust Heavy Destroyers',
+      role: 'infantry',
+      // MFM: "1st to 2nd 50 / 3rd + 60" (per model).
+      points: 50,
+      pointsEscalated: 60,
+      models: 1,
+      flavor: 3,
+      keywords: ['Infantry', 'Fly'],
+      kit: { name: 'Lokhust Heavy Destroyer', priceEUR: 34, models: 1, verified: true },
     },
     // --- Canoptek constructs ---
     {
@@ -169,21 +318,44 @@ export const necrons: Faction = {
       models: 3,
       flavor: 3,
       keywords: ['Swarm', 'Canoptek'],
-      // Not sold as their own box — 3 come free in the Necron Warriors box (and
-      // in the Combat Patrol), so the standalone price here is a placeholder (≈).
+      // Not sold on their own — 3 come in the Necron Warriors box / Combat Patrol.
       kit: { name: 'Canoptek Scarab Swarms', priceEUR: 30, models: 3 },
     },
     {
       id: 'canoptek-wraiths',
       name: 'Canoptek Wraiths',
       role: 'mounted',
+      // MFM: "1st unit 95 / 2nd + 115".
       points: 95,
       pointsEscalated: 115,
-      escalateAt: 2, // MFM: "1st unit 95 / 2nd + 115"
+      escalateAt: 2,
       models: 3,
       flavor: 3,
       keywords: ['Beast', 'Canoptek'],
-      kit: { name: 'Canoptek Wraiths', priceEUR: 51.5, models: 3, verified: true },
+      kit: { name: 'Canoptek Wraiths', priceEUR: 53, models: 3, verified: true },
+    },
+    {
+      id: 'tomb-blades',
+      name: 'Tomb Blades',
+      role: 'mounted',
+      // MFM @3 models: "1st to 2nd 70 / 3rd + 80".
+      points: 70,
+      pointsEscalated: 80,
+      models: 3,
+      flavor: 3,
+      keywords: ['Mounted', 'Canoptek', 'Fly'],
+      kit: { name: 'Tomb Blades', priceEUR: 51, models: 3, verified: true },
+    },
+    {
+      id: 'canoptek-reanimator',
+      name: 'Canoptek Reanimator',
+      role: 'vehicle',
+      points: 75,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle', 'Canoptek'],
+      // Comes in the Kill Team: Canoptek Circle box — standalone price best-effort.
+      kit: { name: 'Canoptek Reanimator', priceEUR: 40, models: 1 },
     },
     {
       id: 'doomstalker',
@@ -193,9 +365,45 @@ export const necrons: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Vehicle', 'Walker', 'Canoptek'],
-      kit: { name: 'Canoptek Doomstalker', priceEUR: 42, models: 1, verified: true },
+      kit: { name: 'Canoptek Doomstalker', priceEUR: 43, models: 1, verified: true },
     },
     // --- Vehicles ---
+    {
+      id: 'annihilation-barge',
+      name: 'Annihilation Barge',
+      role: 'vehicle',
+      points: 100,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle'],
+      kit: { name: 'Annihilation Barge', priceEUR: 51, models: 1, verified: true },
+    },
+    {
+      id: 'doomsday-ark',
+      name: 'Doomsday Ark',
+      role: 'vehicle',
+      // MFM: "1st to 2nd 200 / 3rd + 230".
+      points: 200,
+      pointsEscalated: 230,
+      models: 1,
+      flavor: 4,
+      keywords: ['Vehicle'],
+      kit: { name: 'Doomsday Ark', priceEUR: 56.5, models: 1, verified: true },
+    },
+    {
+      id: 'monolith',
+      name: 'Monolith',
+      role: 'vehicle',
+      // MFM: "1st unit 420 / 2nd + 440".
+      points: 420,
+      pointsEscalated: 440,
+      escalateAt: 2,
+      models: 1,
+      flavor: 5,
+      keywords: ['Vehicle'],
+      kit: { name: 'Monolith', priceEUR: 155, models: 1, verified: true },
+    },
+    // --- Dedicated Transports ---
     {
       id: 'ghost-ark',
       name: 'Ghost Ark',
@@ -204,20 +412,20 @@ export const necrons: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Vehicle', 'Transport'],
-      // Wahapedia: carries 10 Necron Warrior models (+1 infantry character).
+      // Carries 10 Necron Warrior models (+1 infantry character).
       transports: ['necron-warriors'],
-      kit: { name: 'Ghost Ark', priceEUR: 55, models: 1, verified: true },
+      kit: { name: 'Ghost Ark', priceEUR: 56.5, models: 1, verified: true },
     },
     {
-      id: 'doomsday-ark',
-      name: 'Doomsday Ark',
-      role: 'vehicle',
-      points: 200,
-      pointsEscalated: 230,
+      id: 'night-scythe',
+      name: 'Night Scythe',
+      role: 'transport',
+      points: 125,
       models: 1,
-      flavor: 4,
-      keywords: ['Vehicle'],
-      kit: { name: 'Doomsday Ark', priceEUR: 55, models: 1, verified: true },
+      flavor: 3,
+      keywords: ['Vehicle', 'Transport', 'Fly', 'Aircraft'],
+      transports: ['necron-warriors', 'immortals', 'lychguard', 'deathmarks', 'flayed-ones', 'triarch-praetorians'],
+      kit: { name: 'Night Scythe', priceEUR: 64, models: 1, verified: true },
     },
   ],
   valueBoxes: [
@@ -227,7 +435,7 @@ export const necrons: Faction = {
       priceEUR: 139,
       verified: true,
       url: 'https://www.warhammer.com/en-EU/shop/combat-patrol-necrons-2023',
-      // Contents confirmed on the product page (2026-09-10).
+      // Contents confirmed on the product page.
       builds: [
         { unitId: 'overlord', models: 1 },
         { unitId: 'doomstalker', models: 1 },
@@ -237,23 +445,5 @@ export const necrons: Faction = {
       ],
     },
   ],
-  competitiveLists: {
-    // ~2000 pts, C'tan + Canoptek + Destroyers archetype inspired by recent
-    // 11th-edition event lists (e.g. Cursed Legion). Uses in-collection units;
-    // real points from Wahapedia. Totals 1975 pts.
-    2000: [
-      { unitId: 'ctan-nightbringer', count: 1 },
-      { unitId: 'szeras', count: 1 },
-      { unitId: 'technomancer', count: 1 },
-      { unitId: 'overlord', count: 1 },
-      { unitId: 'lychguard', count: 2 },
-      { unitId: 'necron-warriors', count: 2 },
-      { unitId: 'immortals', count: 1 },
-      { unitId: 'skorpekh-destroyers', count: 2 },
-      { unitId: 'canoptek-wraiths', count: 2 },
-      { unitId: 'canoptek-scarabs', count: 2 },
-      { unitId: 'doomstalker', count: 2 },
-      { unitId: 'lokhust-destroyers', count: 3 },
-    ],
-  },
+  competitiveLists: {},
 }
