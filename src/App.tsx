@@ -2,7 +2,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { factions, getFaction } from './data'
 import { generateList, generateEscalation, BRACKETS } from './lib/generateList'
 import { costList, discountedTotal, purchaseDelta, sumLines } from './lib/costList'
-import { entryPoints, isCharacter, unitPoints, unitPointsThird } from './lib/value'
+import { copyPoints, entryPoints, isCharacter } from './lib/value'
 import type { CostBreakdown, DiscountPercent, GeneratedList, ListEntry, PurchaseLine } from './types'
 
 const DISCOUNTS: DiscountPercent[] = [0, 10, 15, 20]
@@ -97,7 +97,7 @@ function ListPanel({ list }: { list: GeneratedList }) {
                           )}
                         </td>
                         <td className="num">{e.unit.models}</td>
-                        <td className="num">{i < 2 ? unitPoints(e.unit) : unitPointsThird(e.unit)}</td>
+                        <td className="num">{copyPoints(e.unit, i + 1)}</td>
                       </tr>
                     )),
                   )}
@@ -350,8 +350,9 @@ export default function App() {
           {faction.pointsVerified ? (
             <>
               <strong>Points</strong> from the Munitorum Field Manual (11th ed) — including the
-              highest-cost wargear on units that pay for it, and the 3rd+ escalating unit cost. Not
-              affiliated with Games Workshop.
+              highest-cost wargear on units that pay for it, and the escalating cost of repeat units
+              (each datasheet steps up on its 2nd, 3rd or 4th copy per the MFM). Not affiliated with
+              Games Workshop.
             </>
           ) : (
             <>

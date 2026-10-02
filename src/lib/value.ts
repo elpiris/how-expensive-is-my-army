@@ -18,21 +18,35 @@ export function unitCostEUR(unit: Unit): number {
   return boxes * unit.kit.priceEUR
 }
 
-/** Effective points for the 1st–2nd copy: base + the chosen (highest) wargear. */
+/** Effective points for a base-rate copy: base + the chosen (highest) wargear. */
 export function unitPoints(unit: Unit): number {
   return unit.points + (unit.wargear?.points ?? 0)
 }
 
-/** Effective points for the 3rd+ copy (escalating cost) + wargear. */
-export function unitPointsThird(unit: Unit): number {
-  return (unit.pointsThird ?? unit.points) + (unit.wargear?.points ?? 0)
+/** Effective points for an escalated copy (escalating cost) + wargear. */
+export function unitPointsEscalated(unit: Unit): number {
+  return (unit.pointsEscalated ?? unit.points) + (unit.wargear?.points ?? 0)
 }
 
-/** Total points for `count` copies, applying the 3rd+ escalation. */
+/**
+ * 1-based copy index at which the escalated cost begins. Defaults to the 3rd
+ * copy ("1st–2nd / 3rd+"); units declare `escalateAt: 2` or `4` for the other
+ * MFM patterns.
+ */
+export function escalateAt(unit: Unit): number {
+  return unit.escalateAt ?? 3
+}
+
+/** Points for the `n`-th copy (1-based), applying the escalation threshold. */
+export function copyPoints(unit: Unit, n: number): number {
+  return n >= escalateAt(unit) ? unitPointsEscalated(unit) : unitPoints(unit)
+}
+
+/** Total points for `count` copies, applying the escalation threshold. */
 export function entryPoints(unit: Unit, count: number): number {
-  const nBase = Math.min(count, 2)
-  const nThird = Math.max(0, count - 2)
-  return unitPoints(unit) * nBase + unitPointsThird(unit) * nThird
+  const nBase = Math.min(count, escalateAt(unit) - 1)
+  const nEsc = Math.max(0, count - (escalateAt(unit) - 1))
+  return unitPoints(unit) * nBase + unitPointsEscalated(unit) * nEsc
 }
 
 /** Points obtained per euro spent on this unit at its default size (incl. wargear). */

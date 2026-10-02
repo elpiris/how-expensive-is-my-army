@@ -3,11 +3,10 @@ import type { Faction } from '../types'
 // ---------------------------------------------------------------------------
 // NECRONS
 // Prices VERIFIED from warhammer.com EU store (2026-09-10).
-// Points VERIFIED from Wahapedia (Warhammer 40,000 11th edition) 2026-09-10 —
-// base "1st unit" cost at the default model count shown. NB: 11th edition adds
-// an escalating surcharge for the 3rd+ copy of a unit, which this tool does not
-// model (it uses the flat base cost), so lists with 3 of a datasheet read a few
-// points low.
+// Points VERIFIED from the Munitorum Field Manual (11th edition) 2026-10-02 —
+// base "1st unit" cost at the default model count shown, plus the escalating
+// surcharge for later copies (see `pointsEscalated`/`escalateAt`). Canoptek
+// Wraiths step up on the 2nd copy; the rest on the 3rd.
 //
 // Combat Patrol contents + €135 price confirmed on the product page.
 // Canoptek Scarabs are not sold separately (only in the Combat Patrol) so their
@@ -131,7 +130,7 @@ export const necrons: Faction = {
       name: 'Skorpekh Destroyers',
       role: 'infantry',
       points: 85,
-      pointsThird: 95,
+      pointsEscalated: 95,
       models: 3,
       flavor: 4,
       keywords: ['Infantry'],
@@ -142,7 +141,7 @@ export const necrons: Faction = {
       name: 'Lokhust Heavy Destroyers',
       role: 'infantry',
       points: 50,
-      pointsThird: 60,
+      pointsEscalated: 60,
       models: 1,
       flavor: 3,
       keywords: ['Infantry'],
@@ -176,7 +175,8 @@ export const necrons: Faction = {
       name: 'Canoptek Wraiths',
       role: 'mounted',
       points: 95,
-      pointsThird: 115,
+      pointsEscalated: 115,
+      escalateAt: 2, // MFM: "1st unit 95 / 2nd + 115"
       models: 3,
       flavor: 3,
       keywords: ['Beast', 'Canoptek'],
@@ -208,7 +208,7 @@ export const necrons: Faction = {
       name: 'Doomsday Ark',
       role: 'vehicle',
       points: 200,
-      pointsThird: 230,
+      pointsEscalated: 230,
       models: 1,
       flavor: 4,
       keywords: ['Vehicle'],

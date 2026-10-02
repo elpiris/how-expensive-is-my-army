@@ -1,5 +1,5 @@
 import type { Faction, GeneratedList, ListEntry, PointsBracket, Unit } from '../types'
-import { entryPoints, isCharacter, pointsPerEuro, unitPoints, unitPointsThird } from './value'
+import { copyPoints, entryPoints, isCharacter, pointsPerEuro } from './value'
 
 // ---------------------------------------------------------------------------
 // List generation — "affordable above all", with a thematic backbone.
@@ -18,8 +18,9 @@ import { entryPoints, isCharacter, pointsPerEuro, unitPoints, unitPointsThird } 
 // Rules (official MFM unit limits): per datasheet max 1 @500, 2 @1000, 3 @1500,
 // 3 @2000 — doubled for Battleline / Dedicated Transport (so 6 @2000). Epic
 // Heroes unique. Characters stricter: unique unless a sub-100pt leader has 2+
-// units to lead. The 3rd+ copy costs the escalated price. No non-Combat-Patrol
-// unit over the bracket size cap (120/200/350/∞).
+// units to lead. Later copies cost the escalated price (from the copy each
+// datasheet escalates at). No non-Combat-Patrol unit over the bracket size cap
+// (120/200/350/∞).
 // ---------------------------------------------------------------------------
 
 const BATTLELINE_PTS_PER_1000 = 100
@@ -111,8 +112,8 @@ function augmentList(
       : 0
     return Math.min(leadableUnits >= 2 ? 2 : 1, datasheetLimit(u))
   }
-  // Cost of adding the NEXT copy of a unit (3rd+ copy uses the escalated price).
-  const nextCopyCost = (u: Unit) => (countIn(entries, u.id) >= 2 ? unitPointsThird(u) : unitPoints(u))
+  // Cost of adding the NEXT copy of a unit (escalated once past its threshold).
+  const nextCopyCost = (u: Unit) => copyPoints(u, countIn(entries, u.id) + 1)
   const maxUnitPoints = SIZE_CAP[target] ?? Infinity
   const withinSize = (u: Unit) => u.points <= maxUnitPoints
   // Flavour exclusivity: at most one model across a mutex group (e.g. the three

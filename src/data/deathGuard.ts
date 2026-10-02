@@ -3,8 +3,12 @@ import type { Faction } from '../types'
 // ---------------------------------------------------------------------------
 // DEATH GUARD
 // Prices VERIFIED from warhammer.com EU store (en-FI, euros) 2026-10-01.
-// Points + keywords + LEADER data VERIFIED from Wahapedia (11th edition)
-// 2026-10-01 (base "1st unit" cost at the default model count).
+// Points VERIFIED from the Munitorum Field Manual (11th edition) 2026-10-02
+// (base "1st unit" cost at the default model count, plus the escalating cost
+// for later copies via `pointsEscalated`/`escalateAt`). Keywords + LEADER data
+// from Wahapedia. The Chaos Rhino escalates only on its 4th copy; Deathshroud,
+// Foetid Bloat-drone, Plagueburst Crawler, Blightlord Terminators and the Great
+// Unclean One on the 3rd.
 //
 // Notes:
 //  - Combat Patrol: Death Guard ("Maggot Lords") contents confirmed.
@@ -163,7 +167,7 @@ export const deathGuard: Faction = {
       name: 'Deathshroud Terminators',
       role: 'infantry',
       points: 150,
-      pointsThird: 160,
+      pointsEscalated: 160,
       models: 3,
       flavor: 4,
       keywords: ['Infantry', 'Terminator'],
@@ -174,7 +178,9 @@ export const deathGuard: Faction = {
       name: 'Blightlord Terminators',
       role: 'infantry',
       // Box builds 5; unit is 3-5-10, fielded as a box-filling 5.
-      points: 180,
+      // MFM @5 models: "1st to 2nd 185 / 3rd + 215".
+      points: 185,
+      pointsEscalated: 215,
       models: 5,
       flavor: 4,
       keywords: ['Infantry', 'Terminator'],
@@ -185,7 +191,9 @@ export const deathGuard: Faction = {
       id: 'plagueburst-crawler',
       name: 'Plagueburst Crawler',
       role: 'vehicle',
+      // MFM: "1st to 2nd 170 / 3rd + 200".
       points: 170,
+      pointsEscalated: 200,
       models: 1,
       flavor: 5,
       keywords: ['Vehicle', 'Daemon Engine'],
@@ -196,7 +204,7 @@ export const deathGuard: Faction = {
       name: 'Foetid Bloat-drone',
       role: 'vehicle',
       points: 100,
-      pointsThird: 110,
+      pointsEscalated: 110,
       models: 1,
       flavor: 4,
       keywords: ['Vehicle', 'Daemon Engine', 'Fly'],
@@ -216,8 +224,10 @@ export const deathGuard: Faction = {
       id: 'chaos-rhino',
       name: 'Chaos Rhino',
       role: 'transport',
+      // MFM: "1st to 3rd 75 / 4th + 85" — escalates only on the 4th copy.
       points: 75,
-      pointsThird: 85,
+      pointsEscalated: 85,
+      escalateAt: 4,
       models: 1,
       flavor: 2,
       keywords: ['Vehicle', 'Transport'],
@@ -229,7 +239,7 @@ export const deathGuard: Faction = {
       name: 'Great Unclean One',
       role: 'monster',
       points: 265,
-      pointsThird: 280,
+      pointsEscalated: 280,
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Monster', 'Daemon'],

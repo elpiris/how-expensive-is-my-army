@@ -44,13 +44,21 @@ export interface Unit {
   id: string
   name: string
   role: UnitRole
-  /** Points for a single unit at the default `models` size (1st–2nd copy). */
+  /** Points for a single unit at the default `models` size (the 1st copy). */
   points: number
   /**
-   * Points for the 3rd+ copy of this datasheet at the default size (11th-ed
-   * escalating cost). Omitted when the datasheet doesn't escalate.
+   * Escalated points for a later copy of this datasheet at the default size
+   * (11th-ed escalating cost). The copy at which it kicks in is `escalateAt`.
+   * Omitted when the datasheet doesn't escalate.
    */
-  pointsThird?: number
+  pointsEscalated?: number
+  /**
+   * 1-based copy index at which `pointsEscalated` starts applying. Most
+   * escalating datasheets step up on the 3rd copy ("1st–2nd / 3rd+", the
+   * default); some on the 2nd ("1st / 2nd+", `escalateAt: 2`) and a few on the
+   * 4th ("1st–3rd / 4th+", `escalateAt: 4`). Ignored without `pointsEscalated`.
+   */
+  escalateAt?: number
   /**
    * Highest-cost wargear upgrade the unit can take (MFM). Added to the unit's
    * points and shown on its list row. Omitted when wargear is free.
