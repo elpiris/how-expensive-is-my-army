@@ -1,10 +1,15 @@
 import type { Faction } from '../types'
 
 // ---------------------------------------------------------------------------
-// ADEPTA SORORITAS (Imperium)
-// Points VERIFIED from the Munitorum Field Manual (11th edition) 2026-10-02.
-// Prices are BEST-EFFORT estimates (euros) not yet confirmed on warhammer.com
-// (flagged `verified: false` → "≈ price" tag). Combat Patrol contents approx.
+// ADEPTA SORORITAS (Imperium)  — full roster, fine-tuned 2026-10-02
+// Points: ALL datasheets from the Munitorum Field Manual (11th ed) 2026-10-02,
+//   with escalation thresholds + highest-cost wargear.
+// Prices: warhammer.com en-EU (2026-10-02), verified for everything GW sells.
+//   Not currently sold on their own (best-effort, verified:false): the foot
+//   Canoness and the Seraphim/Zephyrim box.
+// Combat Patrol: Adepta Sororitas (€139) — real contents confirmed on the
+//   product page: 1 Canoness, 5 Celestian Sacresants, 10 Battle Sisters,
+//   10 Arco-flagellants.
 // ---------------------------------------------------------------------------
 
 export const sororitas: Faction = {
@@ -17,7 +22,7 @@ export const sororitas: Faction = {
   blurb:
     'The Emperor’s zealous Sisters of Battle. Faith, flamer and bolter — resilient squads backed by holy war machines.',
   units: [
-    // --- Characters / Epic Heroes ---
+    // --- Epic Heroes ---
     {
       id: 'morvenn-vahl',
       name: 'Morvenn Vahl',
@@ -28,7 +33,7 @@ export const sororitas: Faction = {
       flavor: 5,
       keywords: ['Character', 'Infantry', 'Epic Hero'],
       leads: ['paragon-warsuits'],
-      kit: { name: 'Morvenn Vahl', priceEUR: 55, models: 1 },
+      kit: { name: 'Morvenn Vahl, Abbess Sanctorum', priceEUR: 53, models: 1, verified: true },
     },
     {
       id: 'saint-celestine',
@@ -39,9 +44,69 @@ export const sororitas: Faction = {
       models: 3,
       flavor: 5,
       keywords: ['Character', 'Infantry', 'Epic Hero', 'Fly'],
-      leads: ['seraphim-squad'],
-      kit: { name: 'Saint Celestine', priceEUR: 35, models: 3 },
+      leads: ['seraphim-squad', 'zephyrim-squad'],
+      kit: { name: 'Celestine, the Living Saint', priceEUR: 53, models: 3, verified: true },
     },
+    {
+      id: 'junith-eruita',
+      name: 'Junith Eruita',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 105,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Mounted', 'Fly', 'Epic Hero'],
+      leads: ['battle-sisters', 'celestian-insidiants', 'sacresants', 'dominion-squad', 'retributor-squad', 'sisters-novitiate'],
+      kit: { name: 'Junith Eruita', priceEUR: 47.5, models: 1, verified: true },
+    },
+    {
+      id: 'aestred-thurga',
+      name: 'Aestred Thurga and Agathae Dolan',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 80,
+      models: 2,
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      leads: ['battle-sisters', 'celestian-insidiants', 'sacresants', 'dominion-squad', 'retributor-squad', 'sisters-novitiate'],
+      kit: { name: 'Aestred Thurga, Reliquant at Arms', priceEUR: 36, models: 2, verified: true },
+    },
+    {
+      id: 'daemonifuge',
+      name: 'Daemonifuge – Ephrael Stern & Kyganil',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 85,
+      models: 2,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      kit: { name: 'Daemonifuge – Ephrael Stern & Kyganil', priceEUR: 51, models: 2, verified: true },
+    },
+    {
+      id: 'intranzia-fraye',
+      name: 'Intranzia Fraye',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 135,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      leads: ['battle-sisters', 'sacresants', 'dominion-squad'],
+      kit: { name: 'Intranzia Fraye – Dogmata Superior', priceEUR: 60, models: 1, verified: true },
+    },
+    {
+      id: 'triumph-katherine',
+      name: 'The Triumph of Saint Katherine',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 245,
+      models: 1,
+      flavor: 5,
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      leads: ['battle-sisters'],
+      kit: { name: 'The Triumph of Saint Katherine', priceEUR: 100, models: 1, verified: true },
+    },
+    // --- Characters ---
     {
       id: 'canoness',
       name: 'Canoness',
@@ -50,8 +115,20 @@ export const sororitas: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Leader'],
-      leads: ['battle-sisters', 'dominion-squad', 'retributor-squad', 'sacresants'],
-      kit: { name: 'Canoness', priceEUR: 27, models: 1 },
+      leads: ['battle-sisters', 'celestian-insidiants', 'sacresants', 'dominion-squad', 'retributor-squad', 'sisters-novitiate'],
+      // The foot Canoness isn't currently sold on its own — price best-effort.
+      kit: { name: 'Canoness', priceEUR: 25, models: 1 },
+    },
+    {
+      id: 'canoness-jump',
+      name: 'Canoness with Jump Pack',
+      role: 'character',
+      points: 75,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Fly', 'Leader'],
+      leads: ['seraphim-squad', 'zephyrim-squad'],
+      kit: { name: 'Canoness with Jump Pack', priceEUR: 38.5, models: 1, verified: true },
     },
     {
       id: 'palatine',
@@ -61,8 +138,8 @@ export const sororitas: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Leader'],
-      leads: ['battle-sisters', 'dominion-squad', 'retributor-squad', 'sacresants'],
-      kit: { name: 'Palatine', priceEUR: 25, models: 1 },
+      leads: ['battle-sisters', 'celestian-insidiants', 'sacresants', 'dominion-squad', 'retributor-squad', 'sisters-novitiate'],
+      kit: { name: 'Palatine', priceEUR: 34, models: 1, verified: true },
     },
     {
       id: 'ministorum-priest',
@@ -72,8 +149,55 @@ export const sororitas: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Leader'],
-      leads: ['arco-flagellants', 'battle-sisters', 'dominion-squad', 'repentia-squad'],
-      kit: { name: 'Ministorum Priest', priceEUR: 22, models: 1 },
+      leads: ['arco-flagellants', 'battle-sisters', 'celestian-insidiants', 'dominion-squad', 'sanctifiers', 'sisters-novitiate'],
+      kit: { name: 'Ministorum Priest', priceEUR: 31.25, models: 1, verified: true },
+    },
+    {
+      id: 'dialogus',
+      name: 'Dialogus',
+      role: 'character',
+      points: 40,
+      models: 1,
+      flavor: 2,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['battle-sisters', 'sacresants', 'dominion-squad', 'retributor-squad'],
+      kit: { name: 'Dialogus', priceEUR: 36, models: 1, verified: true },
+    },
+    {
+      id: 'dogmata',
+      name: 'Dogmata',
+      role: 'character',
+      points: 45,
+      models: 1,
+      flavor: 2,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['battle-sisters', 'sacresants', 'dominion-squad', 'retributor-squad'],
+      kit: { name: 'Sister Dogmata', priceEUR: 34, models: 1, verified: true },
+    },
+    {
+      id: 'hospitaller',
+      name: 'Hospitaller',
+      role: 'character',
+      // MFM: "1st unit 65 / 2nd + 75".
+      points: 65,
+      pointsEscalated: 75,
+      escalateAt: 2,
+      models: 1,
+      flavor: 2,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['battle-sisters', 'sacresants', 'dominion-squad', 'retributor-squad', 'sisters-novitiate'],
+      kit: { name: 'Hospitaller', priceEUR: 36, models: 1, verified: true },
+    },
+    {
+      id: 'imagifier',
+      name: 'Imagifier',
+      role: 'character',
+      points: 55,
+      models: 1,
+      flavor: 2,
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['battle-sisters', 'sacresants', 'dominion-squad', 'retributor-squad'],
+      kit: { name: 'Imagifier', priceEUR: 27, models: 1, verified: true },
     },
     // --- Battleline ---
     {
@@ -84,7 +208,17 @@ export const sororitas: Faction = {
       models: 10,
       flavor: 4,
       keywords: ['Battleline', 'Infantry'],
-      kit: { name: 'Battle Sisters Squad', priceEUR: 40, models: 10 },
+      kit: { name: 'Battle Sisters Squad', priceEUR: 53, models: 10, verified: true },
+    },
+    {
+      id: 'sisters-novitiate',
+      name: 'Sisters Novitiate Squad',
+      role: 'battleline',
+      points: 90,
+      models: 10,
+      flavor: 3,
+      keywords: ['Battleline', 'Infantry'],
+      kit: { name: 'Sisters Novitiate Squad', priceEUR: 52, models: 10, verified: true },
     },
     // --- Infantry ---
     {
@@ -98,19 +232,7 @@ export const sororitas: Faction = {
       flavor: 3,
       keywords: ['Infantry'],
       wargear: { name: 'Meltagun', points: 5 },
-      kit: { name: 'Dominion Squad', priceEUR: 40, models: 10 },
-    },
-    {
-      id: 'seraphim-squad',
-      name: 'Seraphim Squad',
-      role: 'infantry',
-      // MFM @5 models: "1st to 2nd 75 / 3rd + 85".
-      points: 75,
-      pointsEscalated: 85,
-      models: 5,
-      flavor: 4,
-      keywords: ['Infantry', 'Fly'],
-      kit: { name: 'Seraphim Squad', priceEUR: 35, models: 5 },
+      kit: { name: 'Dominion Squad', priceEUR: 53, models: 10, verified: true },
     },
     {
       id: 'sacresants',
@@ -122,7 +244,53 @@ export const sororitas: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Celestian Sacresants', priceEUR: 40, models: 5 },
+      kit: { name: 'Celestian Sacresants', priceEUR: 53, models: 5, verified: true },
+    },
+    {
+      id: 'celestian-insidiants',
+      name: 'Celestian Insidiants',
+      role: 'infantry',
+      points: 115,
+      models: 10,
+      flavor: 3,
+      keywords: ['Infantry'],
+      kit: { name: 'Kill Team: Celestian Insidiants', priceEUR: 56.5, models: 10, verified: true },
+    },
+    {
+      id: 'sanctifiers',
+      name: 'Sanctifiers',
+      role: 'infantry',
+      points: 110,
+      models: 9,
+      flavor: 3,
+      keywords: ['Infantry'],
+      kit: { name: 'Kill Team: Sanctifiers', priceEUR: 56.5, models: 9, verified: true },
+    },
+    {
+      id: 'seraphim-squad',
+      name: 'Seraphim Squad',
+      role: 'infantry',
+      // MFM @5 models: "1st to 2nd 75 / 3rd + 85".
+      points: 75,
+      pointsEscalated: 85,
+      models: 5,
+      flavor: 3,
+      keywords: ['Infantry', 'Fly'],
+      // Not currently sold on its own — price best-effort.
+      kit: { name: 'Seraphim Squad', priceEUR: 40, models: 5 },
+    },
+    {
+      id: 'zephyrim-squad',
+      name: 'Zephyrim Squad',
+      role: 'infantry',
+      // MFM @5 models: "1st to 2nd 75 / 3rd + 85".
+      points: 75,
+      pointsEscalated: 85,
+      models: 5,
+      flavor: 3,
+      keywords: ['Infantry', 'Fly'],
+      // Not currently sold on its own — price best-effort.
+      kit: { name: 'Zephyrim Squad', priceEUR: 40, models: 5 },
     },
     {
       id: 'repentia-squad',
@@ -132,17 +300,18 @@ export const sororitas: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Repentia Squad', priceEUR: 35, models: 5 },
+      kit: { name: 'Repentia Squad', priceEUR: 51, models: 5, verified: true },
     },
     {
       id: 'arco-flagellants',
       name: 'Arco-flagellants',
       role: 'infantry',
-      points: 50,
-      models: 3,
+      // MFM: 10 models 140 (box builds 10; the Combat Patrol includes 10).
+      points: 140,
+      models: 10,
       flavor: 2,
       keywords: ['Infantry'],
-      kit: { name: 'Arco-flagellants', priceEUR: 30, models: 3 },
+      kit: { name: 'Arco-flagellants', priceEUR: 51, models: 10, verified: true },
     },
     {
       id: 'retributor-squad',
@@ -155,7 +324,7 @@ export const sororitas: Faction = {
       flavor: 3,
       keywords: ['Infantry'],
       wargear: { name: 'Multi-melta', points: 5 },
-      kit: { name: 'Retributor Squad', priceEUR: 40, models: 5 },
+      kit: { name: 'Retributor Squad', priceEUR: 53, models: 5, verified: true },
     },
     // --- Mounted / walkers ---
     {
@@ -169,7 +338,7 @@ export const sororitas: Faction = {
       flavor: 4,
       keywords: ['Mounted', 'Vehicle'],
       wargear: { name: 'Multi-melta', points: 10 },
-      kit: { name: 'Paragon Warsuits', priceEUR: 60, models: 3 },
+      kit: { name: 'Paragon Warsuits', priceEUR: 66, models: 3, verified: true },
     },
     {
       id: 'penitent-engines',
@@ -180,7 +349,30 @@ export const sororitas: Faction = {
       models: 2,
       flavor: 3,
       keywords: ['Vehicle', 'Walker'],
-      kit: { name: 'Penitent Engines', priceEUR: 45, models: 2 },
+      kit: { name: 'Penitent Engines', priceEUR: 53, models: 2, verified: true },
+    },
+    {
+      id: 'mortifiers',
+      name: 'Mortifiers',
+      role: 'vehicle',
+      // MFM: 1 model 70, 2 models 130 (box builds 2).
+      points: 130,
+      models: 2,
+      flavor: 3,
+      keywords: ['Vehicle', 'Walker'],
+      kit: { name: 'Mortifiers', priceEUR: 53, models: 2, verified: true },
+    },
+    {
+      id: 'castigator',
+      name: 'Castigator',
+      role: 'vehicle',
+      // MFM: "1st to 2nd 165 / 3rd + 185".
+      points: 165,
+      pointsEscalated: 185,
+      models: 1,
+      flavor: 4,
+      keywords: ['Vehicle'],
+      kit: { name: 'Castigator', priceEUR: 76, models: 1, verified: true },
     },
     {
       id: 'exorcist',
@@ -192,7 +384,7 @@ export const sororitas: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Vehicle'],
-      kit: { name: 'Exorcist', priceEUR: 60, models: 1 },
+      kit: { name: 'Exorcist', priceEUR: 76, models: 1, verified: true },
     },
     // --- Dedicated Transports ---
     {
@@ -207,13 +399,12 @@ export const sororitas: Faction = {
       flavor: 3,
       keywords: ['Vehicle', 'Transport'],
       wargear: { name: 'Twin Multi-melta', points: 15 },
-      // Carries 6 Adepta Sororitas infantry.
-      transports: ['battle-sisters', 'dominion-squad', 'retributor-squad', 'sacresants', 'repentia-squad', 'arco-flagellants'],
-      kit: { name: 'Immolator', priceEUR: 55, models: 1 },
+      transports: ['battle-sisters', 'sisters-novitiate', 'sacresants', 'celestian-insidiants', 'dominion-squad', 'retributor-squad', 'repentia-squad', 'arco-flagellants', 'sanctifiers'],
+      kit: { name: 'Immolator', priceEUR: 70, models: 1, verified: true },
     },
     {
       id: 'sororitas-rhino',
-      name: 'Sororitas Rhino',
+      name: 'Adepta Sororitas Rhino',
       role: 'transport',
       // MFM: "1st to 3rd 65 / 4th + 75" — escalates on the 4th copy.
       points: 65,
@@ -222,22 +413,23 @@ export const sororitas: Faction = {
       models: 1,
       flavor: 2,
       keywords: ['Vehicle', 'Transport'],
-      // Carries 12 Adepta Sororitas infantry.
-      transports: ['battle-sisters', 'dominion-squad', 'retributor-squad', 'sacresants', 'repentia-squad', 'arco-flagellants'],
-      kit: { name: 'Sororitas Rhino', priceEUR: 50, models: 1 },
+      transports: ['battle-sisters', 'sisters-novitiate', 'sacresants', 'celestian-insidiants', 'dominion-squad', 'retributor-squad', 'repentia-squad', 'arco-flagellants', 'sanctifiers'],
+      kit: { name: 'Adepta Sororitas Rhino', priceEUR: 54.5, models: 1, verified: true },
     },
   ],
   valueBoxes: [
     {
       id: 'cp-sororitas',
       name: 'Combat Patrol: Adepta Sororitas',
-      priceEUR: 135,
-      // Contents approximate — not yet confirmed on the product page.
+      priceEUR: 139,
+      verified: true,
+      url: 'https://www.warhammer.com/en-EU/shop/combat-patrol-adepta-soritas-2024',
+      // Contents confirmed on the product page 2026-10-02.
       builds: [
         { unitId: 'canoness', models: 1 },
+        { unitId: 'sacresants', models: 5 },
         { unitId: 'battle-sisters', models: 10 },
-        { unitId: 'seraphim-squad', models: 5 },
-        { unitId: 'arco-flagellants', models: 3 },
+        { unitId: 'arco-flagellants', models: 10 },
       ],
     },
   ],

@@ -22,8 +22,11 @@ longer sells one. Bump each faction's `lastVerified`.
   Rhino, Knight-Centura) stay best-effort. **GW discontinued the Custodes Combat
   Patrol** — only the heavy €180 Support Battle Group remains, so no value box
   (`ignoreSizeCap` lets its 200+pt troops field below 2000).
-- **Adepta Sororitas — TODO.** Points MFM-verified (curated ~17 units); **prices
-  best-effort**, roster not yet full, Combat Patrol contents approximate.
+- **Adepta Sororitas — DONE (2026-10-02).** Full 33-datasheet MFM roster; prices
+  verified for every GW-sold kit; the foot Canoness and the Seraphim/Zephyrim box
+  aren't currently sold, so those stay best-effort. Combat Patrol (€139) contents
+  confirmed on the product page (1 Canoness, 5 Sacresants, 10 Battle Sisters,
+  10 Arco-flagellants).
 - **Adeptus Mechanicus — TODO.** Same as Sororitas (curated ~16 units).
 - **Chaos Space Marines — TODO.** Same (curated ~17 units).
 - **Chaos Knights — TODO.** Same (10 units; superheavy, no Combat Patrol).
