@@ -114,7 +114,7 @@ function augmentList(
   }
   // Cost of adding the NEXT copy of a unit (escalated once past its threshold).
   const nextCopyCost = (u: Unit) => copyPoints(u, countIn(entries, u.id) + 1)
-  const maxUnitPoints = SIZE_CAP[target] ?? Infinity
+  const maxUnitPoints = faction.ignoreSizeCap ? Infinity : SIZE_CAP[target] ?? Infinity
   const withinSize = (u: Unit) => u.points <= maxUnitPoints
   // Flavour exclusivity: at most one model across a mutex group (e.g. the three
   // Hive Tyrant variants) — addable only while the group is empty.

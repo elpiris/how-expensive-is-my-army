@@ -15,6 +15,7 @@ export const spaceMarines: Faction = {
   id: 'space-marines',
   name: 'Space Marines',
   system: 'w40k',
+  category: 'imperium',
   lastVerified: '2026-09-10',
   pointsVerified: true,
   blurb:

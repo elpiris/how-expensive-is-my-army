@@ -23,6 +23,7 @@ export const tyranids: Faction = {
   id: 'tyranids',
   name: 'Tyranids',
   system: 'w40k',
+  category: 'xenos',
   lastVerified: '2026-09-10',
   pointsVerified: true,
   blurb:

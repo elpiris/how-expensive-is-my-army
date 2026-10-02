@@ -19,6 +19,7 @@ export const necrons: Faction = {
   id: 'necrons',
   name: 'Necrons',
   system: 'w40k',
+  category: 'xenos',
   lastVerified: '2026-09-10',
   pointsVerified: true,
   blurb:

@@ -22,6 +22,7 @@ export const deathGuard: Faction = {
   id: 'death-guard',
   name: 'Death Guard',
   system: 'w40k',
+  category: 'chaos',
   lastVerified: '2026-10-01',
   pointsVerified: true,
   blurb:

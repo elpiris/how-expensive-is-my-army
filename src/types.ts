@@ -112,14 +112,25 @@ export interface CompetitiveEntry {
   count: number
 }
 
+/** Top-level grand-alliance grouping for the faction dropdown. */
+export type FactionCategory = 'imperium' | 'chaos' | 'xenos'
+
 export interface Faction {
   id: string
   name: string
   system: 'w40k'
+  /** Grand alliance — groups the faction dropdown (Imperium / Chaos / Xenos). */
+  category: FactionCategory
   /** ISO date the points/prices in this file were last checked. */
   lastVerified: string
   /** true once points have been sourced from Wahapedia (11th ed), not estimated. */
   pointsVerified?: boolean
+  /**
+   * Skip the per-bracket unit size cap (120/200/350 pts). For superheavy-only
+   * armies (e.g. Chaos Knights) whose every datasheet is a huge model — the cap
+   * would otherwise leave nothing to field at 500/1000/1500.
+   */
+  ignoreSizeCap?: boolean
   blurb?: string
   units: Unit[]
   valueBoxes: ValueBox[]

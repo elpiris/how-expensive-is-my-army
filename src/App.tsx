@@ -9,7 +9,21 @@ function ordinalPlus(n: number): string {
   const s = n === 2 ? '2nd' : n === 3 ? '3rd' : n === 4 ? '4th' : `${n}th`
   return `${s}+`
 }
-import type { CostBreakdown, DiscountPercent, GeneratedList, ListEntry, PurchaseLine } from './types'
+import type {
+  CostBreakdown,
+  DiscountPercent,
+  FactionCategory,
+  GeneratedList,
+  ListEntry,
+  PurchaseLine,
+} from './types'
+
+const CATEGORY_ORDER: FactionCategory[] = ['imperium', 'chaos', 'xenos']
+const CATEGORY_LABELS: Record<FactionCategory, string> = {
+  imperium: 'Imperium',
+  chaos: 'Chaos',
+  xenos: 'Xenos',
+}
 
 const DISCOUNTS: DiscountPercent[] = [0, 10, 15, 20]
 
@@ -265,11 +279,19 @@ export default function App() {
         <div className="control">
           <label htmlFor="faction">Faction</label>
           <select id="faction" value={factionId} onChange={(e) => setFactionId(e.target.value)}>
-            {factions.map((f) => (
-              <option key={f.id} value={f.id}>
-                {f.name}
-              </option>
-            ))}
+            {CATEGORY_ORDER.map((cat) => {
+              const inCat = factions.filter((f) => f.category === cat)
+              if (!inCat.length) return null
+              return (
+                <optgroup key={cat} label={CATEGORY_LABELS[cat]}>
+                  {inCat.map((f) => (
+                    <option key={f.id} value={f.id}>
+                      {f.name}
+                    </option>
+                  ))}
+                </optgroup>
+              )
+            })}
           </select>
         </div>
 
