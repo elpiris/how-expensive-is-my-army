@@ -226,6 +226,6 @@ Theming via CSS vars in
 - Forge World resin, terrain and discontinued kits are deliberately left out.
 - Units use their default (smallest) size; optional costed upgrades beyond the one
   `wargear` option aren't modelled.
-- Per-faction status, the missing factions (Orks, T'au, Drukhari, GSC, Votann;
+- Per-faction status, the missing factions (Orks, Drukhari, GSC, Votann;
   Imperial Agents / Deathwatch low priority) and backlog features (competitive mode,
   shareable URL/export, per-unit value display) are tracked in TODO.md.

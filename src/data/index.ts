@@ -26,6 +26,7 @@ import { chaosDaemons } from './chaosDaemons'
 import { necrons } from './necrons'
 import { tyranids } from './tyranids'
 import { aeldari } from './aeldari'
+import { tauEmpire } from './tauEmpire'
 import { craftworlds } from './craftworlds'
 
 // Active factions, ordered by grand alliance (the dropdown groups them by
@@ -65,6 +66,7 @@ export const factions: Faction[] = [
   tyranids,
   aeldari,
   ...craftworlds,
+  tauEmpire,
 ]
 
 export function getFaction(id: string): Faction | undefined {

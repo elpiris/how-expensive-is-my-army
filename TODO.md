@@ -12,20 +12,20 @@ Active dropdown groups (`Faction.category`):
 - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights, Emperor's Children,
   World Eaters, Thousand Sons, Chaos Daemons.
 - **Xenos** — Necrons, Tyranids, Aeldari (+ a **Craftworld** sub-selector: Biel-Tan,
-  Ulthwé, Saim-Hann, Iyanden, Alaitoc).
+  Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire.
 
 Architecture overview: [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Data verification
 
-**16 non-SM factions + Space Marines (10 Chapters) are fully fine-tuned** — MFM
+**17 non-SM factions + Space Marines (10 Chapters) are fully fine-tuned** — MFM
 rosters (points + escalation + leader lists), en-EU kit prices, real Combat Patrols /
 value boxes, composition profiles. Prices for everything added on 2026-10-03 were
 confirmed with the user one kit at a time. Remaining data work: the few best-effort
 (`verified:false` → "≈") kits noted below, and periodic re-checks (points/prices drift).
 
 ### Still missing factions (MFM)
-- **Xenos:** Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann.
+- **Xenos:** Orks, Drukhari, Genestealer Cults, Leagues of Votann.
 - **Low priority (skipped 2026-10-03 as marginal armies):** Imperial Agents, and
   Deathwatch (as an SM Chapter). Add later the same way.
 - Out of scope: Titan Legions / Chaos Titan Legions (Forge World).
@@ -109,6 +109,13 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   verified. Combat Patrol (€139: Spiritseer, 5 Wraithblades, 5 Warp Spiders, 10 Dire
   Avengers). Not modelled: Ynnari, Corsairs (incl. Kharseth, Starfangs), FW Titans.
   Five **Craftworld** sub-factions (`craftworlds.ts`) at `flavour: 0.5`.
+- **T'au Empire — DONE (2026-10-03).** 36 datasheets (the MFM's 43 minus the FW
+  Tiger Sharks / Manta / Ta'unar and the Tidewall fortifications); all prices
+  verified. Shared kits: Fire Warriors €51/10 (Strike / Breacher), Commander €53
+  (Enforcer / Coldstar), Crisis €74/3 (Fireknife / Starscythe / Sunforge),
+  Hammerhead / Sky Ray €64, Razorshark / Sun Shark €74; Stealth Suits and Vespid in
+  Kill Team boxes (€56.50, 5 / 10). Combat Patrol (€139: Enforcer Commander,
+  Devilfish, 10 Breachers, 10 Pathfinders).
 - **TODO — Exodites:** Clanblade (70 pts, leads Dragon Knights), Stonesinger (55,
   supports Dragon Knights), Leystalker (75), Dragon Knights (3 models 85 / 3rd+ 95)
   are in the MFM but only sold in a Kill Team box for now. Add them (tag `exodite`)
