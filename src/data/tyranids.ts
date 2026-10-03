@@ -9,12 +9,13 @@ import type { Faction } from '../types'
 //   Pyrovores, Spore Mines, Sporocyst, Mucolid Spores, Tervigon, Psychophage,
 //   Harpy, Hive Crone, Winged Tyranid Prime and split the Warriors (melee /
 //   ranged); prices confirmed with the user. Shared kits: Warriors (either
-//   loadout), Biovore / Pyrovore €43 (+3 Spore Mines), Tyrannofex / Tervigon
+//   loadout), Biovore / Pyrovore €43 (its 3 Spore Mines are spawned in game,
+//   so not counted), Tyrannofex / Tervigon
 //   €56.50, Harpy / Hive Crone €80, Kill Team: Raveners €56.50/5 (either
 //   Ravener unit), Carnifex Brood €87 (2 Carnifexes or 1 + Old One Eye; also
 //   listed as "Screamer-Killer Brood", which does NOT build one — the
 //   Screamer-Killer only comes in Horrors of the Hive), Sporocyst box (+ Mucolid
-//   Spore + 6 Spore Mines). The Red Terror is Kill Team-only (≈ €60).
+//   Spore; its 6 Spore Mines are spawned in game, so not counted). The Red Terror is Kill Team-only (≈ €60).
 // Prices: RE-VERIFIED on warhammer.com en-EU (2026-10-02) — several had drifted
 //   from the 2026-09-10 pass (Hive Tyrant/Warriors/Swarmlord €51.50→53, Trygon
 //   €76→80, Hive Guard €67→70, Zoanthropes €64→66, Exocrine €70→74, Horrors of
@@ -38,7 +39,13 @@ export const tyranids: Faction = {
   pointsVerified: true,
   subfactionLabel: 'Hive Fleet',
   // Towering bio-monsters over endless gaunt swarms; synapse characters are few.
-  profile: { character: 1, infantry: 4, mounted: 0.5, monster: 4 },
+  profile: { character: 1, infantry: 4, mounted: 0.5, monster: 5 },
+  // "No specific Hive Fleet": a light Tyranid identity — synapse creatures and
+  // gaunt swarms — so lists read as Tyranids, not just the best pts/€ kits
+  // (Tyrannofex / Sporocyst spam). +3% at 2000 pts (user picked this, 2026-10-03).
+  // Hive Fleets override both.
+  identity: { synapse: 2, swarm: 2 },
+  flavour: 0.3,
   blurb:
     'The Great Devourer. Endless broods of gaunts screening towering bio-titans and synapse creatures.',
   units: [
@@ -311,14 +318,15 @@ export const tyranids: Faction = {
     {
       id: 'hyperadapted-raveners',
       name: 'Hyperadapted Raveners',
-      role: 'infantry',
-      // MFM: "1st to 2nd 165 / 3rd + 175"; a Leader unit for Raveners.
+      role: 'character',
+      // MFM: "1st to 2nd 165 / 3rd + 175". A Character (Leader) for Raveners, so
+      // it only joins a list that has Raveners to lead.
       points: 165,
       pointsEscalated: 175,
       models: 5,
       flavor: 4,
       tags: ['tunneller', 'fast', 'melee'],
-      keywords: ['Infantry'],
+      keywords: ['Character', 'Infantry'],
       leads: ['raveners'],
       kit: { name: 'Kill Team: Raveners', priceEUR: 56.5, models: 5, verified: true },
     },
@@ -367,7 +375,7 @@ export const tyranids: Faction = {
       models: 3,
       flavor: 3,
       tags: ['synapse', 'psyker'],
-      keywords: ['Infantry', 'Monster', 'Synapse'],
+      keywords: ['Infantry', 'Psyker', 'Synapse', 'Fly'],
       kit: { name: 'Zoanthropes', priceEUR: 66, models: 3, verified: true },
     },
     {
@@ -445,15 +453,9 @@ export const tyranids: Faction = {
       flavor: 2,
       tags: ['artillery'],
       keywords: ['Infantry'],
-      // Biovore / Pyrovore kit (+3 Spore Mines).
-      boxOnly: false,
-      kit: {
-        name: 'Biovore and Pyrovore',
-        priceEUR: 43,
-        models: 1,
-        verified: true,
-        alsoBuilds: [{ unitId: 'spore-mines', models: 3 }],
-      },
+      // Biovore / Pyrovore kit. Its 3 Spore Mines are what the Biovore spawns in
+      // game (ability), so they add no value to the box (user, 2026-10-03).
+      kit: { name: 'Biovore and Pyrovore', priceEUR: 43, models: 1, verified: true },
     },
     {
       id: 'pyrovores',
@@ -466,14 +468,7 @@ export const tyranids: Faction = {
       flavor: 2,
       tags: ['toxin'],
       keywords: ['Infantry'],
-      boxOnly: false,
-      kit: {
-        name: 'Biovore and Pyrovore',
-        priceEUR: 43,
-        models: 1,
-        verified: true,
-        alsoBuilds: [{ unitId: 'spore-mines', models: 3 }],
-      },
+      kit: { name: 'Biovore and Pyrovore', priceEUR: 43, models: 1, verified: true },
     },
     {
       id: 'spore-mines',
@@ -484,14 +479,10 @@ export const tyranids: Faction = {
       flavor: 2,
       tags: ['toxin'],
       keywords: ['Fly'],
-      // Not sold alone: 3 come with a Biovore / Pyrovore, 6 with a Sporocyst.
-      kit: {
-        name: 'Biovore and Pyrovore',
-        priceEUR: 43,
-        models: 3,
-        verified: true,
-        alsoBuilds: [{ unitId: 'biovore', models: 1 }],
-      },
+      // Not sold alone. Fielding a Spore Mines unit (paid in points) means buying a
+      // Biovore / Pyrovore box for its 3 mines. The Biovore and Sporocyst boxes'
+      // mines are what those units spawn in game, so they're never credited.
+      kit: { name: 'Biovore and Pyrovore (Spore Mines)', priceEUR: 43, models: 3, verified: true },
     },
     {
       id: 'mucolid-spores',
@@ -507,10 +498,7 @@ export const tyranids: Faction = {
         priceEUR: 66,
         models: 1,
         verified: true,
-        alsoBuilds: [
-          { unitId: 'sporocyst', models: 1 },
-          { unitId: 'spore-mines', models: 6 },
-        ],
+        alsoBuilds: [{ unitId: 'sporocyst', models: 1 }],
       },
     },
     // --- Monsters ---
@@ -579,8 +567,10 @@ export const tyranids: Faction = {
       points: 150,
       models: 1,
       flavor: 4,
-      tags: ['synapse', 'swarm'],
+      tags: ['synapse'],
       keywords: ['Monster', 'Synapse'],
+      // Typically fielded once, at the heart of a gaunt-heavy swarm (user).
+      exclusiveGroup: 'tervigon',
       kit: { name: 'Tyrannofex / Tervigon', priceEUR: 56.5, models: 1, verified: true },
     },
     {
@@ -609,10 +599,8 @@ export const tyranids: Faction = {
         priceEUR: 66,
         models: 1,
         verified: true,
-        alsoBuilds: [
-          { unitId: 'mucolid-spores', models: 1 },
-          { unitId: 'spore-mines', models: 6 },
-        ],
+        // Its 6 Spore Mines are spawned in game (ability) — not counted.
+        alsoBuilds: [{ unitId: 'mucolid-spores', models: 1 }],
       },
     },
     {
@@ -693,9 +681,11 @@ export const tyranids: Faction = {
       pointsEscalated: 270,
       escalateAt: 2,
       models: 1,
-      flavor: 5,
+      flavor: 3,
       tags: ['synapse', 'psyker'],
       keywords: ['Monster', 'Synapse'],
+      // One per army — a rare centrepiece, not spammed (user, 2026-10-03).
+      exclusiveGroup: 'norn-emissary',
       kit: { name: 'Norn Emissary', priceEUR: 97, models: 1, verified: true },
     },
     {
@@ -707,9 +697,11 @@ export const tyranids: Faction = {
       pointsEscalated: 270,
       escalateAt: 2,
       models: 1,
-      flavor: 5,
+      flavor: 3,
       tags: ['synapse', 'melee'],
       keywords: ['Monster', 'Synapse'],
+      // One per army — a rare centrepiece, not spammed (user, 2026-10-03).
+      exclusiveGroup: 'norn-assimilator',
       kit: { name: 'Norn Assimilator', priceEUR: 97, models: 1, verified: true },
     },
     // --- Dedicated Transport ---

@@ -107,7 +107,9 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
 - **Tyranids — DONE (2026-10-03).** All 50 MFM datasheets except the FW Bio-Titans
   (Harridan, Hierophant); every price verified except The Red Terror (Kill Team box
   only, ≈ €60). Ripper Swarms are single bases whose kit is the Termagants box;
-  Spore Mines come 3 per Biovore / Pyrovore box and 6 per Sporocyst box. Shared
+  the 3 Spore Mines in a Biovore / Pyrovore box and the 6 in a Sporocyst box are
+  what those units spawn in game, so they're never counted as value (a paid-for
+  Spore Mines unit buys a Biovore box for its mines). Shared
   kits: Warriors (melee / ranged), Biovore / Pyrovore €43, Tyrannofex / Tervigon
   €56.50, Harpy / Hive Crone €80, Kill Team: Raveners €56.50/5 (+ Hyperadapted),
   Carnifex Brood €87 (2 Carnifexes or 1 + Old One Eye; the store also lists it as
@@ -116,6 +118,15 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   while stocks last). Seven **Hive Fleet** sub-factions (`hiveFleets.ts`) at
   `flavour: 0.5` (Gorgon 0.75): +4…19% over value lists, 2000-pt lists 38–84%
   on-theme (Gorgon only ~30% — its toxin units are poor value).
+  **Fine-tuned with the user (a Tyranid player), 2026-10-03:** "No specific Hive
+  Fleet" has a light identity (synapse 2, swarm 2, `flavour: 0.3`) and monster
+  weight 5, so plain lists show Warriors, gaunts and Zoanthropes instead of
+  Tyrannofex / Sporocyst spam (~€849 @2000). Hyperadapted Raveners are a Character
+  (only with Raveners to lead); Zoanthropes are Infantry. One Tervigon per army,
+  one of each Norn (flavour 3 — a sometimes-centrepiece, ~50% of plain lists each).
+  Specialist monsters (Carnifex, Trygon, Mawloc, Toxicrene, Exocrine) are meant to
+  show up mainly in their own Hive Fleet. Ripper Swarms from gaunt boxes are always
+  fielded — intended.
 - **Aeldari — DONE (2026-10-03).** 54-unit roster: Craftworlds + Harlequins + support
   platforms, Warlocks, Lhykhis, Wayleaper, Ghostglaive Wraithknight; every kit price
   verified. Combat Patrol (€139: Spiritseer, 5 Wraithblades, 5 Warp Spiders, 10 Dire
