@@ -24,12 +24,14 @@ src/
   types.ts            # the whole domain model (read this first)
   data/
     index.ts          # the faction registry (array + getFaction)
-    <faction>.ts      # one file per faction (necrons, tyranids, custodes, …)
+    <faction>.ts      # one file per faction (16: custodes … chaosDaemons, aeldari)
+    craftworlds.ts    # Aeldari Craftworld sub-factions ({...aeldari, parent, identity})
     spaceMarines/     # SM is special: shared base + one file per Chapter
-      base.ts         #   baseUnits[], gettingStartedBox, darkAngelsCP
+      base.ts         #   baseUnits[], exclusive(), gettingStartedBox, darkAngelsCP,
+                      #   heroesOfTheChapter, honouredOfTheChapter
       vanilla.ts      #   Space Marines (no Chapter) = baseUnits
-      ultramarines.ts #   compliant = [...baseUnits, ...unique]
-      blackTemplars.ts#   non-compliant = baseUnits.filter(...) + unique + own CP
+      ultramarines.ts #   compliant = [...baseUnits, ...exclusive(unique)]
+      blackTemplars.ts#   non-compliant = baseUnits.filter(...) + exclusive(unique) + own CP
       …
   lib/
     value.ts          # points / points-per-euro / category helpers (pure)
@@ -44,7 +46,11 @@ src/
 - **`Faction`** — `id`, `name`, `category` (`imperium | space-marines | chaos | xenos`,
   drives dropdown optgroups), `chapter?` (`codex | non-codex`, SM Chapters only —
   groups the Chapter sub-selector), `profile?` (composition shape), `identity?`
-  (`FactionIdentity`: tag → weight 1–3, what the faction is known for), `ignoreSizeCap?`,
+  (`FactionIdentity`: tag → weight 1–3, what the faction is known for), `signature?`
+  (unit ids the sub-faction is famous for — same flavour bonus as `exclusive`),
+  `parent?` (base faction id → this is a sub-faction, shown in the second dropdown),
+  `subfactionLabel?` (on a base: "Chapter" / "Craftworld"), `flavour?` (value↔flavour
+  balance override, see Generation), `ignoreSizeCap?`,
   `pointsVerified?`, `lastVerified`, `blurb`, `units[]`, `valueBoxes[]`,
   `competitiveLists` (legacy, unused — kept `{}`).
 - **`Unit`** — `id` (unique **within a faction**), `name`, `role`
@@ -87,8 +93,10 @@ src/
 and is the shared core. `generateList` = augment from empty; `generateEscalation`
 = augment 500→1000→1500→2000 carrying entries forward (each stage a superset).
 Steps:
-1. **Combat Patrol seed** — add `valueBoxes[0]` units cheapest-first within budget
-   (a >bracket CP is fielded as a subset, rest deferred; CP units are size-cap exempt).
+1. **Combat Patrol seed** — add `valueBoxes[0]` units round-robin (one copy of each
+   box unit, cheapest first, before any second copies) within budget, so a partly
+   fielded CP still covers most of its unit types; the rest is deferred to a bigger
+   bracket. CP units are size-cap exempt.
 2. **Battleline backbone** — ≥100 pts of battleline per 1000.
 3. **Leaders** — ~75% chance to give a leadable in-list unit a `leads` character
    (skipped once characters run past ~1.3× their profile share).
@@ -111,7 +119,8 @@ Key rules/knobs:
   always 1 at 500). Epic Heroes unique. Characters stricter (unique unless a sub-100pt
   leader has 2+ leadable units). `exclusiveGroup` mutex.
 - **`SIZE_CAP`** (120/200/350/∞) excludes over-cost units outside the CP, unless
-  `faction.ignoreSizeCap` (Custodes, Chaos Knights — elite/superheavy armies).
+  `faction.ignoreSizeCap` (Custodes, Chaos Knights, Imperial Knights —
+  elite/superheavy armies).
 - **`nextCopyCost` / `copyPoints`** apply escalation; all budget checks use them.
 - **`transportOK`** — a `role:'transport'` unit is only added while an uncovered
   carriable unit (`transports` list) is present (one unit per transport).
@@ -178,34 +187,45 @@ Theming via CSS vars in
 - **A faction:** create `src/data/<faction>.ts` exporting a `Faction` (with `category`
   + optional `profile`), then register it in `src/data/index.ts`.
 - **A Space Marine Chapter:** add `src/data/spaceMarines/<chapter>.ts` =
-  `[...baseUnits, ...unique]` (compliant) or a filtered base + unique (non-compliant),
-  reuse `gettingStartedBox`/`darkAngelsCP` or add the Chapter's own box, register it.
+  `[...baseUnits, ...exclusive(unique)]` (compliant) or a filtered base + unique
+  (non-compliant), with `parent: 'space-marines'`, `chapter: 'codex' | 'non-codex'`,
+  an `identity` and a `profile`; reuse the generic boxes (Getting Started, DA CP,
+  Heroes / Honoured of the Chapter) or add the Chapter's own CP first; register it.
+- **Another sub-faction** (e.g. a Craftworld): `{ ...base, id, name, parent: base.id,
+  identity, signature?, profile?, flavour? }` — see `craftworlds.ts`; register it.
+- **Shared kits:** datasheets built from the same box share an identical `kit`
+  (name/price/models) and get pooled when costing. A box-only unit whose box also
+  builds other datasheets uses that box as its kit with `alsoBuilds` (combo box).
 - **Value box:** add a `ValueBox` to `valueBoxes` (its `builds` reference unit ids),
   or `[]` if the faction has none.
 
 ## Data-gathering recipe (how the data was sourced)
 
-- **Points — MFM** (`mfm.warhammer-community.com/en/<faction>`, an SPA): read
-  `document.body.textContent`, normalise apostrophes, strip ▼▲, then for each unit
-  name grab the following ~150 chars to read its cost-tier labels + size→pts table.
-  Labels map to escalation: `YOUR UNIT COSTS` = flat; `1ST TO 2ND / 3RD+` = escalateAt
-  3; `1ST / 2ND+` = escalateAt 2; `1ST TO 3RD / 4TH+` = escalateAt 4.
+- **Points — MFM** (`mfm.warhammer-community.com/en/<faction>`, an SPA): the units
+  list renders in the container whose textContent starts `UNITS…`. Walk its leaf
+  text nodes; each unit starts at the capitalised name before a `YOUR UNIT COSTS` /
+  `YOUR 1ST…` label (allow accented capitals — Khârn); read the size→pts pairs and
+  the `LEADER` / `SUPPORT` lists. Labels map to escalation: `YOUR UNIT COSTS` = flat;
+  `1ST TO 2ND / 3RD+` = escalateAt 3; `1ST / 2ND+` = escalateAt 2; `1ST TO 3RD / 4TH+`
+  = escalateAt 4. Section headers (e.g. "HARLEQUINS", "YNNARI") mark sub-rosters.
 - **Prices + Combat Patrols — warhammer.com en-EU**: category page
   `.../shop/warhammer-40000/{armies-of-the-imperium|xenos-armies|armies-of-chaos|
   space-marines}/<faction>`. Decline cookies, scroll to lazy-load, read name/price
   text lines. Confirm value-box contents on the product page (expand "Read More").
   The grid virtualises — some items never load; those get best-effort (`verified:false`).
   The **Space Marines** store grid virtualises especially hard. Never solve CAPTCHAs;
-  space out crawling; en-FI also shows euros. **Preferred for prices:** generate a
-  checklist CSV (unit id, kit name, models/box, current price, blank new price) and
-  have the user fill it in by hand — far more reliable than scraping (this is how
-  every SM price was verified on 2026-10-03). Product pages are still fine for
-  reading a box's contents. MFM *points* the agent can read itself (the units
-  list renders in a container whose textContent starts `UNITS…`).
+  space out crawling; en-FI also shows euros. **Preferred for prices:** pre-fill what
+  the grid shows, then ask the user **one kit at a time in chat** (price / "ok" / box
+  size / which datasheets the box builds) — far more reliable than scraping; this is
+  how every faction added on 2026-10-03 was priced. Product pages are still fine for
+  reading a box's contents.
 
 ## Known limitations (see TODO.md for specifics)
 
-- Some kit prices are best-effort estimates (`verified:false` → "≈").
-- Per-faction verification status, the remaining best-effort prices, more SM Chapters,
-  and backlog features (competitive mode, shareable URL/export, per-unit value display)
-  are all tracked in TODO.md.
+- Some kit prices are best-effort estimates or kitbash proxies (`verified:false` → "≈").
+- Forge World resin, terrain and discontinued kits are deliberately left out.
+- Units use their default (smallest) size; optional costed upgrades beyond the one
+  `wargear` option aren't modelled.
+- Per-faction status, the missing factions (Orks, T'au, Drukhari, GSC, Votann;
+  Imperial Agents / Deathwatch low priority) and backlog features (competitive mode,
+  shareable URL/export, per-unit value display) are tracked in TODO.md.

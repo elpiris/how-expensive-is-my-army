@@ -23,10 +23,15 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 - **Points** come from the Munitorum Field Manual (MFM); **prices + Combat Patrols**
   from warhammer.com en-EU. Confirmed prices set `kit.verified: true`; unconfirmed/
   best-effort are `verified:false` (UI shows "≈"). The GW store grid virtualises
-  heavily and scraping it is unreliable — **for price checks, generate a checklist
-  CSV (unit id, kit name, models/box, current price) and ask the user to fill it
-  in by hand**, then apply it. MFM points can still be read in the browser pane.
-  Never solve GW CAPTCHAs. Warhammer points/prices drift — re-check periodically.
+  heavily and scraping it is unreliable — pre-fill what it shows, then **ask the
+  user one kit at a time in chat** (price / "ok" / box size / what the box builds) —
+  their preferred format. MFM points and Combat Patrol contents (product pages) can
+  be read in the browser pane. Never solve GW CAPTCHAs. Points/prices drift —
+  re-check periodically.
+- **Adding a faction (recipe used 2026-10-03):** MFM pass → store grid → Combat
+  Patrol page → generate the faction file → run the integrity / generation checks
+  (no bad refs, every unit picked, no list over target, CP bought) → per-kit Q&A →
+  docs (TODO/README/CLAUDE) → build gate → commit + push.
 
 ## Conventions
 - Match the existing data-file style (header comment noting sources + dates; bump
@@ -36,18 +41,21 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 - End commit messages with:
   `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
 
-## Current state (2026-10-03, evening)
-16 non-SM factions fully fine-tuned (Astra Militarum, Imperial Knights, Grey Knights, Emperor's Children, World Eaters, Thousand Sons, Chaos Daemons added 2026-10-03) (full MFM rosters, verified en-EU prices, real
-value boxes, composition profiles). Space Marines added with a Chapter system (own
-dropdown group): base + 6 Codex-compliant (UM, IF, Sal, IH, WS, RG) + 4
-non-compliant (DA, BT, SW, BA) Chapters, with own CPs for DA/BT/SW/BA (the
-generic-units DA CP + Heroes of the Chapter are offered to every Chapter). The SM
-base roster is the full generic MFM list (68 datasheets, exact tiers); every kit
-price is hand-verified (2026-10-03). Combo boxes are valued
-whole and everything bought is fielded when possible. Users can tune composition
-via Advanced settings. SM units carry thematic `tags` and each Chapter an `identity`;
-Chapter lists are generated for flavour (factions without an identity stay value-first).
-Aeldari have 5 Craftworld sub-factions (`craftworlds.ts`: identity + signature
-characters + profile, generated at `flavour: 0.5`); sub-factions use `parent`. Chapters are picked in a
-Chapter sub-selector shown when Space Marines is chosen. Main backlog: competitive
-mode, export/shareable URL.
+## Current state (2026-10-03, night)
+- **Factions:** 16 non-SM factions + Space Marines, all with full MFM rosters (FW /
+  terrain / discontinued kits left out), verified en-EU prices, real value boxes and
+  composition profiles. Imperium: Custodes, Sororitas, Mechanicus, Astra Militarum,
+  Imperial Knights, Grey Knights. Chaos: Death Guard, CSM, Chaos Knights, Emperor's
+  Children, World Eaters, Thousand Sons, Chaos Daemons. Xenos: Necrons, Tyranids,
+  Aeldari. **Missing:** Orks, T'au, Drukhari, GSC, Votann (next, in that order);
+  Imperial Agents + Deathwatch are low priority.
+- **Sub-factions** (`parent` + a second dropdown): 10 SM Chapters (6 Codex + DA, BT,
+  SW, BA; generic SM boxes incl. DA CP, Heroes / Honoured of the Chapter) and 5
+  Aeldari Craftworlds.
+- **Flavour:** SM units + Aeldari are tagged; Chapters have an `identity` (full
+  flavour), Craftworlds an identity + signature characters (`flavour: 0.5`); other
+  factions are value-first.
+- **Generator/costing:** combo boxes valued whole; paid-for spares fielded first;
+  shared kits pooled; CP seeded round-robin. Users can tune composition in Advanced
+  settings.
+- **Backlog:** remaining factions, competitive mode, export/shareable URL (TODO.md).

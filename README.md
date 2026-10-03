@@ -24,7 +24,7 @@ Built with **Vite + React + TypeScript**.
     the Chapter is chosen in a second **Chapter** dropdown that appears beside it.
   - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights, Emperor's Children,
     World Eaters, Thousand Sons, Chaos Daemons
-  - **Xenos** — Necrons, Tyranids, Aeldari
+  - **Xenos** — Necrons, Tyranids, Aeldari (+ a **Craftworld** dropdown)
 - **Two modes:**
   - **Quick list** — pick a faction + points bracket (500 / 1000 / 1500 / 2000)
     and get one list. Reroll for a new take.
@@ -60,7 +60,13 @@ Built with **Vite + React + TypeScript**.
   **highest-cost wargear** option a unit can take.
 - **Transports** are only added to carry a unit already in the list (one unit each).
 - **Smart shopping list:** works out which boxes to buy, preferring value boxes when
-  they genuinely save money, credits bonus sprues, and flags leftover models.
+  they genuinely save money, credits bonus sprues, pools datasheets that share a kit
+  (one Leman Russ box builds any variant; one War Dogs box builds any 2), and flags
+  leftover models.
+- **Combo boxes & "use what you buy":** a box that builds several datasheets (e.g.
+  Horrors of the Hive, Heroes of the Chapter, the Troupe box) is valued as a whole,
+  and anything already paid for but unused — box-mates, a gaunt box's Ripper, spare
+  Combat Patrol units — is fielded first when it fits.
 - **Discounts:** one-click 10 / 15 / 20 % retailer discount, correctly excluding
   Games-Workshop-webstore-exclusive kits (which don't get discounted), applied per
   line and to the totals.
@@ -97,8 +103,10 @@ update roughly monthly/quarterly, and GW adjusts prices periodically.
   price`** in the UI. Always confirm the live price at
   [warhammer.com](https://www.warhammer.com/en-EU/) before buying.
 - Not every faction has a value box: GW has discontinued some Combat Patrols (e.g.
-  Adeptus Custodes), and superheavy armies (Chaos Knights) never had one — those
-  lists are built from individual kits.
+  Adeptus Custodes), and Imperial Knights, Chaos Knights and Chaos Daemons have
+  none — those lists are built from individual kits.
+- Forge World resin kits, terrain and discontinued kits are left out of the rosters;
+  a few units with no kit on sale are priced as kitbashes (shown with `≈`).
 - Each faction file records a `lastVerified` date; see [TODO.md](TODO.md) for the
   per-faction verification status.
 
@@ -112,19 +120,17 @@ src/
   types.ts              # domain model (Unit, Kit, ValueBox, Faction, cost types)
   data/
     index.ts            # faction registry (grouped by category in the UI)
-    custodes.ts         # one file per faction: units + kits + points + prices
-    sororitas.ts
-    mechanicus.ts
-    deathGuard.ts
-    chaosSpaceMarines.ts
-    chaosKnights.ts
-    necrons.ts
-    tyranids.ts
-    aeldari.ts
+    <faction>.ts        # one file per faction: units + kits + points + prices
+                        # (custodes, sororitas, mechanicus, astraMilitarum,
+                        #  imperialKnights, greyKnights, deathGuard,
+                        #  chaosSpaceMarines, chaosKnights, emperorsChildren,
+                        #  worldEaters, thousandSons, chaosDaemons, necrons,
+                        #  tyranids, aeldari)
+    craftworlds.ts      # the 5 Aeldari Craftworld sub-factions
     spaceMarines/       # base Codex roster + per-Chapter Faction files
-      base.ts
-      vanilla.ts        # Space Marines, no Chapter
-      ultramarines.ts   # …and the other Chapters
+      base.ts           #   shared roster + generic value boxes
+      vanilla.ts        #   Space Marines, no Chapter
+      ultramarines.ts   #   …and the other Chapters
   lib/
     value.ts            # points-per-euro, copy/escalation + wargear points helpers
     generateList.ts     # Quick + Escalation list generation
@@ -147,6 +153,12 @@ src/
   `category` of `imperium` / `chaos` / `xenos`), then add it to `src/data/index.ts`.
   Optionally give it a `profile` (relative target share of points per category) to
   shape its lists; omit it to leave the faction unshaped.
+- **Add a sub-faction** (a Chapter, a Craftworld…): a `Faction` with `parent` set to
+  the base faction's id (the base gets a `subfactionLabel`); give it an `identity`
+  (tag weights) and optionally `signature` units / its own `profile` / `flavour`.
+- **Shared / combo kits:** units that share a box use the same kit name (pooled
+  when costing); a box that also builds other datasheets lists them in
+  `kit.alsoBuilds`.
 - **Add a value box:** add a `ValueBox` to the faction's `valueBoxes`, listing what
   it `builds` (unit id + model count). Leave `valueBoxes: []` if the faction has no
   Combat Patrol.

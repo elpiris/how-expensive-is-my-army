@@ -3,220 +3,174 @@
 Running list of outstanding work. Data facts were last checked on the dates noted;
 Warhammer points and prices drift, so treat anything older with suspicion.
 
-Active dropdown groups (`Faction.category`): **Imperium** (Custodes, Sororitas,
-Mechanicus, Astra Militarum), **Space Marines** (11 entries: no-Chapter + Ultramarines, Imperial
-Fists, Salamanders, Iron Hands, White Scars, Raven Guard, Dark Angels, Black
-Templars, Space Wolves, Blood Angels), **Chaos** (Death
-Guard, Chaos Space Marines, Chaos Knights), **Xenos** (Necrons, Tyranids, Aeldari).
-New-architecture overview is in [ARCHITECTURE.md](ARCHITECTURE.md).
+Active dropdown groups (`Faction.category`):
+- **Imperium** — Custodes, Sororitas, Mechanicus, Astra Militarum, Imperial Knights,
+  Grey Knights.
+- **Space Marines** — one entry + a **Chapter** sub-selector: no Chapter,
+  Ultramarines, Imperial Fists, Salamanders, Iron Hands, White Scars, Raven Guard,
+  Dark Angels, Black Templars, Space Wolves, Blood Angels.
+- **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights, Emperor's Children,
+  World Eaters, Thousand Sons, Chaos Daemons.
+- **Xenos** — Necrons, Tyranids, Aeldari (+ a **Craftworld** sub-selector: Biel-Tan,
+  Ulthwé, Saim-Hann, Iyanden, Alaitoc).
+
+Architecture overview: [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Data verification
 
-**The 9 non-SM factions are fully fine-tuned (2026-10-02)** — full MFM rosters
-(points + escalation + wargear), real en-EU kit prices, real Combat Patrols / value
-boxes, composition profiles. **Space Marines (2026-10-03)** — the full generic MFM
-roster (68 datasheets, every escalation tier + leader list) plus 10 Chapters; every
-kit price hand-verified on en-EU 2026-10-03. Remaining data work = confirming the best-effort
-(`verified:false`) kit prices on individual product pages. Re-check periodically.
+**16 non-SM factions + Space Marines (10 Chapters) are fully fine-tuned** — MFM
+rosters (points + escalation + leader lists), en-EU kit prices, real Combat Patrols /
+value boxes, composition profiles. Prices for everything added on 2026-10-03 were
+confirmed with the user one kit at a time. Remaining data work: the few best-effort
+(`verified:false` → "≈") kits noted below, and periodic re-checks (points/prices drift).
+
+### Still missing factions (MFM)
+- **Xenos:** Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann.
+- **Low priority (skipped 2026-10-03 as marginal armies):** Imperial Agents, and
+  Deathwatch (as an SM Chapter). Add later the same way.
+- Out of scope: Titan Legions / Chaos Titan Legions (Forge World).
 
 ### Per-faction status
+
+**Imperium**
 - **Adeptus Custodes — DONE (2026-10-02).** Full 31-datasheet MFM roster; prices
   verified for every GW-sold kit; Forge World / battle-group-only kits (Aquilon,
   Agamatus, Caladius, both FW Contemptors, Telemon, Pallas, Coronus, Anathema
   Rhino, Knight-Centura) stay best-effort. **GW discontinued the Custodes Combat
-  Patrol** — only the heavy €180 Support Battle Group remains, so no value box
-  (`ignoreSizeCap` lets its 200+pt troops field below 2000).
-- **Adepta Sororitas — DONE (2026-10-02).** Full 33-datasheet MFM roster; prices
-  verified for every GW-sold kit; the foot Canoness and the Seraphim/Zephyrim box
-  aren't currently sold, so those stay best-effort. Combat Patrol (€139) contents
-  confirmed on the product page (1 Canoness, 5 Sacresants, 10 Battle Sisters,
-  10 Arco-flagellants).
-- **Adeptus Mechanicus — DONE (2026-10-02).** Full 34-datasheet MFM roster; prices
-  verified for every GW-sold kit (Tech-Priest Enginseer isn't stocked → best-effort;
-  Cybernetica Datasmith comes in the Kastelan box via alsoBuilds). Combat Patrol
-  (€139) contents confirmed (1 Manipulus, 3 Serberys Sulphurhounds, 5 Pteraxii
-  Sterylizors, 10 Skitarii Vanguard).
-- **Chaos Space Marines — DONE (2026-10-02).** Comprehensive ~41-unit roster from
-  the 54-datasheet MFM (omitting terrain, cross-faction kits, newest niche
-  sub-faction units). Prices verified on en-EU; shared Chaos vehicle kits reuse
-  DG's verified prices; a few not surfaced in the grid are best-effort (Legionaries
-  box, foot/jump Chaos Lords, Vindicator, Master of Possession). Combat Patrol
-  (€139) contents confirmed (1 Master of Possession, 5 Possessed, 10 Legionaries,
-  10 Cultists). TODO: confirm the best-effort kit prices on individual product pages.
-- **Chaos Knights — DONE (2026-10-02).** Points for all 20 MFM datasheets verified;
-  prices verified on en-EU. Active roster is the 12 affordable plastic/cheap units
-  (6 Questoris-class Knights incl. the newly-added Ruinator, 5 War Dogs, Moirax);
-  the 8 Forge World super-heavy Titans (€175–593 resin) are omitted on purpose —
-  they have decent points-per-euro and would dominate the generator, breaking the
-  "affordable above all" ethos (data in git history if ever wanted). No Combat
-  Patrol exists.
-- **Aeldari — DONE (2026-10-02).** Focused ~38-unit Craftworlds roster from the
-  huge 76-datasheet MFM index (omitting Harlequins / Ynnari / Corsairs sub-factions,
-  FW Titans and support platforms). Prices verified on en-EU where surfaced (aspect
-  boxes €51.50, grav-tank kit €57.50 = Falcon/Fire Prism/Night Spinner); a few
-  core kits not loaded in the virtualised grid are best-effort (Farseer, Spiritseer,
-  Striking Scorpions, Wraith kits, Wraithknight, Vyper, War Walkers, Wave Serpent,
-  Yriel, Asurmen). Combat Patrol (€139) contents confirmed. TODO: confirm the
-  best-effort kit prices on individual product pages.
-- **Necrons — DONE (2026-10-02).** Expanded to a ~34-unit roster from the
-  52-datasheet MFM; prices RE-VERIFIED on en-EU (drift fixed: Warriors €42→43,
-  Immortals €37→38.50, C'tan €105→107.50, CP €135→139, etc.). Canoptek Scarabs
-  stay ≈ (not sold standalone); a few units best-effort (Imotekh, Trazyn,
-  Reanimator). Re-added the Technomancer (it IS an MFM datasheet).
-- **Tyranids — DONE (2026-10-02).** Expanded to a ~33-unit roster from the
-  52-datasheet MFM (omitting the FW Bio-Titans); prices RE-VERIFIED on en-EU
-  (drift fixed: Hive Tyrant/Warriors/Swarmlord €51.50→53, Trygon €76→80, Hive
-  Guard €67→70, Zoanthropes €64→66, Exocrine €70→74, Horrors €87.50→93, CP
-  €135→139). Ripper Swarms stay ≈ (bonus sprue, not sold standalone).
-- **Death Guard — DONE (2026-10-02).** Full 35-datasheet MFM roster (incl. the
-  Nurgle daemon units; Miasmic Malignifier terrain omitted); every kit price
-  verified on en-EU. Combat Patrol "Maggot Lords" (€139) contents confirmed.
-
-Known price drift spotted earlier: Combat Patrols €135 → **€139**; Termagants
-€37 → €38.50; Carnifex/Screamer-Killer Brood €84 → €87; Necrons Royal Court
-€105 → €107.50.
-
-**Scraping tips.** MFM: the SPA holds all data in `document.body.textContent` —
-normalise apostrophes, strip ▼▲, then read each unit's tier labels + size→pts
-table (see git history / custodes.ts). GW store: the faction category page is
-`warhammer.com/en-EU/shop/warhammer-40000/armies-of-the-imperium/<faction>` (or
-`.../xenos-armies/...`); decline cookies, let the grid lazy-load, then read
-name/price text lines. The grid can get throttled after heavy crawling, but
-individual product pages keep working; en-FI also shows euros. Never solve GW
-CAPTCHAs; space out crawling.
-
-## Space Marines + Chapters (2026-10-03)
-Modelled as a **shared base Codex roster** (`spaceMarines/base.ts`, 68 generic datasheets — the whole MFM list minus the Forge World Thunderhawk)
-reused by each Chapter, which is its own `Faction` entry under Imperium:
-- **Base (no Chapter):** `space-marines`, value boxes = Getting Started with Space
-  Marines (€139: Captain, Librarian, 5 Intercessors, 5 Vanguard, Land Speeder) and
-  the **Dark Angels Combat Patrol**, which holds only generic units (Gravis Captain,
-  3 Bladeguard, 5 Hellblasters, 10 Intercessors) and so is offered to EVERY Chapter,
-  as is **Heroes of the Chapter** (€93: Lieutenant, Apothecary Biologis, 5 Sternguard).
-- **Codex-compliant (base + unique characters):** Ultramarines (Guilliman, Calgar,
-  Tigurius, Victrix Guard), Imperial Fists (Lysander, Tor Garadon), Salamanders
-  (Vulkan He'stan, Adrax Agatone), Iron Hands (Caanok Var, Iron Father Feirros),
-  White Scars (Kor'sarro Khan, Suboden Khan), Raven Guard (Kayvaan Shrike, Aethon
-  Shaan) — all use the generic value boxes (Getting Started, DA CP, Heroes).
-- **Non-compliant:** Dark Angels (+Deathwing/Ravenwing, Lion; DA CP first),
-  Black Templars (base MINUS Psykers/Librarians, +Crusaders/Sword Brethren/Emperor's
-  Champion; own CP + DA CP, no Getting Started — it has a Librarian), Space Wolves
-  (+Grey Hunters/Blood Claws/Wulfen/Thunderwolves/Wolf Guard; own CP + both generic),
-  Blood Angels (full base + 14 unique datasheets: Dante, Mephiston, Sanguinor,
-  Lemartes, Astorath, BA/DC Captains, Sanguinary Priest, Death Company on foot/jump,
-  Sanguinary Guard, DC Dreadnought, Baal Predator; own CP — Captain, 6 Sanguinary
-  Guard, 10 Assault Intercessors — + the generic boxes).
-- **2026-10-03:** BT + SW Combat Patrols confirmed on product pages (BT: Emperor's
-  Champion, 3 Bladeguard, 5 Sword Brethren, 10 Crusaders; SW: Wolf Guard Battle
-  Leader, 5 Wolf Guard Terminators, 5 Wulfen, 10 Blood Claws). All BT/SW-unique kit
-  prices re-verified on en-EU (big drift: characters €27→€34–38.50, squads →€53),
-  SW points incl. 3rd+ tiers from the MFM.
-- Each Chapter has a style `profile` (IF lean vehicles, Salamanders/BT infantry,
-  DA mounted, SW mounted/melee).
-
-- **Flavour (2026-10-03):** all 68 base units tagged (`tags`), Chapter-only units
-  marked `exclusive`, each Chapter has an `identity` (tag weights) → Chapter lists
-  are generated for flavour (no slider: it barely changed prices). Non-SM factions
-  have no tags/identity yet, so they stay value-first — tag them (and give them an
-  identity) to make their lists flavourful too; check prices don't jump (Custodes
-  went +47% when flavour relied on the generic `flavor` rating alone).
-
-- **Aeldari Craftworlds (2026-10-03):** Biel-Tan, Ulthwé, Saim-Hann, Iyanden,
-  Alaitoc in `craftworlds.ts`, sharing the Aeldari roster (units now tagged).
-  Halfway flavour (full flavour cost +25–30% for Alaitoc/Saim-Hann). Not modelled:
-  Ynnari and Corsairs (user can't QA them; incl. Kharseth, Starfangs) and the FW
-  Titans. Since 2026-10-03 the roster also has the support platforms, Warlocks,
-  Lhykhis, Autarch Wayleaper, Ghostglaive Wraithknight and the Harlequins.
-- **TODO — Exodites:** Clanblade (70 pts, leads Dragon Knights), Stonesinger (55,
-  supports Dragon Knights), Leystalker (75), Dragon Knights (3 models 85 / 3rd+ 95)
-  are in the MFM but only sold in a Kill Team box for now. Add them (tag
-  `exodite`) once individual kits exist, or model the Kill Team box as a value box.
-
+  Patrol** — no value box (`ignoreSizeCap` lets its 200+pt troops field below 2000).
+- **Adepta Sororitas — DONE (2026-10-02).** Full 33-datasheet MFM roster; the foot
+  Canoness and the Seraphim/Zephyrim box aren't currently sold → best-effort. Combat
+  Patrol (€139: Canoness, 5 Sacresants, 10 Battle Sisters, 10 Arco-flagellants).
+- **Adeptus Mechanicus — DONE (2026-10-02).** Full 34-datasheet MFM roster; every
+  kit verified (Tech-Priest Enginseer €34 confirmed 2026-10-03; the Cybernetica
+  Datasmith's kit is the Kastelan box). Combat Patrol (€139: Manipulus, 3 Serberys
+  Sulphurhounds, 5 Pteraxii Sterylizors, 10 Skitarii Vanguard).
 - **Astra Militarum — DONE (2026-10-03).** 70 of the MFM's 72 datasheets (Aegis
-  Defence Line and the FW Avenger left out); points + escalation + leader lists from
-  the MFM; every kit price hand-checked (grid + user). Combat Patrol (€139: Cadian
-  Command Squad, 10 Kasrkin, 10 Rough Riders). Shared kits pooled (Leman Russ,
-  Rogal Dorn, Manticore/Deathstrike, Hydra/Wyvern, Ogryns/Bullgryns/Bodyguard,
-  Taurox/Prime, Baneblade ×5, Shadowsword ×3); Graves' €83 box builds both versions
-  (one fielded); the Nork Deddog box adds 2 Ogryns. Limited Battleforce Platoon
-  skipped. No identity/tags yet → value-first.
-- **Imperial Knights — DONE (2026-10-03).** The 14 plastic datasheets (the 8 FW
-  resin Knights omitted, as for Chaos Knights); MFM points + escalation; prices from
-  the en-EU grid, kit sharing confirmed by the user (Questoris €155: Paladin /
-  Errant / Gallant / Crusader / Warden / Defender; Dominus €156: Castellan /
-  Valiant; Preceptor / Canis Rex €155; Armigers €83 for 2, either type; Destrier
-  €145; Moirax €62 online). No Combat Patrol exists. `ignoreSizeCap`.
+  Defence Line and the FW Avenger left out); every kit price verified. Combat Patrol
+  (€139: Cadian Command Squad, 10 Kasrkin, 10 Rough Riders). Shared kits pooled
+  (Leman Russ, Rogal Dorn, Manticore/Deathstrike, Hydra/Wyvern, Ogryns/Bullgryns/
+  Bodyguard, Taurox/Prime, Baneblade ×5, Shadowsword ×3); Graves' €83 box builds
+  both versions (one fielded); the Nork Deddog box adds 2 Ogryns. Limited
+  Battleforce Platoon skipped.
+- **Imperial Knights — DONE (2026-10-03).** The 14 plastic datasheets (the 8 FW resin
+  Knights omitted, as for Chaos Knights). Kits: Questoris €155 (Paladin / Errant /
+  Gallant / Crusader / Warden / Defender), Dominus €156 (Castellan / Valiant),
+  Preceptor / Canis Rex €155, Armigers €83 for 2 (either type), Destrier €145,
+  Moirax €62 (online). No Combat Patrol exists. `ignoreSizeCap`.
 - **Grey Knights — DONE (2026-10-03).** 23 datasheets (FW Thunderhawk and the
-  discontinued Stormtalon/Stormhawk omitted); MFM points + leader lists; prices
-  hand-checked by the user. Combat Patrol (€139: Crowe, 10 Strike, 5 Terminators,
-  Venerable Dreadnought). Shared kits: Strike Squad €56.50/10 (Strike / Purifier /
-  Purgation / Interceptor), Terminators €51/5 (+ Paladins), Dreadknight €66 (+ GM),
-  Grand Master / Voldus €34.50. SM kits for the Terminator Librarian / Chaplain and
-  Techmarine. Kitbash proxies ("≈"): Brother-Captain, Champion (Crowe €38.50),
-  Razorback (Rhino €50).
-- **Low priority (skipped 2026-10-03 as marginal armies):** Imperial Agents and
-  Deathwatch (as an SM Chapter). Add later the same way (MFM pass + user price check).
+  discontinued Stormtalon/Stormhawk omitted). Combat Patrol (€139: Crowe, 10 Strike,
+  5 Terminators, Venerable Dreadnought). Shared kits: Strike Squad €56.50/10 (Strike
+  / Purifier / Purgation / Interceptor), Terminators €51/5 (+ Paladins), Dreadknight
+  €66 (+ GM), Grand Master / Voldus €34.50; SM kits for the Terminator Librarian /
+  Chaplain and Techmarine. Kitbash proxies ("≈"): Brother-Captain, Champion (Crowe
+  €38.50), Razorback (Rhino €50).
+
+**Chaos**
+- **Chaos Space Marines — DONE (2026-10-02).** ~41-unit roster from the
+  54-datasheet MFM (omitting terrain, cross-faction kits, newest niche sub-faction
+  units). Combat Patrol (€139: Master of Possession, 5 Possessed, 10 Legionaries,
+  10 Cultists). TODO: confirm the best-effort kits (Legionaries box, foot/jump Chaos
+  Lords, Vindicator, Master of Possession) — newer factions show e.g. the Chaos
+  Vindicator at €64.
+- **Death Guard — DONE (2026-10-02).** Full 35-datasheet MFM roster (incl. the Nurgle
+  daemons; Miasmic Malignifier terrain omitted); every kit verified. Combat Patrol
+  "Maggot Lords" (€139).
+- **Chaos Knights — DONE (2026-10-02).** The 12 plastic datasheets (6 Questoris-class
+  Knights, 5 War Dogs, Moirax); the 8 FW Titans omitted on purpose (would dominate
+  the generator). No Combat Patrol exists.
 - **Emperor's Children — DONE (2026-10-03).** All 23 MFM datasheets (incl. the
-  Daemons of Slaanesh); prices from the en-EU grid, box sizes / sharing confirmed
-  by the user (Tormentors / Infractors €57.50 for 10, Daemon Prince ± wings €74,
-  Keeper / Shalaxi €139). Combat Patrol (€139: Lord Exultant, 6 Flawless Blades,
-  10 Infractors).
+  Daemons of Slaanesh). Shared kits: Tormentors / Infractors €57.50 for 10, Daemon
+  Prince ± wings €74, Keeper / Shalaxi €139. Combat Patrol (€139: Lord Exultant,
+  6 Flawless Blades, 10 Infractors).
 - **World Eaters — DONE (2026-10-03).** All 30 MFM datasheets (incl. Khârn, the
-  Daemons of Khorne and the Kill Team Goremongers); prices from the en-EU grid,
-  box sizes / sharing confirmed by the user (Eightbound / Exalted €53 for 3,
-  Juggernaut kit also builds Lord Invocatus, Maulerfiend / Forgefiend €74, Daemon
-  Prince ± wings, Chaos Predator variants). Combat Patrol (€139: Daemon Prince,
-  Master of Executions, 10 Berzerkers, 10 Jakhals).
-- **Thousand Sons — DONE (2026-10-03).** All 34 MFM datasheets (incl. the
-  Daemons of Tzeentch); prices from the en-EU grid, box sizes / sharing confirmed
-  by the user (Exalted Sorcerers box = 2 on foot + 1 on Disc, modelled as 3
-  interchangeable models; Lord of Change / Kairos €139; Enlightened ± greatbows;
-  Daemon Prince ± wings; Maulerfiend / Forgefiend; Predators). Combat Patrol
-  (€139: Daemon Prince, Tzaangor Shaman, 3 Enlightened, 10 Rubrics).
+  Daemons of Khorne, the Kill Team Goremongers). Shared kits: Eightbound / Exalted €53
+  for 3, Juggernaut kit (+ Lord Invocatus), Maulerfiend / Forgefiend €74, Daemon
+  Prince ± wings, Chaos Predators. Combat Patrol (€139: Daemon Prince, Master of
+  Executions, 10 Berzerkers, 10 Jakhals).
+- **Thousand Sons — DONE (2026-10-03).** All 34 MFM datasheets (incl. the Daemons of
+  Tzeentch). Exalted Sorcerers box = 2 on foot + 1 on Disc (modelled as 3
+  interchangeable models); Lord of Change / Kairos €139. Combat Patrol (€139: Daemon
+  Prince, Tzaangor Shaman, 3 Enlightened, 10 Rubrics).
 - **Chaos Daemons — DONE (2026-10-03).** 47 datasheets (the MFM's 53 minus 6 with
   phased-out kits: Blue Scribes, Fluxmaster, Epidemius, Tranceweaver, Hellflayer,
-  Tormentbringer); all prices verified (grid + shared kits + user). No Combat
-  Patrol exists. Skullmaster kitbashed from the Bloodcrushers box. Idea: split into
-  Khorne / Tzeentch / Nurgle / Slaanesh sub-factions (like the Craftworlds).
-- **Still missing factions (MFM):** Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann. Titan Legions (FW) out of scope.
+  Tormentbringer); all verified. No Combat Patrol exists. Skullmaster kitbashed from
+  the Bloodcrushers box. Idea: Khorne / Tzeentch / Nurgle / Slaanesh sub-factions
+  (like the Craftworlds).
+
+**Xenos**
+- **Necrons — DONE (2026-10-02).** ~34-unit roster from the 52-datasheet MFM; prices
+  re-verified. A few units best-effort (Imotekh, Trazyn, Reanimator); Canoptek
+  Scarabs come with the Necron Warriors box (`alsoBuilds`).
+- **Tyranids — DONE (2026-10-02).** ~33-unit roster from the 52-datasheet MFM
+  (omitting the FW Bio-Titans); prices re-verified. Ripper Swarms are fielded as
+  single bases (MFM: 1 model 30 pts) whose kit is the Termagants box.
+- **Aeldari — DONE (2026-10-03).** 54-unit roster: Craftworlds + Harlequins + support
+  platforms, Warlocks, Lhykhis, Wayleaper, Ghostglaive Wraithknight; every kit price
+  verified. Combat Patrol (€139: Spiritseer, 5 Wraithblades, 5 Warp Spiders, 10 Dire
+  Avengers). Not modelled: Ynnari, Corsairs (incl. Kharseth, Starfangs), FW Titans.
+  Five **Craftworld** sub-factions (`craftworlds.ts`) at `flavour: 0.5`.
+- **TODO — Exodites:** Clanblade (70 pts, leads Dragon Knights), Stonesinger (55,
+  supports Dragon Knights), Leystalker (75), Dragon Knights (3 models 85 / 3rd+ 95)
+  are in the MFM but only sold in a Kill Team box for now. Add them (tag `exodite`)
+  once individual kits exist, or model the Kill Team box as a value box.
+
+**Scraping tips.** MFM: the units list renders in a container whose textContent
+starts `UNITS…`; walk its leaf nodes, split per unit at each `YOUR UNIT COSTS` /
+`YOUR 1ST…` label and read the size→pts pairs + LEADER/SUPPORT lists (allow
+accented capitals, e.g. Khârn). GW store: `warhammer.com/en-EU/shop/warhammer-40000/
+{armies-of-the-imperium|armies-of-chaos|xenos-armies|space-marines}/<faction>`;
+decline cookies, scroll to lazy-load, read name/price lines — the grid virtualises,
+so expect gaps. Product pages are reliable for Combat Patrol contents ("Read More").
+**For prices, ask the user one kit at a time in chat** (price / "ok" / box size) —
+far more reliable than scraping. Never solve GW CAPTCHAs.
+
+## Space Marines + Chapters (2026-10-03)
+A **shared base roster** (`spaceMarines/base.ts`, 68 generic datasheets — the whole
+MFM list minus the FW Thunderhawk) reused by each Chapter; Chapters are sub-factions
+(`parent: 'space-marines'`) picked in the Chapter dropdown.
+- **Generic value boxes** (every Chapter): Getting Started with Space Marines (€139:
+  Captain, Librarian, 5 Intercessors, 5 Vanguard, Land Speeder), the **Dark Angels
+  Combat Patrol** (only generic units: Gravis Captain, 3 Bladeguard, 5 Hellblasters,
+  10 Intercessors), **Heroes of the Chapter** (€93, online only: Lieutenant w/
+  Combi-weapon, Apothecary Biologis, 5 Sternguard) and **Honoured of the Chapter**
+  (€139: Chaplain, Judiciar, Bladeguard Ancient, 3 Bladeguard, 3 Eradicators). Their
+  box-only units (Apothecary Biologis, Lieutenant w/ Combi-weapon, Judiciar,
+  Bladeguard Ancient) use the box as their kit.
+- **Codex-compliant (base + unique characters):** Ultramarines (Guilliman, Calgar,
+  Tigurius, Titus + Wardens of Ultramar — one €77 box, Sicarius, Konorius, Victrix
+  Guard), Imperial Fists (Lysander, Tor Garadon), Salamanders (Vulkan He'stan, Adrax
+  Agatone), Iron Hands (Caanok Var, Feirros), White Scars (Kor'sarro, Suboden),
+  Raven Guard (Shrike, Aethon Shaan).
+- **Non-compliant:** Dark Angels (Deathwing/Ravenwing, Lion; DA CP first), Black
+  Templars (no Psykers; own CP; no Getting Started — it has a Librarian), Space
+  Wolves (pack infantry, Thunderwolves, Wolf Guard; own CP), Blood Angels (14 unique
+  datasheets, many built from generic kits; own CP).
+- **Flavour:** all base units carry `tags`, Chapter-only units are `exclusive`, each
+  Chapter has an `identity` → Chapter lists are generated at full flavour (a slider
+  was tried and dropped — flavour barely changed prices). Each Chapter also has a
+  composition `profile`.
+- **Prices:** every SM kit hand-checked 2026-10-03. Multi-unit boxes: Infiltrators
+  (10, either squad), Reivers (10), Drop Pods (2) — spares get fielded.
 
 **SM TODOs:**
-- **Points:** the whole generic roster + Ultramarines re-read from the MFM
-  2026-10-03 (exact 3rd+ / 2nd+ tiers, leader lists). Units use the default size;
-  a few carry an optional costed upgrade in the MFM (Desolation Vengor launcher,
-  Invader multi-melta…) not modelled as wargear.
-- **Combo / box-only kits:** Heroes of the Chapter (€93, online only: Lieutenant
-  w/ Combi-weapon, Apothecary Biologis, 5 Sternguard), Honoured of the Chapter (€139:
-  Chaplain, Judiciar, Bladeguard Ancient, 3 Bladeguard, 3 Eradicators) — both value
-  boxes for every Chapter; their box-only units use the box as their kit. Captain
-  Titus + 6 Wardens of Ultramar share one €77 box. Infiltrator (10, either squad),
-  Reiver (10) and Drop Pod (2) boxes build more than one unit — spares get fielded.
-- **Prices:** ALL SM kits (base + every Chapter) re-verified on en-EU 2026-10-03,
-  checked by hand (GW's grid is unreliable to scrape — hand the user a checklist
-  CSV instead). Big drift fixed (characters €27→€34–38.50, squads →€51–53, Lion
-  €115→€60). The box-only Apothecary Biologis is priced as the "Heroes of the
-  Chapter" box (€93: Lieutenant w/ Combi-weapon, Apothecary Biologis, 5 Sternguard),
-  which is also a value box for every Chapter. The box's Lieutenant w/ Combi-weapon
-  (MFM 85 pts, its own datasheet) is counted as the generic Lieutenant — add the
-  variant as a unit if accuracy matters.
-- **New-Chapter prices (2026-10-03):** all IH/WS/RG/BA kits hand-checked. Many BA
-  datasheets reuse generic kits (BA/DC Captain → Captain; Death Company → Assault
-  Intercessors / Jump Pack Intercessors; DC Dreadnought → Brutalis Dreadnought).
-- **More Chapters:** Deathwatch, Grey Knights (own roster), Crimson Fists, Black
-  Dragons etc. are not modelled.
+- A few units carry an optional costed upgrade in the MFM (Desolation Vengor
+  launcher, Invader multi-melta…) not modelled as wargear.
+- More Chapters (Deathwatch — low priority; Crimson Fists, Black Dragons… not modelled).
 
 ## Model / rules refinements
-- **Multi-unit / combo boxes** whose extra units aren't in the roster aren't
-  credited (e.g. Necrons Royal Court; the DG online "Chosen of Mortarion" box
-  builds a Plaguecaster + Blightbringer + Champion but only the Plaguecaster is
-  modelled, so a lone one reads as poor value).
+- **Flavour for other factions:** only SM Chapters and Aeldari Craftworlds have
+  `tags` / `identity`; the rest stay value-first. Tag them (and add identities or
+  sub-factions — e.g. Astra Militarum regiments, Chaos Daemon gods) for flavourful
+  lists; check prices don't jump (Custodes went +47% when flavour relied on the
+  generic `flavor` rating alone).
+- **Combo boxes** whose extra units aren't in the roster aren't credited (e.g.
+  Necrons Royal Court; the DG "Chosen of Mortarion" box's Champion).
 - Optional: a **floor that skips very-low-value units** in the fill unless nothing
   better fits, to make cheap filler even rarer.
 
 ## Features / scope (backlog)
 - Restore a **competitive-list** mode (curated event netlists) — `competitiveLists`
   data is still in the Necron/Tyranid files, just unused.
-- **More factions** (the remaining official 40k armies) and more **units per
-  faction** (the 9 current rosters are solid but not exhaustive).
+- **Remaining factions** (see "Still missing factions" above).
 - UI niceties: copy/export a list, shareable URL, per-box savings vs. buying
   single kits, show the points-per-euro value per unit.
