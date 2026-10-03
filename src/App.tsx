@@ -319,7 +319,9 @@ export default function App() {
           >
             {CATEGORY_ORDER.map((cat) => {
               // Sub-factions live in the second dropdown; list only base factions.
-              const inCat = factions.filter((f) => f.category === cat && !f.parent)
+              const inCat = factions
+                .filter((f) => f.category === cat && !f.parent)
+                .sort((a, b) => a.name.localeCompare(b.name))
               if (!inCat.length) return null
               return (
                 <optgroup key={cat} label={CATEGORY_LABELS[cat]}>
