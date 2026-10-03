@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter } from './base'
 
 const unique: Unit[] = [
   {
@@ -39,6 +39,6 @@ export const imperialFists: Faction = {
   blurb:
     'Stalwart siege specialists. Imperial Fists excel at unflinching bolter discipline, heavy weapons and armoured assault.',
   units: [...baseUnits, ...unique],
-  valueBoxes: [gettingStartedBox, darkAngelsCP],
+  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter],
   competitiveLists: {},
 }

@@ -1,5 +1,5 @@
 import type { Faction, Unit, ValueBox } from '../../types'
-import { baseUnits, darkAngelsCP } from './base'
+import { baseUnits, darkAngelsCP, heroesOfTheChapter } from './base'
 
 // Non-codex: Black Templars abhor the psychic — they CANNOT field Librarians or
 // any Psyker — so the base roster is filtered, then their zealous melee units
@@ -120,6 +120,6 @@ export const blackTemplars: Faction = {
   units: [...btBase, ...unique],
   // Own CP first (seeds the list); the generic Dark Angels CP also fits. The
   // Getting Started box is left out — its Librarian is a psyker.
-  valueBoxes: [blackTemplarsCP, darkAngelsCP],
+  valueBoxes: [blackTemplarsCP, darkAngelsCP, heroesOfTheChapter],
   competitiveLists: {},
 }

@@ -6,7 +6,7 @@ import type { Unit, ValueBox } from '../../types'
 // "1st–2nd" tier was captured, the escalating 3rd+ cost is approximated (+10,
 // or +15 for vehicles) — flagged per unit; refine from the MFM when convenient.
 // Prices: every kit re-checked by hand on warhammer.com en-EU 2026-10-03 and
-// marked verified, except the Apothecary Biologis (box-only, best-effort ≈).
+// marked verified (the box-only Apothecary Biologis is priced as its box).
 //
 // Codex-compliant Chapters reuse ALL of these; non-compliant Chapters take a
 // tailored subset (e.g. Black Templars drop Librarians/Psykers) plus their own
@@ -101,9 +101,18 @@ export const baseUnits: Unit[] = [
     flavor: 3,
     keywords: ['Character', 'Infantry', 'Leader'],
     leads: ['aggressors', 'eradicators', 'hellblasters'],
-    // Not sold on its own — only inside the "Heroes of the Chapter" box, so this
-    // price stays a best-effort estimate (≈).
-    kit: { name: 'Apothecary Biologis', priceEUR: 30, models: 1 },
+    // Not sold on its own — only inside the "Heroes of the Chapter" box (€93), so
+    // its kit IS that box; the Lieutenant + 5 Sternguard it also yields are credited.
+    kit: {
+      name: 'Heroes of the Chapter',
+      priceEUR: 93,
+      models: 1,
+      verified: true,
+      alsoBuilds: [
+        { unitId: 'lieutenant', models: 1 },
+        { unitId: 'sternguard', models: 5 },
+      ],
+    },
   },
   {
     id: 'techmarine',
@@ -417,5 +426,22 @@ export const darkAngelsCP: ValueBox = {
     { unitId: 'bladeguard', models: 3 },
     { unitId: 'hellblasters', models: 5 },
     { unitId: 'intercessors', models: 10 },
+  ],
+}
+
+// Heroes of the Chapter — generic support heroes, usable by ANY Chapter (no
+// psykers, so Black Templars too). Contents confirmed on the product page
+// 2026-10-03. The box's Lieutenant is the "with Combi-weapon" variant, counted
+// as our generic Lieutenant.
+export const heroesOfTheChapter: ValueBox = {
+  id: 'sm-heroes-of-the-chapter',
+  name: 'Heroes of the Chapter',
+  priceEUR: 93,
+  verified: true,
+  url: 'https://www.warhammer.com/en-EU/shop/space-marines-chapter-heroes-2023',
+  builds: [
+    { unitId: 'lieutenant', models: 1 },
+    { unitId: 'apothecary-biologis', models: 1 },
+    { unitId: 'sternguard', models: 5 },
   ],
 }

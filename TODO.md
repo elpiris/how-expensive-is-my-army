@@ -90,7 +90,8 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
 - **Base (no Chapter):** `space-marines`, value boxes = Getting Started with Space
   Marines (€139: Captain, Librarian, 5 Intercessors, 5 Vanguard, Land Speeder) and
   the **Dark Angels Combat Patrol**, which holds only generic units (Gravis Captain,
-  3 Bladeguard, 5 Hellblasters, 10 Intercessors) and so is offered to EVERY Chapter.
+  3 Bladeguard, 5 Hellblasters, 10 Intercessors) and so is offered to EVERY Chapter,
+  as is **Heroes of the Chapter** (€93: Lieutenant, Apothecary Biologis, 5 Sternguard).
 - **Codex-compliant (base + unique characters):** Ultramarines (Guilliman, Calgar,
   Tigurius, Victrix Guard), Imperial Fists (Lysander, Tor Garadon), Salamanders
   (Vulkan He'stan, Adrax Agatone) — all use the two generic value boxes.
@@ -112,8 +113,11 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
 - **Prices:** ALL SM kits (base + every Chapter) re-verified on en-EU 2026-10-03,
   checked by hand (GW's grid is unreliable to scrape — hand the user a checklist
   CSV instead). Big drift fixed (characters €27→€34–38.50, squads →€51–53, Lion
-  €115→€60). Only gap: the Apothecary Biologis is sold solely in the "Heroes of
-  the Chapter" box — model that box (price + contents) to price it properly.
+  €115→€60). The box-only Apothecary Biologis is priced as the "Heroes of the
+  Chapter" box (€93: Lieutenant w/ Combi-weapon, Apothecary Biologis, 5 Sternguard),
+  which is also a value box for every Chapter. The box's Lieutenant w/ Combi-weapon
+  (MFM 85 pts, its own datasheet) is counted as the generic Lieutenant — add the
+  variant as a unit if accuracy matters.
 - **More Chapters:** Blood Angels (Death Company/Sanguinary Guard), Deathwatch,
   White Scars, Raven Guard, Iron Hands, Grey Knights (own roster), Crimson Fists.
 - Consider a nicer UI: a Chapter sub-selector instead of many dropdown entries.
