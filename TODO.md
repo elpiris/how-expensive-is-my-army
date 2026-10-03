@@ -156,8 +156,12 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   Razorback (Rhino €50).
 - **Low priority (skipped 2026-10-03 as marginal armies):** Imperial Agents and
   Deathwatch (as an SM Chapter). Add later the same way (MFM pass + user price check).
-- **Still missing factions (MFM):** Emperor's Children, World Eaters, Thousand
-  Sons, Chaos Daemons, Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann. Titan Legions (FW) out of scope.
+- **Emperor's Children — DONE (2026-10-03).** All 23 MFM datasheets (incl. the
+  Daemons of Slaanesh); prices from the en-EU grid, box sizes / sharing confirmed
+  by the user (Tormentors / Infractors €57.50 for 10, Daemon Prince ± wings €74,
+  Keeper / Shalaxi €139). Combat Patrol (€139: Lord Exultant, 6 Flawless Blades,
+  10 Infractors).
+- **Still missing factions (MFM):** World Eaters, Thousand Sons, Chaos Daemons, Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann. Titan Legions (FW) out of scope.
 
 **SM TODOs:**
 - **Points:** the whole generic roster + Ultramarines re-read from the MFM

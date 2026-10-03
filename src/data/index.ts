@@ -19,6 +19,7 @@ import { bloodAngels } from './spaceMarines/bloodAngels'
 import { deathGuard } from './deathGuard'
 import { chaosSpaceMarines } from './chaosSpaceMarines'
 import { chaosKnights } from './chaosKnights'
+import { emperorsChildren } from './emperorsChildren'
 import { necrons } from './necrons'
 import { tyranids } from './tyranids'
 import { aeldari } from './aeldari'
@@ -52,6 +53,7 @@ export const factions: Faction[] = [
   deathGuard,
   chaosSpaceMarines,
   chaosKnights,
+  emperorsChildren,
   // Xenos
   necrons,
   tyranids,
