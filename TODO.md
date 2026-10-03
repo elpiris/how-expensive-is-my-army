@@ -140,8 +140,14 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   Taurox/Prime, Baneblade ×5, Shadowsword ×3); Graves' €83 box builds both versions
   (one fielded); the Nork Deddog box adds 2 Ogryns. Limited Battleforce Platoon
   skipped. No identity/tags yet → value-first.
+- **Imperial Knights — DONE (2026-10-03).** The 14 plastic datasheets (the 8 FW
+  resin Knights omitted, as for Chaos Knights); MFM points + escalation; prices from
+  the en-EU grid, kit sharing confirmed by the user (Questoris €155: Paladin /
+  Errant / Gallant / Crusader / Warden / Defender; Dominus €156: Castellan /
+  Valiant; Preceptor / Canis Rex €155; Armigers €83 for 2, either type; Destrier
+  €145; Moirax €62 online). No Combat Patrol exists. `ignoreSizeCap`.
 - **Still missing factions (MFM):** Emperor's Children, World Eaters, Thousand
-  Sons, Chaos Daemons, Imperial Knights, Grey Knights, Imperial Agents, Orks,
+  Sons, Chaos Daemons, Grey Knights, Imperial Agents, Orks,
   T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann (+ Deathwatch as an
   SM Chapter). Titan Legions (FW) out of scope.
 
