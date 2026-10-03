@@ -4,6 +4,7 @@ import { sororitas } from './sororitas'
 import { mechanicus } from './mechanicus'
 import { astraMilitarum } from './astraMilitarum'
 import { imperialKnights } from './imperialKnights'
+import { greyKnights } from './greyKnights'
 import { spaceMarines } from './spaceMarines/vanilla'
 import { ultramarines } from './spaceMarines/ultramarines'
 import { imperialFists } from './spaceMarines/imperialFists'
@@ -35,6 +36,7 @@ export const factions: Faction[] = [
   mechanicus,
   astraMilitarum,
   imperialKnights,
+  greyKnights,
   spaceMarines,
   ultramarines,
   imperialFists,

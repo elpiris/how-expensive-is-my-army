@@ -15,7 +15,7 @@ Built with **Vite + React + TypeScript**.
 
 - **Factions**, grouped in the dropdown:
   - **Imperium** — Adeptus Custodes, Adepta Sororitas, Adeptus Mechanicus, Astra Militarum,
-    Imperial Knights
+    Imperial Knights, Grey Knights
   - **Space Marines** (own group) — a **Chapter system**: a base, Chapter-agnostic
     roster, plus Codex-compliant Chapters that share that base + their own characters
     (Ultramarines, Imperial Fists, Salamanders, Iron Hands, White Scars, Raven Guard)

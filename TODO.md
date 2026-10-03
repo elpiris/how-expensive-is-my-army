@@ -146,8 +146,16 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   Errant / Gallant / Crusader / Warden / Defender; Dominus €156: Castellan /
   Valiant; Preceptor / Canis Rex €155; Armigers €83 for 2, either type; Destrier
   €145; Moirax €62 online). No Combat Patrol exists. `ignoreSizeCap`.
+- **Grey Knights — DONE (2026-10-03).** 23 datasheets (FW Thunderhawk and the
+  discontinued Stormtalon/Stormhawk omitted); MFM points + leader lists; prices
+  hand-checked by the user. Combat Patrol (€139: Crowe, 10 Strike, 5 Terminators,
+  Venerable Dreadnought). Shared kits: Strike Squad €56.50/10 (Strike / Purifier /
+  Purgation / Interceptor), Terminators €51/5 (+ Paladins), Dreadknight €66 (+ GM),
+  Grand Master / Voldus €34.50. SM kits for the Terminator Librarian / Chaplain and
+  Techmarine. Kitbash proxies ("≈"): Brother-Captain, Champion (Crowe €38.50),
+  Razorback (Rhino €50).
 - **Still missing factions (MFM):** Emperor's Children, World Eaters, Thousand
-  Sons, Chaos Daemons, Grey Knights, Imperial Agents, Orks,
+  Sons, Chaos Daemons, Imperial Agents, Orks,
   T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann (+ Deathwatch as an
   SM Chapter). Titan Legions (FW) out of scope.
 
