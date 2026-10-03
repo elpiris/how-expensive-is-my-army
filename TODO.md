@@ -13,20 +13,20 @@ Active dropdown groups (`Faction.category`):
   World Eaters, Thousand Sons, Chaos Daemons.
 - **Xenos** — Necrons, Tyranids, Aeldari (+ a **Craftworld** sub-selector: Biel-Tan,
   Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire, Leagues of Votann, Genestealer
-  Cults.
+  Cults, Drukhari.
 
 Architecture overview: [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Data verification
 
-**19 non-SM factions + Space Marines (10 Chapters) are fully fine-tuned** — MFM
+**20 non-SM factions + Space Marines (10 Chapters) are fully fine-tuned** — MFM
 rosters (points + escalation + leader lists), en-EU kit prices, real Combat Patrols /
 value boxes, composition profiles. Prices for everything added on 2026-10-03 were
 confirmed with the user one kit at a time. Remaining data work: the few best-effort
 (`verified:false` → "≈") kits noted below, and periodic re-checks (points/prices drift).
 
 ### Still missing factions (MFM)
-- **Xenos:** Orks, Drukhari.
+- **Xenos:** Orks.
 - **Low priority (skipped 2026-10-03 as marginal armies):** Imperial Agents, and
   Deathwatch (as an SM Chapter). Add later the same way.
 - Out of scope: Titan Legions / Chaos Titan Legions (Forge World).
@@ -128,6 +128,10 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   the Broodcoven (€60: Patriarch + Magus + Primus) is the only source of the
   Patriarch and Primus. Combat Patrol (€139: Jackal Alphus, Ridgerunner, 5 Jackals,
   10 Metamorphs). Genestealers €47.50 (Tyranid kit price updated too).
+- **Drukhari — DONE (2026-10-03).** All 23 MFM datasheets; prices verified (grid +
+  user) except Hand of the Archon (Kill Team box, temporarily unavailable → ≈ €56.50).
+  Shared kits: Talos / Cronos €53, Scourges €34/5 (both loadouts); Mandrakes in a
+  Kill Team box. Combat Patrol (€139: Haemonculus, Cronos, Talos, 10 Wracks).
 - **TODO — Exodites:** Clanblade (70 pts, leads Dragon Knights), Stonesinger (55,
   supports Dragon Knights), Leystalker (75), Dragon Knights (3 models 85 / 3rd+ 95)
   are in the MFM but only sold in a Kill Team box for now. Add them (tag `exodite`)
