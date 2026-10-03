@@ -37,7 +37,7 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
   `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
 
 ## Current state (2026-10-03, evening)
-15 non-SM factions fully fine-tuned (Astra Militarum, Imperial Knights, Grey Knights, Emperor's Children, World Eaters, Thousand Sons added 2026-10-03) (full MFM rosters, verified en-EU prices, real
+16 non-SM factions fully fine-tuned (Astra Militarum, Imperial Knights, Grey Knights, Emperor's Children, World Eaters, Thousand Sons, Chaos Daemons added 2026-10-03) (full MFM rosters, verified en-EU prices, real
 value boxes, composition profiles). Space Marines added with a Chapter system (own
 dropdown group): base + 6 Codex-compliant (UM, IF, Sal, IH, WS, RG) + 4
 non-compliant (DA, BT, SW, BA) Chapters, with own CPs for DA/BT/SW/BA (the

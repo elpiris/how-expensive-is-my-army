@@ -23,7 +23,7 @@ Built with **Vite + React + TypeScript**.
     psykers, Space Wolves, Blood Angels). Space Marines is a single faction entry;
     the Chapter is chosen in a second **Chapter** dropdown that appears beside it.
   - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights, Emperor's Children,
-    World Eaters, Thousand Sons
+    World Eaters, Thousand Sons, Chaos Daemons
   - **Xenos** — Necrons, Tyranids, Aeldari
 - **Two modes:**
   - **Quick list** — pick a faction + points bracket (500 / 1000 / 1500 / 2000)

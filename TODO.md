@@ -173,7 +173,12 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   interchangeable models; Lord of Change / Kairos €139; Enlightened ± greatbows;
   Daemon Prince ± wings; Maulerfiend / Forgefiend; Predators). Combat Patrol
   (€139: Daemon Prince, Tzaangor Shaman, 3 Enlightened, 10 Rubrics).
-- **Still missing factions (MFM):** Chaos Daemons, Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann. Titan Legions (FW) out of scope.
+- **Chaos Daemons — DONE (2026-10-03).** 47 datasheets (the MFM's 53 minus 6 with
+  phased-out kits: Blue Scribes, Fluxmaster, Epidemius, Tranceweaver, Hellflayer,
+  Tormentbringer); all prices verified (grid + shared kits + user). No Combat
+  Patrol exists. Skullmaster kitbashed from the Bloodcrushers box. Idea: split into
+  Khorne / Tzeentch / Nurgle / Slaanesh sub-factions (like the Craftworlds).
+- **Still missing factions (MFM):** Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann. Titan Legions (FW) out of scope.
 
 **SM TODOs:**
 - **Points:** the whole generic roster + Ultramarines re-read from the MFM
