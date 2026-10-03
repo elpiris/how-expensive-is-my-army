@@ -13,7 +13,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 5,
     keywords: ['Character', 'Monster', 'Epic Hero', 'Primarch'],
-    kit: { name: "Lion El'Jonson", priceEUR: 115, models: 1 },
+    kit: { name: "Lion El'Jonson", priceEUR: 60, models: 1, verified: true },
   },
   {
     id: 'azrael',
@@ -25,7 +25,7 @@ const unique: Unit[] = [
     flavor: 5,
     keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
     leads: ['intercessors', 'assault-intercessors', 'bladeguard'],
-    kit: { name: 'Azrael', priceEUR: 34, models: 1 },
+    kit: { name: 'Azrael', priceEUR: 38.5, models: 1, verified: true },
   },
   {
     id: 'belial',
@@ -37,7 +37,7 @@ const unique: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Terminator', 'Epic Hero', 'Leader'],
     leads: ['deathwing-knights', 'deathwing-terminators'],
-    kit: { name: 'Belial', priceEUR: 27, models: 1 },
+    kit: { name: 'Belial', priceEUR: 38.5, models: 1, verified: true },
   },
   {
     id: 'sammael',
@@ -49,7 +49,7 @@ const unique: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Mounted', 'Fly', 'Epic Hero', 'Leader'],
     leads: ['outriders', 'ravenwing-black-knights'],
-    kit: { name: 'Sammael', priceEUR: 55, models: 1 },
+    kit: { name: 'Sammael', priceEUR: 51, models: 1, verified: true },
   },
   {
     id: 'deathwing-knights',
@@ -61,7 +61,7 @@ const unique: Unit[] = [
     models: 5,
     flavor: 5,
     keywords: ['Infantry', 'Terminator'],
-    kit: { name: 'Deathwing Knights', priceEUR: 60, models: 5 },
+    kit: { name: 'Deathwing Knights', priceEUR: 57.5, models: 5, verified: true },
   },
   {
     id: 'deathwing-terminators',
@@ -72,7 +72,7 @@ const unique: Unit[] = [
     models: 5,
     flavor: 4,
     keywords: ['Infantry', 'Terminator'],
-    kit: { name: 'Deathwing Terminator Squad', priceEUR: 55, models: 5 },
+    kit: { name: 'Deathwing Terminator Squad', priceEUR: 56.5, models: 5, verified: true },
   },
   {
     id: 'ravenwing-black-knights',
@@ -83,7 +83,7 @@ const unique: Unit[] = [
     models: 3,
     flavor: 4,
     keywords: ['Mounted', 'Fly'],
-    kit: { name: 'Ravenwing Black Knights', priceEUR: 55, models: 3 },
+    kit: { name: 'Ravenwing Black Knights', priceEUR: 53, models: 3, verified: true },
   },
   {
     id: 'inner-circle-companions',
@@ -94,7 +94,7 @@ const unique: Unit[] = [
     models: 3,
     flavor: 3,
     keywords: ['Infantry'],
-    kit: { name: 'Inner Circle Companions', priceEUR: 45, models: 3 },
+    kit: { name: 'Inner Circle Companions', priceEUR: 51, models: 3, verified: true },
   },
   {
     id: 'nephilim-jetfighter',
@@ -104,7 +104,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 4,
     keywords: ['Vehicle', 'Fly', 'Aircraft'],
-    kit: { name: 'Nephilim Jetfighter', priceEUR: 62, models: 1 },
+    kit: { name: 'Nephilim Jetfighter', priceEUR: 74, models: 1, verified: true },
   },
   {
     id: 'ravenwing-darkshroud',
@@ -114,7 +114,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 3,
     keywords: ['Vehicle', 'Fly'],
-    kit: { name: 'Ravenwing Darkshroud', priceEUR: 62, models: 1 },
+    kit: { name: 'Ravenwing Darkshroud', priceEUR: 66, models: 1, verified: true },
   },
 ]
 
@@ -125,9 +125,10 @@ export const darkAngels: Faction = {
   category: 'space-marines',
   lastVerified: '2026-10-03',
   pointsVerified: true,
-  // Deathwing elites + Ravenwing speed — more Terminators and bikes than usual;
-  // a monster share for the Lion (a MONSTER Primarch, not a plain HQ).
-  profile: { character: 2, infantry: 4, mounted: 2, vehicle: 2.5, monster: 1 },
+  // Deathwing elites + Ravenwing speed — more Terminators and bikes than usual.
+  // No monster share on purpose (as Ultramarines): at €60 the Lion's pts/€ already
+  // fields him in most 2000-pt lists; a share would make him a certainty.
+  profile: { character: 2, infantry: 4, mounted: 2, vehicle: 2.5 },
   blurb:
     'The secretive First Legion. Dark Angels blend elite Deathwing Terminators and swift Ravenwing bikers with the Unforgiven’s stoic marines.',
   units: [...baseUnits, ...unique],

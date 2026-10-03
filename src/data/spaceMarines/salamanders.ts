@@ -12,7 +12,7 @@ const unique: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
     leads: ['assault-intercessors', 'infernus'],
-    kit: { name: "Vulkan He'stan", priceEUR: 34, models: 1 },
+    kit: { name: "Vulkan He'stan", priceEUR: 38.5, models: 1, verified: true },
   },
   {
     id: 'adrax-agatone',
@@ -24,7 +24,7 @@ const unique: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
     leads: ['assault-intercessors', 'aggressors'],
-    kit: { name: 'Adrax Agatone', priceEUR: 34, models: 1 },
+    kit: { name: 'Adrax Agatone', priceEUR: 38.5, models: 1, verified: true },
   },
 ]
 

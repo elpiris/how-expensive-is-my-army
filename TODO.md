@@ -109,11 +109,11 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
 **SM TODOs:**
 - **Points:** captured mostly the MFM "1st–2nd" tier; the escalating 3rd+ cost is
   approximated (+10, +15 vehicles). Capture exact 3rd+ values from the MFM.
-- **Prices:** base kits mix 2026-09-10 verified values + best-effort (the SM store
-  grid virtualises too hard to re-scrape). **Drift confirmed 2026-10-03** — the
-  en-EU BT/SW category grids show generic kits above our "verified" values
-  (Bladeguard €51, Eradicators €51, Gladiator Lancer/Repulsor €80, Techmarine &
-  Ancient €36, Gravis Captain €36, Terminator Assault Squad €56.50). Re-price base.
+- **Prices:** ALL SM kits (base + every Chapter) re-verified on en-EU 2026-10-03,
+  checked by hand (GW's grid is unreliable to scrape — hand the user a checklist
+  CSV instead). Big drift fixed (characters €27→€34–38.50, squads →€51–53, Lion
+  €115→€60). Only gap: the Apothecary Biologis is sold solely in the "Heroes of
+  the Chapter" box — model that box (price + contents) to price it properly.
 - **More Chapters:** Blood Angels (Death Company/Sanguinary Guard), Deathwatch,
   White Scars, Raven Guard, Iron Hands, Grey Knights (own roster), Crimson Fists.
 - Consider a nicer UI: a Chapter sub-selector instead of many dropdown entries.

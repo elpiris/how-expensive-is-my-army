@@ -23,8 +23,10 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 - **Points** come from the Munitorum Field Manual (MFM); **prices + Combat Patrols**
   from warhammer.com en-EU. Confirmed prices set `kit.verified: true`; unconfirmed/
   best-effort are `verified:false` (UI shows "≈"). The GW store grid virtualises
-  heavily — some kits can't be scraped, hence best-effort prices. Never solve GW
-  CAPTCHAs; space out crawling. Warhammer points/prices drift — re-check periodically.
+  heavily and scraping it is unreliable — **for price checks, generate a checklist
+  CSV (unit id, kit name, models/box, current price) and ask the user to fill it
+  in by hand**, then apply it. MFM points can still be read in the browser pane.
+  Never solve GW CAPTCHAs. Warhammer points/prices drift — re-check periodically.
 
 ## Conventions
 - Match the existing data-file style (header comment noting sources + dates; bump
@@ -34,10 +36,12 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 - End commit messages with:
   `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
 
-## Current state (2026-10-03)
+## Current state (2026-10-03, evening)
 9 non-SM factions fully fine-tuned (full MFM rosters, verified en-EU prices, real
 value boxes, composition profiles). Space Marines added with a Chapter system (own
-dropdown group): base + 3 Codex-compliant + 3 non-compliant Chapters; SM points have
-approximated 3rd+ escalation and mixed verified/best-effort prices (least-verified
-data in the repo — see TODO.md). Main backlog: confirm best-effort prices, more SM
-Chapters, a Chapter sub-selector UI, competitive mode, export/shareable URL.
+dropdown group): base + 3 Codex-compliant + 3 non-compliant Chapters, with own CPs
+for DA/BT/SW (the generic-units DA CP is offered to every Chapter). All SM prices
+hand-verified 2026-10-03; SM base points still approximate some 3rd+ escalation
+(see TODO.md). Users can tune composition via the Advanced settings sliders.
+Main backlog: more SM Chapters, a Chapter sub-selector UI, competitive mode,
+export/shareable URL.

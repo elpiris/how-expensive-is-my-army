@@ -12,7 +12,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 5,
     keywords: ['Character', 'Monster', 'Epic Hero', 'Primarch'],
-    kit: { name: 'Roboute Guilliman', priceEUR: 60, models: 1 },
+    kit: { name: 'Roboute Guilliman', priceEUR: 60, models: 1, verified: true },
   },
   {
     id: 'calgar',
@@ -24,7 +24,7 @@ const unique: Unit[] = [
     flavor: 5,
     keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
     leads: ['intercessors', 'assault-intercessors', 'aggressors', 'bladeguard', 'terminators'],
-    kit: { name: 'Marneus Calgar in Armour of Antilochus', priceEUR: 43.5, models: 1, verified: true },
+    kit: { name: 'Marneus Calgar in Armour of Antilochus', priceEUR: 45, models: 1, verified: true },
   },
   {
     id: 'tigurius',
@@ -36,7 +36,7 @@ const unique: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Psyker', 'Epic Hero', 'Leader'],
     leads: ['intercessors', 'bladeguard'],
-    kit: { name: 'Chief Librarian Tigurius', priceEUR: 37, models: 1, verified: true, onlineOnly: true },
+    kit: { name: 'Chief Librarian Tigurius', priceEUR: 38.5, models: 1, onlineOnly: true, verified: true },
   },
   {
     id: 'victrix-guard',
@@ -46,7 +46,7 @@ const unique: Unit[] = [
     models: 3,
     flavor: 4,
     keywords: ['Infantry'],
-    kit: { name: 'Victrix Honour Guard', priceEUR: 45, models: 3 },
+    kit: { name: 'Victrix Honour Guard', priceEUR: 52, models: 3, verified: true },
   },
 ]
 

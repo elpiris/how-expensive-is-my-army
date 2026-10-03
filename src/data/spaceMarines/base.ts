@@ -5,9 +5,8 @@ import type { Unit, ValueBox } from '../../types'
 // Points from the Munitorum Field Manual (11th ed) 2026-10-03. Where only the
 // "1st–2nd" tier was captured, the escalating 3rd+ cost is approximated (+10,
 // or +15 for vehicles) — flagged per unit; refine from the MFM when convenient.
-// Prices: a mix of warhammer.com en-EU values confirmed in the 2026-09-10 pass
-// (verified) and best-effort estimates for the rest (verified:false → "≈"); the
-// SM store grid virtualises too heavily to re-scrape every kit reliably.
+// Prices: every kit re-checked by hand on warhammer.com en-EU 2026-10-03 and
+// marked verified, except the Apothecary Biologis (box-only, best-effort ≈).
 //
 // Codex-compliant Chapters reuse ALL of these; non-compliant Chapters take a
 // tailored subset (e.g. Black Templars drop Librarians/Psykers) plus their own
@@ -25,7 +24,7 @@ export const baseUnits: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Leader'],
     leads: ['intercessors', 'assault-intercessors', 'bladeguard', 'sternguard'],
-    kit: { name: 'Space Marines Captain', priceEUR: 27, models: 1 },
+    kit: { name: 'Space Marines Captain', priceEUR: 36, models: 1, verified: true },
   },
   {
     id: 'captain-gravis',
@@ -36,7 +35,7 @@ export const baseUnits: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Leader'],
     leads: ['aggressors', 'eradicators'],
-    kit: { name: 'Captain in Gravis Armour', priceEUR: 34.5, models: 1, verified: true },
+    kit: { name: 'Captain in Gravis Armour', priceEUR: 36, models: 1, verified: true },
   },
   {
     id: 'captain-terminator',
@@ -47,7 +46,7 @@ export const baseUnits: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Terminator', 'Leader'],
     leads: ['terminators', 'assault-terminators'],
-    kit: { name: 'Captain in Terminator Armour', priceEUR: 34, models: 1 },
+    kit: { name: 'Captain in Terminator Armour', priceEUR: 38.5, models: 1, verified: true },
   },
   {
     id: 'lieutenant',
@@ -58,7 +57,7 @@ export const baseUnits: Unit[] = [
     flavor: 3,
     keywords: ['Character', 'Infantry', 'Leader'],
     leads: ['intercessors', 'assault-intercessors', 'hellblasters', 'infernus', 'bladeguard'],
-    kit: { name: 'Primaris Lieutenant', priceEUR: 32.5, models: 1 },
+    kit: { name: 'Primaris Lieutenant', priceEUR: 34, models: 1, verified: true },
   },
   {
     id: 'librarian',
@@ -69,7 +68,7 @@ export const baseUnits: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
     leads: ['intercessors', 'assault-intercessors', 'bladeguard'],
-    kit: { name: 'Librarian', priceEUR: 27, models: 1 },
+    kit: { name: 'Librarian', priceEUR: 34.5, models: 1, verified: true },
   },
   {
     id: 'librarian-terminator',
@@ -80,7 +79,7 @@ export const baseUnits: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Terminator', 'Psyker', 'Leader'],
     leads: ['terminators'],
-    kit: { name: 'Librarian in Terminator Armour', priceEUR: 34, models: 1, verified: true },
+    kit: { name: 'Librarian in Terminator Armour', priceEUR: 34.5, models: 1, verified: true },
   },
   {
     id: 'chaplain',
@@ -91,7 +90,7 @@ export const baseUnits: Unit[] = [
     flavor: 3,
     keywords: ['Character', 'Infantry', 'Leader'],
     leads: ['assault-intercessors', 'bladeguard', 'infernus'],
-    kit: { name: 'Chaplain', priceEUR: 27, models: 1 },
+    kit: { name: 'Chaplain', priceEUR: 34.5, models: 1, verified: true },
   },
   {
     id: 'apothecary-biologis',
@@ -102,6 +101,8 @@ export const baseUnits: Unit[] = [
     flavor: 3,
     keywords: ['Character', 'Infantry', 'Leader'],
     leads: ['aggressors', 'eradicators', 'hellblasters'],
+    // Not sold on its own — only inside the "Heroes of the Chapter" box, so this
+    // price stays a best-effort estimate (≈).
     kit: { name: 'Apothecary Biologis', priceEUR: 30, models: 1 },
   },
   {
@@ -113,7 +114,7 @@ export const baseUnits: Unit[] = [
     flavor: 2,
     keywords: ['Character', 'Infantry', 'Leader'],
     leads: ['intercessors'],
-    kit: { name: 'Techmarine', priceEUR: 27, models: 1 },
+    kit: { name: 'Techmarine', priceEUR: 36, models: 1, verified: true },
   },
   {
     id: 'ancient',
@@ -124,7 +125,7 @@ export const baseUnits: Unit[] = [
     flavor: 2,
     keywords: ['Character', 'Infantry', 'Leader'],
     leads: ['intercessors', 'assault-intercessors'],
-    kit: { name: 'Primaris Ancient', priceEUR: 27, models: 1 },
+    kit: { name: 'Primaris Ancient', priceEUR: 36, models: 1, verified: true },
   },
   // --- Battleline ---
   {
@@ -135,7 +136,7 @@ export const baseUnits: Unit[] = [
     models: 10,
     flavor: 3,
     keywords: ['Battleline', 'Infantry'],
-    kit: { name: 'Intercessors', priceEUR: 45, models: 10 },
+    kit: { name: 'Intercessors', priceEUR: 53, models: 10, verified: true },
   },
   {
     id: 'assault-intercessors',
@@ -145,7 +146,7 @@ export const baseUnits: Unit[] = [
     models: 10,
     flavor: 3,
     keywords: ['Battleline', 'Infantry'],
-    kit: { name: 'Assault Intercessor Squad', priceEUR: 51.5, models: 10, verified: true },
+    kit: { name: 'Assault Intercessor Squad', priceEUR: 53, models: 10, verified: true },
   },
   // --- Infantry ---
   {
@@ -158,7 +159,7 @@ export const baseUnits: Unit[] = [
     models: 5,
     flavor: 3,
     keywords: ['Infantry'],
-    kit: { name: 'Hellblaster Squad', priceEUR: 51.5, models: 10, verified: true },
+    kit: { name: 'Hellblaster Squad', priceEUR: 53, models: 10, verified: true },
   },
   {
     id: 'infernus',
@@ -169,7 +170,7 @@ export const baseUnits: Unit[] = [
     models: 5,
     flavor: 3,
     keywords: ['Infantry'],
-    kit: { name: 'Infernus Squad', priceEUR: 50, models: 10, verified: true },
+    kit: { name: 'Infernus Squad', priceEUR: 51, models: 10, verified: true },
   },
   {
     id: 'sternguard',
@@ -180,7 +181,7 @@ export const baseUnits: Unit[] = [
     models: 5,
     flavor: 3,
     keywords: ['Infantry'],
-    kit: { name: 'Sternguard Veteran Squad', priceEUR: 45, models: 5 },
+    kit: { name: 'Sternguard Veteran Squad', priceEUR: 53, models: 5, verified: true },
   },
   {
     id: 'bladeguard',
@@ -191,7 +192,7 @@ export const baseUnits: Unit[] = [
     models: 3,
     flavor: 4,
     keywords: ['Infantry'],
-    kit: { name: 'Bladeguard Veteran Squad', priceEUR: 50, models: 3, verified: true },
+    kit: { name: 'Bladeguard Veteran Squad', priceEUR: 51, models: 3, verified: true },
   },
   {
     id: 'aggressors',
@@ -201,7 +202,7 @@ export const baseUnits: Unit[] = [
     models: 3,
     flavor: 4,
     keywords: ['Infantry'],
-    kit: { name: 'Aggressor Squad', priceEUR: 50, models: 3, verified: true },
+    kit: { name: 'Aggressor Squad', priceEUR: 51, models: 3, verified: true },
   },
   {
     id: 'terminators',
@@ -213,7 +214,7 @@ export const baseUnits: Unit[] = [
     models: 5,
     flavor: 5,
     keywords: ['Infantry', 'Terminator'],
-    kit: { name: 'Terminator Squad', priceEUR: 55, models: 5, verified: true },
+    kit: { name: 'Terminator Squad', priceEUR: 56.5, models: 5, verified: true },
   },
   {
     id: 'assault-terminators',
@@ -224,7 +225,7 @@ export const baseUnits: Unit[] = [
     models: 5,
     flavor: 5,
     keywords: ['Infantry', 'Terminator'],
-    kit: { name: 'Terminator Assault Squad', priceEUR: 55, models: 5 },
+    kit: { name: 'Terminator Assault Squad', priceEUR: 56.5, models: 5, verified: true },
   },
   {
     id: 'eradicators',
@@ -235,17 +236,19 @@ export const baseUnits: Unit[] = [
     models: 3,
     flavor: 3,
     keywords: ['Infantry'],
-    kit: { name: 'Eradicator Squad', priceEUR: 50, models: 3, verified: true },
+    kit: { name: 'Eradicator Squad', priceEUR: 51, models: 3, verified: true },
   },
   {
     id: 'scouts',
     name: 'Scout Squad',
     role: 'infantry',
-    points: 65,
-    models: 5,
+    // MFM: 5 models 65 / 10 models 120. Fielded at 10 because the kit (€66)
+    // builds 10 — a 5-man squad would waste half the box.
+    points: 120,
+    models: 10,
     flavor: 3,
     keywords: ['Infantry', 'Scout'],
-    kit: { name: 'Scout Squad', priceEUR: 30, models: 5 },
+    kit: { name: 'Scout Squad', priceEUR: 66, models: 10, verified: true },
   },
   {
     id: 'inceptors',
@@ -256,7 +259,7 @@ export const baseUnits: Unit[] = [
     models: 3,
     flavor: 3,
     keywords: ['Infantry', 'Fly'],
-    kit: { name: 'Inceptor Squad', priceEUR: 50, models: 3, verified: true },
+    kit: { name: 'Inceptor Squad', priceEUR: 51, models: 3, verified: true },
   },
   {
     id: 'vanguard-veterans',
@@ -267,7 +270,7 @@ export const baseUnits: Unit[] = [
     models: 5,
     flavor: 3,
     keywords: ['Infantry', 'Fly'],
-    kit: { name: 'Vanguard Veteran Squad', priceEUR: 45, models: 5 },
+    kit: { name: 'Vanguard Veteran Squad', priceEUR: 53, models: 5, verified: true },
   },
   // --- Mounted ---
   {
@@ -278,7 +281,7 @@ export const baseUnits: Unit[] = [
     models: 3,
     flavor: 3,
     keywords: ['Mounted'],
-    kit: { name: 'Outriders', priceEUR: 50, models: 3 },
+    kit: { name: 'Outriders', priceEUR: 54, models: 3, verified: true },
   },
   // --- Walkers ---
   {
@@ -290,7 +293,7 @@ export const baseUnits: Unit[] = [
     models: 1,
     flavor: 5,
     keywords: ['Vehicle', 'Walker'],
-    kit: { name: 'Primaris Redemptor Dreadnought', priceEUR: 64, models: 1, verified: true },
+    kit: { name: 'Primaris Redemptor Dreadnought', priceEUR: 67, models: 1, verified: true },
   },
   {
     id: 'ballistus',
@@ -301,7 +304,7 @@ export const baseUnits: Unit[] = [
     models: 1,
     flavor: 4,
     keywords: ['Vehicle', 'Walker'],
-    kit: { name: 'Ballistus Dreadnought', priceEUR: 57.5, models: 1, verified: true },
+    kit: { name: 'Ballistus Dreadnought', priceEUR: 60, models: 1, verified: true },
   },
   // --- Vehicles ---
   {
@@ -313,7 +316,7 @@ export const baseUnits: Unit[] = [
     models: 1,
     flavor: 4,
     keywords: ['Vehicle'],
-    kit: { name: 'Gladiator Lancer', priceEUR: 76, models: 1, verified: true },
+    kit: { name: 'Gladiator Lancer', priceEUR: 80, models: 1, verified: true },
   },
   {
     id: 'land-speeder',
@@ -323,7 +326,7 @@ export const baseUnits: Unit[] = [
     models: 1,
     flavor: 3,
     keywords: ['Vehicle', 'Fly'],
-    kit: { name: 'Land Speeder', priceEUR: 40, models: 1 },
+    kit: { name: 'Land Speeder', priceEUR: 52, models: 1, verified: true },
   },
   // --- Dedicated Transports ---
   {
@@ -338,7 +341,7 @@ export const baseUnits: Unit[] = [
     flavor: 3,
     keywords: ['Vehicle', 'Transport'],
     transports: ['intercessors', 'assault-intercessors', 'bladeguard', 'sternguard', 'infernus'],
-    kit: { name: 'Impulsor', priceEUR: 70, models: 1, verified: true },
+    kit: { name: 'Impulsor', priceEUR: 74, models: 1, verified: true },
   },
   {
     id: 'repulsor',
@@ -350,7 +353,7 @@ export const baseUnits: Unit[] = [
     flavor: 3,
     keywords: ['Vehicle', 'Transport'],
     transports: ['intercessors', 'assault-intercessors', 'bladeguard', 'hellblasters', 'infernus', 'terminators'],
-    kit: { name: 'Primaris Repulsor', priceEUR: 76, models: 1, verified: true },
+    kit: { name: 'Primaris Repulsor', priceEUR: 80, models: 1, verified: true },
   },
   {
     id: 'rhino',
@@ -364,7 +367,7 @@ export const baseUnits: Unit[] = [
     flavor: 2,
     keywords: ['Vehicle', 'Transport'],
     transports: ['intercessors', 'assault-intercessors', 'sternguard', 'infernus'],
-    kit: { name: 'Rhino', priceEUR: 50, models: 1 },
+    kit: { name: 'Rhino', priceEUR: 50, models: 1, verified: true },
   },
   {
     id: 'land-raider',
@@ -378,7 +381,7 @@ export const baseUnits: Unit[] = [
     flavor: 4,
     keywords: ['Vehicle', 'Transport'],
     transports: ['terminators', 'assault-terminators', 'bladeguard'],
-    kit: { name: 'Land Raider', priceEUR: 80, models: 1 },
+    kit: { name: 'Land Raider', priceEUR: 80, models: 1, verified: true },
   },
 ]
 

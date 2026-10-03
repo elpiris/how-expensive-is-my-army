@@ -12,7 +12,7 @@ const unique: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Terminator', 'Epic Hero', 'Leader'],
     leads: ['terminators', 'assault-terminators'],
-    kit: { name: 'Captain Lysander', priceEUR: 40, models: 1 },
+    kit: { name: 'Captain Lysander', priceEUR: 38.5, models: 1, verified: true },
   },
   {
     id: 'tor-garadon',
@@ -23,7 +23,7 @@ const unique: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Leader'],
     leads: ['aggressors', 'eradicators'],
-    kit: { name: 'Tor Garadon', priceEUR: 34, models: 1 },
+    kit: { name: 'Tor Garadon', priceEUR: 38.5, models: 1, verified: true },
   },
 ]
 

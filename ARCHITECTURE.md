@@ -157,7 +157,12 @@ Theming via CSS vars in
   text lines. Confirm value-box contents on the product page (expand "Read More").
   The grid virtualises — some items never load; those get best-effort (`verified:false`).
   The **Space Marines** store grid virtualises especially hard. Never solve CAPTCHAs;
-  space out crawling; en-FI also shows euros.
+  space out crawling; en-FI also shows euros. **Preferred for prices:** generate a
+  checklist CSV (unit id, kit name, models/box, current price, blank new price) and
+  have the user fill it in by hand — far more reliable than scraping (this is how
+  every SM price was verified on 2026-10-03). Product pages are still fine for
+  reading a box's contents. MFM *points* the agent can read itself (the units
+  list renders in a container whose textContent starts `UNITS…`).
 
 ## Known limitations (see TODO.md for specifics)
 
