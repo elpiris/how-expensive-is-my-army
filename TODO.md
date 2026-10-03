@@ -167,7 +167,13 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   Juggernaut kit also builds Lord Invocatus, Maulerfiend / Forgefiend €74, Daemon
   Prince ± wings, Chaos Predator variants). Combat Patrol (€139: Daemon Prince,
   Master of Executions, 10 Berzerkers, 10 Jakhals).
-- **Still missing factions (MFM):** Thousand Sons, Chaos Daemons, Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann. Titan Legions (FW) out of scope.
+- **Thousand Sons — DONE (2026-10-03).** All 34 MFM datasheets (incl. the
+  Daemons of Tzeentch); prices from the en-EU grid, box sizes / sharing confirmed
+  by the user (Exalted Sorcerers box = 2 on foot + 1 on Disc, modelled as 3
+  interchangeable models; Lord of Change / Kairos €139; Enlightened ± greatbows;
+  Daemon Prince ± wings; Maulerfiend / Forgefiend; Predators). Combat Patrol
+  (€139: Daemon Prince, Tzaangor Shaman, 3 Enlightened, 10 Rubrics).
+- **Still missing factions (MFM):** Chaos Daemons, Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann. Titan Legions (FW) out of scope.
 
 **SM TODOs:**
 - **Points:** the whole generic roster + Ultramarines re-read from the MFM

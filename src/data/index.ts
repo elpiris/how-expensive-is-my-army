@@ -21,6 +21,7 @@ import { chaosSpaceMarines } from './chaosSpaceMarines'
 import { chaosKnights } from './chaosKnights'
 import { emperorsChildren } from './emperorsChildren'
 import { worldEaters } from './worldEaters'
+import { thousandSons } from './thousandSons'
 import { necrons } from './necrons'
 import { tyranids } from './tyranids'
 import { aeldari } from './aeldari'
@@ -56,6 +57,7 @@ export const factions: Faction[] = [
   chaosKnights,
   emperorsChildren,
   worldEaters,
+  thousandSons,
   // Xenos
   necrons,
   tyranids,
