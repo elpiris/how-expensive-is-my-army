@@ -42,7 +42,8 @@ const DISCOUNTS: DiscountPercent[] = [0, 10, 15, 20]
 // Factions with sub-factions (Space Marine Chapters, Aeldari Craftworlds) appear
 // once in the faction dropdown as their base force; the sub-faction is picked in
 // a second dropdown labelled by the base's `subfactionLabel`.
-const subfactionsOf = (parentId: string) => factions.filter((f) => f.parent === parentId)
+const subfactionsOf = (parentId: string) =>
+  factions.filter((f) => f.parent === parentId).sort((a, b) => a.name.localeCompare(b.name))
 const CHAPTER_GROUPS: { kind: Faction['chapter']; label: string }[] = [
   { kind: 'codex', label: 'Codex-compliant' },
   { kind: 'non-codex', label: 'Non-compliant' },
