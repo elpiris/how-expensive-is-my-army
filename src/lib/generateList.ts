@@ -265,10 +265,15 @@ function augmentList(
       })
       .filter((x): x is { unit: Unit; count: number } => !!x)
       .sort((a, b) => a.unit.points - b.unit.points)
+    // Round-robin: one copy of every box unit before any second copies, so a
+    // partly-fielded box still covers as many of its unit types as possible
+    // (e.g. Captain + Sanguinary Guard + Assault Intercessors, not 2× Guard).
     let added = 0
     let deferred = 0
-    for (const { unit, count } of builds) {
-      for (let k = countIn(entries, unit.id); k < count; k++) {
+    const maxCopies = Math.max(0, ...builds.map((b) => b.count))
+    for (let copy = 1; copy <= maxCopies; copy++) {
+      for (const { unit, count } of builds) {
+        if (copy > count || countIn(entries, unit.id) >= copy) continue
         if (pointsOf(entries) + nextCopyCost(unit) <= target) {
           addUnit(entries, unit, 1)
           added++

@@ -39,9 +39,10 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 ## Current state (2026-10-03, evening)
 9 non-SM factions fully fine-tuned (full MFM rosters, verified en-EU prices, real
 value boxes, composition profiles). Space Marines added with a Chapter system (own
-dropdown group): base + 3 Codex-compliant + 3 non-compliant Chapters, with own CPs
-for DA/BT/SW (the generic-units DA CP is offered to every Chapter). All SM prices
-hand-verified 2026-10-03; SM base points still approximate some 3rd+ escalation
-(see TODO.md). Users can tune composition via the Advanced settings sliders.
-Main backlog: more SM Chapters, a Chapter sub-selector UI, competitive mode,
-export/shareable URL.
+dropdown group): base + 6 Codex-compliant (UM, IF, Sal, IH, WS, RG) + 4
+non-compliant (DA, BT, SW, BA) Chapters, with own CPs for DA/BT/SW/BA (the
+generic-units DA CP + Heroes of the Chapter are offered to every Chapter). All SM
+prices hand-verified 2026-10-03; SM base points still approximate some 3rd+ escalation. Combo boxes are valued
+whole and everything bought is fielded when possible. Users can tune composition
+via the Advanced settings sliders. Main backlog: a Chapter sub-selector UI,
+competitive mode, export/shareable URL.

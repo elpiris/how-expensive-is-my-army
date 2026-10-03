@@ -6,9 +6,13 @@ import { spaceMarines } from './spaceMarines/vanilla'
 import { ultramarines } from './spaceMarines/ultramarines'
 import { imperialFists } from './spaceMarines/imperialFists'
 import { salamanders } from './spaceMarines/salamanders'
+import { ironHands } from './spaceMarines/ironHands'
+import { whiteScars } from './spaceMarines/whiteScars'
+import { ravenGuard } from './spaceMarines/ravenGuard'
 import { darkAngels } from './spaceMarines/darkAngels'
 import { blackTemplars } from './spaceMarines/blackTemplars'
 import { spaceWolves } from './spaceMarines/spaceWolves'
+import { bloodAngels } from './spaceMarines/bloodAngels'
 import { deathGuard } from './deathGuard'
 import { chaosSpaceMarines } from './chaosSpaceMarines'
 import { chaosKnights } from './chaosKnights'
@@ -17,10 +21,10 @@ import { tyranids } from './tyranids'
 import { aeldari } from './aeldari'
 
 // Active factions, ordered by grand alliance (the dropdown groups them by
-// `category`). Space Marines ship as a base (Chapter-agnostic) force plus a
-// starter set of Chapters — 3 Codex-compliant (Ultramarines, Imperial Fists,
-// Salamanders) and 3 non-compliant (Dark Angels, Black Templars, Space Wolves);
-// more Chapters are a TODO.
+// `category`). Space Marines ship as a base (Chapter-agnostic) force plus the
+// Chapters — 6 Codex-compliant (Ultramarines, Imperial Fists, Salamanders, Iron
+// Hands, White Scars, Raven Guard) and 4 non-compliant (Dark Angels, Black
+// Templars, Space Wolves, Blood Angels).
 export const factions: Faction[] = [
   // Imperium
   custodes,
@@ -30,9 +34,13 @@ export const factions: Faction[] = [
   ultramarines,
   imperialFists,
   salamanders,
+  ironHands,
+  whiteScars,
+  ravenGuard,
   darkAngels,
   blackTemplars,
   spaceWolves,
+  bloodAngels,
   // Chaos
   deathGuard,
   chaosSpaceMarines,

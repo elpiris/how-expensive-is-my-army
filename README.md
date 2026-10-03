@@ -17,9 +17,9 @@ Built with **Vite + React + TypeScript**.
   - **Imperium** — Adeptus Custodes, Adepta Sororitas, Adeptus Mechanicus
   - **Space Marines** (own group) — a **Chapter system**: a base, Chapter-agnostic
     roster, plus Codex-compliant Chapters that share that base + their own characters
-    (Ultramarines, Imperial Fists, Salamanders) and non-compliant Chapters with their
-    own units (Dark Angels, Black Templars — no psykers, Space Wolves). More Chapters
-    are a TODO.
+    (Ultramarines, Imperial Fists, Salamanders, Iron Hands, White Scars, Raven Guard)
+    and non-compliant Chapters with their own units (Dark Angels, Black Templars — no
+    psykers, Space Wolves, Blood Angels).
   - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights
   - **Xenos** — Necrons, Tyranids, Aeldari
 - **Two modes:**

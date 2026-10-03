@@ -4,8 +4,9 @@ Running list of outstanding work. Data facts were last checked on the dates note
 Warhammer points and prices drift, so treat anything older with suspicion.
 
 Active dropdown groups (`Faction.category`): **Imperium** (Custodes, Sororitas,
-Mechanicus), **Space Marines** (7 entries: no-Chapter + Ultramarines, Imperial
-Fists, Salamanders, Dark Angels, Black Templars, Space Wolves), **Chaos** (Death
+Mechanicus), **Space Marines** (11 entries: no-Chapter + Ultramarines, Imperial
+Fists, Salamanders, Iron Hands, White Scars, Raven Guard, Dark Angels, Black
+Templars, Space Wolves, Blood Angels), **Chaos** (Death
 Guard, Chaos Space Marines, Chaos Knights), **Xenos** (Necrons, Tyranids, Aeldari).
 New-architecture overview is in [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -94,11 +95,17 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   as is **Heroes of the Chapter** (€93: Lieutenant, Apothecary Biologis, 5 Sternguard).
 - **Codex-compliant (base + unique characters):** Ultramarines (Guilliman, Calgar,
   Tigurius, Victrix Guard), Imperial Fists (Lysander, Tor Garadon), Salamanders
-  (Vulkan He'stan, Adrax Agatone) — all use the two generic value boxes.
+  (Vulkan He'stan, Adrax Agatone), Iron Hands (Caanok Var, Iron Father Feirros),
+  White Scars (Kor'sarro Khan, Suboden Khan), Raven Guard (Kayvaan Shrike, Aethon
+  Shaan) — all use the generic value boxes (Getting Started, DA CP, Heroes).
 - **Non-compliant:** Dark Angels (+Deathwing/Ravenwing, Lion; DA CP first),
   Black Templars (base MINUS Psykers/Librarians, +Crusaders/Sword Brethren/Emperor's
   Champion; own CP + DA CP, no Getting Started — it has a Librarian), Space Wolves
-  (+Grey Hunters/Blood Claws/Wulfen/Thunderwolves/Wolf Guard; own CP + both generic).
+  (+Grey Hunters/Blood Claws/Wulfen/Thunderwolves/Wolf Guard; own CP + both generic),
+  Blood Angels (full base + 14 unique datasheets: Dante, Mephiston, Sanguinor,
+  Lemartes, Astorath, BA/DC Captains, Sanguinary Priest, Death Company on foot/jump,
+  Sanguinary Guard, DC Dreadnought, Baal Predator; own CP — Captain, 6 Sanguinary
+  Guard, 10 Assault Intercessors — + the generic boxes).
 - **2026-10-03:** BT + SW Combat Patrols confirmed on product pages (BT: Emperor's
   Champion, 3 Bladeguard, 5 Sword Brethren, 10 Crusaders; SW: Wolf Guard Battle
   Leader, 5 Wolf Guard Terminators, 5 Wulfen, 10 Blood Claws). All BT/SW-unique kit
@@ -118,8 +125,11 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   which is also a value box for every Chapter. The box's Lieutenant w/ Combi-weapon
   (MFM 85 pts, its own datasheet) is counted as the generic Lieutenant — add the
   variant as a unit if accuracy matters.
-- **More Chapters:** Blood Angels (Death Company/Sanguinary Guard), Deathwatch,
-  White Scars, Raven Guard, Iron Hands, Grey Knights (own roster), Crimson Fists.
+- **New-Chapter prices (2026-10-03):** all IH/WS/RG/BA kits hand-checked. Many BA
+  datasheets reuse generic kits (BA/DC Captain → Captain; Death Company → Assault
+  Intercessors / Jump Pack Intercessors; DC Dreadnought → Brutalis Dreadnought).
+- **More Chapters:** Deathwatch, Grey Knights (own roster), Crimson Fists, Black
+  Dragons etc. are not modelled.
 - Consider a nicer UI: a Chapter sub-selector instead of many dropdown entries.
 
 ## Model / rules refinements
