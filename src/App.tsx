@@ -554,6 +554,7 @@ const TAG_LABELS: Record<UnitTag, string> = {
   walker: 'walkers',
   aircraft: 'aircraft',
   stealth: 'Rangers / stealth',
+  harlequin: 'Harlequins',
 }
 
 /** "bikes, speeders and Chapter units" — a faction's identity, strongest first. */

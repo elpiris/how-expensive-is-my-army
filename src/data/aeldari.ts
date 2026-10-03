@@ -6,13 +6,13 @@ import type { Faction } from '../types'
 //   highest-cost wargear). The MFM index is huge (76 datasheets) because it folds
 //   in Harlequins, Ynnari, Corsairs and Forge World Titans; this is a focused
 //   CRAFTWORLDS roster (Aspect Warriors, Guardians, Wraith constructs, seers,
-//   Phoenix Lords, grav-tanks), omitting those sub-factions, the FW Titans
-//   (Phantom 2100 / Revenant 1100) and the support-weapon platforms.
-// Prices: warhammer.com en-EU (2026-10-02). Aspect boxes are €51.50 and the
-//   grav-tank kit (€57.50) builds Falcon / Fire Prism / Night Spinner. A few core
-//   kits weren't surfaced in the (virtualised) store grid this pass and are
-//   best-effort: Farseer (foot), Spiritseer, Striking Scorpions, the Wraith kits,
-//   Wraithknight, Vyper, War Walkers, Wave Serpent, Prince Yriel, Asurmen.
+//   Phoenix Lords, grav-tanks) — since 2026-10-03 also the support-weapon
+//   platforms and the Harlequins. Still omitted: the Ynnari and Corsairs (incl.
+//   Kharseth, Starfangs), the FW Titans, and the Exodites (only sold in a Kill
+//   Team box for now — see TODO.md).
+// Prices: warhammer.com en-EU (2026-10-02, hand-checked 2026-10-03). Aspect boxes are €51.50 and the
+//   grav-tank kit (€57.50) builds Falcon / Fire Prism / Night Spinner. Every
+//   other kit price was hand-checked by the user on en-EU 2026-10-03.
 // Combat Patrol: Aeldari (€139) — contents confirmed on the product page:
 //   1 Spiritseer, 5 Wraithblades, 5 Warp Spiders, 10 Dire Avengers.
 // ---------------------------------------------------------------------------
@@ -54,7 +54,7 @@ export const aeldari: Faction = {
       keywords: ['Character', 'Infantry', 'Epic Hero'],
       tags: ['phoenix', 'aspect'],
       leads: ['dire-avengers'],
-      kit: { name: 'Asurmen', priceEUR: 38.5, models: 1 },
+      kit: { name: 'Asurmen', priceEUR: 38.5, models: 1, verified: true },
     },
     {
       id: 'jain-zar',
@@ -131,8 +131,7 @@ export const aeldari: Faction = {
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Epic Hero'],
       tags: ['melee'],
-      leads: ['guardian-defenders'],
-      kit: { name: 'Prince Yriel', priceEUR: 28, models: 1 },
+      kit: { name: 'Prince Yriel', priceEUR: 38.5, models: 1, verified: true },
     },
     // --- Characters ---
     {
@@ -157,7 +156,7 @@ export const aeldari: Faction = {
       keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
       tags: ['seer', 'psyker'],
       leads: ['guardian-defenders', 'storm-guardians'],
-      kit: { name: 'Farseer', priceEUR: 28, models: 1 },
+      kit: { name: 'Farseer', priceEUR: 27, models: 1, verified: true },
     },
     {
       id: 'farseer-skyrunner',
@@ -181,7 +180,7 @@ export const aeldari: Faction = {
       keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
       tags: ['seer', 'psyker', 'wraith'],
       leads: ['wraithguard', 'wraithblades'],
-      kit: { name: 'Spiritseer', priceEUR: 22, models: 1 },
+      kit: { name: 'Spiritseer', priceEUR: 27, models: 1, verified: true },
     },
     {
       id: 'warlock-skyrunner',
@@ -263,8 +262,7 @@ export const aeldari: Faction = {
       flavor: 3,
       keywords: ['Infantry'],
       tags: ['aspect', 'melee', 'stealth'],
-      // Not surfaced in the store grid this pass — Aspect-box price pattern.
-      kit: { name: 'Striking Scorpions', priceEUR: 51.5, models: 5 },
+      kit: { name: 'Striking Scorpions', priceEUR: 66, models: 10, verified: true },
     },
     {
       id: 'fire-dragons',
@@ -326,7 +324,7 @@ export const aeldari: Faction = {
       keywords: ['Infantry'],
       tags: ['wraith'],
       // One kit builds Wraithguard or Wraithblades — price best-effort this pass.
-      kit: { name: 'Wraithguard / Wraithblades', priceEUR: 60, models: 5 },
+      kit: { name: 'Wraithguard / Wraithblades', priceEUR: 53, models: 5, verified: true },
     },
     {
       id: 'wraithblades',
@@ -337,7 +335,7 @@ export const aeldari: Faction = {
       flavor: 4,
       keywords: ['Infantry'],
       tags: ['wraith', 'melee'],
-      kit: { name: 'Wraithguard / Wraithblades', priceEUR: 60, models: 5 },
+      kit: { name: 'Wraithguard / Wraithblades', priceEUR: 53, models: 5, verified: true },
     },
     // --- Mounted ---
     {
@@ -382,8 +380,7 @@ export const aeldari: Faction = {
       flavor: 2,
       keywords: ['Mounted', 'Fly'],
       tags: ['jetbike'],
-      // Not surfaced in the store grid this pass — price best-effort.
-      kit: { name: 'Vyper', priceEUR: 30, models: 1 },
+      kit: { name: 'Vyper', priceEUR: 52, models: 1, verified: true },
     },
     // --- Vehicles / walkers ---
     {
@@ -395,8 +392,7 @@ export const aeldari: Faction = {
       flavor: 3,
       keywords: ['Vehicle', 'Walker'],
       tags: ['walker', 'guardian'],
-      // Not surfaced in the store grid this pass — price best-effort.
-      kit: { name: 'War Walkers', priceEUR: 40, models: 1 },
+      kit: { name: 'War Walkers', priceEUR: 70, models: 2, verified: true },
     },
     {
       id: 'falcon',
@@ -466,8 +462,7 @@ export const aeldari: Faction = {
       flavor: 3,
       keywords: ['Monster', 'Walker'],
       tags: ['wraith', 'walker'],
-      // Not surfaced in the store grid this pass — price best-effort.
-      kit: { name: 'Wraithlord', priceEUR: 45, models: 1 },
+      kit: { name: 'Wraithlord', priceEUR: 53, models: 1, verified: true },
     },
     {
       id: 'wraithknight',
@@ -482,8 +477,7 @@ export const aeldari: Faction = {
       keywords: ['Monster', 'Towering'],
       tags: ['wraith'],
       wargear: { name: 'Heavy Wraithcannon', points: 10 },
-      // Not surfaced in the store grid this pass — price best-effort.
-      kit: { name: 'Wraithknight', priceEUR: 105, models: 1 },
+      kit: { name: 'Wraithknight', priceEUR: 139, models: 1, verified: true },
     },
     // --- Dedicated Transport ---
     {
@@ -499,8 +493,217 @@ export const aeldari: Faction = {
       keywords: ['Vehicle', 'Transport', 'Fly'],
       tags: ['gravtank'],
       transports: ['guardian-defenders', 'storm-guardians', 'rangers', 'dire-avengers', 'howling-banshees', 'striking-scorpions', 'fire-dragons', 'dark-reapers', 'wraithguard', 'wraithblades'],
-      // Not surfaced in the store grid this pass — price best-effort.
-      kit: { name: 'Wave Serpent', priceEUR: 50, models: 1 },
+      kit: { name: 'Wave Serpent', priceEUR: 57.5, models: 1, verified: true },
+    },
+    // --- Added 2026-10-03 from the full MFM list (prices pending the user's check) ---
+    {
+      id: 'lhykhis',
+      name: 'Lhykhis',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 135,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Fly', 'Epic Hero', 'Leader'],
+      tags: ['phoenix', 'aspect'],
+      leads: ['warp-spiders'],
+      kit: { name: 'Lhykhis', priceEUR: 38.5, models: 1, verified: true },
+    },
+    {
+      id: 'autarch-wayleaper',
+      name: 'Autarch Wayleaper',
+      role: 'character',
+      points: 70,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Fly', 'Leader'],
+      tags: ['aspect'],
+      leads: ['swooping-hawks', 'warp-spiders'],
+      kit: { name: 'Autarch Wayleaper', priceEUR: 25, models: 1, verified: true },
+    },
+    {
+      id: 'warlock',
+      name: 'Warlock',
+      role: 'character',
+      // Built from the Warlock Conclave box (pooled with the Conclave when costing).
+      points: 40,
+      models: 1,
+      flavor: 2,
+      keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
+      tags: ['seer', 'psyker'],
+      leads: ['guardian-defenders', 'storm-guardians'],
+      kit: { name: 'Warlock Conclave', priceEUR: 51, models: 2, verified: true },
+    },
+    {
+      id: 'warlock-conclave',
+      name: 'Warlock Conclave',
+      role: 'character',
+      points: 55,
+      models: 2,
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
+      tags: ['seer', 'psyker'],
+      leads: ['guardian-defenders', 'storm-guardians'],
+      kit: { name: 'Warlock Conclave', priceEUR: 51, models: 2, verified: true },
+    },
+    {
+      id: 'wraithknight-ghostglaive',
+      name: 'Wraithknight with Ghostglaive',
+      role: 'monster',
+      // Same Wraithknight kit as the cannon version (builds either).
+      points: 380,
+      pointsEscalated: 400,
+      escalateAt: 2,
+      models: 1,
+      flavor: 5,
+      keywords: ['Monster', 'Towering'],
+      tags: ['wraith', 'melee'],
+      kit: { name: 'Wraithknight', priceEUR: 139, models: 1, verified: true },
+    },
+    {
+      id: 'd-cannon',
+      name: 'D-cannon Platform',
+      role: 'vehicle',
+      // One €23.50 support-weapon kit builds a D-cannon, Shadow Weaver or Vibro Cannon.
+      points: 110,
+      pointsEscalated: 130,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle', 'Artillery'],
+      tags: ['guardian'],
+      kit: { name: 'Aeldari Support Weapon', priceEUR: 23.5, models: 1, verified: true },
+    },
+    {
+      id: 'shadow-weaver',
+      name: 'Shadow Weaver Platform',
+      role: 'vehicle',
+      points: 60,
+      models: 1,
+      flavor: 2,
+      keywords: ['Vehicle', 'Artillery'],
+      tags: ['guardian'],
+      kit: { name: 'Aeldari Support Weapon', priceEUR: 23.5, models: 1, verified: true },
+    },
+    {
+      id: 'vibro-cannon',
+      name: 'Vibro Cannon Platform',
+      role: 'vehicle',
+      points: 60,
+      models: 1,
+      flavor: 2,
+      keywords: ['Vehicle', 'Artillery'],
+      tags: ['guardian'],
+      kit: { name: 'Aeldari Support Weapon', priceEUR: 23.5, models: 1, verified: true },
+    },
+    // --- Harlequins ---
+    {
+      id: 'troupe-master',
+      name: 'Troupe Master',
+      role: 'character',
+      points: 75,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Harlequin', 'Leader'],
+      tags: ['harlequin', 'melee'],
+      leads: ['troupe'],
+      // Only in the Troupe box (5 players + this Master), so its kit IS that box.
+      kit: {
+        name: 'Troupe',
+        priceEUR: 38.5,
+        models: 1,
+        verified: true,
+        alsoBuilds: [{ unitId: 'troupe', models: 5 }],
+      },
+    },
+    {
+      id: 'shadowseer',
+      name: 'Shadowseer',
+      role: 'character',
+      points: 50,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Psyker', 'Harlequin', 'Leader'],
+      tags: ['harlequin', 'psyker'],
+      leads: ['troupe'],
+      kit: { name: 'Shadowseer', priceEUR: 27, models: 1, verified: true },
+    },
+    {
+      id: 'death-jester',
+      name: 'Death Jester',
+      role: 'character',
+      points: 65,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Harlequin'],
+      tags: ['harlequin'],
+      kit: { name: 'Death Jester', priceEUR: 27, models: 1, verified: true },
+    },
+    {
+      id: 'solitaire',
+      name: 'Solitaire',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 105,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Infantry', 'Harlequin', 'Epic Hero'],
+      tags: ['harlequin', 'melee'],
+      kit: { name: 'Solitaire', priceEUR: 25, models: 1, verified: true },
+    },
+    {
+      id: 'troupe',
+      name: 'Troupe',
+      role: 'infantry',
+      points: 85,
+      models: 5,
+      flavor: 4,
+      keywords: ['Infantry', 'Harlequin'],
+      tags: ['harlequin', 'melee'],
+      // The €38.50 box builds 6: these 5 players + a Troupe Master.
+      kit: {
+        name: 'Troupe',
+        priceEUR: 38.5,
+        models: 5,
+        verified: true,
+        alsoBuilds: [{ unitId: 'troupe-master', models: 1 }],
+      },
+    },
+    {
+      id: 'skyweavers',
+      name: 'Skyweavers',
+      role: 'mounted',
+      points: 90,
+      models: 2,
+      flavor: 3,
+      keywords: ['Mounted', 'Fly', 'Harlequin'],
+      tags: ['harlequin', 'jetbike'],
+      kit: { name: 'Skyweavers', priceEUR: 47.5, models: 2, verified: true },
+    },
+    {
+      id: 'starweaver',
+      name: 'Starweaver',
+      role: 'transport',
+      // One kit builds a Starweaver or a Voidweaver.
+      points: 70,
+      pointsEscalated: 80,
+      escalateAt: 4,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle', 'Transport', 'Fly', 'Harlequin'],
+      tags: ['harlequin'],
+      transports: ['troupe'],
+      kit: { name: 'Starweaver / Voidweaver', priceEUR: 38.5, models: 1, verified: true },
+    },
+    {
+      id: 'voidweaver',
+      name: 'Voidweaver',
+      role: 'vehicle',
+      points: 115,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle', 'Fly', 'Harlequin'],
+      tags: ['harlequin'],
+      kit: { name: 'Starweaver / Voidweaver', priceEUR: 38.5, models: 1, verified: true },
     },
   ],
   valueBoxes: [

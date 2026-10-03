@@ -48,6 +48,10 @@ Built with **Vite + React + TypeScript**.
   Ulthwé (seers, Guardians, Eldrad), Saim-Hann (jetbikes), Iyanden (wraith
   constructs, Yriel) and Alaitoc (Rangers, stealth) — picked in a Craftworld
   dropdown, balanced halfway between value and flavour.
+  The Aeldari roster covers the full MFM Craftworld + Harlequin datasheets
+  (support platforms, Warlocks, Lhykhis, Wayleaper, Ghostglaive Wraithknight,
+  Troupes, Skyweavers, Star/Voidweavers…); Ynnari, Corsairs and Exodites aren't
+  modelled yet.
 - **Accurate points:** sourced from the **Munitorum Field Manual** (11th ed),
   including each datasheet's **escalating cost** for repeat copies (a unit can step
   up on its 2nd, 3rd or 4th copy — shown on the list row) and the single

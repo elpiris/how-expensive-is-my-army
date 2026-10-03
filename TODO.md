@@ -124,8 +124,13 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
 - **Aeldari Craftworlds (2026-10-03):** Biel-Tan, Ulthwé, Saim-Hann, Iyanden,
   Alaitoc in `craftworlds.ts`, sharing the Aeldari roster (units now tagged).
   Halfway flavour (full flavour cost +25–30% for Alaitoc/Saim-Hann). Not modelled:
-  Ynnari, Corsairs, Harlequins (user can't QA them), and newer MFM units (Dragon
-  Knights, Warlock Conclave, Autarch Wayleaper, Wraithknight with Ghostglaive…).
+  Ynnari and Corsairs (user can't QA them; incl. Kharseth, Starfangs) and the FW
+  Titans. Since 2026-10-03 the roster also has the support platforms, Warlocks,
+  Lhykhis, Autarch Wayleaper, Ghostglaive Wraithknight and the Harlequins.
+- **TODO — Exodites:** Clanblade (70 pts, leads Dragon Knights), Stonesinger (55,
+  supports Dragon Knights), Leystalker (75), Dragon Knights (3 models 85 / 3rd+ 95)
+  are in the MFM but only sold in a Kill Team box for now. Add them (tag
+  `exodite`) once individual kits exist, or model the Kill Team box as a value box.
 
 **SM TODOs:**
 - **Points:** the whole generic roster + Ultramarines re-read from the MFM
