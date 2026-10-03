@@ -24,7 +24,8 @@ Built with **Vite + React + TypeScript**.
     the Chapter is chosen in a second **Chapter** dropdown that appears beside it.
   - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights, Emperor's Children,
     World Eaters, Thousand Sons, Chaos Daemons
-  - **Xenos** — Necrons, Tyranids, Aeldari (+ a **Craftworld** dropdown), T'au Empire
+  - **Xenos** — Necrons, Tyranids, Aeldari (+ a **Craftworld** dropdown), T'au Empire,
+    Leagues of Votann
 - **Two modes:**
   - **Quick list** — pick a faction + points bracket (500 / 1000 / 1500 / 2000)
     and get one list. Reroll for a new take.
@@ -125,7 +126,7 @@ src/
                         #  imperialKnights, greyKnights, deathGuard,
                         #  chaosSpaceMarines, chaosKnights, emperorsChildren,
                         #  worldEaters, thousandSons, chaosDaemons, necrons,
-                        #  tyranids, aeldari, tauEmpire)
+                        #  tyranids, aeldari, tauEmpire, leaguesOfVotann)
     craftworlds.ts      # the 5 Aeldari Craftworld sub-factions
     spaceMarines/       # base Codex roster + per-Chapter Faction files
       base.ts           #   shared roster + generic value boxes

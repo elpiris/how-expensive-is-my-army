@@ -12,20 +12,20 @@ Active dropdown groups (`Faction.category`):
 - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights, Emperor's Children,
   World Eaters, Thousand Sons, Chaos Daemons.
 - **Xenos** — Necrons, Tyranids, Aeldari (+ a **Craftworld** sub-selector: Biel-Tan,
-  Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire.
+  Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire, Leagues of Votann.
 
 Architecture overview: [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Data verification
 
-**17 non-SM factions + Space Marines (10 Chapters) are fully fine-tuned** — MFM
+**18 non-SM factions + Space Marines (10 Chapters) are fully fine-tuned** — MFM
 rosters (points + escalation + leader lists), en-EU kit prices, real Combat Patrols /
 value boxes, composition profiles. Prices for everything added on 2026-10-03 were
 confirmed with the user one kit at a time. Remaining data work: the few best-effort
 (`verified:false` → "≈") kits noted below, and periodic re-checks (points/prices drift).
 
 ### Still missing factions (MFM)
-- **Xenos:** Orks, Drukhari, Genestealer Cults, Leagues of Votann.
+- **Xenos:** Orks, Drukhari, Genestealer Cults.
 - **Low priority (skipped 2026-10-03 as marginal armies):** Imperial Agents, and
   Deathwatch (as an SM Chapter). Add later the same way.
 - Out of scope: Titan Legions / Chaos Titan Legions (Forge World).
@@ -116,6 +116,11 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   Hammerhead / Sky Ray €64, Razorshark / Sun Shark €74; Stealth Suits and Vespid in
   Kill Team boxes (€56.50, 5 / 10). Combat Patrol (€139: Enforcer Commander,
   Devilfish, 10 Breachers, 10 Pathfinders).
+- **Leagues of Votann — DONE (2026-10-03).** All 22 MFM datasheets; every kit price
+  from the en-EU grid, box sizes / sharing confirmed by the user (Steeljacks €51/3
+  either loadout, Kapricus Defender / Carrier €52, Grimnyr box = 3 models, Iron-master
+  box = 5, Yaegirs in a Kill Team box). Combat Patrol (€139: Einhyr Champion,
+  3 Thunderkyn, 5 Hearthguard, 10 Hearthkyn).
 - **TODO — Exodites:** Clanblade (70 pts, leads Dragon Knights), Stonesinger (55,
   supports Dragon Knights), Leystalker (75), Dragon Knights (3 models 85 / 3rd+ 95)
   are in the MFM but only sold in a Kill Team box for now. Add them (tag `exodite`)
