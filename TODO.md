@@ -4,7 +4,7 @@ Running list of outstanding work. Data facts were last checked on the dates note
 Warhammer points and prices drift, so treat anything older with suspicion.
 
 Active dropdown groups (`Faction.category`): **Imperium** (Custodes, Sororitas,
-Mechanicus), **Space Marines** (11 entries: no-Chapter + Ultramarines, Imperial
+Mechanicus, Astra Militarum), **Space Marines** (11 entries: no-Chapter + Ultramarines, Imperial
 Fists, Salamanders, Iron Hands, White Scars, Raven Guard, Dark Angels, Black
 Templars, Space Wolves, Blood Angels), **Chaos** (Death
 Guard, Chaos Space Marines, Chaos Knights), **Xenos** (Necrons, Tyranids, Aeldari).
@@ -131,6 +131,19 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   supports Dragon Knights), Leystalker (75), Dragon Knights (3 models 85 / 3rd+ 95)
   are in the MFM but only sold in a Kill Team box for now. Add them (tag
   `exodite`) once individual kits exist, or model the Kill Team box as a value box.
+
+- **Astra Militarum — DONE (2026-10-03).** 70 of the MFM's 72 datasheets (Aegis
+  Defence Line and the FW Avenger left out); points + escalation + leader lists from
+  the MFM; every kit price hand-checked (grid + user). Combat Patrol (€139: Cadian
+  Command Squad, 10 Kasrkin, 10 Rough Riders). Shared kits pooled (Leman Russ,
+  Rogal Dorn, Manticore/Deathstrike, Hydra/Wyvern, Ogryns/Bullgryns/Bodyguard,
+  Taurox/Prime, Baneblade ×5, Shadowsword ×3); Graves' €83 box builds both versions
+  (one fielded); the Nork Deddog box adds 2 Ogryns. Limited Battleforce Platoon
+  skipped. No identity/tags yet → value-first.
+- **Still missing factions (MFM):** Emperor's Children, World Eaters, Thousand
+  Sons, Chaos Daemons, Imperial Knights, Grey Knights, Imperial Agents, Orks,
+  T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann (+ Deathwatch as an
+  SM Chapter). Titan Legions (FW) out of scope.
 
 **SM TODOs:**
 - **Points:** the whole generic roster + Ultramarines re-read from the MFM

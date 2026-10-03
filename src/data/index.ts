@@ -2,6 +2,7 @@ import type { Faction } from '../types'
 import { custodes } from './custodes'
 import { sororitas } from './sororitas'
 import { mechanicus } from './mechanicus'
+import { astraMilitarum } from './astraMilitarum'
 import { spaceMarines } from './spaceMarines/vanilla'
 import { ultramarines } from './spaceMarines/ultramarines'
 import { imperialFists } from './spaceMarines/imperialFists'
@@ -31,6 +32,7 @@ export const factions: Faction[] = [
   custodes,
   sororitas,
   mechanicus,
+  astraMilitarum,
   spaceMarines,
   ultramarines,
   imperialFists,

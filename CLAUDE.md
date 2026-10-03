@@ -37,7 +37,7 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
   `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
 
 ## Current state (2026-10-03, evening)
-9 non-SM factions fully fine-tuned (full MFM rosters, verified en-EU prices, real
+10 non-SM factions fully fine-tuned (Astra Militarum added 2026-10-03) (full MFM rosters, verified en-EU prices, real
 value boxes, composition profiles). Space Marines added with a Chapter system (own
 dropdown group): base + 6 Codex-compliant (UM, IF, Sal, IH, WS, RG) + 4
 non-compliant (DA, BT, SW, BA) Chapters, with own CPs for DA/BT/SW/BA (the

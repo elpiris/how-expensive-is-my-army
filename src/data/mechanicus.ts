@@ -81,7 +81,7 @@ export const mechanicus: Faction = {
       keywords: ['Character', 'Infantry', 'Leader'],
       leads: ['corpuscarii-electro-priests', 'fulgurite-electro-priests', 'kataphron-breachers', 'kataphron-destroyers', 'skitarii-rangers', 'skitarii-vanguard'],
       // Not in the current AdMech range — price best-effort.
-      kit: { name: 'Tech-Priest Enginseer', priceEUR: 22, models: 1 },
+      kit: { name: 'Tech-Priest Enginseer', priceEUR: 34, models: 1, verified: true },
     },
     {
       id: 'technoarcheologist',
