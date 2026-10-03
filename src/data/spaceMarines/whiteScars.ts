@@ -36,6 +36,7 @@ export const whiteScars: Faction = {
   name: 'White Scars',
   system: 'w40k',
   category: 'space-marines',
+  parent: 'space-marines',
   chapter: 'codex',
   lastVerified: '2026-10-03',
   pointsVerified: true,

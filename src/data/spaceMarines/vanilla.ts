@@ -7,6 +7,7 @@ export const spaceMarines: Faction = {
   name: 'Space Marines',
   system: 'w40k',
   category: 'space-marines',
+  subfactionLabel: 'Chapter',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Codex combined arms: line squads, a solid armour wing, a few bikes and HQs.

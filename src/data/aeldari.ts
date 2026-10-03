@@ -22,6 +22,7 @@ export const aeldari: Faction = {
   name: 'Aeldari',
   system: 'w40k',
   category: 'xenos',
+  subfactionLabel: 'Craftworld',
   lastVerified: '2026-10-02',
   pointsVerified: true,
   // Fast elite Aspect-Warrior infantry + grav-tanks, led by seers and Phoenix Lords.
@@ -39,6 +40,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 5,
       keywords: ['Character', 'Monster', 'Epic Hero'],
+      tags: ['melee'],
       kit: { name: 'Avatar of Khaine', priceEUR: 93, models: 1, verified: true },
     },
     {
@@ -50,6 +52,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Epic Hero'],
+      tags: ['phoenix', 'aspect'],
       leads: ['dire-avengers'],
       kit: { name: 'Asurmen', priceEUR: 38.5, models: 1 },
     },
@@ -62,6 +65,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Epic Hero'],
+      tags: ['phoenix', 'aspect', 'melee'],
       leads: ['howling-banshees'],
       kit: { name: 'Jain Zar', priceEUR: 38.5, models: 1, verified: true },
     },
@@ -74,6 +78,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Epic Hero'],
+      tags: ['phoenix', 'aspect'],
       leads: ['fire-dragons'],
       kit: { name: 'Fuegan', priceEUR: 38.5, models: 1, verified: true },
     },
@@ -86,6 +91,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Epic Hero'],
+      tags: ['phoenix', 'aspect'],
       leads: ['dark-reapers'],
       kit: { name: 'Maugan Ra', priceEUR: 38.5, models: 1, verified: true },
     },
@@ -98,6 +104,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Fly', 'Epic Hero'],
+      tags: ['phoenix', 'aspect'],
       leads: ['swooping-hawks'],
       kit: { name: 'Baharroth', priceEUR: 38.5, models: 1, verified: true },
     },
@@ -110,6 +117,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Psyker', 'Epic Hero'],
+      tags: ['seer', 'psyker'],
       leads: ['guardian-defenders', 'storm-guardians'],
       kit: { name: 'Eldrad Ulthran', priceEUR: 34, models: 1, verified: true },
     },
@@ -122,6 +130,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Epic Hero'],
+      tags: ['melee'],
       leads: ['guardian-defenders'],
       kit: { name: 'Prince Yriel', priceEUR: 28, models: 1 },
     },
@@ -134,6 +143,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Leader'],
+      tags: ['aspect'],
       leads: ['dark-reapers', 'dire-avengers', 'fire-dragons', 'guardian-defenders', 'howling-banshees', 'storm-guardians', 'striking-scorpions'],
       kit: { name: 'Autarch', priceEUR: 36, models: 1, verified: true },
     },
@@ -145,6 +155,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
+      tags: ['seer', 'psyker'],
       leads: ['guardian-defenders', 'storm-guardians'],
       kit: { name: 'Farseer', priceEUR: 28, models: 1 },
     },
@@ -156,6 +167,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Mounted', 'Psyker', 'Fly', 'Leader'],
+      tags: ['seer', 'psyker', 'jetbike'],
       leads: ['windriders'],
       kit: { name: 'Farseer Skyrunner', priceEUR: 36, models: 1, verified: true },
     },
@@ -167,6 +179,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
+      tags: ['seer', 'psyker', 'wraith'],
       leads: ['wraithguard', 'wraithblades'],
       kit: { name: 'Spiritseer', priceEUR: 22, models: 1 },
     },
@@ -178,6 +191,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 2,
       keywords: ['Character', 'Mounted', 'Psyker', 'Fly', 'Leader'],
+      tags: ['seer', 'psyker', 'jetbike'],
       leads: ['windriders'],
       kit: { name: 'Warlock Skyrunner', priceEUR: 36, models: 1, verified: true },
     },
@@ -191,6 +205,7 @@ export const aeldari: Faction = {
       models: 11,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
+      tags: ['guardian'],
       kit: { name: 'Guardian Defenders', priceEUR: 51, models: 11, verified: true },
     },
     {
@@ -201,6 +216,7 @@ export const aeldari: Faction = {
       models: 11,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
+      tags: ['guardian', 'melee'],
       kit: { name: 'Storm Guardians', priceEUR: 51, models: 11, verified: true },
     },
     {
@@ -211,6 +227,7 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Battleline', 'Infantry'],
+      tags: ['stealth'],
       kit: { name: 'Rangers', priceEUR: 51.5, models: 5, verified: true },
     },
     // --- Aspect Warriors / infantry ---
@@ -223,6 +240,7 @@ export const aeldari: Faction = {
       models: 10,
       flavor: 3,
       keywords: ['Infantry'],
+      tags: ['aspect'],
       kit: { name: 'Dire Avengers', priceEUR: 38.5, models: 5, verified: true },
     },
     {
@@ -233,6 +251,7 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Infantry'],
+      tags: ['aspect', 'melee'],
       kit: { name: 'Howling Banshees', priceEUR: 51.5, models: 5, verified: true },
     },
     {
@@ -243,6 +262,7 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Infantry'],
+      tags: ['aspect', 'melee', 'stealth'],
       // Not surfaced in the store grid this pass — Aspect-box price pattern.
       kit: { name: 'Striking Scorpions', priceEUR: 51.5, models: 5 },
     },
@@ -256,6 +276,7 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 4,
       keywords: ['Infantry'],
+      tags: ['aspect'],
       kit: { name: 'Fire Dragons', priceEUR: 51.5, models: 5, verified: true },
     },
     {
@@ -266,6 +287,7 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 4,
       keywords: ['Infantry'],
+      tags: ['aspect'],
       kit: { name: 'Dark Reapers', priceEUR: 51.5, models: 5, verified: true },
     },
     {
@@ -278,6 +300,7 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Infantry', 'Fly'],
+      tags: ['aspect'],
       kit: { name: 'Warp Spiders', priceEUR: 51.5, models: 5, verified: true },
     },
     {
@@ -290,6 +313,7 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 3,
       keywords: ['Infantry', 'Fly'],
+      tags: ['aspect'],
       kit: { name: 'Swooping Hawks', priceEUR: 51.5, models: 5, verified: true },
     },
     {
@@ -300,6 +324,7 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 4,
       keywords: ['Infantry'],
+      tags: ['wraith'],
       // One kit builds Wraithguard or Wraithblades — price best-effort this pass.
       kit: { name: 'Wraithguard / Wraithblades', priceEUR: 60, models: 5 },
     },
@@ -311,6 +336,7 @@ export const aeldari: Faction = {
       models: 5,
       flavor: 4,
       keywords: ['Infantry'],
+      tags: ['wraith', 'melee'],
       kit: { name: 'Wraithguard / Wraithblades', priceEUR: 60, models: 5 },
     },
     // --- Mounted ---
@@ -322,6 +348,7 @@ export const aeldari: Faction = {
       models: 3,
       flavor: 4,
       keywords: ['Mounted', 'Fly'],
+      tags: ['jetbike', 'aspect'],
       kit: { name: 'Shining Spears', priceEUR: 56.5, models: 3, verified: true },
     },
     {
@@ -332,6 +359,7 @@ export const aeldari: Faction = {
       models: 3,
       flavor: 3,
       keywords: ['Mounted', 'Fly'],
+      tags: ['jetbike'],
       kit: { name: 'Windriders', priceEUR: 51, models: 3, verified: true },
     },
     {
@@ -342,6 +370,7 @@ export const aeldari: Faction = {
       models: 3,
       flavor: 3,
       keywords: ['Mounted', 'Fly'],
+      tags: ['jetbike', 'stealth'],
       kit: { name: 'Shroud Runners', priceEUR: 60, models: 3, verified: true },
     },
     {
@@ -352,6 +381,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 2,
       keywords: ['Mounted', 'Fly'],
+      tags: ['jetbike'],
       // Not surfaced in the store grid this pass — price best-effort.
       kit: { name: 'Vyper', priceEUR: 30, models: 1 },
     },
@@ -364,6 +394,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Vehicle', 'Walker'],
+      tags: ['walker', 'guardian'],
       // Not surfaced in the store grid this pass — price best-effort.
       kit: { name: 'War Walkers', priceEUR: 40, models: 1 },
     },
@@ -375,6 +406,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Vehicle', 'Fly'],
+      tags: ['gravtank'],
       // Grav-tank kit (builds Falcon / Fire Prism / Night Spinner).
       kit: { name: 'Falcon', priceEUR: 57.5, models: 1, verified: true },
     },
@@ -386,6 +418,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Vehicle', 'Fly'],
+      tags: ['gravtank'],
       kit: { name: 'Fire Prism', priceEUR: 57.5, models: 1, verified: true },
     },
     {
@@ -398,6 +431,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Vehicle', 'Fly'],
+      tags: ['gravtank'],
       kit: { name: 'Night Spinner', priceEUR: 57.5, models: 1, verified: true },
     },
     {
@@ -408,6 +442,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Vehicle', 'Fly', 'Aircraft'],
+      tags: ['aircraft', 'aspect'],
       kit: { name: 'Crimson Hunter', priceEUR: 80, models: 1, verified: true },
     },
     {
@@ -418,6 +453,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Vehicle', 'Fly', 'Aircraft'],
+      tags: ['aircraft', 'wraith'],
       kit: { name: 'Hemlock Wraithfighter', priceEUR: 80, models: 1, verified: true },
     },
     // --- Monsters ---
@@ -429,6 +465,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Monster', 'Walker'],
+      tags: ['wraith', 'walker'],
       // Not surfaced in the store grid this pass — price best-effort.
       kit: { name: 'Wraithlord', priceEUR: 45, models: 1 },
     },
@@ -443,6 +480,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 5,
       keywords: ['Monster', 'Towering'],
+      tags: ['wraith'],
       wargear: { name: 'Heavy Wraithcannon', points: 10 },
       // Not surfaced in the store grid this pass — price best-effort.
       kit: { name: 'Wraithknight', priceEUR: 105, models: 1 },
@@ -459,6 +497,7 @@ export const aeldari: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Vehicle', 'Transport', 'Fly'],
+      tags: ['gravtank'],
       transports: ['guardian-defenders', 'storm-guardians', 'rangers', 'dire-avengers', 'howling-banshees', 'striking-scorpions', 'fire-dragons', 'dark-reapers', 'wraithguard', 'wraithblades'],
       // Not surfaced in the store grid this pass — price best-effort.
       kit: { name: 'Wave Serpent', priceEUR: 50, models: 1 },

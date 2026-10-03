@@ -121,6 +121,12 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   identity) to make their lists flavourful too; check prices don't jump (Custodes
   went +47% when flavour relied on the generic `flavor` rating alone).
 
+- **Aeldari Craftworlds (2026-10-03):** Biel-Tan, Ulthwé, Saim-Hann, Iyanden,
+  Alaitoc in `craftworlds.ts`, sharing the Aeldari roster (units now tagged).
+  Halfway flavour (full flavour cost +25–30% for Alaitoc/Saim-Hann). Not modelled:
+  Ynnari, Corsairs, Harlequins (user can't QA them), and newer MFM units (Dragon
+  Knights, Warlock Conclave, Autarch Wayleaper, Wraithknight with Ghostglaive…).
+
 **SM TODOs:**
 - **Points:** the whole generic roster + Ultramarines re-read from the MFM
   2026-10-03 (exact 3rd+ / 2nd+ tiers, leader lists). Units use the default size;

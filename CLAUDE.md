@@ -46,6 +46,8 @@ base roster is the full generic MFM list (68 datasheets, exact tiers); every kit
 price is hand-verified (2026-10-03). Combo boxes are valued
 whole and everything bought is fielded when possible. Users can tune composition
 via Advanced settings. SM units carry thematic `tags` and each Chapter an `identity`;
-Chapter lists are generated for flavour (factions without an identity stay value-first). Chapters are picked in a
+Chapter lists are generated for flavour (factions without an identity stay value-first).
+Aeldari have 5 Craftworld sub-factions (`craftworlds.ts`: identity + signature
+characters + profile, generated at `flavour: 0.5`); sub-factions use `parent`. Chapters are picked in a
 Chapter sub-selector shown when Space Marines is chosen. Main backlog: competitive
 mode, export/shareable URL.

@@ -19,6 +19,7 @@ import { chaosKnights } from './chaosKnights'
 import { necrons } from './necrons'
 import { tyranids } from './tyranids'
 import { aeldari } from './aeldari'
+import { craftworlds } from './craftworlds'
 
 // Active factions, ordered by grand alliance (the dropdown groups them by
 // `category`). Space Marines ship as a base (Chapter-agnostic) force plus the
@@ -49,6 +50,7 @@ export const factions: Faction[] = [
   necrons,
   tyranids,
   aeldari,
+  ...craftworlds,
 ]
 
 export function getFaction(id: string): Faction | undefined {

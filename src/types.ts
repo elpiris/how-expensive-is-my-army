@@ -164,6 +164,17 @@ export type UnitTag =
   | 'chaplain'
   | 'techmarine'
   | 'veteran'
+  // Aeldari
+  | 'aspect'
+  | 'phoenix'
+  | 'guardian'
+  | 'seer'
+  | 'wraith'
+  | 'jetbike'
+  | 'gravtank'
+  | 'walker'
+  | 'aircraft'
+  | 'stealth'
 
 /**
  * What a faction is known for: tag → weight (1 = a nod, 3 = defining). With the
@@ -197,6 +208,25 @@ export interface Faction {
   profile?: FactionProfile
   /** Thematic unit preferences — see FactionIdentity / Unit.tags. */
   identity?: FactionIdentity
+  /**
+   * Units this sub-faction is famous for though anyone may field them (e.g.
+   * Eldrad for Ulthwé) — they get the same flavour bonus as `exclusive` units.
+   */
+  signature?: string[]
+  /**
+   * Base faction this is a sub-faction of (a Space Marine Chapter → the base
+   * `space-marines`, a Craftworld → `aeldari`). Sub-factions are chosen in a
+   * second dropdown instead of the main faction list.
+   */
+  parent?: string
+  /** On a base faction with sub-factions: what they're called ("Chapter"…). */
+  subfactionLabel?: string
+  /**
+   * Value ↔ flavour balance for generation (0 = points per euro only … 1 = theme
+   * only). Defaults to 1 with an `identity`, 0 without; set it where full flavour
+   * gets too pricey (Aeldari Craftworlds use 0.5).
+   */
+  flavour?: number
   blurb?: string
   units: Unit[]
   valueBoxes: ValueBox[]

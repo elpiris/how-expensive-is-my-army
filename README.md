@@ -44,6 +44,10 @@ Built with **Vite + React + TypeScript**.
   known for — its own units, and units matching its identity (bikes for White Scars,
   flamers and meltas for Salamanders, Terminators and Gravis for Imperial Fists…) —
   at about the same price as a pure value-for-money list.
+- **Aeldari Craftworlds:** Biel-Tan (Aspect Warriors, Phoenix Lords, the Avatar),
+  Ulthwé (seers, Guardians, Eldrad), Saim-Hann (jetbikes), Iyanden (wraith
+  constructs, Yriel) and Alaitoc (Rangers, stealth) — picked in a Craftworld
+  dropdown, balanced halfway between value and flavour.
 - **Accurate points:** sourced from the **Munitorum Field Manual** (11th ed),
   including each datasheet's **escalating cost** for repeat copies (a unit can step
   up on its 2nd, 3rd or 4th copy — shown on the list row) and the single

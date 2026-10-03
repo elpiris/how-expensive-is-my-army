@@ -46,7 +46,9 @@ import type { UnitCategory } from '../types'
 // pure-flavour lists — simulations showed they cost about the same as value lists
 // (−4…+8% at 2000 pts; White Scars +17%, bikes being dear). Factions without one
 // keep pure value: there "flavour" is just the generic rating and mostly raises
-// the price (Custodes +47%). There is no UI control for it any more.
+// the price (Custodes +47%). Aeldari Craftworlds sit halfway (`Faction.flavour`
+// 0.5): their signature units are poor value, so full flavour cost +10…32% while
+// halfway is clearly themed for +7…14%. There is no UI control for it.
 //
 // Use what you buy: before every pick, anything the shopping list has paid for
 // but the army doesn't field (`costList(...).spare` — e.g. the Screamer-Killer of
@@ -124,14 +126,19 @@ export interface GenerateOptions {
   flavour?: number
 }
 
-/** Full flavour for factions with a thematic identity, pure value otherwise. */
+/**
+ * The faction's own `flavour` if set; else full flavour with a thematic identity
+ * (SM Chapters), pure value without one.
+ */
 export function defaultFlavour(faction: Faction): number {
+  if (faction.flavour !== undefined) return faction.flavour
   return faction.identity && Object.keys(faction.identity).length ? 1 : 0
 }
 
 /**
  * How well a unit fits its faction's theme (≈ 0.5 … 15): its own flavour rating,
- * ×3 if the faction alone can field it, and ×(1 + identity-tag weights, max 6).
+ * ×3 if the faction alone can field it (or it's a `signature` unit), and
+ * ×(1 + identity-tag weights, max 6).
  */
 export function themeScore(faction: Faction, u: Unit): number {
   const base = (u.flavor ?? 3) / 3
@@ -139,7 +146,8 @@ export function themeScore(faction: Faction, u: Unit): number {
     6,
     (u.tags ?? []).reduce((s, t) => s + (faction.identity?.[t] ?? 0), 0),
   )
-  return base * (u.exclusive ? 3 : 1) * (1 + tagScore)
+  const special = u.exclusive || faction.signature?.includes(u.id)
+  return base * (special ? 3 : 1) * (1 + tagScore)
 }
 
 function augmentList(

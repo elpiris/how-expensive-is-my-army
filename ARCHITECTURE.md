@@ -96,7 +96,8 @@ Steps:
 5. **Value fill** — pick by `appeal(u, remaining, 3) * flavorBias * profileFactor`.
 
 **Value ↔ Flavour** (`GenerateOptions.flavour`, 0..1; no UI — `defaultFlavour(faction)`
-= 1 for factions with an `identity` (the SM Chapters), 0 otherwise):
+= `faction.flavour` if set (Aeldari Craftworlds: 0.5), else 1 for factions with an
+`identity` (the SM Chapters), 0 otherwise):
 `appeal = valueOf^(p·(1−f)) · themeScore^(1.5·p·f)` where
 `valueOf` = points-per-euro (or the whole combo box's) and `themeScore` = `flavor/3 ×
 (exclusive ? 3 : 1) × (1 + Σ identity[tag], max 6)`. Every weighted pick uses it (backbone,
@@ -152,10 +153,11 @@ Key rules/knobs:
 
 Single file. Two modes (**Quick list**, **Escalation**) via a segmented control.
 Faction `<select>` renders `<optgroup>`s from `CATEGORY_ORDER` / `CATEGORY_LABELS`,
-listing Space Marines once (the `space-marines` base faction). When an SM faction
-is active, a **Chapter** `<select>` appears ("No specific Chapter" + Codex-compliant
-/ Non-compliant groups from `faction.chapter`); `chapterId` remembers the last pick
-so re-selecting Space Marines restores it. A new Chapter only needs `chapter` set.
+listing only base factions (no `parent`). When the active faction has sub-factions
+(factions whose `parent` is it), a second `<select>` labelled by the base's
+`subfactionLabel` appears — "Chapter" for Space Marines (grouped Codex-compliant /
+Non-compliant via `chapter`), "Craftworld" for Aeldari. `lastSub` remembers the
+last pick per base. A new sub-faction just needs `parent` set.
 `ListPanel` renders per-copy rows (points via `copyPoints`, wargear tag `.wg`,
 escalation surcharge tag `.esc`), grouped Characters / Battleline / Other.
 `ShopPanel` renders the buy list with per-line discounts (online-only struck/exempt).
