@@ -42,7 +42,8 @@ src/
 ## Data model (`types.ts`)
 
 - **`Faction`** — `id`, `name`, `category` (`imperium | space-marines | chaos | xenos`,
-  drives dropdown optgroups), `profile?` (composition shape), `ignoreSizeCap?`,
+  drives dropdown optgroups), `chapter?` (`codex | non-codex`, SM Chapters only —
+  groups the Chapter sub-selector), `profile?` (composition shape), `ignoreSizeCap?`,
   `pointsVerified?`, `lastVerified`, `blurb`, `units[]`, `valueBoxes[]`,
   `competitiveLists` (legacy, unused — kept `{}`).
 - **`Unit`** — `id` (unique **within a faction**), `name`, `role`
@@ -138,7 +139,11 @@ Key rules/knobs:
 ## UI (`App.tsx`)
 
 Single file. Two modes (**Quick list**, **Escalation**) via a segmented control.
-Faction `<select>` renders `<optgroup>`s from `CATEGORY_ORDER` / `CATEGORY_LABELS`.
+Faction `<select>` renders `<optgroup>`s from `CATEGORY_ORDER` / `CATEGORY_LABELS`,
+listing Space Marines once (the `space-marines` base faction). When an SM faction
+is active, a **Chapter** `<select>` appears ("No specific Chapter" + Codex-compliant
+/ Non-compliant groups from `faction.chapter`); `chapterId` remembers the last pick
+so re-selecting Space Marines restores it. A new Chapter only needs `chapter` set.
 `ListPanel` renders per-copy rows (points via `copyPoints`, wargear tag `.wg`,
 escalation surcharge tag `.esc`), grouped Characters / Battleline / Other.
 `ShopPanel` renders the buy list with per-line discounts (online-only struck/exempt).

@@ -36,6 +36,7 @@ export const ironHands: Faction = {
   name: 'Iron Hands',
   system: 'w40k',
   category: 'space-marines',
+  chapter: 'codex',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Flesh is weak: Dreadnoughts, tanks and armoured gunlines over speed.

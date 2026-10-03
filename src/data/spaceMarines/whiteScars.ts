@@ -36,6 +36,7 @@ export const whiteScars: Faction = {
   name: 'White Scars',
   system: 'w40k',
   category: 'space-marines',
+  chapter: 'codex',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Lightning warfare: bikes and fast attack lead the charge.

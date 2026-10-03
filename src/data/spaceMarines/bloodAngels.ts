@@ -193,6 +193,7 @@ export const bloodAngels: Faction = {
   name: 'Blood Angels',
   system: 'w40k',
   category: 'space-marines',
+  chapter: 'non-codex',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Angelic shock assault: jump-pack elites and Death Company, many heroes.

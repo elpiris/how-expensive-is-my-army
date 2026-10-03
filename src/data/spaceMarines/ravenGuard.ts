@@ -35,6 +35,7 @@ export const ravenGuard: Faction = {
   name: 'Raven Guard',
   system: 'w40k',
   category: 'space-marines',
+  chapter: 'codex',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Shadow warriors: infiltrators, scouts and jump-pack strikes, light on armour.

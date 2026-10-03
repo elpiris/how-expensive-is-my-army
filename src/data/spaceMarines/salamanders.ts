@@ -33,6 +33,7 @@ export const salamanders: Faction = {
   name: 'Salamanders',
   system: 'w40k',
   category: 'space-marines',
+  chapter: 'codex',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Close-ranged flame and melee specialists; infantry-forward.

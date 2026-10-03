@@ -55,6 +55,7 @@ export const ultramarines: Faction = {
   name: 'Ultramarines',
   system: 'w40k',
   category: 'space-marines',
+  chapter: 'codex',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // The exemplary Codex Chapter — balanced combined arms. No monster share on

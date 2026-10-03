@@ -38,6 +38,15 @@ const CATEGORY_LABELS: Record<FactionCategory, string> = {
 
 const DISCOUNTS: DiscountPercent[] = [0, 10, 15, 20]
 
+// Space Marines appear once in the faction dropdown (as the Chapter-agnostic base
+// force); the specific Chapter is picked in a second, Chapter sub-selector.
+const SM_BASE_ID = 'space-marines'
+const isSpaceMarines = (f: Faction) => f.category === 'space-marines'
+const CHAPTER_GROUPS: { kind: Faction['chapter']; label: string }[] = [
+  { kind: 'codex', label: 'Codex-compliant' },
+  { kind: 'non-codex', label: 'Non-compliant' },
+]
+
 function eur(n: number): string {
   return new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' }).format(n)
 }
@@ -242,6 +251,8 @@ function ShopPanel({
 
 export default function App() {
   const [factionId, setFactionId] = useState(factions[0].id)
+  // Last Space Marine Chapter picked — restored when Space Marines is re-selected.
+  const [chapterId, setChapterId] = useState(SM_BASE_ID)
   const [appMode, setAppMode] = useState<'quick' | 'escalation'>('quick')
   const [bracket, setBracket] = useState<(typeof BRACKETS)[number]>(2000)
   const [stageIndex, setStageIndex] = useState(0)
@@ -298,9 +309,18 @@ export default function App() {
 
         <div className="control">
           <label htmlFor="faction">Faction</label>
-          <select id="faction" value={factionId} onChange={(e) => setFactionId(e.target.value)}>
+          <select
+            id="faction"
+            value={isSpaceMarines(baseFaction) ? SM_BASE_ID : factionId}
+            onChange={(e) =>
+              setFactionId(e.target.value === SM_BASE_ID ? chapterId : e.target.value)
+            }
+          >
             {CATEGORY_ORDER.map((cat) => {
-              const inCat = factions.filter((f) => f.category === cat)
+              // Chapters live in the sub-selector; list only the base SM force here.
+              const inCat = factions.filter(
+                (f) => f.category === cat && (!isSpaceMarines(f) || f.id === SM_BASE_ID),
+              )
               if (!inCat.length) return null
               return (
                 <optgroup key={cat} label={CATEGORY_LABELS[cat]}>
@@ -314,6 +334,33 @@ export default function App() {
             })}
           </select>
         </div>
+
+        {isSpaceMarines(baseFaction) && (
+          <div className="control">
+            <label htmlFor="chapter">Chapter</label>
+            <select
+              id="chapter"
+              value={factionId}
+              onChange={(e) => {
+                setFactionId(e.target.value)
+                setChapterId(e.target.value)
+              }}
+            >
+              <option value={SM_BASE_ID}>No specific Chapter</option>
+              {CHAPTER_GROUPS.map(({ kind, label }) => (
+                <optgroup key={kind} label={label}>
+                  {factions
+                    .filter((f) => f.chapter === kind)
+                    .map((f) => (
+                      <option key={f.id} value={f.id}>
+                        {f.name}
+                      </option>
+                    ))}
+                </optgroup>
+              ))}
+            </select>
+          </div>
+        )}
 
         {appMode === 'quick' ? (
           <div className="control">

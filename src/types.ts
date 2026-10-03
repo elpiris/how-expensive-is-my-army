@@ -140,6 +140,12 @@ export interface Faction {
   system: 'w40k'
   /** Grand alliance — groups the faction dropdown (Imperium / Chaos / Xenos). */
   category: FactionCategory
+  /**
+   * Space Marine Chapters only: Codex-compliant (base roster + characters) or not
+   * (own units / exclusions). Drives the Chapter sub-selector's groups. The
+   * Chapter-agnostic `space-marines` base faction leaves it unset.
+   */
+  chapter?: 'codex' | 'non-codex'
   /** ISO date the points/prices in this file were last checked. */
   lastVerified: string
   /** true once points have been sourced from Wahapedia (11th ed), not estimated. */

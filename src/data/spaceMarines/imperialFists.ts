@@ -32,6 +32,7 @@ export const imperialFists: Faction = {
   name: 'Imperial Fists',
   system: 'w40k',
   category: 'space-marines',
+  chapter: 'codex',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Siege-masters: disciplined firepower and armour over mobility.

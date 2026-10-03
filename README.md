@@ -19,7 +19,8 @@ Built with **Vite + React + TypeScript**.
     roster, plus Codex-compliant Chapters that share that base + their own characters
     (Ultramarines, Imperial Fists, Salamanders, Iron Hands, White Scars, Raven Guard)
     and non-compliant Chapters with their own units (Dark Angels, Black Templars — no
-    psykers, Space Wolves, Blood Angels).
+    psykers, Space Wolves, Blood Angels). Space Marines is a single faction entry;
+    the Chapter is chosen in a second **Chapter** dropdown that appears beside it.
   - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights
   - **Xenos** — Necrons, Tyranids, Aeldari
 - **Two modes:**

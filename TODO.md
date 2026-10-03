@@ -130,7 +130,6 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   Intercessors / Jump Pack Intercessors; DC Dreadnought → Brutalis Dreadnought).
 - **More Chapters:** Deathwatch, Grey Knights (own roster), Crimson Fists, Black
   Dragons etc. are not modelled.
-- Consider a nicer UI: a Chapter sub-selector instead of many dropdown entries.
 
 ## Model / rules refinements
 - **Multi-unit / combo boxes** whose extra units aren't in the roster aren't

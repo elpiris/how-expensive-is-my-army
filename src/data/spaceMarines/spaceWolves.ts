@@ -163,6 +163,7 @@ export const spaceWolves: Faction = {
   name: 'Space Wolves',
   system: 'w40k',
   category: 'space-marines',
+  chapter: 'non-codex',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Savage melee packs + thunderwolf cavalry.
