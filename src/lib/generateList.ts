@@ -22,8 +22,19 @@ import type { UnitCategory } from '../types'
 //
 // Steps: (1) seed the Combat Patrol — cheapest units first, as many as fit the
 // budget (a >500pt Combat Patrol is fielded as a subset at 500 and completed as
-// the list escalates); (2) battleline backbone ≥100 pts per 1000; (3) leaders
-// for leadable units; (4) guarantee a character; (5) value fill.
+// the list escalates); (2) leaders for leadable units; (3) guarantee a
+// character; (4) value fill. Battleline is not forced — it competes on value /
+// flavour like everything else.
+//
+// Leaders need a bodyguard: a character with a `leads` list only joins while a
+// unit it can lead is in the list and not yet led (one leader per unit, checked
+// as a bipartite matching). Characters that lead nothing (Daemon Princes,
+// Knights, lone operatives…) aren't limited this way, so HQ-heavy armies keep
+// their big characters; Combat Patrol / paid-for spares are exempt too.
+// On top of that, each HQ-sized character already in the list (the 'character'
+// category — not monster / vehicle characters) halves the appeal of the next
+// one (`CHARACTER_DECAY`): a count-based brake the points-share profile can't
+// give, since 20% of 2000 pts is one big hero or six cheap ones.
 //
 // Rules (official MFM unit limits): per datasheet max 1 @500, 2 @1000, 3 @1500,
 // 3 @2000 — doubled for Battleline / Dedicated Transport (so 6 @2000). Epic
@@ -57,7 +68,8 @@ import type { UnitCategory } from '../types'
 // are exempt from the size cap — the box is already bought.
 // ---------------------------------------------------------------------------
 
-const BATTLELINE_PTS_PER_1000 = 100
+const LEADER_CHANCE = 0.5
+const CHARACTER_DECAY = 0.5
 export const BRACKETS: PointsBracket[] = [500, 1000, 1500, 2000]
 const SIZE_CAP: Record<number, number> = { 500: 120, 1000: 200, 1500: 350, 2000: Infinity }
 // Official per-datasheet copy limit by bracket (doubled for battleline/transport).
@@ -87,12 +99,6 @@ function pickWeighted<T>(items: T[], weightOf: (t: T) => number, rand: () => num
 
 function pointsOf(entries: ListEntry[]): number {
   return entries.reduce((s, e) => s + entryPoints(e.unit, e.count), 0)
-}
-
-function battlelinePointsOf(entries: ListEntry[]): number {
-  return entries
-    .filter((e) => e.unit.role === 'battleline')
-    .reduce((s, e) => s + entryPoints(e.unit, e.count), 0)
 }
 
 function countIn(entries: ListEntry[], unitId: string): number {
@@ -198,6 +204,40 @@ function augmentList(
       .reduce((s, e) => s + e.count, 0)
     return carriable > countIn(entries, u.id)
   }
+
+  // Leaders need a bodyguard — adding character `u` (if it leads anything) must
+  // grow the maximum leader↔unit matching, i.e. some unit it can lead is still
+  // free once every leader already in the list has one (one leader per unit).
+  const leaderOK = (u: Unit): boolean => {
+    if (!isCharacter(u) || !u.leads?.length) return true
+    const copies = (es: ListEntry[]) => es.flatMap((e) => Array<Unit>(e.count).fill(e.unit))
+    const leaders = copies(entries.filter((e) => isCharacter(e.unit) && e.unit.leads?.length))
+    const guards = copies(entries.filter((e) => !isCharacter(e.unit)))
+    const maxMatching = (ls: Unit[]) => {
+      const owner: number[] = guards.map(() => -1)
+      const tryLeader = (li: number, seen: boolean[]): boolean => {
+        for (let g = 0; g < guards.length; g++) {
+          if (seen[g] || !ls[li].leads!.includes(guards[g].id)) continue
+          seen[g] = true
+          if (owner[g] < 0 || tryLeader(owner[g], seen)) {
+            owner[g] = li
+            return true
+          }
+        }
+        return false
+      }
+      return ls.reduce((n, _, li) => n + (tryLeader(li, guards.map(() => false)) ? 1 : 0), 0)
+    }
+    return maxMatching([...leaders, u]) > maxMatching(leaders)
+  }
+
+  // Diminishing returns on HQ-sized characters (see header).
+  const hqDecay = () =>
+    Math.pow(
+      CHARACTER_DECAY,
+      entries.filter((e) => unitCategory(e.unit) === 'character').reduce((s, e) => s + e.count, 0),
+    )
+  const characterDecay = (u: Unit) => (unitCategory(u) === 'character' ? hqDecay() : 1)
 
   // Combo boxes — the box-mates a pick of `u` would bring along: enough copies of
   // each complete unit its kit also builds to match one more box, skipping any
@@ -347,32 +387,13 @@ function augmentList(
   // Use anything already paid for (e.g. escalation: last stage's spare box-mates).
   fieldSpares()
 
-  // 2. Battleline backbone — at least 100 pts of battleline per 1000 pts.
-  const minBattleline = Math.round((target / 1000) * BATTLELINE_PTS_PER_1000)
-  let bGuard = 0
-  while (battlelinePointsOf(entries) < minBattleline && bGuard++ < 50) {
-    const remaining = target - pointsOf(entries)
-    const legal = faction.units.filter(
-      (u) =>
-        u.role === 'battleline' &&
-        withinSize(u) &&
-        groupFree(u) &&
-        nextCopyCost(u) <= remaining &&
-        comboOK(u, remaining) &&
-        countIn(entries, u.id) < capFor(u),
-    )
-    if (!legal.length) break
-    const pick = pickWeighted(legal, (u) => appeal(u, remaining, 1) * (u.flavor ?? 1), rand)
-    if (!pick) break
-    addPick(pick, remaining)
-  }
-
-  // 3. Leaders — give a leadable unit a character to lead it (usually).
+  // 2. Leaders — give a leadable unit a character to lead it (sometimes).
   const leadableSet = new Set(faction.units.flatMap((u) => u.leads ?? []))
   const hasLeaderFor = (unitId: string) => entries.some((e) => (e.unit.leads ?? []).includes(unitId))
   for (const e of [...entries]) {
     if (!leadableSet.has(e.unit.id) || hasLeaderFor(e.unit.id)) continue
-    if (rand() > 0.75) continue
+    // Half the time, less with every HQ already in (diminishing returns).
+    if (rand() > LEADER_CHANCE * hqDecay()) continue
     // Respect a character-light profile: stop attaching extra HQs once characters
     // run well past their share (keeps a sane cap without flattening HQ-led armies).
     const charTgt = targetPts('character')
@@ -382,6 +403,7 @@ function augmentList(
         (u.leads ?? []).includes(e.unit.id) &&
         withinSize(u) &&
         groupFree(u) &&
+        leaderOK(u) &&
         countIn(entries, u.id) < capFor(u) &&
         pointsOf(entries) + nextCopyCost(u) <= target &&
         comboOK(u, target - pointsOf(entries)),
@@ -391,19 +413,21 @@ function augmentList(
     if (leader) addPick(leader, remaining)
   }
 
-  // 4. Guarantee at least one character.
+  // 3. Guarantee at least one character — one with a unit to lead if possible.
   if (!entries.some((e) => isCharacter(e.unit))) {
     const remaining = target - pointsOf(entries)
-    const chars = faction.units.filter(
+    const all = faction.units.filter(
       (u) => u.role === 'character' && withinSize(u) && comboOK(u, remaining),
     )
+    const led = all.filter(leaderOK)
+    const chars = led.length ? led : all
     const leader = pickWeighted(chars, (u) => appeal(u, remaining, 1) * (u.flavor ?? 1), rand)
     if (leader && nextCopyCost(leader) <= remaining) addPick(leader, remaining)
   }
 
-  // 5. Fill the rest with the best points-per-euro kits.
+  // 4. Fill the rest with the best points-per-euro kits.
   const weight = (u: Unit, remaining: number) =>
-    appeal(u, remaining, 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5)) * profileFactor(u)
+    appeal(u, remaining, 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5)) * profileFactor(u) * characterDecay(u)
   let guard = 0
   while (guard++ < 500) {
     if (target - pointsOf(entries) <= 0) break
@@ -415,6 +439,7 @@ function augmentList(
         withinSize(u) &&
         groupFree(u) &&
         transportOK(u) &&
+        leaderOK(u) &&
         nextCopyCost(u) <= remaining &&
         countIn(entries, u.id) < capFor(u) &&
         comboOK(u, remaining),

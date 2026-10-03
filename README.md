@@ -33,8 +33,9 @@ Built with **Vite + React + TypeScript**.
     2000, where each stage is a **superset** of the last, and see the new boxes to
     buy (and the spend) at each step.
 - **Value-driven, legal lists:** prefers good points-per-euro kits, seeds the
-  faction's value box (Combat Patrol) when it has one, keeps a battleline backbone,
-  gives leadable units a Leader, and respects the official MFM unit limits (max 3
+  faction's value box (Combat Patrol) when it has one, picks battleline on merit
+  (no forced minimum), gives some leadable units a Leader (characters need a unit
+  to lead, with diminishing returns per HQ), and respects the official MFM unit limits (max 3
   of a datasheet, 6 for Battleline at 2000; Epic Heroes unique).
 - **Army composition profiles:** each faction has a thematic "shape" (target share
   of points across characters / infantry / mounted / vehicles / monsters), so lists

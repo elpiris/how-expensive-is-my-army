@@ -97,18 +97,22 @@ Steps:
    box unit, cheapest first, before any second copies) within budget, so a partly
    fielded CP still covers most of its unit types; the rest is deferred to a bigger
    bracket. CP units are size-cap exempt.
-2. **Battleline backbone** — ≥100 pts of battleline per 1000.
-3. **Leaders** — ~75% chance to give a leadable in-list unit a `leads` character
-   (skipped once characters run past ~1.3× their profile share).
-4. **Guarantee a character.**
-5. **Value fill** — pick by `appeal(u, remaining, 3) * flavorBias * profileFactor`.
+2. **Leaders** — `LEADER_CHANCE` (50%) × `hqDecay` chance to give an unled in-list
+   unit a `leads` character (skipped once characters run past ~1.3× their profile
+   share).
+3. **Guarantee a character** (one with a unit to lead, if possible).
+4. **Value fill** — pick by `appeal(u, remaining, 3) * flavorBias * profileFactor *
+   characterDecay`.
+
+There is **no battleline minimum** (removed 2026-10-03 — lists ran battleline-heavy):
+battleline competes on value / flavour like any unit (it keeps its doubled cap).
 
 **Value ↔ Flavour** (`GenerateOptions.flavour`, 0..1; no UI — `defaultFlavour(faction)`
 = `faction.flavour` if set (Aeldari Craftworlds: 0.5), else 1 for factions with an
 `identity` (the SM Chapters), 0 otherwise):
 `appeal = valueOf^(p·(1−f)) · themeScore^(1.5·p·f)` where
 `valueOf` = points-per-euro (or the whole combo box's) and `themeScore` = `flavor/3 ×
-(exclusive ? 3 : 1) × (1 + Σ identity[tag], max 6)`. Every weighted pick uses it (backbone,
+(exclusive ? 3 : 1) × (1 + Σ identity[tag], max 6)`. Every weighted pick uses it (
 leaders and character with p = 1; the fill with p = 3). f = 0 reproduces the original
 pure-value generator. A user slider was tried and dropped (2026-10-03): over 300 seeds ×
 4 brackets, full-flavour SM lists cost about the same as value ones (−4…+8% at 2000;
@@ -140,6 +144,16 @@ Key rules/knobs:
 - **`profileFactor`** — gentle multiplier: >1 when a category is under its target
   share, easing to a floor when over. Soft on purpose (HQ-led armies still field
   1–2 big leaders). Unshaped factions (no `profile`) get factor 1.
+- **Character brakes** (count-based — a points share can't tell one big hero from
+  six cheap HQs; added 2026-10-03, 2000-pt lists went from ~5–7 characters to ~3–4.5):
+  - `leaderOK` — a character with a `leads` list is only added (leaders step,
+    guarantee, fill) if it grows the maximum leader↔bodyguard matching, i.e. some
+    unit it can lead is still unled (one leader per unit). Characters that lead
+    nothing (Daemon Princes, Knights, C'tan, lone operatives) are unaffected; CP
+    units, spares and combo box-mates are exempt (already bought).
+  - `characterDecay` — each `character`-category unit already in the list multiplies
+    the next one's weight by `CHARACTER_DECAY` (0.5). Monster / vehicle characters
+    aren't counted or decayed. Tune `CHARACTER_DECAY` / `LEADER_CHANCE` to taste.
 
 ## Costing (`lib/costList.ts`)
 
