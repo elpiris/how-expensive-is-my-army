@@ -154,10 +154,10 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   Grand Master / Voldus €34.50. SM kits for the Terminator Librarian / Chaplain and
   Techmarine. Kitbash proxies ("≈"): Brother-Captain, Champion (Crowe €38.50),
   Razorback (Rhino €50).
+- **Low priority (skipped 2026-10-03 as marginal armies):** Imperial Agents and
+  Deathwatch (as an SM Chapter). Add later the same way (MFM pass + user price check).
 - **Still missing factions (MFM):** Emperor's Children, World Eaters, Thousand
-  Sons, Chaos Daemons, Imperial Agents, Orks,
-  T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann (+ Deathwatch as an
-  SM Chapter). Titan Legions (FW) out of scope.
+  Sons, Chaos Daemons, Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann. Titan Legions (FW) out of scope.
 
 **SM TODOs:**
 - **Points:** the whole generic roster + Ultramarines re-read from the MFM
