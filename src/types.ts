@@ -97,6 +97,13 @@ export interface Unit {
    * all units sharing this tag (e.g. the three Hive Tyrant variants).
    */
   exclusiveGroup?: string
+  /**
+   * Only obtainable as part of another unit's box (e.g. Ripper Swarms, Spore
+   * Mines). Defaults to "kit has `alsoBuilds` and a name other than the unit's";
+   * set it explicitly when that guess is wrong (Biovore in the "Biovore and
+   * Pyrovore" kit is sold as itself → `false`).
+   */
+  boxOnly?: boolean
   /** Standard box you buy to field this datasheet. */
   kit: Kit
 }

@@ -3,6 +3,7 @@ import { costList } from './costList'
 import {
   copyPoints,
   entryPoints,
+  isBoxOnly,
   isCharacter,
   pointsPerEuro,
   unitCategory,
@@ -276,7 +277,7 @@ function augmentList(
   // when its box-mates fit too, so buying the box never strands half of it.
   // Units with their own kit + a bonus extra (Termagants + Ripper) pick freely.
   const comboOK = (u: Unit, remaining: number) =>
-    !(u.kit.alsoBuilds?.length && u.kit.name !== u.name) ||
+    !isBoxOnly(u) ||
     !comboMates(u).length ||
     comboFor(u, remaining).length > 0
 

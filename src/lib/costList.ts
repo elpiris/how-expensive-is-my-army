@@ -6,6 +6,7 @@ import type {
   Unit,
   ValueBox,
 } from '../types'
+import { isBoxOnly } from './value'
 
 // ---------------------------------------------------------------------------
 // Costing
@@ -121,14 +122,17 @@ export function costList(list: GeneratedList): CostBreakdown {
   // 3. Cover the remainder with individual kits, crediting bonus sprues that a
   //    box also builds (e.g. a Termagants box also yields a Ripper Swarm base),
   //    so we don't buy models we already got for free. Producers (kits with
-  //    `alsoBuilds`) are costed first so their credits reach the byproducts.
+  //    `alsoBuilds`) are costed first so their credits reach the byproducts —
+  //    units sold as themselves before box-only ones (a Sporocyst's 6 Spore
+  //    Mines must be credited before Spore Mines would buy Biovore boxes).
   const credits = new Map<string, number>() // unitId -> free models already owned
   const remainingNeeds = [...needs.values()].filter((n) => n.modelsNeeded > 0)
-  remainingNeeds.sort(
-    (a, b) =>
-      (unitById.get(b.unitId)?.kit.alsoBuilds ? 1 : 0) -
-      (unitById.get(a.unitId)?.kit.alsoBuilds ? 1 : 0),
-  )
+  const costOrder = (unitId: string) => {
+    const u = unitById.get(unitId)
+    if (!u?.kit.alsoBuilds?.length) return 2
+    return isBoxOnly(u) ? 1 : 0
+  }
+  remainingNeeds.sort((a, b) => costOrder(a.unitId) - costOrder(b.unitId))
   // Datasheets sharing a plain kit (no bonus builds) pool their models into whole
   // boxes — e.g. a €83 War Dogs box builds any 2 War Dogs, so a Huntsman + a
   // Stalker need ONE box, not two.

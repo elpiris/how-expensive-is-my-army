@@ -54,6 +54,14 @@ export function entryPoints(unit: Unit, count: number): number {
   return unitPoints(unit) * nBase + unitPointsEscalated(unit) * nEsc
 }
 
+/**
+ * A box-only unit: its kit is another unit's box (Neurotyrant → Horrors of the
+ * Hive, Ripper Swarms → Termagants). `Unit.boxOnly` overrides the name guess.
+ */
+export function isBoxOnly(unit: Unit): boolean {
+  return unit.boxOnly ?? (!!unit.kit.alsoBuilds?.length && unit.kit.name !== unit.name)
+}
+
 /** Points obtained per euro spent on this unit at its default size (incl. wargear). */
 export function pointsPerEuro(unit: Unit): number {
   const cost = unitCostEUR(unit)
