@@ -24,7 +24,8 @@ Built with **Vite + React + TypeScript**.
     the Chapter is chosen in a second **Chapter** dropdown that appears beside it.
   - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights, Emperor's Children,
     World Eaters, Thousand Sons, Chaos Daemons
-  - **Xenos** — Necrons, Tyranids, Aeldari (+ a **Craftworld** dropdown), T'au Empire,
+  - **Xenos** — Necrons, Tyranids (+ a **Hive Fleet** dropdown), Aeldari (+ a
+    **Craftworld** dropdown), T'au Empire,
     Leagues of Votann, Genestealer Cults, Drukhari, Orks
 - **Two modes:**
   - **Quick list** — pick a faction + points bracket (500 / 1000 / 1500 / 2000)
@@ -48,6 +49,12 @@ Built with **Vite + React + TypeScript**.
   known for — its own units, and units matching its identity (bikes for White Scars,
   flamers and meltas for Salamanders, Terminators and Gravis for Imperial Fists…) —
   at about the same price as a pure value-for-money list.
+- **Tyranid Hive Fleets:** Behemoth (melee monsters, Old One Eye, the Swarmlord), Kraken (fast
+  bugs, Genestealers, Raveners), Leviathan (synapse), Gorgon (toxins, spores),
+  Jormungandr (tunnellers, Lictors), Hydra (gaunt swarms) and Kronos
+  (bio-artillery) — picked in a Hive Fleet dropdown,
+  halfway between value and flavour (Gorgon leans further to flavour). The
+  Tyranid roster covers every MFM datasheet except the Forge World Bio-Titans.
 - **Aeldari Craftworlds:** Biel-Tan (Aspect Warriors, Phoenix Lords, the Avatar),
   Ulthwé (seers, Guardians, Eldrad), Saim-Hann (jetbikes), Iyanden (wraith
   constructs, Yriel) and Alaitoc (Rangers, stealth) — picked in a Craftworld
@@ -130,6 +137,7 @@ src/
                         #  tyranids, aeldari, tauEmpire, leaguesOfVotann,
                         #  genestealerCults, drukhari, orks)
     craftworlds.ts      # the 5 Aeldari Craftworld sub-factions
+    hiveFleets.ts       # the 7 Tyranid Hive Fleet sub-factions
     spaceMarines/       # base Codex roster + per-Chapter Faction files
       base.ts           #   shared roster + generic value boxes
       vanilla.ts        #   Space Marines, no Chapter

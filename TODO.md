@@ -11,7 +11,9 @@ Active dropdown groups (`Faction.category`):
   Dark Angels, Black Templars, Space Wolves, Blood Angels.
 - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights, Emperor's Children,
   World Eaters, Thousand Sons, Chaos Daemons.
-- **Xenos** — Necrons, Tyranids, Aeldari (+ a **Craftworld** sub-selector: Biel-Tan,
+- **Xenos** — Necrons, Tyranids (+ a **Hive Fleet** sub-selector: Behemoth, Kraken,
+  Leviathan, Gorgon, Jormungandr, Hydra, Kronos), Aeldari (+ a **Craftworld**
+  sub-selector: Biel-Tan,
   Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire, Leagues of Votann, Genestealer
   Cults, Drukhari, Orks.
 
@@ -102,9 +104,18 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
 - **Necrons — DONE (2026-10-02).** ~34-unit roster from the 52-datasheet MFM; prices
   re-verified. A few units best-effort (Imotekh, Trazyn, Reanimator); Canoptek
   Scarabs come with the Necron Warriors box (`alsoBuilds`).
-- **Tyranids — DONE (2026-10-02).** ~33-unit roster from the 52-datasheet MFM
-  (omitting the FW Bio-Titans); prices re-verified. Ripper Swarms are fielded as
-  single bases (MFM: 1 model 30 pts) whose kit is the Termagants box.
+- **Tyranids — DONE (2026-10-03).** All 50 MFM datasheets except the FW Bio-Titans
+  (Harridan, Hierophant); every price verified except The Red Terror (Kill Team box
+  only, ≈ €60). Ripper Swarms are single bases whose kit is the Termagants box;
+  Spore Mines come 3 per Biovore / Pyrovore box and 6 per Sporocyst box. Shared
+  kits: Warriors (melee / ranged), Biovore / Pyrovore €43, Tyrannofex / Tervigon
+  €56.50, Harpy / Hive Crone €80, Kill Team: Raveners €56.50/5 (+ Hyperadapted),
+  Carnifex Brood €87 (2 Carnifexes or 1 + Old One Eye; the store also lists it as
+  "Screamer-Killer Brood" — the Screamer-Killer itself is only in Horrors of the
+  Hive). Value boxes: Combat Patrol (€139) and Battleforce: Tyranid Swarm (€212,
+  while stocks last). Seven **Hive Fleet** sub-factions (`hiveFleets.ts`) at
+  `flavour: 0.5` (Gorgon 0.75): +4…19% over value lists, 2000-pt lists 38–84%
+  on-theme (Gorgon only ~30% — its toxin units are poor value).
 - **Aeldari — DONE (2026-10-03).** 54-unit roster: Craftworlds + Harlequins + support
   platforms, Warlocks, Lhykhis, Wayleaper, Ghostglaive Wraithknight; every kit price
   verified. Combat Patrol (€139: Spiritseer, 5 Wraithblades, 5 Warp Spiders, 10 Dire
@@ -189,7 +200,8 @@ MFM list minus the FW Thunderhawk) reused by each Chapter; Chapters are sub-fact
 - More Chapters (Deathwatch — low priority; Crimson Fists, Black Dragons… not modelled).
 
 ## Model / rules refinements
-- **Flavour for other factions:** only SM Chapters and Aeldari Craftworlds have
+- **Flavour for other factions:** only SM Chapters, Aeldari Craftworlds and Tyranid
+  Hive Fleets have
   `tags` / `identity`; the rest stay value-first. Tag them (and add identities or
   sub-factions — e.g. Astra Militarum regiments, Chaos Daemon gods) for flavourful
   lists; check prices don't jump (Custodes went +47% when flavour relied on the

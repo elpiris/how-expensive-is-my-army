@@ -183,6 +183,14 @@ export type UnitTag =
   | 'aircraft'
   | 'stealth'
   | 'harlequin'
+  // Tyranids (hive fleets)
+  | 'synapse'
+  | 'swarm'
+  | 'tunneller'
+  | 'ambush'
+  | 'toxin'
+  | 'artillery'
+  | 'fast'
 
 /**
  * What a faction is known for: tag → weight (1 = a nod, 3 = defining). With the

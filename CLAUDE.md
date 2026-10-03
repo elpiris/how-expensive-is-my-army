@@ -60,13 +60,15 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
   Aeldari, T'au, Votann, GSC, Drukhari, Orks — every main MFM army.
   **Missing (low priority):** Imperial Agents + Deathwatch.
 - **Sub-factions** (`parent` + a second dropdown): 10 SM Chapters (6 Codex + DA, BT,
-  SW, BA; generic SM boxes incl. DA CP, Heroes / Honoured of the Chapter) and 5
-  Aeldari Craftworlds. All dropdowns are alphabetical ("No specific …" first).
-- **Flavour:** SM units + Aeldari are tagged; Chapters have an `identity` (full
-  flavour), Craftworlds an identity + signature characters (`flavour: 0.5`); other
-  factions are value-first.
+  SW, BA; generic SM boxes incl. DA CP, Heroes / Honoured of the Chapter), 5
+  Aeldari Craftworlds and 7 Tyranid Hive Fleets. All dropdowns are alphabetical ("No specific …" first).
+- **Flavour:** SM, Aeldari and Tyranid units are tagged; Chapters have an
+  `identity` (full flavour), Craftworlds / Hive Fleets an identity + signature
+  units (`flavour: 0.5`, Gorgon 0.75); other factions are value-first.
 - **Generator/costing:** combo boxes valued whole; paid-for spares fielded first;
-  shared kits pooled; CP seeded round-robin. Users can tune composition in Advanced
+  shared kits pooled; CP seeded round-robin; no battleline minimum; characters
+  need a unit to lead + diminishing returns per HQ; box-only byproducts
+  (`isBoxOnly`) costed after the kits that credit them. Users can tune composition in Advanced
   settings.
 - **Everything is committed and pushed** (`main`); the working tree is clean.
 

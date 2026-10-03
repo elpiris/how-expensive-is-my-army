@@ -26,6 +26,7 @@ src/
     index.ts          # the faction registry (array + getFaction)
     <faction>.ts      # one file per faction (16: custodes … chaosDaemons, aeldari)
     craftworlds.ts    # Aeldari Craftworld sub-factions ({...aeldari, parent, identity})
+    hiveFleets.ts     # Tyranid Hive Fleet sub-factions (same pattern)
     spaceMarines/     # SM is special: shared base + one file per Chapter
       base.ts         #   baseUnits[], exclusive(), gettingStartedBox, darkAngelsCP,
                       #   heroesOfTheChapter, honouredOfTheChapter
@@ -49,7 +50,7 @@ src/
   (`FactionIdentity`: tag → weight 1–3, what the faction is known for), `signature?`
   (unit ids the sub-faction is famous for — same flavour bonus as `exclusive`),
   `parent?` (base faction id → this is a sub-faction, shown in the second dropdown),
-  `subfactionLabel?` (on a base: "Chapter" / "Craftworld"), `flavour?` (value↔flavour
+  `subfactionLabel?` (on a base: "Chapter" / "Craftworld" / "Hive Fleet"), `flavour?` (value↔flavour
   balance override, see Generation), `ignoreSizeCap?`,
   `pointsVerified?`, `lastVerified`, `blurb`, `units[]`, `valueBoxes[]`,
   `competitiveLists` (legacy, unused — kept `{}`).
@@ -108,7 +109,7 @@ There is **no battleline minimum** (removed 2026-10-03 — lists ran battleline-
 battleline competes on value / flavour like any unit (it keeps its doubled cap).
 
 **Value ↔ Flavour** (`GenerateOptions.flavour`, 0..1; no UI — `defaultFlavour(faction)`
-= `faction.flavour` if set (Aeldari Craftworlds: 0.5), else 1 for factions with an
+= `faction.flavour` if set (Aeldari Craftworlds, Hive Fleets: 0.5; Gorgon 0.75), else 1 for factions with an
 `identity` (the SM Chapters), 0 otherwise):
 `appeal = valueOf^(p·(1−f)) · themeScore^(1.5·p·f)` where
 `valueOf` = points-per-euro (or the whole combo box's) and `themeScore` = `flavor/3 ×
@@ -165,6 +166,10 @@ Key rules/knobs:
   (the quantity column says how many) so it's correct in both the full and
   per-escalation-step views.
 - `spare` — paid-for but unfielded models per datasheet (see "Use what you buy").
+- Kits with `alsoBuilds` are costed before the units they credit: units sold as
+  themselves first, then box-only ones (`isBoxOnly` — kit name ≠ unit name unless
+  `Unit.boxOnly` says otherwise, e.g. the Biovore in the "Biovore and Pyrovore"
+  kit), so a Sporocyst's 6 Spore Mines are credited before Spore Mines buy boxes.
 - Datasheets sharing a plain kit (no `alsoBuilds`) **pool** models into whole boxes
   (a €83 War Dogs box builds any 2 War Dogs); kits shared through `alsoBuilds`
   merge into one line whose `covers` lists everything the box builds.

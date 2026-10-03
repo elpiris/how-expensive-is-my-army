@@ -558,6 +558,13 @@ const TAG_LABELS: Record<UnitTag, string> = {
   aircraft: 'aircraft',
   stealth: 'Rangers / stealth',
   harlequin: 'Harlequins',
+  synapse: 'synapse creatures',
+  swarm: 'gaunt swarms',
+  tunneller: 'tunnellers',
+  ambush: 'ambushers',
+  toxin: 'toxins and spores',
+  artillery: 'bio-artillery',
+  fast: 'fast bioforms',
 }
 
 /** "bikes, speeders and Chapter units" — a faction's identity, strongest first. */
