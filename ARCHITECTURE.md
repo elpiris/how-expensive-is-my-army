@@ -162,11 +162,13 @@ Key rules/knobs:
 
 Single file. Two modes (**Quick list**, **Escalation**) via a segmented control.
 Faction `<select>` renders `<optgroup>`s from `CATEGORY_ORDER` / `CATEGORY_LABELS`,
-listing only base factions (no `parent`). When the active faction has sub-factions
-(factions whose `parent` is it), a second `<select>` labelled by the base's
-`subfactionLabel` appears — "Chapter" for Space Marines (grouped Codex-compliant /
-Non-compliant via `chapter`), "Craftworld" for Aeldari. `lastSub` remembers the
-last pick per base. A new sub-faction just needs `parent` set.
+listing only base factions (no `parent`), alphabetically within each group. When the
+active faction has sub-factions (factions whose `parent` is it), a second `<select>`
+labelled by the base's `subfactionLabel` appears — "Chapter" for Space Marines
+(grouped Codex-compliant / Non-compliant via `chapter`), "Craftworld" for Aeldari —
+with "No specific …" first and the sub-factions alphabetical (`subfactionsOf`).
+`lastSub` remembers the last pick per base. A new sub-faction just needs `parent` set.
+The app opens on `factions[0]` (Adeptus Custodes).
 `ListPanel` renders per-copy rows (points via `copyPoints`, wargear tag `.wg`,
 escalation surcharge tag `.esc`), grouped Characters / Battleline / Other.
 `ShopPanel` renders the buy list with per-line discounts (online-only struck/exempt).

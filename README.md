@@ -13,7 +13,7 @@ Built with **Vite + React + TypeScript**.
 
 ## Features
 
-- **Factions**, grouped in the dropdown:
+- **Factions**, grouped in the dropdown (alphabetical within each group):
   - **Imperium** — Adeptus Custodes, Adepta Sororitas, Adeptus Mechanicus, Astra Militarum,
     Imperial Knights, Grey Knights
   - **Space Marines** (own group) — a **Chapter system**: a base, Chapter-agnostic
