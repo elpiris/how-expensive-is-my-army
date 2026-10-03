@@ -161,7 +161,13 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   by the user (Tormentors / Infractors €57.50 for 10, Daemon Prince ± wings €74,
   Keeper / Shalaxi €139). Combat Patrol (€139: Lord Exultant, 6 Flawless Blades,
   10 Infractors).
-- **Still missing factions (MFM):** World Eaters, Thousand Sons, Chaos Daemons, Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann. Titan Legions (FW) out of scope.
+- **World Eaters — DONE (2026-10-03).** All 30 MFM datasheets (incl. Khârn, the
+  Daemons of Khorne and the Kill Team Goremongers); prices from the en-EU grid,
+  box sizes / sharing confirmed by the user (Eightbound / Exalted €53 for 3,
+  Juggernaut kit also builds Lord Invocatus, Maulerfiend / Forgefiend €74, Daemon
+  Prince ± wings, Chaos Predator variants). Combat Patrol (€139: Daemon Prince,
+  Master of Executions, 10 Berzerkers, 10 Jakhals).
+- **Still missing factions (MFM):** Thousand Sons, Chaos Daemons, Orks, T'au Empire, Drukhari, Genestealer Cults, Leagues of Votann. Titan Legions (FW) out of scope.
 
 **SM TODOs:**
 - **Points:** the whole generic roster + Ultramarines re-read from the MFM
