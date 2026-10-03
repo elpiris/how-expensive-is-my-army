@@ -244,12 +244,20 @@ export const tyranids: Faction = {
       id: 'ripper-swarms',
       name: 'Ripper Swarms',
       role: 'infantry',
-      points: 50,
-      models: 3,
+      // MFM: 1 model 30 / 2 models 40 / 3 models 50. Fielded as single bases —
+      // each Termagants/Hormagaunts box comes with exactly one.
+      points: 30,
+      models: 1,
       flavor: 2,
       keywords: ['Swarm'],
-      // Not sold separately — a bonus sprue in gaunt boxes / the Combat Patrol.
-      kit: { name: 'Ripper Swarms', priceEUR: 25, models: 3 },
+      // Not sold separately — its kit IS a Termagants box (which builds 10 gaunts).
+      kit: {
+        name: 'Termagants',
+        priceEUR: 38.5,
+        models: 1,
+        verified: true,
+        alsoBuilds: [{ unitId: 'termagants', models: 10 }],
+      },
     },
     {
       id: 'hive-guard',

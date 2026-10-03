@@ -3,6 +3,7 @@ import type {
   DiscountPercent,
   GeneratedList,
   PurchaseLine,
+  Unit,
   ValueBox,
 } from '../types'
 
@@ -19,7 +20,8 @@ import type {
 //     is cheaper than buying those units as individual kits). Using euro value
 //     rather than model count avoids buying a €130 box for a few cheap models.
 //  3. Cover whatever remains with individual unit kits (ceil by box size).
-//  4. Track surplus (paid-for but unused) models for transparency.
+//  4. Track surplus (paid-for but unused) models — reported as notes and as
+//     structured `spare` models, which the generator fields when it can.
 // ---------------------------------------------------------------------------
 
 interface Need {
@@ -65,6 +67,10 @@ export function costList(list: GeneratedList): CostBreakdown {
   const lines: PurchaseLine[] = []
   const notes: string[] = []
   const valueBoxCounts = new Map<string, number>()
+  const spare = new Map<string, number>() // unitId -> paid-for, unfielded models
+  const addSpare = (unitId: string, models: number) => {
+    if (models > 0 && unitById.has(unitId)) spare.set(unitId, (spare.get(unitId) ?? 0) + models)
+  }
 
   // 2. Greedily consume value boxes while they pull their weight.
   let guard = 0
@@ -84,10 +90,12 @@ export function costList(list: GeneratedList): CostBreakdown {
     }
     if (!best) break
 
-    // Consume the box: subtract its contents from needs.
+    // Consume the box: subtract its contents from needs; the rest is spare.
     for (const b of best.builds) {
       const need = needs.get(b.unitId)
-      if (need) need.modelsNeeded = Math.max(0, need.modelsNeeded - b.models)
+      const used = need ? Math.min(b.models, need.modelsNeeded) : 0
+      if (need) need.modelsNeeded -= used
+      addSpare(b.unitId, b.models - used)
     }
     valueBoxCounts.set(best.id, (valueBoxCounts.get(best.id) ?? 0) + 1)
   }
@@ -121,6 +129,10 @@ export function costList(list: GeneratedList): CostBreakdown {
       (unitById.get(b.unitId)?.kit.alsoBuilds ? 1 : 0) -
       (unitById.get(a.unitId)?.kit.alsoBuilds ? 1 : 0),
   )
+  // Datasheets sharing a plain kit (no bonus builds) pool their models into whole
+  // boxes — e.g. a €83 War Dogs box builds any 2 War Dogs, so a Huntsman + a
+  // Stalker need ONE box, not two.
+  const pools = new Map<string, { units: Unit[]; models: number }>()
   for (const need of remainingNeeds) {
     const unit = unitById.get(need.unitId)!
     const credit = credits.get(need.unitId) ?? 0
@@ -130,28 +142,74 @@ export function costList(list: GeneratedList): CostBreakdown {
       notes.push(`${unit.name}: covered by bonus models from other kits.`)
       continue
     }
+    if (!unit.kit.alsoBuilds?.length) {
+      const key = `${unit.kit.name}|${unit.kit.priceEUR}|${unit.kit.models}`
+      const pool = pools.get(key) ?? { units: [], models: 0 }
+      pool.units.push(unit)
+      pool.models += netModels
+      pools.set(key, pool)
+      continue
+    }
     const boxes = Math.ceil(netModels / unit.kit.models)
     const surplus = boxes * unit.kit.models - netModels
-    lines.push({
-      name: unit.kit.name,
-      quantity: boxes,
-      unitPriceEUR: unit.kit.priceEUR,
-      lineTotalEUR: unit.kit.priceEUR * boxes,
-      isValueBox: false,
-      onlineOnly: !!unit.kit.onlineOnly,
-      verified: !!unit.kit.verified,
-      // Describe ONE box (the quantity column says how many) so the label is
-      // correct both here and when an escalation step shows only the boxes added.
-      covers: [`${unit.kit.models}× ${unit.name}`],
-      url: unit.kit.url,
-    })
+    // Several datasheets can share one kit (a combo box, or a box-only unit whose
+    // kit is another unit's box) — merge into a single line per kit.
+    const sameKit = lines.find((l) => !l.isValueBox && l.name === unit.kit.name)
+    if (sameKit) {
+      sameKit.quantity += boxes
+      sameKit.lineTotalEUR = sameKit.unitPriceEUR * sameKit.quantity
+    } else {
+      lines.push({
+        name: unit.kit.name,
+        quantity: boxes,
+        unitPriceEUR: unit.kit.priceEUR,
+        lineTotalEUR: unit.kit.priceEUR * boxes,
+        isValueBox: false,
+        onlineOnly: !!unit.kit.onlineOnly,
+        verified: !!unit.kit.verified,
+        // Describe ONE box (the quantity column says how many) so the label is
+        // correct both here and when an escalation step shows only the boxes added.
+        covers: [
+          `${unit.kit.models}× ${unit.name}`,
+          ...(unit.kit.alsoBuilds ?? []).map(
+            (ab) => `${ab.models}× ${unitById.get(ab.unitId)?.name ?? ab.unitId}`,
+          ),
+        ],
+        url: unit.kit.url,
+      })
+    }
     for (const ab of unit.kit.alsoBuilds ?? []) {
       credits.set(ab.unitId, (credits.get(ab.unitId) ?? 0) + boxes * ab.models)
     }
     if (surplus > 0) {
       notes.push(`${unit.name}: ${boxes} box(es) leaves ${surplus} spare model(s).`)
+      addSpare(unit.id, surplus)
     }
   }
+  for (const { units, models } of pools.values()) {
+    const kit = units[0].kit
+    const boxes = Math.ceil(models / kit.models)
+    const surplus = boxes * kit.models - models
+    lines.push({
+      name: kit.name,
+      quantity: boxes,
+      unitPriceEUR: kit.priceEUR,
+      lineTotalEUR: kit.priceEUR * boxes,
+      isValueBox: false,
+      onlineOnly: !!kit.onlineOnly,
+      verified: !!kit.verified,
+      // One box; a shared kit builds any mix of the listed datasheets.
+      covers: [`${kit.models}× ${units.map((u) => u.name).join(' / ')}`],
+      url: kit.url,
+    })
+    if (surplus > 0) {
+      notes.push(`${kit.name}: ${boxes} box(es) leaves ${surplus} spare model(s).`)
+      // The spare can be built as any of the pooled datasheets.
+      for (const u of units) addSpare(u.id, surplus)
+    }
+  }
+  // Bonus models (alsoBuilds) nothing in the list used.
+  for (const [unitId, models] of credits) addSpare(unitId, models)
 
   // Order: value boxes first, then by price descending.
   lines.sort((a, b) => Number(b.isValueBox) - Number(a.isValueBox) || b.lineTotalEUR - a.lineTotalEUR)
@@ -162,7 +220,14 @@ export function costList(list: GeneratedList): CostBreakdown {
   )
   const discountableEUR = round2(rrpTotalEUR - nonDiscountableEUR)
 
-  return { lines, rrpTotalEUR, discountableEUR, nonDiscountableEUR, notes }
+  return {
+    lines,
+    rrpTotalEUR,
+    discountableEUR,
+    nonDiscountableEUR,
+    notes,
+    spare: [...spare].map(([unitId, models]) => ({ unitId, models })),
+  }
 }
 
 /** Apply a retailer discount to the discountable portion only. */

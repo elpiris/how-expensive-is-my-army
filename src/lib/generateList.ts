@@ -1,5 +1,14 @@
 import type { Faction, GeneratedList, ListEntry, PointsBracket, Unit } from '../types'
-import { copyPoints, entryPoints, isCharacter, pointsPerEuro, unitCategory } from './value'
+import { costList } from './costList'
+import {
+  copyPoints,
+  entryPoints,
+  isCharacter,
+  pointsPerEuro,
+  unitCategory,
+  unitCostEUR,
+  unitPoints,
+} from './value'
 import type { UnitCategory } from '../types'
 
 // ---------------------------------------------------------------------------
@@ -22,6 +31,18 @@ import type { UnitCategory } from '../types'
 // units to lead. Later copies cost the escalated price (from the copy each
 // datasheet escalates at). No non-Combat-Patrol unit over the bracket size cap
 // (120/200/350/∞).
+//
+// Combo boxes: a kit whose `alsoBuilds` yields complete units of other datasheets
+// (Horrors of the Hive, Heroes of the Chapter, Talons of the Emperor…) is valued
+// as the WHOLE box — every unit it builds over its price — and picking one unit
+// adds its box-mates too, as long as they're legal and all fit the points left.
+// Otherwise the unit is valued and added alone.
+//
+// Use what you buy: before every pick, anything the shopping list has paid for
+// but the army doesn't field (`costList(...).spare` — e.g. the Screamer-Killer of
+// a Horrors of the Hive box, a gaunt box's Ripper, unused Combat Patrol units) is
+// fielded first, whenever it's legal and fits. Like Combat Patrol units, these
+// are exempt from the size cap — the box is already bought.
 // ---------------------------------------------------------------------------
 
 const BATTLELINE_PTS_PER_1000 = 100
@@ -135,6 +156,82 @@ function augmentList(
     return carriable > countIn(entries, u.id)
   }
 
+  // Combo boxes — the box-mates a pick of `u` would bring along: enough copies of
+  // each complete unit its kit also builds to match one more box, skipping any
+  // mate that's capped, over the size cap or blocked by its exclusive group.
+  const comboMates = (u: Unit): { unit: Unit; n: number }[] =>
+    (u.kit.alsoBuilds ?? []).flatMap((b) => {
+      const mate = faction.units.find((x) => x.id === b.unitId)
+      const perBox = mate ? Math.floor(b.models / mate.models) : 0
+      // No size cap for mates: buying the box already commits to them.
+      if (!mate || perBox < 1 || !groupFree(mate)) return []
+      const have = countIn(entries, mate.id)
+      const want = (countIn(entries, u.id) + 1) * perBox - have
+      const n = Math.min(want, capFor(mate) - have)
+      return n > 0 ? [{ unit: mate, n }] : []
+    })
+  const matesCost = (mates: { unit: Unit; n: number }[]) =>
+    mates.reduce((s, { unit, n }) => {
+      const have = countIn(entries, unit.id)
+      for (let k = 1; k <= n; k++) s += copyPoints(unit, have + k)
+      return s
+    }, 0)
+  // Mates to add with `u`, or none if the whole group doesn't fit `remaining`.
+  const comboFor = (u: Unit, remaining: number) => {
+    const mates = comboMates(u)
+    return mates.length && nextCopyCost(u) + matesCost(mates) <= remaining ? mates : []
+  }
+  // Value of picking `u`: the whole box's points over its price when the combo fits.
+  const valueOf = (u: Unit, remaining: number) => {
+    const mates = comboFor(u, remaining)
+    if (!mates.length) return pointsPerEuro(u)
+    const pts = unitPoints(u) + mates.reduce((s, m) => s + unitPoints(m.unit) * m.n, 0)
+    return pts / unitCostEUR(u)
+  }
+  // A box-only unit (its kit is a shared box under another name — Neurotyrant →
+  // Horrors of the Hive, Apothecary → Heroes of the Chapter) may only be picked
+  // when its box-mates fit too, so buying the box never strands half of it.
+  // Units with their own kit + a bonus extra (Termagants + Ripper) pick freely.
+  const comboOK = (u: Unit, remaining: number) =>
+    !(u.kit.alsoBuilds?.length && u.kit.name !== u.name) ||
+    !comboMates(u).length ||
+    comboFor(u, remaining).length > 0
+
+  // Add `u` plus its box-mates (when they all fit).
+  const addPick = (u: Unit, remaining: number) => {
+    const mates = comboFor(u, remaining)
+    addUnit(entries, u)
+    for (const m of mates) addUnit(entries, m.unit, m.n)
+  }
+
+  // Field one whole spare unit (paid-for but unused models), if any is legal and
+  // fits; the biggest first so the most bought value gets used. True if added.
+  const fieldSpare = (): boolean => {
+    const remaining = target - pointsOf(entries)
+    const shopping = costList({ faction, mode: 'casual', targetPoints: target, entries, totalPoints: 0, notes: [] })
+    const options = shopping.spare
+      .map((s) => ({ unit: faction.units.find((u) => u.id === s.unitId)!, models: s.models }))
+      .filter(
+        ({ unit, models }) =>
+          unit &&
+          models >= unit.models &&
+          groupFree(unit) &&
+          transportOK(unit) &&
+          countIn(entries, unit.id) < capFor(unit) &&
+          nextCopyCost(unit) <= remaining,
+      )
+      .sort((a, b) => nextCopyCost(b.unit) - nextCopyCost(a.unit))
+    if (!options.length) return false
+    addUnit(entries, options[0].unit)
+    return true
+  }
+  const fieldSpares = () => {
+    let g = 0
+    while (g++ < 50 && fieldSpare()) {
+      /* keep fielding */
+    }
+  }
+
   // Composition profile — softly steer the list toward the army's thematic shape
   // (target share of points per category). Unshaped factions keep a flat bias.
   const profile = faction.profile
@@ -191,6 +288,9 @@ function augmentList(
     notes.push('No Combat Patrol exists for this faction — built from individual kits.')
   }
 
+  // Use anything already paid for (e.g. escalation: last stage's spare box-mates).
+  fieldSpares()
+
   // 2. Battleline backbone — at least 100 pts of battleline per 1000 pts.
   const minBattleline = Math.round((target / 1000) * BATTLELINE_PTS_PER_1000)
   let bGuard = 0
@@ -202,12 +302,13 @@ function augmentList(
         withinSize(u) &&
         groupFree(u) &&
         nextCopyCost(u) <= remaining &&
+        comboOK(u, remaining) &&
         countIn(entries, u.id) < capFor(u),
     )
     if (!legal.length) break
-    const pick = pickWeighted(legal, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
+    const pick = pickWeighted(legal, (u) => valueOf(u, remaining) * (u.flavor ?? 1), rand)
     if (!pick) break
-    addUnit(entries, pick)
+    addPick(pick, remaining)
   }
 
   // 3. Leaders — give a leadable unit a character to lead it (usually).
@@ -226,38 +327,46 @@ function augmentList(
         withinSize(u) &&
         groupFree(u) &&
         countIn(entries, u.id) < capFor(u) &&
-        pointsOf(entries) + nextCopyCost(u) <= target,
+        pointsOf(entries) + nextCopyCost(u) <= target &&
+        comboOK(u, target - pointsOf(entries)),
     )
-    const leader = pickWeighted(candidates, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
-    if (leader) addUnit(entries, leader)
+    const remaining = target - pointsOf(entries)
+    const leader = pickWeighted(candidates, (u) => valueOf(u, remaining) * (u.flavor ?? 1), rand)
+    if (leader) addPick(leader, remaining)
   }
 
   // 4. Guarantee at least one character.
   if (!entries.some((e) => isCharacter(e.unit))) {
-    const chars = faction.units.filter((u) => u.role === 'character' && withinSize(u))
-    const leader = pickWeighted(chars, (u) => pointsPerEuro(u) * (u.flavor ?? 1), rand)
-    if (leader && pointsOf(entries) + nextCopyCost(leader) <= target) addUnit(entries, leader)
+    const remaining = target - pointsOf(entries)
+    const chars = faction.units.filter(
+      (u) => u.role === 'character' && withinSize(u) && comboOK(u, remaining),
+    )
+    const leader = pickWeighted(chars, (u) => valueOf(u, remaining) * (u.flavor ?? 1), rand)
+    if (leader && nextCopyCost(leader) <= remaining) addPick(leader, remaining)
   }
 
   // 5. Fill the rest with the best points-per-euro kits.
-  const weight = (u: Unit) =>
-    Math.pow(pointsPerEuro(u), 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5)) * profileFactor(u)
+  const weight = (u: Unit, remaining: number) =>
+    Math.pow(valueOf(u, remaining), 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5)) * profileFactor(u)
   let guard = 0
   while (guard++ < 500) {
+    if (target - pointsOf(entries) <= 0) break
+    // Paid-for-but-unused units always come before new purchases.
+    if (fieldSpare()) continue
     const remaining = target - pointsOf(entries)
-    if (remaining <= 0) break
     const legal = faction.units.filter(
       (u) =>
         withinSize(u) &&
         groupFree(u) &&
         transportOK(u) &&
         nextCopyCost(u) <= remaining &&
-        countIn(entries, u.id) < capFor(u),
+        countIn(entries, u.id) < capFor(u) &&
+        comboOK(u, remaining),
     )
     if (!legal.length) break
-    const pick = pickWeighted(legal, weight, rand)
+    const pick = pickWeighted(legal, (u) => weight(u, remaining), rand)
     if (!pick) break
-    addUnit(entries, pick)
+    addPick(pick, remaining)
   }
 
   const total = pointsOf(entries)

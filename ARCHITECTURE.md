@@ -89,7 +89,8 @@ Steps:
 3. **Leaders** — ~75% chance to give a leadable in-list unit a `leads` character
    (skipped once characters run past ~1.3× their profile share).
 4. **Guarantee a character.**
-5. **Value fill** — pick by `pow(pointsPerEuro,3) * flavorBias * profileFactor`.
+5. **Value fill** — pick by `pow(valueOf,3) * flavorBias * profileFactor` (`valueOf` =
+   points-per-euro, or the whole combo box's — see below).
 
 Key rules/knobs:
 - **Caps** — `DATASHEET_LIMIT` (1/2/3/3 per bracket, doubled for battleline/transport;
@@ -100,6 +101,19 @@ Key rules/knobs:
 - **`nextCopyCost` / `copyPoints`** apply escalation; all budget checks use them.
 - **`transportOK`** — a `role:'transport'` unit is only added while an uncovered
   carriable unit (`transports` list) is present (one unit per transport).
+- **Combo boxes** — a kit whose `alsoBuilds` yields ≥1 complete unit of another
+  datasheet (Horrors of the Hive, Heroes of the Chapter, Talons of the Emperor,
+  Chosen of Mortarion, Kastelan+Datasmith, Warriors+Scarabs) is valued as the
+  whole box (`valueOf`: all its units' points / price) and picking one unit adds
+  its box-mates (`addPick`) — only when every mate is legal and the group fits the
+  points left; otherwise the unit is valued/added alone. A box-only unit's `kit`
+  IS that box (kit name ≠ unit name), with `alsoBuilds` listing the rest (e.g.
+  Apothecary Biologis, Neurotyrant, Ripper Swarms → Termagants box); such units
+  are only picked when their box-mates fit too (`comboOK`).
+- **Use what you buy** — `fieldSpare` runs after the Combat Patrol and before every
+  fill pick: anything `costList(...).spare` reports as paid-for but unfielded
+  (unused value-box contents, kit leftovers, bonus `alsoBuilds` models) is fielded
+  first as whole units, if legal and it fits — size-cap exempt, like CP units.
 - **`profileFactor`** — gentle multiplier: >1 when a category is under its target
   share, easing to a floor when over. Soft on purpose (HQ-led armies still field
   1–2 big leaders). Unshaped factions (no `profile`) get factor 1.
@@ -113,6 +127,10 @@ Key rules/knobs:
   bonus sprues and reporting surplus. A kit line's `covers` describes **one box**
   (the quantity column says how many) so it's correct in both the full and
   per-escalation-step views.
+- `spare` — paid-for but unfielded models per datasheet (see "Use what you buy").
+- Datasheets sharing a plain kit (no `alsoBuilds`) **pool** models into whole boxes
+  (a €83 War Dogs box builds any 2 War Dogs); kits shared through `alsoBuilds`
+  merge into one line whose `covers` lists everything the box builds.
 - `discountedTotal(cost, pct)` — discount applies only to non-online-only lines.
 - `purchaseDelta(prev, curr)` — new boxes per escalation step (quantities only rise).
 - `sumLines(lines, pct)` — totals for an arbitrary line set.

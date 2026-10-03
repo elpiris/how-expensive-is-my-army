@@ -201,4 +201,10 @@ export interface CostBreakdown {
   nonDiscountableEUR: number
   /** Notes about surplus models, unmatched units, etc. */
   notes: string[]
+  /**
+   * Paid-for but unfielded models per datasheet — value-box contents the list
+   * doesn't use, leftover models in a kit, and unused bonus models (`alsoBuilds`).
+   * The generator fields these first (whole units only) so nothing bought is wasted.
+   */
+  spare: { unitId: string; models: number }[]
 }

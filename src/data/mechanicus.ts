@@ -124,8 +124,14 @@ export const mechanicus: Faction = {
       flavor: 2,
       keywords: ['Character', 'Infantry', 'Leader'],
       leads: ['kastelan-robots'],
-      // Comes in the Kastelan Robots box (credited via that kit's alsoBuilds).
-      kit: { name: 'Kastelan Robots', priceEUR: 70, models: 1, verified: true },
+      // Only sold in the Kastelan Robots box — its kit IS that box (+2 Kastelans).
+      kit: {
+        name: 'Kastelan Robots',
+        priceEUR: 70,
+        models: 1,
+        verified: true,
+        alsoBuilds: [{ unitId: 'kastelan-robots', models: 2 }],
+      },
     },
     // --- Battleline ---
     {
