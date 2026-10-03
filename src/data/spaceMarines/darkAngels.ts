@@ -12,7 +12,7 @@ const unique: Unit[] = [
     points: 415,
     models: 1,
     flavor: 5,
-    keywords: ['Character', 'Infantry', 'Epic Hero'],
+    keywords: ['Character', 'Monster', 'Epic Hero', 'Primarch'],
     kit: { name: "Lion El'Jonson", priceEUR: 115, models: 1 },
   },
   {
@@ -125,8 +125,9 @@ export const darkAngels: Faction = {
   category: 'space-marines',
   lastVerified: '2026-10-03',
   pointsVerified: true,
-  // Deathwing elites + Ravenwing speed — more Terminators and bikes than usual.
-  profile: { character: 2, infantry: 4, mounted: 2, vehicle: 2.5 },
+  // Deathwing elites + Ravenwing speed — more Terminators and bikes than usual;
+  // a monster share for the Lion (a MONSTER Primarch, not a plain HQ).
+  profile: { character: 2, infantry: 4, mounted: 2, vehicle: 2.5, monster: 1 },
   blurb:
     'The secretive First Legion. Dark Angels blend elite Deathwing Terminators and swift Ravenwing bikers with the Unforgiven’s stoic marines.',
   units: [...baseUnits, ...unique],
