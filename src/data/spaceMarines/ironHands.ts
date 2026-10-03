@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, exclusive, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 // Codex-compliant: the full base roster + Iron Hands characters.
 // Points from the MFM (Space Marines page, Iron Hands section) 2026-10-03.
@@ -41,9 +41,10 @@ export const ironHands: Faction = {
   pointsVerified: true,
   // Flesh is weak: Dreadnoughts, tanks and armoured gunlines over speed.
   profile: { character: 2, infantry: 3.5, mounted: 0.5, vehicle: 4 },
+  identity: { dreadnought: 3, tank: 3, gravis: 2, techmarine: 2 },
   blurb:
     'The flesh is weak. Iron Hands replace it with bionics and fight from behind walls of armour — Dreadnoughts, tanks and implacable gunlines.',
-  units: [...baseUnits, ...unique],
+  units: [...baseUnits, ...exclusive(unique)],
   valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }

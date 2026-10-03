@@ -26,6 +26,7 @@ import type {
   ListEntry,
   PurchaseLine,
   UnitCategory,
+  UnitTag,
 } from './types'
 
 const CATEGORY_ORDER: FactionCategory[] = ['imperium', 'space-marines', 'chaos', 'xenos']
@@ -518,6 +519,39 @@ const PROFILE_CATEGORIES: { cat: UnitCategory; label: string; hint: string }[] =
 const PROFILE_MAX = 10
 const PROFILE_STEP = 0.5
 
+/** Readable names for identity tags (shown as "Salamanders favour: …"). */
+const TAG_LABELS: Record<UnitTag, string> = {
+  flamer: 'flamers',
+  melta: 'meltas',
+  plasma: 'plasma',
+  bolter: 'bolters',
+  melee: 'melee',
+  terminator: 'Terminators',
+  gravis: 'Gravis armour',
+  phobos: 'Phobos / stealth',
+  jump: 'jump packs',
+  bike: 'bikes',
+  speeder: 'speeders',
+  dreadnought: 'Dreadnoughts',
+  tank: 'tanks',
+  psyker: 'psykers',
+  chaplain: 'Chaplains',
+  techmarine: 'Techmarines',
+  veteran: 'veterans',
+}
+
+/** "bikes, speeders and Chapter units" — a faction's identity, strongest first. */
+function favouredText(faction: Faction): string {
+  const tags = Object.entries(faction.identity ?? {})
+    .filter(([, w]) => (w ?? 0) > 0)
+    .sort((a, b) => (b[1] ?? 0) - (a[1] ?? 0))
+    .map(([t]) => TAG_LABELS[t as UnitTag])
+  if (faction.units.some((u) => u.exclusive)) tags.push(`${faction.chapter ? 'Chapter' : 'faction'}-only units`)
+  if (!tags.length) return 'its iconic units'
+  return tags.length === 1 ? tags[0] : `${tags.slice(0, -1).join(', ')} and ${tags[tags.length - 1]}`
+}
+
+
 function sameProfile(a: FactionProfile, b: FactionProfile): boolean {
   return PROFILE_CATEGORIES.every(({ cat }) => (a[cat] ?? 0) === (b[cat] ?? 0))
 }
@@ -573,8 +607,15 @@ function AdvancedSettings({
         <div>
           <h2>Army composition</h2>
           <p className="adv-sub">
-            How much of the list’s points should go to each unit type. The generator still favours
-            the best value-for-money kits, so this <em>nudges</em> the mix rather than forcing it.
+            How much of the list’s points should go to each unit type.{' '}
+            {faction.identity ? (
+              <>
+                Units are picked for flavour — {faction.name} favour{' '}
+                <strong>{favouredText(faction)}</strong>.
+              </>
+            ) : (
+              <>The generator favours the best value-for-money kits, so this nudges the mix.</>
+            )}
           </p>
         </div>
         {rows.length >= 2 && (

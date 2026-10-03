@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, exclusive, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 const unique: Unit[] = [
   {
@@ -37,9 +37,10 @@ export const imperialFists: Faction = {
   pointsVerified: true,
   // Siege-masters: disciplined firepower and armour over mobility.
   profile: { character: 2, infantry: 4, mounted: 0.5, vehicle: 3.5 },
+  identity: { terminator: 3, gravis: 3, bolter: 2, tank: 1 },
   blurb:
     'Stalwart siege specialists. Imperial Fists excel at unflinching bolter discipline, heavy weapons and armoured assault.',
-  units: [...baseUnits, ...unique],
+  units: [...baseUnits, ...exclusive(unique)],
   valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }

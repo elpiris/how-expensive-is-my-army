@@ -689,3 +689,8 @@ table.data tfoot td {
     display: none;
   }
 }
+
+.adv-sub strong {
+  color: var(--text);
+  font-weight: 600;
+}

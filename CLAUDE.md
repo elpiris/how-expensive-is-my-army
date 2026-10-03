@@ -45,6 +45,7 @@ generic-units DA CP + Heroes of the Chapter are offered to every Chapter). The S
 base roster is the full generic MFM list (68 datasheets, exact tiers); every kit
 price is hand-verified (2026-10-03). Combo boxes are valued
 whole and everything bought is fielded when possible. Users can tune composition
-via the Advanced settings sliders. Chapters are picked in a
+via Advanced settings. SM units carry thematic `tags` and each Chapter an `identity`;
+Chapter lists are generated for flavour (factions without an identity stay value-first). Chapters are picked in a
 Chapter sub-selector shown when Space Marines is chosen. Main backlog: competitive
 mode, export/shareable URL.

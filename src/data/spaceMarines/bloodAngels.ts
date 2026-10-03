@@ -1,5 +1,5 @@
 import type { Faction, Unit, ValueBox } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, exclusive, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 // Non-codex: the full base roster + the Blood Angels' unique datasheets (Death
 // Company, Sanguinary Guard, Baal Predator and the Chapter's heroes).
@@ -198,9 +198,10 @@ export const bloodAngels: Faction = {
   pointsVerified: true,
   // Angelic shock assault: jump-pack elites and Death Company, many heroes.
   profile: { character: 2.5, infantry: 5, mounted: 0.5, vehicle: 2 },
+  identity: { jump: 3, melee: 3, chaplain: 1 },
   blurb:
     'The sons of Sanguinius. Blood Angels fall on the foe from the skies — golden Sanguinary Guard, the frenzied Death Company and legendary heroes.',
-  units: [...baseUnits, ...unique],
+  units: [...baseUnits, ...exclusive(unique)],
   // Own CP first (seeds the list), then the generic SM boxes.
   valueBoxes: [bloodAngelsCP, gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},

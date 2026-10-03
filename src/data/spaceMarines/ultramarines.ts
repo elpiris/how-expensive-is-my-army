@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, exclusive, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 // Codex-compliant: the full base roster + Ultramarines-only characters/units
 // (MFM points + hand-checked en-EU prices 2026-10-03).
@@ -125,9 +125,10 @@ export const ultramarines: Faction = {
   // purpose: Guilliman's outsized pts/€ already fields him in ~70% of 2000-pt
   // lists; a share would make him a certainty.
   profile: { character: 2, infantry: 4, mounted: 1, vehicle: 3 },
+  identity: { bolter: 2, veteran: 2 },
   blurb:
     'The exemplary Chapter of the Codex Astartes. Disciplined, balanced combined-arms warfare under Guilliman and Calgar.',
-  units: [...baseUnits, ...unique],
+  units: [...baseUnits, ...exclusive(unique)],
   valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }

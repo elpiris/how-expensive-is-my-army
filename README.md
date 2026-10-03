@@ -40,6 +40,10 @@ Built with **Vite + React + TypeScript**.
   every army defaulting to the same mix. An on-demand **Advanced settings** panel
   exposes the profile as sliders (recommended values marked + one-click reset), so
   users can slant a list toward characters, infantry, vehicles, etc.
+- **Flavourful Space Marine Chapters:** Chapter lists favour what the Chapter is
+  known for — its own units, and units matching its identity (bikes for White Scars,
+  flamers and meltas for Salamanders, Terminators and Gravis for Imperial Fists…) —
+  at about the same price as a pure value-for-money list.
 - **Accurate points:** sourced from the **Munitorum Field Manual** (11th ed),
   including each datasheet's **escalating cost** for repeat copies (a unit can step
   up on its 2nd, 3rd or 4th copy — shown on the list row) and the single

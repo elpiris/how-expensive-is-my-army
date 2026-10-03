@@ -114,6 +114,13 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
 - Each Chapter has a style `profile` (IF lean vehicles, Salamanders/BT infantry,
   DA mounted, SW mounted/melee).
 
+- **Flavour (2026-10-03):** all 68 base units tagged (`tags`), Chapter-only units
+  marked `exclusive`, each Chapter has an `identity` (tag weights) → Chapter lists
+  are generated for flavour (no slider: it barely changed prices). Non-SM factions
+  have no tags/identity yet, so they stay value-first — tag them (and give them an
+  identity) to make their lists flavourful too; check prices don't jump (Custodes
+  went +47% when flavour relied on the generic `flavor` rating alone).
+
 **SM TODOs:**
 - **Points:** the whole generic roster + Ultramarines re-read from the MFM
   2026-10-03 (exact 3rd+ / 2nd+ tiers, leader lists). Units use the default size;

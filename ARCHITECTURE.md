@@ -43,7 +43,8 @@ src/
 
 - **`Faction`** — `id`, `name`, `category` (`imperium | space-marines | chaos | xenos`,
   drives dropdown optgroups), `chapter?` (`codex | non-codex`, SM Chapters only —
-  groups the Chapter sub-selector), `profile?` (composition shape), `ignoreSizeCap?`,
+  groups the Chapter sub-selector), `profile?` (composition shape), `identity?`
+  (`FactionIdentity`: tag → weight 1–3, what the faction is known for), `ignoreSizeCap?`,
   `pointsVerified?`, `lastVerified`, `blurb`, `units[]`, `valueBoxes[]`,
   `competitiveLists` (legacy, unused — kept `{}`).
 - **`Unit`** — `id` (unique **within a faction**), `name`, `role`
@@ -52,7 +53,9 @@ src/
   (11th-ed escalating cost: the copy index — 2/3/4 — where the higher cost starts;
   default 3), `wargear?{name,points}` (single highest-cost option, folded into
   points + shown on the row), `models` (default unit size), `keywords?`, `flavor?`
-  (1–5, biases generation), `leads?` (unit ids a character can lead), `transports?`
+  (1–5, biases generation), `tags?` (thematic `UnitTag`s: flamer, melta, bike, jump,
+  terminator, gravis, phobos…), `exclusive?` (only this faction/Chapter can field it —
+  set via `exclusive(unique)` in Chapter files), `leads?` (unit ids a character can lead), `transports?`
   (unit ids a transport can carry), `exclusiveGroup?` (mutex — at most one model
   across the group, e.g. the 3 Hive Tyrant variants), `epicHero?`, and `kit`.
 - **`Kit`** — `name`, `priceEUR`, `models` (how many the box builds), `verified?`
@@ -90,8 +93,17 @@ Steps:
 3. **Leaders** — ~75% chance to give a leadable in-list unit a `leads` character
    (skipped once characters run past ~1.3× their profile share).
 4. **Guarantee a character.**
-5. **Value fill** — pick by `pow(valueOf,3) * flavorBias * profileFactor` (`valueOf` =
-   points-per-euro, or the whole combo box's — see below).
+5. **Value fill** — pick by `appeal(u, remaining, 3) * flavorBias * profileFactor`.
+
+**Value ↔ Flavour** (`GenerateOptions.flavour`, 0..1; no UI — `defaultFlavour(faction)`
+= 1 for factions with an `identity` (the SM Chapters), 0 otherwise):
+`appeal = valueOf^(p·(1−f)) · themeScore^(1.5·p·f)` where
+`valueOf` = points-per-euro (or the whole combo box's) and `themeScore` = `flavor/3 ×
+(exclusive ? 3 : 1) × (1 + Σ identity[tag], max 6)`. Every weighted pick uses it (backbone,
+leaders and character with p = 1; the fill with p = 3). f = 0 reproduces the original
+pure-value generator. A user slider was tried and dropped (2026-10-03): over 300 seeds ×
+4 brackets, full-flavour SM lists cost about the same as value ones (−4…+8% at 2000;
+White Scars +17%), while untagged factions only got pricier (Custodes +47%).
 
 Key rules/knobs:
 - **Caps** — `DATASHEET_LIMIT` (1/2/3/3 per bracket, doubled for battleline/transport;
@@ -152,6 +164,8 @@ escalation surcharge tag `.esc`), grouped Characters / Battleline / Other.
 present in the roster, defaulting to `faction.profile` (recommended value marked on
 the track). Edits live in `customProfiles[factionId]` and are swapped into a copy of
 the faction before generation; matching the recommendation again drops the override.
+For factions with an `identity`, the composition panel also names what the
+list favours (e.g. "White Scars favour bikes, speeders…").
 Theming via CSS vars in
 `styles.css` (dark only).
 

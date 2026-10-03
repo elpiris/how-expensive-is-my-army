@@ -38,6 +38,16 @@ import type { UnitCategory } from '../types'
 // adds its box-mates too, as long as they're legal and all fit the points left.
 // Otherwise the unit is valued and added alone.
 //
+// Value ↔ Flavour (`GenerateOptions.flavour`, 0..1): every pick is weighted by a
+// blend of points-per-euro (value) and a theme score (flavour): the unit's own
+// `flavor` rating, a big bonus for faction-`exclusive` units, and its `tags`
+// matched against the faction's `identity` (e.g. Salamanders favour flamer/melta).
+// Default (`defaultFlavour`): factions WITH an identity (the SM Chapters) build
+// pure-flavour lists — simulations showed they cost about the same as value lists
+// (−4…+8% at 2000 pts; White Scars +17%, bikes being dear). Factions without one
+// keep pure value: there "flavour" is just the generic rating and mostly raises
+// the price (Custodes +47%). There is no UI control for it any more.
+//
 // Use what you buy: before every pick, anything the shopping list has paid for
 // but the army doesn't field (`costList(...).spare` — e.g. the Screamer-Killer of
 // a Horrors of the Hive box, a gaunt box's Ripper, unused Combat Patrol units) is
@@ -108,11 +118,36 @@ function roleOrder(u: Unit): number {
 }
 
 /** Grow `base` into a list of `target` points, carrying over everything in base. */
+/** Generation options (no UI; mainly for tests / experiments). */
+export interface GenerateOptions {
+  /** 0 = pick on value (points per euro) only … 1 = pick on theme only. */
+  flavour?: number
+}
+
+/** Full flavour for factions with a thematic identity, pure value otherwise. */
+export function defaultFlavour(faction: Faction): number {
+  return faction.identity && Object.keys(faction.identity).length ? 1 : 0
+}
+
+/**
+ * How well a unit fits its faction's theme (≈ 0.5 … 15): its own flavour rating,
+ * ×3 if the faction alone can field it, and ×(1 + identity-tag weights, max 6).
+ */
+export function themeScore(faction: Faction, u: Unit): number {
+  const base = (u.flavor ?? 3) / 3
+  const tagScore = Math.min(
+    6,
+    (u.tags ?? []).reduce((s, t) => s + (faction.identity?.[t] ?? 0), 0),
+  )
+  return base * (u.exclusive ? 3 : 1) * (1 + tagScore)
+}
+
 function augmentList(
   faction: Faction,
   base: ListEntry[],
   target: PointsBracket,
   rand: () => number,
+  opts: GenerateOptions = {},
 ): GeneratedList {
   // Clone so escalation never mutates the previous stage.
   const entries: ListEntry[] = base.map((e) => ({ unit: e.unit, count: e.count }))
@@ -196,6 +231,14 @@ function augmentList(
     !(u.kit.alsoBuilds?.length && u.kit.name !== u.name) ||
     !comboMates(u).length ||
     comboFor(u, remaining).length > 0
+
+  // Value ↔ Flavour blend for a pick. `power` sharpens the preference (the main
+  // fill uses 3; the backbone / leader picks a gentler 1). Theme gets 1.5× the
+  // exponent so the default middle setting already reads clearly as the faction.
+  const flavour = Math.max(0, Math.min(1, opts.flavour ?? defaultFlavour(faction)))
+  const appeal = (u: Unit, remaining: number, power: number) =>
+    Math.pow(valueOf(u, remaining), power * (1 - flavour)) *
+    Math.pow(themeScore(faction, u), 1.5 * power * flavour)
 
   // Add `u` plus its box-mates (when they all fit).
   const addPick = (u: Unit, remaining: number) => {
@@ -311,7 +354,7 @@ function augmentList(
         countIn(entries, u.id) < capFor(u),
     )
     if (!legal.length) break
-    const pick = pickWeighted(legal, (u) => valueOf(u, remaining) * (u.flavor ?? 1), rand)
+    const pick = pickWeighted(legal, (u) => appeal(u, remaining, 1) * (u.flavor ?? 1), rand)
     if (!pick) break
     addPick(pick, remaining)
   }
@@ -336,7 +379,7 @@ function augmentList(
         comboOK(u, target - pointsOf(entries)),
     )
     const remaining = target - pointsOf(entries)
-    const leader = pickWeighted(candidates, (u) => valueOf(u, remaining) * (u.flavor ?? 1), rand)
+    const leader = pickWeighted(candidates, (u) => appeal(u, remaining, 1) * (u.flavor ?? 1), rand)
     if (leader) addPick(leader, remaining)
   }
 
@@ -346,13 +389,13 @@ function augmentList(
     const chars = faction.units.filter(
       (u) => u.role === 'character' && withinSize(u) && comboOK(u, remaining),
     )
-    const leader = pickWeighted(chars, (u) => valueOf(u, remaining) * (u.flavor ?? 1), rand)
+    const leader = pickWeighted(chars, (u) => appeal(u, remaining, 1) * (u.flavor ?? 1), rand)
     if (leader && nextCopyCost(leader) <= remaining) addPick(leader, remaining)
   }
 
   // 5. Fill the rest with the best points-per-euro kits.
   const weight = (u: Unit, remaining: number) =>
-    Math.pow(valueOf(u, remaining), 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5)) * profileFactor(u)
+    appeal(u, remaining, 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5)) * profileFactor(u)
   let guard = 0
   while (guard++ < 500) {
     if (target - pointsOf(entries) <= 0) break
@@ -394,17 +437,22 @@ export function generateList(
   faction: Faction,
   target: PointsBracket,
   seed = Date.now(),
+  opts: GenerateOptions = {},
 ): GeneratedList {
-  return augmentList(faction, [], target, mulberry32(seed))
+  return augmentList(faction, [], target, mulberry32(seed), opts)
 }
 
 /** Escalation: 500 → 2000, each list re-using the content of the previous one. */
-export function generateEscalation(faction: Faction, seed = Date.now()): GeneratedList[] {
+export function generateEscalation(
+  faction: Faction,
+  seed = Date.now(),
+  opts: GenerateOptions = {},
+): GeneratedList[] {
   const rand = mulberry32(seed)
   const stages: GeneratedList[] = []
   let base: ListEntry[] = []
   for (const target of BRACKETS) {
-    const list = augmentList(faction, base, target, rand)
+    const list = augmentList(faction, base, target, rand, opts)
     stages.push(list)
     base = list.entries
   }

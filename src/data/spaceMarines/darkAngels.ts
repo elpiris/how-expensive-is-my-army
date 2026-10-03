@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, exclusive, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 // Non-codex: the base roster + the Deathwing (Terminators) and Ravenwing
 // (bikes) specialist formations and Dark Angels characters.
@@ -130,9 +130,10 @@ export const darkAngels: Faction = {
   // No monster share on purpose (as Ultramarines): at €60 the Lion's pts/€ already
   // fields him in most 2000-pt lists; a share would make him a certainty.
   profile: { character: 2, infantry: 4, mounted: 2, vehicle: 2.5 },
+  identity: { terminator: 3, bike: 3, speeder: 2, plasma: 2 },
   blurb:
     'The secretive First Legion. Dark Angels blend elite Deathwing Terminators and swift Ravenwing bikers with the Unforgiven’s stoic marines.',
-  units: [...baseUnits, ...unique],
+  units: [...baseUnits, ...exclusive(unique)],
   valueBoxes: [darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }

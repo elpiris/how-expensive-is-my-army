@@ -71,6 +71,17 @@ export interface Unit {
   /** 1 (filler) .. 5 (iconic centrepiece) — biases casual list generation. */
   flavor?: number
   /**
+   * Thematic tags (weapons / armour / role) matched against a faction's
+   * `identity` when the list style leans towards flavour — e.g. Infernus Squad
+   * = flamer, Outriders = bike. Currently used for Space Marines.
+   */
+  tags?: UnitTag[]
+  /**
+   * Only this faction (Chapter) can field it — e.g. Death Company for Blood
+   * Angels. Exclusive units get a strong flavour bonus.
+   */
+  exclusive?: boolean
+  /**
    * Unit ids this character can be attached to as a Leader (from Wahapedia).
    * Used to give leadable units a character to lead them.
    */
@@ -134,6 +145,32 @@ export type UnitCategory = 'character' | 'infantry' | 'mounted' | 'vehicle' | 'm
  */
 export type FactionProfile = Partial<Record<UnitCategory, number>>
 
+/** Thematic unit tags used to express a faction's (Chapter's) identity. */
+export type UnitTag =
+  | 'flamer'
+  | 'melta'
+  | 'plasma'
+  | 'bolter'
+  | 'melee'
+  | 'terminator'
+  | 'gravis'
+  | 'phobos'
+  | 'jump'
+  | 'bike'
+  | 'speeder'
+  | 'dreadnought'
+  | 'tank'
+  | 'psyker'
+  | 'chaplain'
+  | 'techmarine'
+  | 'veteran'
+
+/**
+ * What a faction is known for: tag → weight (1 = a nod, 3 = defining). With the
+ * list style towards Flavour, units carrying these tags are favoured.
+ */
+export type FactionIdentity = Partial<Record<UnitTag, number>>
+
 export interface Faction {
   id: string
   name: string
@@ -158,6 +195,8 @@ export interface Faction {
   ignoreSizeCap?: boolean
   /** Thematic composition shape — biases list generation (see FactionProfile). */
   profile?: FactionProfile
+  /** Thematic unit preferences — see FactionIdentity / Unit.tags. */
+  identity?: FactionIdentity
   blurb?: string
   units: Unit[]
   valueBoxes: ValueBox[]
