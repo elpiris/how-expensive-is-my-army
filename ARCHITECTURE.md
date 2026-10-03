@@ -124,7 +124,12 @@ Faction `<select>` renders `<optgroup>`s from `CATEGORY_ORDER` / `CATEGORY_LABEL
 `ListPanel` renders per-copy rows (points via `copyPoints`, wargear tag `.wg`,
 escalation surcharge tag `.esc`), grouped Characters / Battleline / Other.
 `ShopPanel` renders the buy list with per-line discounts (online-only struck/exempt).
-`SummaryBar` (top) shows pay / RRP / cost-per-point. Theming via CSS vars in
+`SummaryBar` (top) shows pay / RRP / cost-per-point. **Advanced settings**
+(collapsed by default) renders `AdvancedSettings`: one slider per `UnitCategory`
+present in the roster, defaulting to `faction.profile` (recommended value marked on
+the track). Edits live in `customProfiles[factionId]` and are swapped into a copy of
+the faction before generation; matching the recommendation again drops the override.
+Theming via CSS vars in
 `styles.css` (dark only).
 
 ## Adding data

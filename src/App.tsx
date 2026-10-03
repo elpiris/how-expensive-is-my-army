@@ -1,8 +1,15 @@
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useMemo, useState, type CSSProperties } from 'react'
 import { factions, getFaction } from './data'
 import { generateList, generateEscalation, BRACKETS } from './lib/generateList'
 import { costList, discountedTotal, purchaseDelta, sumLines } from './lib/costList'
-import { copyPoints, copySurcharge, entryPoints, escalateAt, isCharacter } from './lib/value'
+import {
+  copyPoints,
+  copySurcharge,
+  entryPoints,
+  escalateAt,
+  isCharacter,
+  unitCategory,
+} from './lib/value'
 
 /** "2nd+" / "3rd+" / "4th+" — the copy at which a datasheet's cost escalates. */
 function ordinalPlus(n: number): string {
@@ -12,10 +19,13 @@ function ordinalPlus(n: number): string {
 import type {
   CostBreakdown,
   DiscountPercent,
+  Faction,
   FactionCategory,
+  FactionProfile,
   GeneratedList,
   ListEntry,
   PurchaseLine,
+  UnitCategory,
 } from './types'
 
 const CATEGORY_ORDER: FactionCategory[] = ['imperium', 'space-marines', 'chaos', 'xenos']
@@ -237,8 +247,17 @@ export default function App() {
   const [stageIndex, setStageIndex] = useState(0)
   const [discount, setDiscount] = useState<DiscountPercent>(0)
   const [seed, setSeed] = useState(() => Date.now())
+  const [showAdvanced, setShowAdvanced] = useState(false)
+  // User-tuned composition per faction (absent = the faction's recommended profile).
+  const [customProfiles, setCustomProfiles] = useState<Record<string, FactionProfile>>({})
 
-  const faction = getFaction(factionId)!
+  const baseFaction = getFaction(factionId)!
+  const customProfile = customProfiles[factionId]
+  // The faction as the generator sees it — with the user's profile swapped in.
+  const faction = useMemo<Faction>(
+    () => (customProfile ? { ...baseFaction, profile: customProfile } : baseFaction),
+    [baseFaction, customProfile],
+  )
 
   const quickList = useMemo(() => generateList(faction, bracket, seed), [faction, bracket, seed])
   const quickCost = useMemo(() => costList(quickList), [quickList])
@@ -352,6 +371,44 @@ export default function App() {
         </div>
       </section>
 
+      <div className="adv-toggle-row">
+        <button
+          className="adv-toggle"
+          aria-expanded={showAdvanced}
+          aria-controls="advanced-settings"
+          onClick={() => setShowAdvanced((v) => !v)}
+        >
+          <span className="chev">{showAdvanced ? '▾' : '▸'}</span> Advanced settings
+          {customProfile && <span className="tag custom">Custom mix</span>}
+        </button>
+      </div>
+      {showAdvanced && (
+        <AdvancedSettings
+          faction={baseFaction}
+          profile={customProfile ?? baseFaction.profile ?? {}}
+          isCustom={!!customProfile}
+          list={appMode === 'quick' ? quickList : stages[stageIndex]}
+          onChange={(cat, value) =>
+            setCustomProfiles((prev) => {
+              const rec = baseFaction.profile ?? {}
+              const edited = { ...(prev[factionId] ?? rec), [cat]: value }
+              const next = { ...prev }
+              // Dragging every slider back onto its recommendation drops the custom mix.
+              if (sameProfile(edited, rec)) delete next[factionId]
+              else next[factionId] = edited
+              return next
+            })
+          }
+          onReset={() =>
+            setCustomProfiles((prev) => {
+              const next = { ...prev }
+              delete next[factionId]
+              return next
+            })
+          }
+        />
+      )}
+
       <div className="blurb">
         <strong>{faction.name}.</strong> {faction.blurb}
         {appMode === 'escalation' && (
@@ -400,6 +457,155 @@ export default function App() {
         </p>
       </footer>
     </div>
+  )
+}
+
+/** The composition buckets, in display order, with user-facing names. */
+const PROFILE_CATEGORIES: { cat: UnitCategory; label: string; hint: string }[] = [
+  { cat: 'character', label: 'Characters', hint: 'HQs and heroes' },
+  { cat: 'infantry', label: 'Infantry', hint: 'squads on foot' },
+  { cat: 'mounted', label: 'Mounted', hint: 'bikes, cavalry, beasts' },
+  { cat: 'vehicle', label: 'Vehicles', hint: 'tanks, walkers, transports' },
+  { cat: 'monster', label: 'Monsters', hint: 'big creatures and Primarchs' },
+]
+const PROFILE_MAX = 10
+const PROFILE_STEP = 0.5
+
+function sameProfile(a: FactionProfile, b: FactionProfile): boolean {
+  return PROFILE_CATEGORIES.every(({ cat }) => (a[cat] ?? 0) === (b[cat] ?? 0))
+}
+
+function shareOf(profile: FactionProfile, cat: UnitCategory, cats: UnitCategory[]): number {
+  const sum = cats.reduce((s, c) => s + (profile[c] ?? 0), 0)
+  return sum > 0 ? (profile[cat] ?? 0) / sum : 0
+}
+
+function pct(x: number): string {
+  return `${Math.round(x * 100)}%`
+}
+
+/**
+ * Advanced settings: the faction's composition profile as editable sliders. Each
+ * slider is a relative weight (normalised to a target share of the list's points);
+ * the faction's recommended value is marked on the track and one click away.
+ */
+function AdvancedSettings({
+  faction,
+  profile,
+  isCustom,
+  list,
+  onChange,
+  onReset,
+}: {
+  faction: Faction
+  profile: FactionProfile
+  isCustom: boolean
+  list: GeneratedList
+  onChange: (cat: UnitCategory, value: number) => void
+  onReset: () => void
+}) {
+  const recommended = faction.profile ?? {}
+  // Only offer buckets this roster can actually fill.
+  const rows = PROFILE_CATEGORIES.filter(({ cat }) =>
+    faction.units.some((u) => unitCategory(u) === cat),
+  )
+  const cats = rows.map((r) => r.cat)
+
+  const listPts = list.entries.reduce((s, e) => s + entryPoints(e.unit, e.count), 0)
+  const actualShare = (cat: UnitCategory) =>
+    listPts > 0
+      ? list.entries
+          .filter((e) => unitCategory(e.unit) === cat)
+          .reduce((s, e) => s + entryPoints(e.unit, e.count), 0) / listPts
+      : 0
+  const unshaped = cats.every((c) => (profile[c] ?? 0) === 0)
+
+  return (
+    <section id="advanced-settings" className="advanced" aria-label="Advanced settings">
+      <div className="adv-head">
+        <div>
+          <h2>Army composition</h2>
+          <p className="adv-sub">
+            How much of the list’s points should go to each unit type. The generator still favours
+            the best value-for-money kits, so this <em>nudges</em> the mix rather than forcing it.
+          </p>
+        </div>
+        {rows.length >= 2 && (
+          <button className="adv-reset" onClick={onReset} disabled={!isCustom}>
+            ↺ Reset to recommended
+          </button>
+        )}
+      </div>
+
+      {rows.length < 2 ? (
+        <p className="adv-empty">
+          {faction.name} fields only one kind of unit, so there’s no composition to adjust.
+        </p>
+      ) : (
+        <>
+          <div className="adv-rows">
+            <div className="adv-row adv-cols" aria-hidden="true">
+              <span />
+              <span />
+              <span className="num">Target</span>
+              <span className="num">This list</span>
+            </div>
+            {rows.map(({ cat, label, hint }) => {
+              const value = profile[cat] ?? 0
+              const rec = recommended[cat] ?? 0
+              const changed = value !== rec
+              const id = `profile-${cat}`
+              return (
+                <div key={cat} className={changed ? 'adv-row changed' : 'adv-row'}>
+                  <label htmlFor={id} className="adv-label">
+                    {label}
+                    <small>{hint}</small>
+                  </label>
+                  <div className="adv-slider">
+                    <input
+                      id={id}
+                      type="range"
+                      min={0}
+                      max={PROFILE_MAX}
+                      step={PROFILE_STEP}
+                      value={value}
+                      onChange={(e) => onChange(cat, Number(e.target.value))}
+                      aria-valuetext={`weight ${value}, ${pct(shareOf(profile, cat, cats))} of points`}
+                    />
+                    <span
+                      className="rec-mark"
+                      style={{ '--pos': rec / PROFILE_MAX } as CSSProperties}
+                      aria-hidden="true"
+                    />
+                    <div className="adv-meta">
+                      <span>Weight {value}</span>
+                      {changed ? (
+                        <button className="rec-link" onClick={() => onChange(cat, rec)}>
+                          Recommended: {rec}
+                        </button>
+                      ) : (
+                        <span className="rec-ok">Recommended</span>
+                      )}
+                    </div>
+                  </div>
+                  <span className="num adv-target">
+                    {unshaped ? '—' : pct(shareOf(profile, cat, cats))}
+                  </span>
+                  <span className="num adv-actual">{pct(actualShare(cat))}</span>
+                </div>
+              )
+            })}
+          </div>
+          <p className="adv-foot">
+            <span className="rec-mark legend" aria-hidden="true" /> marks the recommended mix for{' '}
+            {faction.name}
+            {unshaped
+              ? '. Every weight is 0, so the list is picked on value alone.'
+              : '. A weight of 0 makes a unit type rare, not impossible.'}
+          </p>
+        </>
+      )}
+    </section>
   )
 }
 

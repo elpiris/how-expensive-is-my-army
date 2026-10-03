@@ -36,7 +36,9 @@ Built with **Vite + React + TypeScript**.
   of points across characters / infantry / mounted / vehicles / monsters), so lists
   come out in-character — Tyranids lean on monsters + swarms, Chaos Knights are all
   walkers, Mechanicus/Custodes favour troops and machines over HQs — rather than
-  every army defaulting to the same mix.
+  every army defaulting to the same mix. An on-demand **Advanced settings** panel
+  exposes the profile as sliders (recommended values marked + one-click reset), so
+  users can slant a list toward characters, infantry, vehicles, etc.
 - **Accurate points:** sourced from the **Munitorum Field Manual** (11th ed),
   including each datasheet's **escalating cost** for repeat copies (a unit can step
   up on its 2nd, 3rd or 4th copy — shown on the list row) and the single
