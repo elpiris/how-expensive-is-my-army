@@ -1,0 +1,45 @@
+import type { Faction, Unit } from '../../types'
+import { baseUnits, gettingStartedBox } from './base'
+
+const unique: Unit[] = [
+  {
+    id: 'vulkan-hestan',
+    name: "Vulkan He'stan",
+    role: 'epic-hero',
+    epicHero: true,
+    points: 105,
+    models: 1,
+    flavor: 4,
+    keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
+    leads: ['assault-intercessors', 'infernus'],
+    kit: { name: "Vulkan He'stan", priceEUR: 34, models: 1 },
+  },
+  {
+    id: 'adrax-agatone',
+    name: 'Adrax Agatone',
+    role: 'epic-hero',
+    epicHero: true,
+    points: 90,
+    models: 1,
+    flavor: 4,
+    keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
+    leads: ['assault-intercessors', 'aggressors'],
+    kit: { name: 'Adrax Agatone', priceEUR: 34, models: 1 },
+  },
+]
+
+export const salamanders: Faction = {
+  id: 'sm-salamanders',
+  name: 'Space Marines — Salamanders',
+  system: 'w40k',
+  category: 'imperium',
+  lastVerified: '2026-10-03',
+  pointsVerified: true,
+  // Close-ranged flame and melee specialists; infantry-forward.
+  profile: { character: 2, infantry: 5, mounted: 0.5, vehicle: 2.5 },
+  blurb:
+    'Master artisans of Nocturne. Salamanders favour flame weapons, thunder hammers and resilient, close-ranged infantry.',
+  units: [...baseUnits, ...unique],
+  valueBoxes: [gettingStartedBox],
+  competitiveLists: {},
+}

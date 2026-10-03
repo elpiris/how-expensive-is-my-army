@@ -9,11 +9,15 @@ Built with **Vite + React + TypeScript**.
 
 ## Features
 
-- **9 factions**, grouped by grand alliance in the dropdown:
-  - **Imperium** — Adeptus Custodes, Adepta Sororitas, Adeptus Mechanicus
+- **Factions**, grouped by grand alliance in the dropdown:
+  - **Imperium** — Adeptus Custodes, Adepta Sororitas, Adeptus Mechanicus, and
+    **Space Marines** with a Chapter system: a base (Chapter-agnostic) roster plus
+    Codex-compliant Chapters (Ultramarines, Imperial Fists, Salamanders) that share
+    the base roster + their own characters, and non-compliant Chapters (Dark Angels,
+    Black Templars — no psykers, Space Wolves) with their own units. More Chapters
+    are a TODO.
   - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights
   - **Xenos** — Necrons, Tyranids, Aeldari
-  - (Space Marines are parked pending Chapter-system support — see TODO.md.)
 - **Two modes:**
   - **Quick list** — pick a faction + points bracket (500 / 1000 / 1500 / 2000)
     and get one list. Reroll for a new take.
@@ -96,7 +100,10 @@ src/
     necrons.ts
     tyranids.ts
     aeldari.ts
-    spaceMarines.ts     # parked (not registered in index.ts)
+    spaceMarines/       # base Codex roster + per-Chapter Faction files
+      base.ts
+      vanilla.ts        # Space Marines, no Chapter
+      ultramarines.ts   # …and the other Chapters
   lib/
     value.ts            # points-per-euro, copy/escalation + wargear points helpers
     generateList.ts     # Quick + Escalation list generation

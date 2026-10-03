@@ -83,19 +83,30 @@ name/price text lines. The grid can get throttled after heavy crawling, but
 individual product pages keep working; en-FI also shows euros. Never solve GW
 CAPTCHAs; space out crawling.
 
-## Parked: Space Marines (Chapter system)
-Space Marines were pulled from the MVP set — their Chapter system (Chapter
-Tactics, chapter-specific characters and Combat Patrols) makes list-building and
-data noticeably more complex. The data file is kept at `src/data/spaceMarines.ts`
-(deregistered from `src/data/index.ts`). To bring them back:
-- Decide how to handle Chapters (pick one, e.g. Ultramarines, or model Chapter
-  choice as an option).
-- There is **no generic Space Marines Combat Patrol** (GW discontinued it); only
-  chapter-specific ones. Model a specific Chapter's box if that Chapter is added.
-- Finish the box model-count checks cut short by GW's bot check: **Intercessor
-  Squad** (set to 10 by inference — confirm + price), **Scout Squad** (size +
-  price), **Outrider Squad** (size + price).
-- Process note: never solve GW CAPTCHAs; space out crawling.
+## Space Marines + Chapters (2026-10-03)
+Modelled as a **shared base Codex roster** (`spaceMarines/base.ts`, ~32 units)
+reused by each Chapter, which is its own `Faction` entry under Imperium:
+- **Base (no Chapter):** `space-marines`, value box = Getting Started with Space
+  Marines (€139: Captain, Librarian, 5 Intercessors, 5 Vanguard, Land Speeder).
+- **Codex-compliant (base + unique characters):** Ultramarines (Guilliman, Calgar,
+  Tigurius, Victrix Guard), Imperial Fists (Lysander, Tor Garadon), Salamanders
+  (Vulkan He'stan, Adrax Agatone) — all use the generic value box.
+- **Non-compliant:** Dark Angels (+Deathwing/Ravenwing, Lion; value box = the
+  generic-units Dark Angels Combat Patrol), Black Templars (base MINUS Psykers/
+  Librarians, +Crusaders/Sword Brethren/Emperor's Champion; own CP), Space Wolves
+  (+Grey Hunters/Blood Claws/Wulfen/Thunderwolves; generic value box for now).
+- Each Chapter has a style `profile` (IF lean vehicles, Salamanders/BT infantry,
+  DA mounted, SW mounted/melee).
+
+**SM TODOs:**
+- **Points:** captured mostly the MFM "1st–2nd" tier; the escalating 3rd+ cost is
+  approximated (+10, +15 vehicles). Capture exact 3rd+ values from the MFM.
+- **Prices:** base kits mix 2026-09-10 verified values + best-effort (the SM store
+  grid virtualises too hard to re-scrape). Confirm per-kit prices on product pages.
+- **More Chapters:** Blood Angels (Death Company/Sanguinary Guard), Deathwatch,
+  White Scars, Raven Guard, Iron Hands, Grey Knights (own roster), Crimson Fists.
+- Confirm the Black Templars / add a real Space Wolves Combat Patrol's contents.
+- Consider a nicer UI: a Chapter sub-selector instead of many dropdown entries.
 
 ## Model / rules refinements
 - **Multi-unit / combo boxes** whose extra units aren't in the roster aren't

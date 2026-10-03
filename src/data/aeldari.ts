@@ -223,7 +223,7 @@ export const aeldari: Faction = {
       models: 10,
       flavor: 3,
       keywords: ['Infantry'],
-      kit: { name: 'Dire Avengers', priceEUR: 38.5, models: 10, verified: true },
+      kit: { name: 'Dire Avengers', priceEUR: 38.5, models: 5, verified: true },
     },
     {
       id: 'howling-banshees',
