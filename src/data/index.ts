@@ -24,6 +24,7 @@ import { worldEaters } from './worldEaters'
 import { thousandSons } from './thousandSons'
 import { chaosDaemons } from './chaosDaemons'
 import { necrons } from './necrons'
+import { orks } from './orks'
 import { tyranids } from './tyranids'
 import { aeldari } from './aeldari'
 import { tauEmpire } from './tauEmpire'
@@ -66,6 +67,7 @@ export const factions: Faction[] = [
   chaosDaemons,
   // Xenos
   necrons,
+  orks,
   tyranids,
   aeldari,
   ...craftworlds,

@@ -13,20 +13,20 @@ Active dropdown groups (`Faction.category`):
   World Eaters, Thousand Sons, Chaos Daemons.
 - **Xenos** — Necrons, Tyranids, Aeldari (+ a **Craftworld** sub-selector: Biel-Tan,
   Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire, Leagues of Votann, Genestealer
-  Cults, Drukhari.
+  Cults, Drukhari, Orks.
 
 Architecture overview: [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Data verification
 
-**20 non-SM factions + Space Marines (10 Chapters) are fully fine-tuned** — MFM
+**21 non-SM factions + Space Marines (10 Chapters) are fully fine-tuned** — MFM
 rosters (points + escalation + leader lists), en-EU kit prices, real Combat Patrols /
 value boxes, composition profiles. Prices for everything added on 2026-10-03 were
 confirmed with the user one kit at a time. Remaining data work: the few best-effort
 (`verified:false` → "≈") kits noted below, and periodic re-checks (points/prices drift).
 
 ### Still missing factions (MFM)
-- **Xenos:** Orks.
+- None of the main armies — every MFM faction is modelled except the low-priority ones below.
 - **Low priority (skipped 2026-10-03 as marginal armies):** Imperial Agents, and
   Deathwatch (as an SM Chapter). Add later the same way.
 - Out of scope: Titan Legions / Chaos Titan Legions (Forge World).
@@ -132,6 +132,14 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   user) except Hand of the Archon (Kill Team box, temporarily unavailable → ≈ €56.50).
   Shared kits: Talos / Cronos €53, Scourges €34/5 (both loadouts); Mandrakes in a
   Kill Team box. Combat Patrol (€139: Haemonculus, Cronos, Talos, 10 Wracks).
+- **Orks — DONE (2026-10-03).** 52 datasheets (the MFM's 55 minus Big'ed Bossbunka
+  terrain, the FW Gargantuan Squiggoth and the Runtherd — no kit on sale); every
+  price verified (grid + user; "Classic" made-to-order kits not used). Value box:
+  Getting Started with Orks (€139: Warboss, Weirdboy, 20 Boyz, 10 Gretchin,
+  Wartrakk). Combo: Armageddon Kommand Krew (€80: Bigboss, Bannernob, Painboy).
+  Shared kits: Battlewagon / Gunwagon, Kill / Hunta Rig, Wartrakk / Warbuggy,
+  Gorkanaut / Morkanaut €125, the jet kit €77, Mek Gunz, Kill Team Breaka Boyz /
+  Tankbustas €56.50/6, Meganobz / Big Mek in MA €60/3.
 - **TODO — Exodites:** Clanblade (70 pts, leads Dragon Knights), Stonesinger (55,
   supports Dragon Knights), Leystalker (75), Dragon Knights (3 models 85 / 3rd+ 95)
   are in the MFM but only sold in a Kill Team box for now. Add them (tag `exodite`)
@@ -194,6 +202,6 @@ MFM list minus the FW Thunderhawk) reused by each Chapter; Chapters are sub-fact
 ## Features / scope (backlog)
 - Restore a **competitive-list** mode (curated event netlists) — `competitiveLists`
   data is still in the Necron/Tyranid files, just unused.
-- **Remaining factions** (see "Still missing factions" above).
+- **Low-priority factions:** Imperial Agents, Deathwatch (see above).
 - UI niceties: copy/export a list, shareable URL, per-box savings vs. buying
   single kits, show the points-per-euro value per unit.
