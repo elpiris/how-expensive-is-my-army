@@ -1,5 +1,5 @@
 import type { Faction, Unit, ValueBox } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 // Non-codex: the full base roster + the Blood Angels' unique datasheets (Death
 // Company, Sanguinary Guard, Baal Predator and the Chapter's heroes).
@@ -20,7 +20,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 5,
     keywords: ['Character', 'Infantry', 'Jump Pack', 'Fly', 'Epic Hero', 'Leader'],
-    leads: ['vanguard-veterans', 'sanguinary-guard'],
+    leads: ['assault-intercessors-jp', 'vanguard-veterans', 'sanguinary-guard'],
     kit: { name: 'Commander Dante', priceEUR: 38.5, models: 1, verified: true },
   },
   {
@@ -202,6 +202,6 @@ export const bloodAngels: Faction = {
     'The sons of Sanguinius. Blood Angels fall on the foe from the skies — golden Sanguinary Guard, the frenzied Death Company and legendary heroes.',
   units: [...baseUnits, ...unique],
   // Own CP first (seeds the list), then the generic SM boxes.
-  valueBoxes: [bloodAngelsCP, gettingStartedBox, darkAngelsCP, heroesOfTheChapter],
+  valueBoxes: [bloodAngelsCP, gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }

@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 // Codex-compliant: the full base roster + Raven Guard characters.
 // Points from the MFM (Space Marines page, Raven Guard section) 2026-10-03.
@@ -14,7 +14,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 5,
     keywords: ['Character', 'Infantry', 'Jump Pack', 'Fly', 'Epic Hero', 'Leader'],
-    leads: ['vanguard-veterans'],
+    leads: ['assault-intercessors-jp', 'vanguard-veterans'],
     kit: { name: 'Kayvaan Shrike', priceEUR: 38.5, models: 1, verified: true },
   },
   {
@@ -43,6 +43,6 @@ export const ravenGuard: Faction = {
   blurb:
     'Masters of the shadowed strike. Raven Guard infiltrate, ambush and vanish — scouts, jump-pack veterans and precise decapitation attacks.',
   units: [...baseUnits, ...unique],
-  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter],
+  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }

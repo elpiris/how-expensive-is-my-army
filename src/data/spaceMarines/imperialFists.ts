@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 const unique: Unit[] = [
   {
@@ -22,7 +22,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Leader'],
-    leads: ['aggressors', 'eradicators'],
+    leads: ['aggressors', 'eradicators', 'eradicators-hb', 'heavy-intercessors'],
     kit: { name: 'Tor Garadon', priceEUR: 38.5, models: 1, verified: true },
   },
 ]
@@ -40,6 +40,6 @@ export const imperialFists: Faction = {
   blurb:
     'Stalwart siege specialists. Imperial Fists excel at unflinching bolter discipline, heavy weapons and armoured assault.',
   units: [...baseUnits, ...unique],
-  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter],
+  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }

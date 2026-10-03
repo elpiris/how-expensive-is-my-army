@@ -1,7 +1,8 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
-// Codex-compliant: the full base roster + Ultramarines-only characters/units.
+// Codex-compliant: the full base roster + Ultramarines-only characters/units
+// (MFM points + hand-checked en-EU prices 2026-10-03).
 const unique: Unit[] = [
   {
     id: 'guilliman',
@@ -23,7 +24,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 5,
     keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
-    leads: ['intercessors', 'assault-intercessors', 'aggressors', 'bladeguard', 'terminators'],
+    leads: ['aggressors', 'assault-intercessors', 'bladeguard', 'company-heroes', 'eradicators', 'eradicators-hb', 'heavy-intercessors', 'infernus', 'intercessors', 'sternguard', 'terminators', 'assault-terminators', 'vanguard-veterans', 'victrix-guard'],
     kit: { name: 'Marneus Calgar in Armour of Antilochus', priceEUR: 45, models: 1, verified: true },
   },
   {
@@ -35,7 +36,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Psyker', 'Epic Hero', 'Leader'],
-    leads: ['intercessors', 'bladeguard'],
+    leads: ['assault-intercessors', 'bladeguard', 'desolation', 'infernus', 'intercessors', 'sternguard', 'vanguard-veterans'],
     kit: { name: 'Chief Librarian Tigurius', priceEUR: 38.5, models: 1, onlineOnly: true, verified: true },
   },
   {
@@ -43,10 +44,72 @@ const unique: Unit[] = [
     name: 'Victrix Honour Guard',
     role: 'infantry',
     points: 120,
+    pointsEscalated: 150,
     models: 3,
     flavor: 4,
     keywords: ['Infantry'],
     kit: { name: 'Victrix Honour Guard', priceEUR: 52, models: 3, verified: true },
+  },
+  {
+    id: 'titus',
+    name: 'Captain Titus',
+    role: 'epic-hero',
+    epicHero: true,
+    points: 115,
+    models: 1,
+    flavor: 4,
+    keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
+    leads: ['assault-intercessors', 'bladeguard', 'hellblasters', 'infernus', 'intercessors', 'sternguard', 'vanguard-veterans'],
+    // Sold together with the Wardens of Ultramar in one box, so its kit IS that box.
+    kit: {
+      name: 'Captain Titus and the Wardens of Ultramar',
+      priceEUR: 77,
+      models: 1,
+      verified: true,
+      alsoBuilds: [{ unitId: 'wardens-of-ultramar', models: 6 }],
+    },
+  },
+  {
+    id: 'sicarius',
+    name: 'Cato Sicarius',
+    role: 'epic-hero',
+    epicHero: true,
+    points: 115,
+    models: 1,
+    flavor: 4,
+    keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
+    leads: ['victrix-guard'],
+    kit: { name: 'Cato Sicarius', priceEUR: 38.5, models: 1, verified: true },
+  },
+  {
+    id: 'konorius',
+    name: 'Kaius Konorius',
+    role: 'epic-hero',
+    epicHero: true,
+    points: 100,
+    models: 1,
+    flavor: 3,
+    keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
+    leads: ['assault-intercessors', 'bladeguard', 'sternguard', 'victrix-guard'],
+    kit: { name: 'Kaius Konorius', priceEUR: 38.5, models: 1, verified: true },
+  },
+  {
+    id: 'wardens-of-ultramar',
+    name: 'Wardens of Ultramar',
+    role: 'character',
+    // A 6-model support unit that attaches to a squad (MFM: 6 models 115 pts).
+    points: 115,
+    models: 6,
+    flavor: 3,
+    keywords: ['Character', 'Infantry'],
+    leads: ['assault-intercessors', 'bladeguard', 'intercessors', 'sternguard', 'vanguard-veterans'],
+    kit: {
+      name: 'Captain Titus and the Wardens of Ultramar',
+      priceEUR: 77,
+      models: 6,
+      verified: true,
+      alsoBuilds: [{ unitId: 'titus', models: 1 }],
+    },
   },
 ]
 
@@ -65,6 +128,6 @@ export const ultramarines: Faction = {
   blurb:
     'The exemplary Chapter of the Codex Astartes. Disciplined, balanced combined-arms warfare under Guilliman and Calgar.',
   units: [...baseUnits, ...unique],
-  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter],
+  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }

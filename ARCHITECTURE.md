@@ -189,9 +189,7 @@ Theming via CSS vars in
 
 ## Known limitations (see TODO.md for specifics)
 
-- Some kit prices are best-effort estimates (`verified:false` → "≈"); Space Marines
-  3rd+ escalation points are approximated (+10/+15) where only the 1st–2nd MFM tier
-  was captured.
+- Some kit prices are best-effort estimates (`verified:false` → "≈").
 - Per-faction verification status, the remaining best-effort prices, more SM Chapters,
   and backlog features (competitive mode, shareable URL/export, per-unit value display)
   are all tracked in TODO.md.

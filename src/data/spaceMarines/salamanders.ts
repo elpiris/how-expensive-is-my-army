@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 const unique: Unit[] = [
   {
@@ -11,7 +11,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
-    leads: ['assault-intercessors', 'infernus'],
+    leads: ['assault-intercessors', 'bladeguard', 'company-heroes', 'eradicators', 'infernus', 'vanguard-veterans'],
     kit: { name: "Vulkan He'stan", priceEUR: 38.5, models: 1, verified: true },
   },
   {
@@ -23,7 +23,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
-    leads: ['assault-intercessors', 'aggressors'],
+    leads: ['assault-intercessors', 'bladeguard', 'company-heroes', 'infernus', 'intercessors', 'sternguard', 'vanguard-veterans'],
     kit: { name: 'Adrax Agatone', priceEUR: 38.5, models: 1, verified: true },
   },
 ]
@@ -41,6 +41,6 @@ export const salamanders: Faction = {
   blurb:
     'Master artisans of Nocturne. Salamanders favour flame weapons, thunder hammers and resilient, close-ranged infantry.',
   units: [...baseUnits, ...unique],
-  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter],
+  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }

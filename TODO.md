@@ -14,9 +14,9 @@ New-architecture overview is in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 **The 9 non-SM factions are fully fine-tuned (2026-10-02)** — full MFM rosters
 (points + escalation + wargear), real en-EU kit prices, real Combat Patrols / value
-boxes, composition profiles. **Space Marines (2026-10-03) are newer** — MFM points
-with 3rd+ escalation approximated, and a mix of verified + best-effort prices (see
-the SM section below). Remaining data work = confirming the best-effort
+boxes, composition profiles. **Space Marines (2026-10-03)** — the full generic MFM
+roster (68 datasheets, every escalation tier + leader list) plus 10 Chapters; every
+kit price hand-verified on en-EU 2026-10-03. Remaining data work = confirming the best-effort
 (`verified:false`) kit prices on individual product pages. Re-check periodically.
 
 ### Per-faction status
@@ -86,7 +86,7 @@ individual product pages keep working; en-FI also shows euros. Never solve GW
 CAPTCHAs; space out crawling.
 
 ## Space Marines + Chapters (2026-10-03)
-Modelled as a **shared base Codex roster** (`spaceMarines/base.ts`, ~32 units)
+Modelled as a **shared base Codex roster** (`spaceMarines/base.ts`, 68 generic datasheets — the whole MFM list minus the Forge World Thunderhawk)
 reused by each Chapter, which is its own `Faction` entry under Imperium:
 - **Base (no Chapter):** `space-marines`, value boxes = Getting Started with Space
   Marines (€139: Captain, Librarian, 5 Intercessors, 5 Vanguard, Land Speeder) and
@@ -115,8 +115,16 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
   DA mounted, SW mounted/melee).
 
 **SM TODOs:**
-- **Points:** captured mostly the MFM "1st–2nd" tier; the escalating 3rd+ cost is
-  approximated (+10, +15 vehicles). Capture exact 3rd+ values from the MFM.
+- **Points:** the whole generic roster + Ultramarines re-read from the MFM
+  2026-10-03 (exact 3rd+ / 2nd+ tiers, leader lists). Units use the default size;
+  a few carry an optional costed upgrade in the MFM (Desolation Vengor launcher,
+  Invader multi-melta…) not modelled as wargear.
+- **Combo / box-only kits:** Heroes of the Chapter (€93, online only: Lieutenant
+  w/ Combi-weapon, Apothecary Biologis, 5 Sternguard), Honoured of the Chapter (€139:
+  Chaplain, Judiciar, Bladeguard Ancient, 3 Bladeguard, 3 Eradicators) — both value
+  boxes for every Chapter; their box-only units use the box as their kit. Captain
+  Titus + 6 Wardens of Ultramar share one €77 box. Infiltrator (10, either squad),
+  Reiver (10) and Drop Pod (2) boxes build more than one unit — spares get fielded.
 - **Prices:** ALL SM kits (base + every Chapter) re-verified on en-EU 2026-10-03,
   checked by hand (GW's grid is unreliable to scrape — hand the user a checklist
   CSV instead). Big drift fixed (characters €27→€34–38.50, squads →€51–53, Lion

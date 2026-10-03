@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 // Codex-compliant: the full base roster + White Scars characters.
 // Points from the MFM (Space Marines page, White Scars section) 2026-10-03.
@@ -14,7 +14,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
-    leads: ['assault-intercessors', 'bladeguard', 'intercessors', 'sternguard', 'vanguard-veterans'],
+    leads: ['assault-intercessors', 'bladeguard', 'company-heroes', 'intercessors', 'sternguard', 'vanguard-veterans'],
     kit: { name: "Kor'sarro Khan", priceEUR: 38.5, models: 1, verified: true },
   },
   {
@@ -44,6 +44,6 @@ export const whiteScars: Faction = {
   blurb:
     'Masters of lightning warfare. White Scars strike hard and fast from the saddle — bike squadrons, speeders and swift assault infantry.',
   units: [...baseUnits, ...unique],
-  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter],
+  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }

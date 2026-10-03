@@ -41,8 +41,9 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 value boxes, composition profiles). Space Marines added with a Chapter system (own
 dropdown group): base + 6 Codex-compliant (UM, IF, Sal, IH, WS, RG) + 4
 non-compliant (DA, BT, SW, BA) Chapters, with own CPs for DA/BT/SW/BA (the
-generic-units DA CP + Heroes of the Chapter are offered to every Chapter). All SM
-prices hand-verified 2026-10-03; SM base points still approximate some 3rd+ escalation. Combo boxes are valued
+generic-units DA CP + Heroes of the Chapter are offered to every Chapter). The SM
+base roster is the full generic MFM list (68 datasheets, exact tiers); every kit
+price is hand-verified (2026-10-03). Combo boxes are valued
 whole and everything bought is fielded when possible. Users can tune composition
 via the Advanced settings sliders. Chapters are picked in a
 Chapter sub-selector shown when Space Marines is chosen. Main backlog: competitive

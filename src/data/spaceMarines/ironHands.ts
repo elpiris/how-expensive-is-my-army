@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 // Codex-compliant: the full base roster + Iron Hands characters.
 // Points from the MFM (Space Marines page, Iron Hands section) 2026-10-03.
@@ -26,7 +26,7 @@ const unique: Unit[] = [
     models: 1,
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
-    leads: ['aggressors', 'eradicators'],
+    leads: ['aggressors', 'eradicators', 'eradicators-hb', 'heavy-intercessors'],
     kit: { name: 'Iron Father Feirros', priceEUR: 38.5, models: 1, verified: true },
   },
 ]
@@ -44,6 +44,6 @@ export const ironHands: Faction = {
   blurb:
     'The flesh is weak. Iron Hands replace it with bionics and fight from behind walls of armour — Dreadnoughts, tanks and implacable gunlines.',
   units: [...baseUnits, ...unique],
-  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter],
+  valueBoxes: [gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }

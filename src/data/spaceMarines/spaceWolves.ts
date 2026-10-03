@@ -1,5 +1,5 @@
 import type { Faction, Unit, ValueBox } from '../../types'
-import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox, heroesOfTheChapter, honouredOfTheChapter } from './base'
 
 // Non-codex: the base roster + Space Wolves' pack infantry, cavalry and heroes.
 // Unique-unit points from the MFM and prices from warhammer.com en-EU, both
@@ -172,6 +172,6 @@ export const spaceWolves: Faction = {
     'The wild sons of Fenris. Space Wolves hit like an avalanche — pack infantry, Wulfen and thunderwolf cavalry led by legendary heroes.',
   units: [...baseUnits, ...unique],
   // Own CP first (seeds the list), then the generic SM boxes.
-  valueBoxes: [spaceWolvesCP, gettingStartedBox, darkAngelsCP, heroesOfTheChapter],
+  valueBoxes: [spaceWolvesCP, gettingStartedBox, darkAngelsCP, heroesOfTheChapter, honouredOfTheChapter],
   competitiveLists: {},
 }
