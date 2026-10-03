@@ -258,6 +258,18 @@ table.data tfoot td {
 .group-row td.num {
   color: var(--muted);
 }
+/* Attached units: a leader row + the unit it leads, read as one block. */
+.data tr.pair-lead td {
+  border-bottom: none;
+  padding-bottom: 2px;
+}
+.data tr.pair-led td {
+  padding-top: 2px;
+}
+.led-mark {
+  color: var(--accent);
+  margin: 0 6px 0 4px;
+}
 
 .box-name {
   display: flex;

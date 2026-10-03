@@ -37,6 +37,7 @@ src/
   lib/
     value.ts          # points / points-per-euro / category helpers (pure)
     generateList.ts   # list generation (Quick + Escalation)
+    attachments.ts    # leader ↔ unit matching (generator leaderOK + "Attached units" view)
     costList.ts       # box optimisation, discounts, escalation purchase deltas
   App.tsx             # all UI (single file: controls, ListPanel, ShopPanel, views)
   styles.css
@@ -189,7 +190,8 @@ with "No specific …" first and the sub-factions alphabetical (`subfactionsOf`)
 `lastSub` remembers the last pick per base. A new sub-faction just needs `parent` set.
 The app opens on `factions[0]` (Adeptus Custodes).
 `ListPanel` renders per-copy rows (points via `copyPoints`, wargear tag `.wg`,
-escalation surcharge tag `.esc`), grouped Characters / Battleline / Other.
+escalation surcharge tag `.esc`), grouped Attached units (each leader + the unit it
+leads, via `attachLeaders`; priciest leaders pick first) / Characters / Battleline / Other.
 `ShopPanel` renders the buy list with per-line discounts (online-only struck/exempt).
 `SummaryBar` (top) shows pay / RRP / cost-per-point. **Advanced settings**
 (collapsed by default) renders `AdvancedSettings`: one slider per `UnitCategory`

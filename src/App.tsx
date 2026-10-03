@@ -2,6 +2,7 @@ import { Fragment, useMemo, useState, type CSSProperties } from 'react'
 import { factions, getFaction } from './data'
 import { generateList, generateEscalation, BRACKETS } from './lib/generateList'
 import { costList, discountedTotal, purchaseDelta, sumLines } from './lib/costList'
+import { attachLeaders, type UnitCopy } from './lib/attachments'
 import {
   copyPoints,
   copySurcharge,
@@ -58,19 +59,26 @@ function lineFactor(line: PurchaseLine, pct: DiscountPercent): number {
   return line.onlineOnly ? 1 : 1 - pct / 100
 }
 
-function groupEntries(entries: ListEntry[]): { label: string; entries: ListEntry[] }[] {
+/**
+ * List sections, as per-copy rows: leaders shown together with the unit they
+ * lead ("Attached units"), then the unattached characters, battleline and the rest.
+ */
+function groupRows(entries: ListEntry[]): { label: string; rows: UnitCopy[][] }[] {
+  const { attached, rest } = attachLeaders(entries)
+  const single = (cs: UnitCopy[]) => cs.map((c) => [c])
   const groups = [
-    { label: 'Characters', entries: entries.filter((e) => isCharacter(e.unit)) },
+    { label: 'Attached units', rows: attached.map((a) => [a.leader, a.unit]) },
+    { label: 'Characters', rows: single(rest.filter((c) => isCharacter(c.unit))) },
     {
       label: 'Battleline',
-      entries: entries.filter((e) => !isCharacter(e.unit) && e.unit.role === 'battleline'),
+      rows: single(rest.filter((c) => !isCharacter(c.unit) && c.unit.role === 'battleline')),
     },
     {
       label: 'Other units',
-      entries: entries.filter((e) => !isCharacter(e.unit) && e.unit.role !== 'battleline'),
+      rows: single(rest.filter((c) => !isCharacter(c.unit) && c.unit.role !== 'battleline')),
     },
   ]
-  return groups.filter((g) => g.entries.length > 0)
+  return groups.filter((g) => g.rows.length > 0)
 }
 
 type Stat = { lbl: string; value: string; big?: boolean; accent?: 'green'; struck?: boolean }
@@ -97,7 +105,7 @@ function SummaryBar({ stats }: { stats: Stat[] }) {
 
 /** The army list panel — one row per unit copy, grouped Characters / Battleline / Other. */
 function ListPanel({ list }: { list: GeneratedList }) {
-  const groups = groupEntries(list.entries)
+  const groups = groupRows(list.entries)
   return (
     <section className="panel">
       <div className="panel-head">
@@ -119,35 +127,43 @@ function ListPanel({ list }: { list: GeneratedList }) {
           </thead>
           <tbody>
             {groups.map((g) => {
-              const sub = g.entries.reduce((s, e) => s + entryPoints(e.unit, e.count), 0)
+              const sub = g.rows.flat().reduce((s, c) => s + copyPoints(c.unit, c.copy), 0)
               return (
                 <Fragment key={g.label}>
                   <tr className="group-row">
                     <td colSpan={2}>{g.label}</td>
                     <td className="num">{sub} pts</td>
                   </tr>
-                  {g.entries.flatMap((e) =>
-                    Array.from({ length: e.count }, (_, i) => (
-                      <tr key={`${e.unit.id}-${i}`}>
+                  {g.rows.flatMap((row) =>
+                    row.map(({ unit, copy }, j) => (
+                      <tr
+                        key={`${unit.id}-${copy}`}
+                        className={row.length > 1 ? (j === 0 ? 'pair-lead' : 'pair-led') : undefined}
+                      >
                         <td>
-                          {e.unit.epicHero && <span className="tag epic">Epic</span>}
-                          {e.unit.name}
-                          {e.unit.wargear && (
-                            <span className="wg">
-                              + {e.unit.wargear.name} ({e.unit.wargear.points})
+                          {j > 0 && (
+                            <span className="led-mark" title="Led by the character above">
+                              ↳
                             </span>
                           )}
-                          {copySurcharge(e.unit, i + 1) > 0 && (
+                          {unit.epicHero && <span className="tag epic">Epic</span>}
+                          {unit.name}
+                          {unit.wargear && (
+                            <span className="wg">
+                              + {unit.wargear.name} ({unit.wargear.points})
+                            </span>
+                          )}
+                          {copySurcharge(unit, copy) > 0 && (
                             <span
                               className="esc"
                               title="Repeat-unit surcharge — later copies of a datasheet cost more (Munitorum Field Manual escalating cost)"
                             >
-                              + {copySurcharge(e.unit, i + 1)} ({ordinalPlus(escalateAt(e.unit))} unit)
+                              + {copySurcharge(unit, copy)} ({ordinalPlus(escalateAt(unit))} unit)
                             </span>
                           )}
                         </td>
-                        <td className="num">{e.unit.models}</td>
-                        <td className="num">{copyPoints(e.unit, i + 1)}</td>
+                        <td className="num">{unit.models}</td>
+                        <td className="num">{copyPoints(unit, copy)}</td>
                       </tr>
                     )),
                   )}

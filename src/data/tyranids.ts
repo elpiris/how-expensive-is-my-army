@@ -98,7 +98,7 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 4,
       tags: ['melee'],
-      keywords: ['Monster', 'Epic Hero'],
+      keywords: ['Character', 'Monster', 'Epic Hero'],
       leads: ['carnifex'],
       // Same box as Carnifexes: builds 2 Carnifexes, or 1 + Old One Eye (pooled).
       kit: { name: 'Carnifex Brood', priceEUR: 87, models: 2, verified: true, onlineOnly: true },
@@ -145,7 +145,7 @@ export const tyranids: Faction = {
       models: 1,
       flavor: 4,
       tags: ['synapse', 'psyker'],
-      keywords: ['Character', 'Monster', 'Synapse'],
+      keywords: ['Monster', 'Psyker', 'Synapse'],
       kit: { name: 'Maleceptor', priceEUR: 74, models: 1, verified: true },
     },
     {

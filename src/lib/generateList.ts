@@ -1,4 +1,5 @@
 import type { Faction, GeneratedList, ListEntry, PointsBracket, Unit } from '../types'
+import { copiesOf, isLeader, matchLeaders } from './attachments'
 import { costList } from './costList'
 import {
   copyPoints,
@@ -210,26 +211,12 @@ function augmentList(
   // grow the maximum leader↔unit matching, i.e. some unit it can lead is still
   // free once every leader already in the list has one (one leader per unit).
   const leaderOK = (u: Unit): boolean => {
-    if (!isCharacter(u) || !u.leads?.length) return true
-    const copies = (es: ListEntry[]) => es.flatMap((e) => Array<Unit>(e.count).fill(e.unit))
-    const leaders = copies(entries.filter((e) => isCharacter(e.unit) && e.unit.leads?.length))
-    const guards = copies(entries.filter((e) => !isCharacter(e.unit)))
-    const maxMatching = (ls: Unit[]) => {
-      const owner: number[] = guards.map(() => -1)
-      const tryLeader = (li: number, seen: boolean[]): boolean => {
-        for (let g = 0; g < guards.length; g++) {
-          if (seen[g] || !ls[li].leads!.includes(guards[g].id)) continue
-          seen[g] = true
-          if (owner[g] < 0 || tryLeader(owner[g], seen)) {
-            owner[g] = li
-            return true
-          }
-        }
-        return false
-      }
-      return ls.reduce((n, _, li) => n + (tryLeader(li, guards.map(() => false)) ? 1 : 0), 0)
-    }
-    return maxMatching([...leaders, u]) > maxMatching(leaders)
+    if (!isLeader(u)) return true
+    const all = copiesOf(entries)
+    const leaders = all.filter((c) => isLeader(c.unit)).map((c) => c.unit)
+    const guards = all.filter((c) => !isCharacter(c.unit)).map((c) => c.unit)
+    const matched = (ls: Unit[]) => matchLeaders(ls, guards).filter((g) => g >= 0).length
+    return matched([...leaders, u]) > matched(leaders)
   }
 
   // Diminishing returns on HQ-sized characters (see header).
