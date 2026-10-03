@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, gettingStartedBox } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox } from './base'
 
 // Codex-compliant: the full base roster + Ultramarines-only characters/units.
 const unique: Unit[] = [
@@ -64,6 +64,6 @@ export const ultramarines: Faction = {
   blurb:
     'The exemplary Chapter of the Codex Astartes. Disciplined, balanced combined-arms warfare under Guilliman and Calgar.',
   units: [...baseUnits, ...unique],
-  valueBoxes: [gettingStartedBox],
+  valueBoxes: [gettingStartedBox, darkAngelsCP],
   competitiveLists: {},
 }

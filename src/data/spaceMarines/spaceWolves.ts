@@ -1,7 +1,9 @@
-import type { Faction, Unit } from '../../types'
-import { baseUnits, gettingStartedBox } from './base'
+import type { Faction, Unit, ValueBox } from '../../types'
+import { baseUnits, darkAngelsCP, gettingStartedBox } from './base'
 
 // Non-codex: the base roster + Space Wolves' pack infantry, cavalry and heroes.
+// Unique-unit points from the MFM and prices from warhammer.com en-EU, both
+// re-verified 2026-10-03 (with the Space Wolves Combat Patrol's contents).
 const unique: Unit[] = [
   {
     id: 'logan-grimnar',
@@ -12,8 +14,8 @@ const unique: Unit[] = [
     models: 1,
     flavor: 5,
     keywords: ['Character', 'Infantry', 'Terminator', 'Epic Hero', 'Leader'],
-    leads: ['terminators', 'assault-terminators'],
-    kit: { name: 'Logan Grimnar', priceEUR: 40, models: 1 },
+    leads: ['terminators', 'assault-terminators', 'wolf-guard-terminators'],
+    kit: { name: 'Logan Grimnar', priceEUR: 60, models: 1, verified: true },
   },
   {
     id: 'arjac',
@@ -24,8 +26,8 @@ const unique: Unit[] = [
     models: 1,
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Terminator', 'Epic Hero', 'Leader'],
-    leads: ['terminators', 'assault-terminators'],
-    kit: { name: 'Arjac Rockfist', priceEUR: 27, models: 1 },
+    leads: ['terminators', 'assault-terminators', 'wolf-guard-terminators'],
+    kit: { name: 'Arjac Rockfist', priceEUR: 38.5, models: 1, verified: true },
   },
   {
     id: 'ragnar',
@@ -37,7 +39,7 @@ const unique: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
     leads: ['blood-claws', 'assault-intercessors'],
-    kit: { name: 'Ragnar Blackmane', priceEUR: 27, models: 1 },
+    kit: { name: 'Ragnar Blackmane', priceEUR: 38.5, models: 1, verified: true },
   },
   {
     id: 'njal',
@@ -49,7 +51,7 @@ const unique: Unit[] = [
     flavor: 4,
     keywords: ['Character', 'Infantry', 'Psyker', 'Epic Hero', 'Leader'],
     leads: ['grey-hunters', 'intercessors'],
-    kit: { name: 'Njal Stormcaller', priceEUR: 27, models: 1 },
+    kit: { name: 'Njal Stormcaller', priceEUR: 38.5, models: 1, verified: true },
   },
   {
     id: 'ulrik',
@@ -61,7 +63,18 @@ const unique: Unit[] = [
     flavor: 3,
     keywords: ['Character', 'Infantry', 'Epic Hero', 'Leader'],
     leads: ['assault-intercessors', 'blood-claws'],
-    kit: { name: 'Ulrik the Slayer', priceEUR: 27, models: 1 },
+    kit: { name: 'Ulrik the Slayer', priceEUR: 34, models: 1, verified: true },
+  },
+  {
+    id: 'wolf-guard-battle-leader',
+    name: 'Wolf Guard Battle Leader',
+    role: 'character',
+    points: 80,
+    models: 1,
+    flavor: 4,
+    keywords: ['Character', 'Infantry', 'Leader'],
+    leads: ['intercessors', 'assault-intercessors', 'bladeguard', 'blood-claws', 'grey-hunters'],
+    kit: { name: 'Wolf Guard Battle Leader', priceEUR: 36, models: 1, verified: true },
   },
   {
     id: 'grey-hunters',
@@ -71,7 +84,7 @@ const unique: Unit[] = [
     models: 10,
     flavor: 4,
     keywords: ['Battleline', 'Infantry'],
-    kit: { name: 'Grey Hunters', priceEUR: 50, models: 10 },
+    kit: { name: 'Grey Hunters', priceEUR: 53, models: 10, verified: true },
   },
   {
     id: 'blood-claws',
@@ -81,42 +94,69 @@ const unique: Unit[] = [
     models: 10,
     flavor: 3,
     keywords: ['Battleline', 'Infantry'],
-    kit: { name: 'Blood Claws', priceEUR: 37.5, models: 10 },
+    kit: { name: 'Blood Claws', priceEUR: 53, models: 10, verified: true },
   },
   {
     id: 'wulfen',
     name: 'Wulfen',
     role: 'infantry',
     points: 90,
-    pointsEscalated: 100,
+    pointsEscalated: 105,
     models: 5,
     flavor: 4,
     keywords: ['Infantry'],
-    kit: { name: 'Wulfen', priceEUR: 55, models: 5 },
+    kit: { name: 'Wulfen', priceEUR: 53, models: 5, verified: true },
+  },
+  {
+    id: 'wolf-guard-terminators',
+    name: 'Wolf Guard Terminators',
+    role: 'infantry',
+    points: 180,
+    pointsEscalated: 220,
+    models: 5,
+    flavor: 5,
+    keywords: ['Infantry', 'Terminator'],
+    kit: { name: 'Wolf Guard Terminators', priceEUR: 56.5, models: 5, verified: true },
   },
   {
     id: 'thunderwolf-cavalry',
     name: 'Thunderwolf Cavalry',
     role: 'mounted',
     points: 115,
-    pointsEscalated: 130,
+    pointsEscalated: 145,
     models: 3,
     flavor: 4,
     keywords: ['Mounted'],
-    kit: { name: 'Thunderwolf Cavalry', priceEUR: 60, models: 3 },
+    kit: { name: 'Thunderwolf Cavalry', priceEUR: 53, models: 3, verified: true },
   },
   {
     id: 'fenrisian-wolves',
     name: 'Fenrisian Wolves',
     role: 'mounted',
     points: 45,
-    pointsEscalated: 55,
+    pointsEscalated: 50,
     models: 5,
     flavor: 2,
     keywords: ['Beast'],
-    kit: { name: 'Fenrisian Wolves', priceEUR: 30, models: 5 },
+    kit: { name: 'Fenrisian Wolves', priceEUR: 36, models: 5, verified: true },
   },
 ]
+
+// Combat Patrol: Space Wolves (Askar's Wolfpack) — 21 models, contents confirmed
+// on the product page 2026-10-03.
+const spaceWolvesCP: ValueBox = {
+  id: 'cp-space-wolves',
+  name: 'Combat Patrol: Space Wolves',
+  priceEUR: 139,
+  verified: true,
+  url: 'https://www.warhammer.com/en-EU/shop/combat-patrol-space-wolves-2025',
+  builds: [
+    { unitId: 'wolf-guard-battle-leader', models: 1 },
+    { unitId: 'wolf-guard-terminators', models: 5 },
+    { unitId: 'wulfen', models: 5 },
+    { unitId: 'blood-claws', models: 10 },
+  ],
+}
 
 export const spaceWolves: Faction = {
   id: 'sm-space-wolves',
@@ -130,7 +170,7 @@ export const spaceWolves: Faction = {
   blurb:
     'The wild sons of Fenris. Space Wolves hit like an avalanche — pack infantry, Wulfen and thunderwolf cavalry led by legendary heroes.',
   units: [...baseUnits, ...unique],
-  // Space Wolves can field the generic starter; a dedicated SW Combat Patrol is a TODO.
-  valueBoxes: [gettingStartedBox],
+  // Own CP first (seeds the list), then the generic SM boxes.
+  valueBoxes: [spaceWolvesCP, gettingStartedBox, darkAngelsCP],
   competitiveLists: {},
 }

@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, darkAngelsCP } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox } from './base'
 
 // Non-codex: the base roster + the Deathwing (Terminators) and Ravenwing
 // (bikes) specialist formations and Dark Angels characters.
@@ -131,6 +131,6 @@ export const darkAngels: Faction = {
   blurb:
     'The secretive First Legion. Dark Angels blend elite Deathwing Terminators and swift Ravenwing bikers with the Unforgiven’s stoic marines.',
   units: [...baseUnits, ...unique],
-  valueBoxes: [darkAngelsCP],
+  valueBoxes: [darkAngelsCP, gettingStartedBox],
   competitiveLists: {},
 }

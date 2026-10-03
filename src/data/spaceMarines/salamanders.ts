@@ -1,5 +1,5 @@
 import type { Faction, Unit } from '../../types'
-import { baseUnits, gettingStartedBox } from './base'
+import { baseUnits, darkAngelsCP, gettingStartedBox } from './base'
 
 const unique: Unit[] = [
   {
@@ -40,6 +40,6 @@ export const salamanders: Faction = {
   blurb:
     'Master artisans of Nocturne. Salamanders favour flame weapons, thunder hammers and resilient, close-ranged infantry.',
   units: [...baseUnits, ...unique],
-  valueBoxes: [gettingStartedBox],
+  valueBoxes: [gettingStartedBox, darkAngelsCP],
   competitiveLists: {},
 }

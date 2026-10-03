@@ -87,15 +87,22 @@ CAPTCHAs; space out crawling.
 ## Space Marines + Chapters (2026-10-03)
 Modelled as a **shared base Codex roster** (`spaceMarines/base.ts`, ~32 units)
 reused by each Chapter, which is its own `Faction` entry under Imperium:
-- **Base (no Chapter):** `space-marines`, value box = Getting Started with Space
-  Marines (€139: Captain, Librarian, 5 Intercessors, 5 Vanguard, Land Speeder).
+- **Base (no Chapter):** `space-marines`, value boxes = Getting Started with Space
+  Marines (€139: Captain, Librarian, 5 Intercessors, 5 Vanguard, Land Speeder) and
+  the **Dark Angels Combat Patrol**, which holds only generic units (Gravis Captain,
+  3 Bladeguard, 5 Hellblasters, 10 Intercessors) and so is offered to EVERY Chapter.
 - **Codex-compliant (base + unique characters):** Ultramarines (Guilliman, Calgar,
   Tigurius, Victrix Guard), Imperial Fists (Lysander, Tor Garadon), Salamanders
-  (Vulkan He'stan, Adrax Agatone) — all use the generic value box.
-- **Non-compliant:** Dark Angels (+Deathwing/Ravenwing, Lion; value box = the
-  generic-units Dark Angels Combat Patrol), Black Templars (base MINUS Psykers/
-  Librarians, +Crusaders/Sword Brethren/Emperor's Champion; own CP), Space Wolves
-  (+Grey Hunters/Blood Claws/Wulfen/Thunderwolves; generic value box for now).
+  (Vulkan He'stan, Adrax Agatone) — all use the two generic value boxes.
+- **Non-compliant:** Dark Angels (+Deathwing/Ravenwing, Lion; DA CP first),
+  Black Templars (base MINUS Psykers/Librarians, +Crusaders/Sword Brethren/Emperor's
+  Champion; own CP + DA CP, no Getting Started — it has a Librarian), Space Wolves
+  (+Grey Hunters/Blood Claws/Wulfen/Thunderwolves/Wolf Guard; own CP + both generic).
+- **2026-10-03:** BT + SW Combat Patrols confirmed on product pages (BT: Emperor's
+  Champion, 3 Bladeguard, 5 Sword Brethren, 10 Crusaders; SW: Wolf Guard Battle
+  Leader, 5 Wolf Guard Terminators, 5 Wulfen, 10 Blood Claws). All BT/SW-unique kit
+  prices re-verified on en-EU (big drift: characters €27→€34–38.50, squads →€53),
+  SW points incl. 3rd+ tiers from the MFM.
 - Each Chapter has a style `profile` (IF lean vehicles, Salamanders/BT infantry,
   DA mounted, SW mounted/melee).
 
@@ -103,10 +110,12 @@ reused by each Chapter, which is its own `Faction` entry under Imperium:
 - **Points:** captured mostly the MFM "1st–2nd" tier; the escalating 3rd+ cost is
   approximated (+10, +15 vehicles). Capture exact 3rd+ values from the MFM.
 - **Prices:** base kits mix 2026-09-10 verified values + best-effort (the SM store
-  grid virtualises too hard to re-scrape). Confirm per-kit prices on product pages.
+  grid virtualises too hard to re-scrape). **Drift confirmed 2026-10-03** — the
+  en-EU BT/SW category grids show generic kits above our "verified" values
+  (Bladeguard €51, Eradicators €51, Gladiator Lancer/Repulsor €80, Techmarine &
+  Ancient €36, Gravis Captain €36, Terminator Assault Squad €56.50). Re-price base.
 - **More Chapters:** Blood Angels (Death Company/Sanguinary Guard), Deathwatch,
   White Scars, Raven Guard, Iron Hands, Grey Knights (own roster), Crimson Fists.
-- Confirm the Black Templars / add a real Space Wolves Combat Patrol's contents.
 - Consider a nicer UI: a Chapter sub-selector instead of many dropdown entries.
 
 ## Model / rules refinements

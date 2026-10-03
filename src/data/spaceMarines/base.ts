@@ -399,8 +399,10 @@ export const gettingStartedBox: ValueBox = {
   ],
 }
 
-// Combat Patrol: Dark Angels — all GENERIC units, so usable by any chapter.
-// Contents confirmed on the product page 2026-10-03.
+// Combat Patrol: Dark Angels — despite the name, all GENERIC units (Captain in
+// Gravis, Bladeguard, Hellblasters, Intercessors), so EVERY Chapter lists it as
+// a value box — Black Templars included (no psykers inside). Contents confirmed
+// on the product page 2026-10-03.
 export const darkAngelsCP: ValueBox = {
   id: 'cp-dark-angels',
   name: 'Combat Patrol: Dark Angels',
