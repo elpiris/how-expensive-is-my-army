@@ -7,14 +7,18 @@ letting you apply a retailer discount.
 
 Built with **Vite + React + TypeScript**.
 
+> **Developing this?** Read [ARCHITECTURE.md](ARCHITECTURE.md) for the data model,
+> generation/costing pipeline and data-sourcing recipe, and [TODO.md](TODO.md) for
+> the per-faction data status and backlog.
+
 ## Features
 
-- **Factions**, grouped by grand alliance in the dropdown:
-  - **Imperium** — Adeptus Custodes, Adepta Sororitas, Adeptus Mechanicus, and
-    **Space Marines** with a Chapter system: a base (Chapter-agnostic) roster plus
-    Codex-compliant Chapters (Ultramarines, Imperial Fists, Salamanders) that share
-    the base roster + their own characters, and non-compliant Chapters (Dark Angels,
-    Black Templars — no psykers, Space Wolves) with their own units. More Chapters
+- **Factions**, grouped in the dropdown:
+  - **Imperium** — Adeptus Custodes, Adepta Sororitas, Adeptus Mechanicus
+  - **Space Marines** (own group) — a **Chapter system**: a base, Chapter-agnostic
+    roster, plus Codex-compliant Chapters that share that base + their own characters
+    (Ultramarines, Imperial Fists, Salamanders) and non-compliant Chapters with their
+    own units (Dark Angels, Black Templars — no psykers, Space Wolves). More Chapters
     are a TODO.
   - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights
   - **Xenos** — Necrons, Tyranids, Aeldari

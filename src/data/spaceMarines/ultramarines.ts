@@ -52,9 +52,9 @@ const unique: Unit[] = [
 
 export const ultramarines: Faction = {
   id: 'sm-ultramarines',
-  name: 'Space Marines — Ultramarines',
+  name: 'Ultramarines',
   system: 'w40k',
-  category: 'imperium',
+  category: 'space-marines',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // The exemplary Codex Chapter — balanced combined arms.

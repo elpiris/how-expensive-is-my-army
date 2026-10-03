@@ -102,9 +102,9 @@ const blackTemplarsCP: ValueBox = {
 
 export const blackTemplars: Faction = {
   id: 'sm-black-templars',
-  name: 'Space Marines — Black Templars',
+  name: 'Black Templars',
   system: 'w40k',
-  category: 'imperium',
+  category: 'space-marines',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Zealous melee crusaders — infantry-heavy, no psykers.

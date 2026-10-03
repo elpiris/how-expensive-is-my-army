@@ -3,19 +3,20 @@
 Running list of outstanding work. Data facts were last checked on the dates noted;
 Warhammer points and prices drift, so treat anything older with suspicion.
 
-Active factions (9): **Imperium** — Adeptus Custodes, Adepta Sororitas,
-Adeptus Mechanicus; **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights;
-**Xenos** — Necrons, Tyranids, Aeldari.
+Active dropdown groups (`Faction.category`): **Imperium** (Custodes, Sororitas,
+Mechanicus), **Space Marines** (7 entries: no-Chapter + Ultramarines, Imperial
+Fists, Salamanders, Dark Angels, Black Templars, Space Wolves), **Chaos** (Death
+Guard, Chaos Space Marines, Chaos Knights), **Xenos** (Necrons, Tyranids, Aeldari).
+New-architecture overview is in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Data verification
 
-**All 9 factions fine-tuned as of 2026-10-02** — full MFM rosters (points +
-escalation + wargear), real en-EU kit prices, real Combat Patrols / value boxes,
-and composition profiles. Remaining data work is just confirming the handful of
-best-effort (`verified:false`) kit prices noted per faction below, on individual
-product pages — mostly Forge World / not-currently-stocked kits that didn't load
-in the (virtualised) store grid. Re-check everything periodically; GW points and
-prices drift.
+**The 9 non-SM factions are fully fine-tuned (2026-10-02)** — full MFM rosters
+(points + escalation + wargear), real en-EU kit prices, real Combat Patrols / value
+boxes, composition profiles. **Space Marines (2026-10-03) are newer** — MFM points
+with 3rd+ escalation approximated, and a mix of verified + best-effort prices (see
+the SM section below). Remaining data work = confirming the best-effort
+(`verified:false`) kit prices on individual product pages. Re-check periodically.
 
 ### Per-faction status
 - **Adeptus Custodes — DONE (2026-10-02).** Full 31-datasheet MFM roster; prices

@@ -112,8 +112,11 @@ export interface CompetitiveEntry {
   count: number
 }
 
-/** Top-level grand-alliance grouping for the faction dropdown. */
-export type FactionCategory = 'imperium' | 'chaos' | 'xenos'
+/**
+ * Top-level grouping for the faction dropdown. Space Marines get their own
+ * group (separate from the rest of the Imperium) because of their Chapters.
+ */
+export type FactionCategory = 'imperium' | 'space-marines' | 'chaos' | 'xenos'
 
 /**
  * Coarse composition bucket a unit falls into, for shaping list generation.

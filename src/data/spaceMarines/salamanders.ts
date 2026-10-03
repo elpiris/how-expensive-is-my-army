@@ -30,9 +30,9 @@ const unique: Unit[] = [
 
 export const salamanders: Faction = {
   id: 'sm-salamanders',
-  name: 'Space Marines — Salamanders',
+  name: 'Salamanders',
   system: 'w40k',
-  category: 'imperium',
+  category: 'space-marines',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Close-ranged flame and melee specialists; infantry-forward.

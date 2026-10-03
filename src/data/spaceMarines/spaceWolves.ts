@@ -120,9 +120,9 @@ const unique: Unit[] = [
 
 export const spaceWolves: Faction = {
   id: 'sm-space-wolves',
-  name: 'Space Marines — Space Wolves',
+  name: 'Space Wolves',
   system: 'w40k',
-  category: 'imperium',
+  category: 'space-marines',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Savage melee packs + thunderwolf cavalry.

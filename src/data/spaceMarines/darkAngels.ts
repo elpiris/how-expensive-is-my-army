@@ -120,9 +120,9 @@ const unique: Unit[] = [
 
 export const darkAngels: Faction = {
   id: 'sm-dark-angels',
-  name: 'Space Marines — Dark Angels',
+  name: 'Dark Angels',
   system: 'w40k',
-  category: 'imperium',
+  category: 'space-marines',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Deathwing elites + Ravenwing speed — more Terminators and bikes than usual.

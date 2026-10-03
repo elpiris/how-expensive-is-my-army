@@ -29,9 +29,9 @@ const unique: Unit[] = [
 
 export const imperialFists: Faction = {
   id: 'sm-imperial-fists',
-  name: 'Space Marines — Imperial Fists',
+  name: 'Imperial Fists',
   system: 'w40k',
-  category: 'imperium',
+  category: 'space-marines',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Siege-masters: disciplined firepower and armour over mobility.

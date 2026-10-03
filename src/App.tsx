@@ -18,9 +18,10 @@ import type {
   PurchaseLine,
 } from './types'
 
-const CATEGORY_ORDER: FactionCategory[] = ['imperium', 'chaos', 'xenos']
+const CATEGORY_ORDER: FactionCategory[] = ['imperium', 'space-marines', 'chaos', 'xenos']
 const CATEGORY_LABELS: Record<FactionCategory, string> = {
   imperium: 'Imperium',
+  'space-marines': 'Space Marines',
   chaos: 'Chaos',
   xenos: 'Xenos',
 }

@@ -6,7 +6,7 @@ export const spaceMarines: Faction = {
   id: 'space-marines',
   name: 'Space Marines',
   system: 'w40k',
-  category: 'imperium',
+  category: 'space-marines',
   lastVerified: '2026-10-03',
   pointsVerified: true,
   profile: { character: 2, infantry: 4, mounted: 1, vehicle: 3 },
