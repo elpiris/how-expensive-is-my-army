@@ -12,20 +12,21 @@ Active dropdown groups (`Faction.category`):
 - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights, Emperor's Children,
   World Eaters, Thousand Sons, Chaos Daemons.
 - **Xenos** — Necrons, Tyranids, Aeldari (+ a **Craftworld** sub-selector: Biel-Tan,
-  Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire, Leagues of Votann.
+  Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire, Leagues of Votann, Genestealer
+  Cults.
 
 Architecture overview: [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Data verification
 
-**18 non-SM factions + Space Marines (10 Chapters) are fully fine-tuned** — MFM
+**19 non-SM factions + Space Marines (10 Chapters) are fully fine-tuned** — MFM
 rosters (points + escalation + leader lists), en-EU kit prices, real Combat Patrols /
 value boxes, composition profiles. Prices for everything added on 2026-10-03 were
 confirmed with the user one kit at a time. Remaining data work: the few best-effort
 (`verified:false` → "≈") kits noted below, and periodic re-checks (points/prices drift).
 
 ### Still missing factions (MFM)
-- **Xenos:** Orks, Drukhari, Genestealer Cults.
+- **Xenos:** Orks, Drukhari.
 - **Low priority (skipped 2026-10-03 as marginal armies):** Imperial Agents, and
   Deathwatch (as an SM Chapter). Add later the same way.
 - Out of scope: Titan Legions / Chaos Titan Legions (Forge World).
@@ -121,6 +122,12 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   either loadout, Kapricus Defender / Carrier €52, Grimnyr box = 3 models, Iron-master
   box = 5, Yaegirs in a Kill Team box). Combat Patrol (€139: Einhyr Champion,
   3 Thunderkyn, 5 Hearthguard, 10 Hearthkyn).
+- **Genestealer Cults — DONE (2026-10-03).** All 24 MFM datasheets (Brood Brother
+  AM allies not modelled); every price verified (grid + user). Shared kits: Acolyte
+  Hybrids (both loadouts) / Metamorphs €38.50/5, Goliath Truck / Rockgrinder €56.50;
+  the Broodcoven (€60: Patriarch + Magus + Primus) is the only source of the
+  Patriarch and Primus. Combat Patrol (€139: Jackal Alphus, Ridgerunner, 5 Jackals,
+  10 Metamorphs). Genestealers €47.50 (Tyranid kit price updated too).
 - **TODO — Exodites:** Clanblade (70 pts, leads Dragon Knights), Stonesinger (55,
   supports Dragon Knights), Leystalker (75), Dragon Knights (3 models 85 / 3rd+ 95)
   are in the MFM but only sold in a Kill Team box for now. Add them (tag `exodite`)

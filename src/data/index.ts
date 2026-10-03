@@ -28,6 +28,7 @@ import { tyranids } from './tyranids'
 import { aeldari } from './aeldari'
 import { tauEmpire } from './tauEmpire'
 import { leaguesOfVotann } from './leaguesOfVotann'
+import { genestealerCults } from './genestealerCults'
 import { craftworlds } from './craftworlds'
 
 // Active factions, ordered by grand alliance (the dropdown groups them by
@@ -69,6 +70,7 @@ export const factions: Faction[] = [
   ...craftworlds,
   tauEmpire,
   leaguesOfVotann,
+  genestealerCults,
 ]
 
 export function getFaction(id: string): Faction | undefined {

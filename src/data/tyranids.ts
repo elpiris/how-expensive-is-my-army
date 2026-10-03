@@ -218,7 +218,7 @@ export const tyranids: Faction = {
       models: 10,
       flavor: 4,
       keywords: ['Infantry'],
-      kit: { name: 'Genestealers', priceEUR: 45, models: 10, verified: true },
+      kit: { name: 'Genestealers', priceEUR: 47.5, models: 10, verified: true },
     },
     {
       id: 'zoanthropes',

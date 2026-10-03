@@ -42,12 +42,12 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
   `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
 
 ## Current state (2026-10-03, night)
-- **Factions:** 18 non-SM factions + Space Marines, all with full MFM rosters (FW /
+- **Factions:** 19 non-SM factions + Space Marines, all with full MFM rosters (FW /
   terrain / discontinued kits left out), verified en-EU prices, real value boxes and
   composition profiles. Imperium: Custodes, Sororitas, Mechanicus, Astra Militarum,
   Imperial Knights, Grey Knights. Chaos: Death Guard, CSM, Chaos Knights, Emperor's
   Children, World Eaters, Thousand Sons, Chaos Daemons. Xenos: Necrons, Tyranids,
-  Aeldari, T'au, Votann. **Missing:** Orks, Drukhari, GSC;
+  Aeldari, T'au, Votann, GSC. **Missing:** Orks, Drukhari;
   Imperial Agents + Deathwatch are low priority.
 - **Sub-factions** (`parent` + a second dropdown): 10 SM Chapters (6 Codex + DA, BT,
   SW, BA; generic SM boxes incl. DA CP, Heroes / Honoured of the Chapter) and 5
