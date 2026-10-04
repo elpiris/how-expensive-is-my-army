@@ -1,18 +1,21 @@
 import type { Faction } from '../types'
 
 // ---------------------------------------------------------------------------
-// CHAOS SPACE MARINES (Chaos)  — fine-tuned 2026-10-02
-// Points: from the Munitorum Field Manual (11th ed) 2026-10-02 (escalation +
-//   highest-cost wargear). The MFM lists 54 datasheets; this is a comprehensive
-//   roster of the core + iconic units, omitting terrain (Noctilith Crown),
-//   cross-faction kits (Khorne Berzerkers, Rubric Marines) and the newest niche
-//   sub-faction entries (Red Corsairs, Traitor Guard, Fellgor, etc.).
-// Prices: warhammer.com en-EU (2026-10-02). The shared Chaos vehicle kits share
-//   their price with Death Guard's (Predator €64, Land Raider €80, Defiler €120,
-//   Rhino €50, Helbrute €53, Spawn €47.50). A few not surfaced in the store grid
-//   this pass are best-effort (Legionaries, the foot/jump Chaos Lords, Vindicator).
+// CHAOS SPACE MARINES (Chaos)  — fine-tuned 2026-10-02, completed 2026-10-03
+// Points: from the Munitorum Field Manual (11th ed) 2026-10-03 (escalation +
+//   highest-cost wargear). The whole MFM list except terrain (Noctilith Crown)
+//   and Forge World (Khorne Lord of Skulls). 2026-10-03 added Nemesis Claw,
+//   Huron Blackheart + Masters of the Maelstrom, Red Corsairs Raiders and
+//   Reave-Captain, Kravek Morne, Mutilators, Traitor Guardsmen + Enforcer,
+//   Cultist Firebrand and Fellgor Beastmen; Predator Destructor 130 → 145.
+// Prices: warhammer.com en-EU, every kit confirmed with the user 2026-10-03
+//   (Legionaries €56.50, Chaos Lord / Jump Pack Lord €36, Master of Possession
+//   €34, Vindicator €64). Combo boxes: Venomcrawler and Obliterators €66 (both),
+//   Huron Blackheart + 5 Masters of the Maelstrom €77. Nemesis Claw is a Kill
+//   Team box (€64, 10 models).
 // Combat Patrol: Chaos Space Marines (€139) — contents confirmed on the product
 //   page: 1 Master of Possession, 5 Possessed, 10 Legionaries, 10 Cultists.
+// Battleforce: Chaos Space Marines Warband (€212) — product page 2026-10-03.
 // ---------------------------------------------------------------------------
 
 export const chaosSpaceMarines: Faction = {
@@ -20,8 +23,9 @@ export const chaosSpaceMarines: Faction = {
   name: 'Chaos Space Marines',
   system: 'w40k',
   category: 'chaos',
-  lastVerified: '2026-10-02',
+  lastVerified: '2026-10-03',
   pointsVerified: true,
+  subfactionLabel: 'Legion',
   // Traitor legionaries + cultist hordes, many dark champions, roaring daemon engines.
   profile: { character: 2, infantry: 4, mounted: 0.5, vehicle: 3, monster: 1 },
   blurb:
@@ -36,6 +40,7 @@ export const chaosSpaceMarines: Faction = {
       points: 300,
       models: 1,
       flavor: 5,
+      tags: ['veteran', 'terminator'],
       keywords: ['Character', 'Infantry', 'Terminator', 'Epic Hero'],
       leads: ['chaos-terminators', 'chosen'],
       kit: { name: 'Abaddon the Despoiler', priceEUR: 60, models: 1, verified: true },
@@ -49,7 +54,7 @@ export const chaosSpaceMarines: Faction = {
       models: 2,
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Epic Hero'],
-      leads: ['chosen', 'legionaries'],
+      leads: ['accursed-cultists', 'chosen', 'cultist-mob', 'legionaries', 'red-corsairs-raiders'],
       kit: { name: 'Fabius Bile', priceEUR: 38.5, models: 2, verified: true },
     },
     {
@@ -60,6 +65,7 @@ export const chaosSpaceMarines: Faction = {
       points: 95,
       models: 1,
       flavor: 4,
+      tags: ['jump'],
       keywords: ['Character', 'Infantry', 'Fly', 'Epic Hero'],
       leads: ['raptors'],
       kit: { name: 'Haarken Worldclaimer', priceEUR: 36, models: 1, verified: true },
@@ -94,10 +100,10 @@ export const chaosSpaceMarines: Faction = {
       points: 95,
       models: 1,
       flavor: 4,
+      tags: ['veteran'],
       keywords: ['Character', 'Infantry', 'Leader'],
-      leads: ['chosen', 'legionaries'],
-      // Not surfaced in the store grid this pass — price best-effort.
-      kit: { name: 'Chaos Lord', priceEUR: 27, models: 1 },
+      leads: ['chosen', 'legionaries', 'nemesis-claw', 'red-corsairs-raiders'],
+      kit: { name: 'Chaos Lord', priceEUR: 36, models: 1, verified: true },
     },
     {
       id: 'chaos-lord-terminator',
@@ -106,6 +112,7 @@ export const chaosSpaceMarines: Faction = {
       points: 90,
       models: 1,
       flavor: 4,
+      tags: ['terminator', 'veteran'],
       keywords: ['Character', 'Infantry', 'Terminator', 'Leader'],
       leads: ['chaos-terminators'],
       kit: { name: 'Chaos Lord in Terminator Armour', priceEUR: 27, models: 1, verified: true },
@@ -117,10 +124,10 @@ export const chaosSpaceMarines: Faction = {
       points: 85,
       models: 1,
       flavor: 3,
+      tags: ['jump'],
       keywords: ['Character', 'Infantry', 'Fly', 'Leader'],
       leads: ['raptors'],
-      // Not surfaced in the store grid this pass — price best-effort.
-      kit: { name: 'Chaos Lord with Jump Pack', priceEUR: 27, models: 1 },
+      kit: { name: 'Chaos Lord with Jump Pack', priceEUR: 36, models: 1, verified: true },
     },
     {
       id: 'sorcerer',
@@ -129,8 +136,9 @@ export const chaosSpaceMarines: Faction = {
       points: 65,
       models: 1,
       flavor: 3,
+      tags: ['psyker'],
       keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
-      leads: ['chosen', 'legionaries'],
+      leads: ['chosen', 'legionaries', 'nemesis-claw', 'red-corsairs-raiders'],
       kit: { name: 'Chaos Space Marines Sorcerer', priceEUR: 27, models: 1, verified: true },
     },
     {
@@ -140,6 +148,7 @@ export const chaosSpaceMarines: Faction = {
       points: 85,
       models: 1,
       flavor: 3,
+      tags: ['psyker', 'terminator'],
       keywords: ['Character', 'Infantry', 'Terminator', 'Psyker', 'Leader'],
       leads: ['chaos-terminators'],
       kit: { name: 'Sorcerer Lord in Terminator Armour', priceEUR: 27, models: 1, verified: true },
@@ -152,7 +161,7 @@ export const chaosSpaceMarines: Faction = {
       models: 3,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Leader'],
-      leads: ['legionaries', 'chosen', 'cultist-mob'],
+      leads: ['accursed-cultists', 'chosen', 'cultist-mob', 'legionaries', 'nemesis-claw', 'red-corsairs-raiders'],
       kit: { name: 'Dark Apostle', priceEUR: 36, models: 3, verified: true },
     },
     {
@@ -162,10 +171,10 @@ export const chaosSpaceMarines: Faction = {
       points: 65,
       models: 1,
       flavor: 3,
+      tags: ['daemon', 'psyker'],
       keywords: ['Character', 'Infantry', 'Psyker', 'Leader'],
-      leads: ['chosen', 'legionaries', 'possessed'],
-      // Sold within the Combat Patrol; standalone price best-effort.
-      kit: { name: 'Master of Possession', priceEUR: 27, models: 1 },
+      leads: ['chosen', 'legionaries', 'nemesis-claw', 'possessed', 'red-corsairs-raiders'],
+      kit: { name: 'Master of Possession', priceEUR: 34, models: 1, verified: true },
     },
     {
       id: 'warpsmith',
@@ -175,7 +184,7 @@ export const chaosSpaceMarines: Faction = {
       models: 1,
       flavor: 3,
       keywords: ['Character', 'Infantry', 'Leader'],
-      leads: ['chosen', 'havocs', 'legionaries'],
+      leads: ['chosen', 'havocs', 'legionaries', 'nemesis-claw', 'red-corsairs-raiders'],
       kit: { name: 'Warpsmith', priceEUR: 36, models: 1, verified: true },
     },
     {
@@ -185,8 +194,10 @@ export const chaosSpaceMarines: Faction = {
       points: 75,
       models: 1,
       flavor: 3,
+      tags: ['veteran'],
       keywords: ['Character', 'Infantry', 'Leader'],
-      leads: ['chosen', 'legionaries'],
+      // MFM lists it as SUPPORT for these units (modelled like a Leader).
+      leads: ['chosen', 'legionaries', 'nemesis-claw', 'red-corsairs-raiders'],
       kit: { name: 'Master of Executions', priceEUR: 27, models: 1, verified: true },
     },
     {
@@ -196,6 +207,7 @@ export const chaosSpaceMarines: Faction = {
       points: 155,
       models: 1,
       flavor: 4,
+      tags: ['daemonengine'],
       keywords: ['Character', 'Mounted', 'Daemon Engine', 'Leader'],
       kit: { name: 'Lord Discordant on Helstalker', priceEUR: 66, models: 1, verified: true },
     },
@@ -207,9 +219,84 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 100,
       models: 5,
       flavor: 2,
+      tags: ['cultist'],
       keywords: ['Character', 'Infantry', 'Leader'],
       leads: ['accursed-cultists', 'cultist-mob'],
       kit: { name: 'Dark Commune', priceEUR: 47.5, models: 5, verified: true },
+    },
+    {
+      id: 'huron-blackheart',
+      name: 'Huron Blackheart',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 135,
+      models: 1,
+      flavor: 5,
+      tags: ['corsair'],
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      // Masters of the Maelstrom first: he always leads his bodyguard when both are
+      // in the list (user, 2026-10-04; `leads` order = pairing preference).
+      leads: ['masters-of-the-maelstrom', 'chaos-terminators', 'chosen', 'legionaries', 'red-corsairs-raiders'],
+      // Sold with 5 Masters of the Maelstrom (€77).
+      kit: {
+        name: 'Huron Blackheart and the Masters of the Maelstrom',
+        priceEUR: 77,
+        models: 1,
+        verified: true,
+        alsoBuilds: [{ unitId: 'masters-of-the-maelstrom', models: 5 }],
+      },
+    },
+    {
+      id: 'kravek-morne',
+      name: 'Kravek Morne',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 130,
+      models: 1,
+      flavor: 5,
+      // Iron Warriors only (via the Legion's signature) — no generic tags.
+      keywords: ['Character', 'Infantry', 'Epic Hero'],
+      leads: ['chaos-terminators', 'mutilators', 'obliterators'],
+      kit: { name: 'Kravek Morne', priceEUR: 38.5, models: 1, verified: true },
+    },
+    {
+      id: 'reave-captain',
+      name: 'Red Corsairs Reave-Captain',
+      role: 'character',
+      points: 65,
+      models: 1,
+      flavor: 4,
+      tags: ['corsair'],
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['chosen', 'legionaries', 'nemesis-claw', 'red-corsairs-raiders'],
+      kit: { name: 'Red Corsairs Reave-Captain', priceEUR: 36, models: 1, verified: true },
+    },
+    {
+      id: 'cultist-firebrand',
+      name: 'Cultist Firebrand',
+      role: 'character',
+      // MFM: "1st to 2nd 45 / 3rd + 50".
+      points: 45,
+      pointsEscalated: 50,
+      models: 1,
+      flavor: 3,
+      tags: ['cultist'],
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['accursed-cultists', 'cultist-mob'],
+      kit: { name: 'Cultist Firebrand', priceEUR: 31, models: 1, verified: true },
+    },
+    {
+      id: 'traitor-enforcer',
+      name: 'Traitor Enforcer',
+      role: 'character',
+      points: 70,
+      models: 2,
+      flavor: 3,
+      tags: ['cultist'],
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['traitor-guardsmen'],
+      // The Enforcer + his bodyguard.
+      kit: { name: 'Traitor Enforcer', priceEUR: 45, models: 2, verified: true },
     },
     // --- Battleline ---
     {
@@ -221,8 +308,7 @@ export const chaosSpaceMarines: Faction = {
       models: 10,
       flavor: 4,
       keywords: ['Battleline', 'Infantry'],
-      // The plastic "Chaos Space Marines" squad box — price best-effort this pass.
-      kit: { name: 'Chaos Space Marines (Legionaries)', priceEUR: 45, models: 10 },
+      kit: { name: 'Legionaries', priceEUR: 56.5, models: 10, verified: true },
     },
     {
       id: 'cultist-mob',
@@ -231,8 +317,77 @@ export const chaosSpaceMarines: Faction = {
       points: 50,
       models: 10,
       flavor: 2,
+      tags: ['cultist'],
       keywords: ['Battleline', 'Infantry'],
       kit: { name: 'Chaos Cultists', priceEUR: 43, models: 10, verified: true },
+    },
+    {
+      id: 'traitor-guardsmen',
+      name: 'Traitor Guardsmen Squad',
+      role: 'infantry',
+      points: 65,
+      models: 10,
+      flavor: 3,
+      tags: ['cultist'],
+      keywords: ['Infantry'],
+      kit: { name: 'Traitor Guardsmen Squad', priceEUR: 43, models: 10, verified: true },
+    },
+    {
+      id: 'fellgor-beastmen',
+      name: 'Fellgor Beastmen',
+      role: 'infantry',
+      points: 60,
+      models: 10,
+      flavor: 3,
+      tags: ['cultist'],
+      keywords: ['Infantry'],
+      kit: { name: 'Fellgor Beastmen', priceEUR: 53, models: 10, verified: true },
+    },
+    {
+      id: 'nemesis-claw',
+      name: 'Nemesis Claw',
+      role: 'infantry',
+      // MFM: 5 models 105 / 10 models 190.
+      points: 105,
+      models: 5,
+      flavor: 4,
+      keywords: ['Infantry'],
+      // Kill Team box: 10 models (two 5-model squads, pooled).
+      kit: { name: 'Kill Team: Nemesis Claw', priceEUR: 64, models: 10, verified: true },
+    },
+    {
+      id: 'red-corsairs-raiders',
+      name: 'Red Corsairs Raiders',
+      role: 'infantry',
+      // MFM @5 models: "1st to 2nd 120 / 3rd + 130".
+      points: 120,
+      pointsEscalated: 130,
+      models: 5,
+      flavor: 4,
+      tags: ['corsair'],
+      keywords: ['Infantry'],
+      kit: { name: 'Red Corsairs Raiders', priceEUR: 52, models: 5, verified: true },
+    },
+    {
+      id: 'masters-of-the-maelstrom',
+      name: 'Masters of the Maelstrom',
+      role: 'infantry',
+      // MFM: 5 models 150 (SUPPORT for Chosen / Legionaries / Raiders — not modelled).
+      points: 150,
+      models: 5,
+      flavor: 4,
+      tags: ['corsair'],
+      keywords: ['Infantry'],
+      // One unit per army (user, 2026-10-04).
+      exclusiveGroup: 'masters-of-the-maelstrom',
+      // Only sold with Huron Blackheart.
+      kit: {
+        name: 'Huron Blackheart and the Masters of the Maelstrom',
+        priceEUR: 77,
+        models: 5,
+        verified: true,
+        alsoBuilds: [{ unitId: 'huron-blackheart', models: 1 }],
+      },
     },
     // --- Infantry ---
     {
@@ -244,6 +399,7 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 110,
       models: 8,
       flavor: 2,
+      tags: ['cultist', 'daemon'],
       keywords: ['Infantry'],
       kit: { name: 'Accursed Cultists', priceEUR: 47.5, models: 8, verified: true },
     },
@@ -256,6 +412,7 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 150,
       models: 5,
       flavor: 4,
+      tags: ['veteran'],
       keywords: ['Infantry'],
       kit: { name: 'Chosen', priceEUR: 53, models: 5, verified: true },
     },
@@ -268,6 +425,7 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 150,
       models: 5,
       flavor: 4,
+      tags: ['daemon'],
       keywords: ['Infantry', 'Daemon'],
       kit: { name: 'Possessed', priceEUR: 53, models: 5, verified: true },
     },
@@ -280,6 +438,7 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 215,
       models: 5,
       flavor: 4,
+      tags: ['terminator', 'veteran'],
       keywords: ['Infantry', 'Terminator'],
       kit: { name: 'Chaos Terminator Squad', priceEUR: 53, models: 5, verified: true },
     },
@@ -292,6 +451,7 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 145,
       models: 5,
       flavor: 3,
+      tags: ['heavy'],
       keywords: ['Infantry'],
       kit: { name: 'Havocs', priceEUR: 53, models: 5, verified: true },
     },
@@ -304,6 +464,7 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 125,
       models: 5,
       flavor: 3,
+      tags: ['jump'],
       keywords: ['Infantry', 'Fly'],
       kit: { name: 'Raptors', priceEUR: 52, models: 5, verified: true },
     },
@@ -316,6 +477,7 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 140,
       models: 5,
       flavor: 3,
+      tags: ['jump', 'daemon'],
       keywords: ['Infantry', 'Fly'],
       kit: { name: 'Warp Talons', priceEUR: 52, models: 5, verified: true },
     },
@@ -328,8 +490,29 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 170,
       models: 2,
       flavor: 4,
+      tags: ['daemon', 'heavy'],
       keywords: ['Infantry', 'Daemon'],
-      kit: { name: 'Obliterators', priceEUR: 66, models: 2, verified: true },
+      // One €66 box builds 2 Obliterators AND a Venomcrawler (combo).
+      kit: {
+        name: 'Venomcrawler and Obliterators',
+        priceEUR: 66,
+        models: 2,
+        verified: true,
+        alsoBuilds: [{ unitId: 'venomcrawler', models: 1 }],
+      },
+    },
+    {
+      id: 'mutilators',
+      name: 'Mutilators',
+      role: 'infantry',
+      // MFM @3 models: "1st to 2nd 165 / 3rd + 185".
+      points: 165,
+      pointsEscalated: 185,
+      models: 3,
+      flavor: 4,
+      // Iron Warriors only (via the Legion's signature) — no generic tags.
+      keywords: ['Infantry', 'Daemon', 'Terminator'],
+      kit: { name: 'Mutilators', priceEUR: 56.5, models: 3, verified: true },
     },
     // --- Mounted ---
     {
@@ -339,6 +522,7 @@ export const chaosSpaceMarines: Faction = {
       points: 80,
       models: 3,
       flavor: 3,
+      tags: ['bike'],
       keywords: ['Mounted'],
       kit: { name: 'Chaos Bikers', priceEUR: 40, models: 3, verified: true },
     },
@@ -350,6 +534,7 @@ export const chaosSpaceMarines: Faction = {
       points: 60,
       models: 2,
       flavor: 2,
+      tags: ['daemon'],
       keywords: ['Mounted'],
       kit: { name: 'Chaos Spawn', priceEUR: 47.5, models: 2, verified: true },
     },
@@ -361,6 +546,7 @@ export const chaosSpaceMarines: Faction = {
       points: 155,
       models: 1,
       flavor: 4,
+      tags: ['daemon'],
       keywords: ['Character', 'Monster', 'Daemon'],
       kit: { name: 'Daemon Prince', priceEUR: 74, models: 1, verified: true },
     },
@@ -371,6 +557,7 @@ export const chaosSpaceMarines: Faction = {
       points: 170,
       models: 1,
       flavor: 4,
+      tags: ['daemon'],
       keywords: ['Character', 'Monster', 'Daemon', 'Fly'],
       kit: { name: 'Daemon Prince', priceEUR: 74, models: 1, verified: true },
     },
@@ -382,6 +569,7 @@ export const chaosSpaceMarines: Faction = {
       points: 125,
       models: 1,
       flavor: 3,
+      tags: ['dreadnought'],
       keywords: ['Vehicle', 'Walker'],
       kit: { name: 'Helbrute', priceEUR: 53, models: 1, verified: true },
     },
@@ -392,6 +580,7 @@ export const chaosSpaceMarines: Faction = {
       points: 125,
       models: 1,
       flavor: 3,
+      tags: ['daemonengine'],
       keywords: ['Vehicle', 'Daemon Engine'],
       kit: { name: 'Maulerfiend', priceEUR: 74, models: 1, verified: true },
     },
@@ -404,6 +593,7 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 165,
       models: 1,
       flavor: 3,
+      tags: ['daemonengine'],
       keywords: ['Vehicle', 'Daemon Engine'],
       wargear: { name: 'Ectoplasma Cannon', points: 5 },
       kit: { name: 'Forgefiend', priceEUR: 74, models: 1, verified: true },
@@ -417,8 +607,15 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 130,
       models: 1,
       flavor: 3,
+      tags: ['daemonengine'],
       keywords: ['Vehicle', 'Daemon Engine'],
-      kit: { name: 'Venomcrawler', priceEUR: 66, models: 1, verified: true },
+      kit: {
+        name: 'Venomcrawler and Obliterators',
+        priceEUR: 66,
+        models: 1,
+        verified: true,
+        alsoBuilds: [{ unitId: 'obliterators', models: 2 }],
+      },
     },
     {
       id: 'heldrake',
@@ -427,6 +624,7 @@ export const chaosSpaceMarines: Faction = {
       points: 175,
       models: 1,
       flavor: 4,
+      tags: ['daemonengine'],
       keywords: ['Vehicle', 'Daemon Engine', 'Fly'],
       kit: { name: 'Heldrake', priceEUR: 74, models: 1, verified: true },
     },
@@ -434,11 +632,12 @@ export const chaosSpaceMarines: Faction = {
       id: 'chaos-predator-destructor',
       name: 'Chaos Predator Destructor',
       role: 'vehicle',
-      // MFM: "1st to 2nd 130 / 3rd + 140".
-      points: 130,
-      pointsEscalated: 140,
+      // MFM: "1st to 2nd 145 / 3rd + 155".
+      points: 145,
+      pointsEscalated: 155,
       models: 1,
       flavor: 3,
+      tags: ['tank'],
       keywords: ['Vehicle'],
       kit: { name: 'Chaos Predator', priceEUR: 64, models: 1, verified: true },
     },
@@ -451,6 +650,7 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 150,
       models: 1,
       flavor: 3,
+      tags: ['tank'],
       keywords: ['Vehicle'],
       kit: { name: 'Chaos Predator', priceEUR: 64, models: 1, verified: true },
     },
@@ -463,9 +663,9 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 190,
       models: 1,
       flavor: 3,
+      tags: ['tank'],
       keywords: ['Vehicle'],
-      // Not surfaced in the store grid this pass — price best-effort (Rhino chassis).
-      kit: { name: 'Chaos Vindicator', priceEUR: 60, models: 1 },
+      kit: { name: 'Chaos Vindicator', priceEUR: 64, models: 1, verified: true },
     },
     {
       id: 'defiler',
@@ -477,6 +677,7 @@ export const chaosSpaceMarines: Faction = {
       escalateAt: 2,
       models: 1,
       flavor: 4,
+      tags: ['daemonengine'],
       keywords: ['Vehicle', 'Daemon Engine'],
       wargear: { name: 'Heavy Reaper Autocannon', points: 15 },
       kit: { name: 'Defiler', priceEUR: 120, models: 1, verified: true },
@@ -494,7 +695,18 @@ export const chaosSpaceMarines: Faction = {
       flavor: 2,
       keywords: ['Vehicle', 'Transport'],
       // Carries 10 Heretic Astartes infantry (no Terminators).
-      transports: ['legionaries', 'cultist-mob', 'accursed-cultists', 'chosen', 'havocs', 'possessed'],
+      transports: [
+        'legionaries',
+        'cultist-mob',
+        'accursed-cultists',
+        'chosen',
+        'havocs',
+        'possessed',
+        'nemesis-claw',
+        'red-corsairs-raiders',
+        'traitor-guardsmen',
+        'fellgor-beastmen',
+      ],
       kit: { name: 'Chaos Rhino', priceEUR: 50, models: 1, verified: true },
     },
     {
@@ -506,8 +718,19 @@ export const chaosSpaceMarines: Faction = {
       pointsEscalated: 240,
       models: 1,
       flavor: 3,
+      tags: ['tank'],
       keywords: ['Vehicle', 'Transport'],
-      transports: ['legionaries', 'cultist-mob', 'chosen', 'havocs', 'possessed', 'chaos-terminators'],
+      transports: [
+        'legionaries',
+        'cultist-mob',
+        'chosen',
+        'havocs',
+        'possessed',
+        'chaos-terminators',
+        'nemesis-claw',
+        'red-corsairs-raiders',
+        'mutilators',
+      ],
       kit: { name: 'Chaos Land Raider', priceEUR: 80, models: 1, verified: true },
     },
   ],
@@ -524,6 +747,20 @@ export const chaosSpaceMarines: Faction = {
         { unitId: 'possessed', models: 5 },
         { unitId: 'legionaries', models: 10 },
         { unitId: 'cultist-mob', models: 10 },
+      ],
+    },
+    {
+      id: 'battleforce-csm-warband',
+      name: 'Battleforce: Chaos Space Marines Warband',
+      priceEUR: 212,
+      verified: true,
+      url: 'https://www.warhammer.com/en-EU/shop/battleforce-chaos-space-marines-warband-2026',
+      builds: [
+        { unitId: 'lord-discordant', models: 1 },
+        { unitId: 'obliterators', models: 2 },
+        { unitId: 'venomcrawler', models: 1 },
+        { unitId: 'legionaries', models: 10 },
+        { unitId: 'cultist-mob', models: 20 },
       ],
     },
   ],

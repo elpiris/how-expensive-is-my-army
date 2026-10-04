@@ -191,6 +191,12 @@ export type UnitTag =
   | 'toxin'
   | 'artillery'
   | 'fast'
+  // Chaos Space Marines (Legions)
+  | 'daemon'
+  | 'cultist'
+  | 'daemonengine'
+  | 'heavy'
+  | 'corsair'
 
 /**
  * What a faction is known for: tag → weight (1 = a nod, 3 = defining). With the

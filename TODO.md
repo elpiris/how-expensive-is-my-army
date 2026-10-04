@@ -9,7 +9,9 @@ Active dropdown groups (`Faction.category`):
 - **Space Marines** — one entry + a **Chapter** sub-selector: no Chapter,
   Ultramarines, Imperial Fists, Salamanders, Iron Hands, White Scars, Raven Guard,
   Dark Angels, Black Templars, Space Wolves, Blood Angels.
-- **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights, Emperor's Children,
+- **Chaos** — Death Guard, Chaos Space Marines (+ a **Legion** sub-selector: Black
+  Legion, Iron Warriors, Night Lords, Word Bearers, Alpha Legion, Red Corsairs),
+  Chaos Knights, Emperor's Children,
   World Eaters, Thousand Sons, Chaos Daemons.
 - **Xenos** — Necrons, Tyranids (+ a **Hive Fleet** sub-selector: Behemoth, Kraken,
   Leviathan, Gorgon, Jormungandr, Hydra, Kronos), Aeldari (+ a **Craftworld**
@@ -69,12 +71,22 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   €38.50), Razorback (Rhino €50).
 
 **Chaos**
-- **Chaos Space Marines — DONE (2026-10-02).** ~41-unit roster from the
-  54-datasheet MFM (omitting terrain, cross-faction kits, newest niche sub-faction
-  units). Combat Patrol (€139: Master of Possession, 5 Possessed, 10 Legionaries,
-  10 Cultists). TODO: confirm the best-effort kits (Legionaries box, foot/jump Chaos
-  Lords, Vindicator, Master of Possession) — newer factions show e.g. the Chaos
-  Vindicator at €64.
+- **Chaos Space Marines — DONE (2026-10-04).** All MFM datasheets except the
+  Noctilith Crown (terrain) and the FW Khorne Lord of Skulls; every price confirmed
+  with the user (Legionaries €56.50, Chaos Lord / Jump Pack Lord €36, Master of
+  Possession €34, Vindicator €64). Combo boxes: Venomcrawler and Obliterators €66
+  (both), Huron Blackheart + 5 Masters of the Maelstrom €77; Nemesis Claw Kill Team
+  box €64/10. Value boxes: Combat Patrol (€139: Master of Possession, 5 Possessed,
+  10 Legionaries, 10 Cultists) and Battleforce: Warband (€212). Six **Legion**
+  sub-factions (`legions.ts`, tuned with the user, a CSM player): Black Legion,
+  Iron Warriors, Night Lords (flavour 0.75), Word Bearers, Alpha Legion, Red
+  Corsairs. Legion-only units: Abaddon + Haarken (BL), Vashtorr + Kravek Morne +
+  Mutilators (IW), Nemesis Claw (NL), Huron + Raiders + Reave-Captain + Masters
+  (RC) — removed from the other legions, kept in plain CSM; Fabius anywhere. One
+  Masters of the Maelstrom unit per army, always led by Huron. Prices at 2000:
+  plain €670, BL −6%, IW/WB +7%, RC +12%, NL +16%, AL +22% (cultists are poor value).
+  Open ideas: Obliterators drop `daemon` (Word Bearers 98%), one Daemon Prince per
+  army?, a psyker weight for Black Legion, more Dark Apostles / Haarken.
 - **Death Guard — DONE (2026-10-02).** Full 35-datasheet MFM roster (incl. the Nurgle
   daemons; Miasmic Malignifier terrain omitted); every kit verified. Combat Patrol
   "Maggot Lords" (€139).

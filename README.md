@@ -22,7 +22,8 @@ Built with **Vite + React + TypeScript**.
     and non-compliant Chapters with their own units (Dark Angels, Black Templars — no
     psykers, Space Wolves, Blood Angels). Space Marines is a single faction entry;
     the Chapter is chosen in a second **Chapter** dropdown that appears beside it.
-  - **Chaos** — Death Guard, Chaos Space Marines, Chaos Knights, Emperor's Children,
+  - **Chaos** — Death Guard, Chaos Space Marines (+ a **Legion** dropdown), Chaos
+    Knights, Emperor's Children,
     World Eaters, Thousand Sons, Chaos Daemons
   - **Xenos** — Necrons, Tyranids (+ a **Hive Fleet** dropdown), Aeldari (+ a
     **Craftworld** dropdown), T'au Empire,
@@ -49,6 +50,11 @@ Built with **Vite + React + TypeScript**.
   known for — its own units, and units matching its identity (bikes for White Scars,
   flamers and meltas for Salamanders, Terminators and Gravis for Imperial Fists…) —
   at about the same price as a pure value-for-money list.
+- **Chaos Space Marine Legions:** Black Legion (Abaddon, Chosen, Terminators), Iron
+  Warriors (tanks, daemon engines, Vashtorr, Kravek Morne), Night Lords (Raptors, Warp
+  Talons, Nemesis Claw), Word Bearers (Dark Apostles, Possessed, Daemon Princes), Alpha
+  Legion (cultists, Traitor Guard) and Red Corsairs (Huron, Raiders) — each legion's
+  own heroes and units are exclusive to it.
 - **Tyranid Hive Fleets:** Behemoth (melee monsters, Old One Eye, the Swarmlord), Kraken (fast
   bugs, Genestealers, Raveners), Leviathan (synapse), Gorgon (toxins, spores),
   Jormungandr (tunnellers, Lictors), Hydra (gaunt swarms) and Kronos
@@ -138,6 +144,7 @@ src/
                         #  genestealerCults, drukhari, orks)
     craftworlds.ts      # the 5 Aeldari Craftworld sub-factions
     hiveFleets.ts       # the 7 Tyranid Hive Fleet sub-factions
+    legions.ts          # the 6 Chaos Space Marine Legion sub-factions
     spaceMarines/       # base Codex roster + per-Chapter Faction files
       base.ts           #   shared roster + generic value boxes
       vanilla.ts        #   Space Marines, no Chapter

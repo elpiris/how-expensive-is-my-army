@@ -51,7 +51,7 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 - End commit messages with:
   `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
 
-## Current state (end of 2026-10-03 session)
+## Current state (2026-10-04)
 - **Factions:** 21 non-SM factions + Space Marines, all with full MFM rosters (FW /
   terrain / discontinued kits left out), verified en-EU prices, real value boxes and
   composition profiles. Imperium: Custodes, Sororitas, Mechanicus, Astra Militarum,
@@ -61,22 +61,27 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
   **Missing (low priority):** Imperial Agents + Deathwatch.
 - **Sub-factions** (`parent` + a second dropdown): 10 SM Chapters (6 Codex + DA, BT,
   SW, BA; generic SM boxes incl. DA CP, Heroes / Honoured of the Chapter), 5
-  Aeldari Craftworlds and 7 Tyranid Hive Fleets. All dropdowns are alphabetical ("No specific …" first).
-- **Flavour:** SM, Aeldari and Tyranid units are tagged; Chapters have an
-  `identity` (full flavour), Craftworlds / Hive Fleets an identity + signature
-  units (`flavour: 0.5`, Gorgon 0.75); other factions are value-first.
+  Aeldari Craftworlds, 7 Tyranid Hive Fleets and 6 CSM Legions (with legion-only
+  units). All dropdowns are alphabetical ("No specific …" first).
+- **Flavour:** SM, Aeldari, Tyranid and CSM units are tagged; Chapters have an
+  `identity` (full flavour), Craftworlds / Hive Fleets / Legions an identity +
+  signature units (`flavour: 0.5`; Gorgon, Night Lords 0.75); plain Tyranids have
+  a light identity (0.3); other factions are value-first.
+- **The user plays Tyranids and Chaos Space Marines** — tune those with them: show
+  pick-frequency tables + example lists before committing.
 - **Generator/costing:** combo boxes valued whole; paid-for spares fielded first;
   shared kits pooled; CP seeded round-robin; no battleline minimum; characters
-  need a unit to lead + diminishing returns per HQ; box-only byproducts
+  need a unit to lead + diminishing returns per HQ; leaders shown with their unit
+  ("Attached units", `lib/attachments.ts`; `leads` order = pairing preference);
+  value boxes chosen by exhaustive cheapest combination; box-only byproducts
   (`isBoxOnly`) costed after the kits that credit them. Users can tune composition in Advanced
   settings.
 - **Everything is committed and pushed** (`main`); the working tree is clean.
 
 ## Next steps (suggested, see TODO.md)
 1. Flavour / sub-factions for more armies — e.g. Chaos Daemons by god (Khorne /
-   Tzeentch / Nurgle / Slaanesh), Astra Militarum regiments (Cadian / Catachan /
-   Krieg / Tempestus): tag units, add `identity`, check prices don't jump.
-2. Re-confirm the older best-effort kits (CSM: Legionaries, Chaos Lords,
-   Vindicator €64?, Master of Possession; Necrons: Imotekh, Trazyn, Reanimator).
+   Tzeentch / Nurgle / Slaanesh), Orks by clan, Astra Militarum regiments: tag
+   units, add `identity`, check prices don't jump. Open CSM ideas in TODO.md.
+2. Re-confirm the older best-effort kits (Necrons: Imotekh, Trazyn, Reanimator).
 3. Low-priority factions (Imperial Agents, Deathwatch) and the Exodites once sold.
 4. Features: competitive-list mode, list export / shareable URL, per-unit value.

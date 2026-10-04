@@ -27,6 +27,7 @@ src/
     <faction>.ts      # one file per faction (16: custodes … chaosDaemons, aeldari)
     craftworlds.ts    # Aeldari Craftworld sub-factions ({...aeldari, parent, identity})
     hiveFleets.ts     # Tyranid Hive Fleet sub-factions (same pattern)
+    legions.ts        # CSM Legions (same pattern + legion-only units removed from the others)
     spaceMarines/     # SM is special: shared base + one file per Chapter
       base.ts         #   baseUnits[], exclusive(), gettingStartedBox, darkAngelsCP,
                       #   heroesOfTheChapter, honouredOfTheChapter
@@ -160,8 +161,10 @@ Key rules/knobs:
 ## Costing (`lib/costList.ts`)
 
 - `costList(list)` → `{lines, rrpTotalEUR, discountable/nonDiscountableEUR, notes}`.
-  Computes model needs, greedily consumes value boxes while they pull their weight
-  (cover ≥2 unit types AND euro-value ≥ box price), then covers the rest with
+  Computes model needs, tries every combination of value boxes (each covering ≥2
+  needed unit types; 0…3 of each, ≤256 combos) and keeps the cheapest total
+  (exhaustive since 2026-10-04 — the old greedy estimate mis-priced combo kits and
+  let a Battleforce beat a cheaper Combat Patrol), then covers the rest with
   individual kits (`ceil(models/kit.models)` whole boxes), crediting `alsoBuilds`
   bonus sprues and reporting surplus. A kit line's `covers` describes **one box**
   (the quantity column says how many) so it's correct in both the full and

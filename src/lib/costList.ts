@@ -16,10 +16,11 @@ import { isBoxOnly } from './value'
 //
 // Strategy:
 //  1. Compute how many models of each datasheet we need.
-//  2. Greedily add value boxes while a box covers >= 2 needed unit-types AND
-//     the euro value of the units it covers is at least its own price (i.e. it
-//     is cheaper than buying those units as individual kits). Using euro value
-//     rather than model count avoids buying a €130 box for a few cheap models.
+//  2. Try every combination of value boxes (0…a few of each box that covers
+//     >= 2 needed unit-types) and keep the cheapest total. Exhaustive rather
+//     than greedy: estimating a box's saving per unit mis-prices combo kits (a
+//     €66 box building 2 Obliterators AND a Venomcrawler counted as €132) and
+//     let a big Battleforce beat a cheaper Combat Patrol (fixed 2026-10-04).
 //  3. Cover whatever remains with individual unit kits (ceil by box size).
 //  4. Track surplus (paid-for but unused) models — reported as notes and as
 //     structured `spare` models, which the generator fields when it can.
@@ -31,9 +32,12 @@ interface Need {
   modelsNeeded: number
 }
 
+/** Most copies of one value box ever tried (and combinations tried overall). */
+const MAX_BOX_QTY = 3
+const MAX_COMBOS = 256
+
 export function costList(list: GeneratedList): CostBreakdown {
   const { faction, entries } = list
-  const unitById = new Map(faction.units.map((u) => [u.id, u]))
 
   // 1. Needs in models.
   const needs = new Map<string, Need>()
@@ -44,26 +48,46 @@ export function costList(list: GeneratedList): CostBreakdown {
     else needs.set(e.unit.id, { unitId: e.unit.id, name: e.unit.name, modelsNeeded })
   }
 
-  /** Per-model RRP of a unit's own kit, used to value value-box contents. */
-  const pricePerModel = (unitId: string): number => {
-    const u = unitById.get(unitId)
-    if (!u) return 0
-    return u.kit.priceEUR / u.kit.models
+  // 2. Candidate boxes (cover >= 2 needed unit-types) and how many of each could
+  //    still be used; then every combination, keeping the cheapest result.
+  const candidates = faction.valueBoxes
+    .filter((box) => box.builds.filter((b) => (needs.get(b.unitId)?.modelsNeeded ?? 0) > 0).length >= 2)
+    .map((box) => ({
+      box,
+      max: Math.min(
+        MAX_BOX_QTY,
+        Math.max(...box.builds.map((b) => Math.ceil((needs.get(b.unitId)?.modelsNeeded ?? 0) / b.models))),
+      ),
+    }))
+  let combos: number[][] = [[]]
+  for (const { max } of candidates) {
+    combos = combos.flatMap((c) => Array.from({ length: max + 1 }, (_, q) => [...c, q]))
+    if (combos.length > MAX_COMBOS) combos = combos.slice(0, MAX_COMBOS)
   }
-
-  /** Euro value of the box contents that would actually be used right now. */
-  const usefulValue = (box: ValueBox): number => {
-    let value = 0
-    for (const b of box.builds) {
-      const need = needs.get(b.unitId)
-      if (need) value += Math.min(b.models, need.modelsNeeded) * pricePerModel(b.unitId)
+  let best: CostBreakdown | undefined
+  let bestBoxes = 0
+  for (const combo of combos) {
+    const counts = new Map(candidates.map((c, i) => [c.box.id, combo[i] ?? 0] as const))
+    const result = costWithBoxes(faction, needs, counts)
+    const boxes = combo.reduce((a, b) => a + b, 0)
+    // Cheapest wins; on a tie prefer more value boxes (more spare models).
+    if (!best || result.rrpTotalEUR < best.rrpTotalEUR - 0.001 ||
+        (Math.abs(result.rrpTotalEUR - best.rrpTotalEUR) <= 0.001 && boxes > bestBoxes)) {
+      best = result
+      bestBoxes = boxes
     }
-    return value
   }
+  return best!
+}
 
-  /** How many distinct needed unit-types a value box covers. */
-  const coveredTypes = (box: ValueBox): number =>
-    box.builds.filter((b) => (needs.get(b.unitId)?.modelsNeeded ?? 0) > 0).length
+/** Steps 2b–4 for a fixed choice of value boxes (`counts`: box id → quantity). */
+function costWithBoxes(
+  faction: GeneratedList['faction'],
+  baseNeeds: Map<string, Need>,
+  counts: Map<string, number>,
+): CostBreakdown {
+  const unitById = new Map(faction.units.map((u) => [u.id, u]))
+  const needs = new Map([...baseNeeds].map(([id, n]) => [id, { ...n }]))
 
   const lines: PurchaseLine[] = []
   const notes: string[] = []
@@ -73,36 +97,22 @@ export function costList(list: GeneratedList): CostBreakdown {
     if (models > 0 && unitById.has(unitId)) spare.set(unitId, (spare.get(unitId) ?? 0) + models)
   }
 
-  // 2. Greedily consume value boxes while they pull their weight.
-  let guard = 0
-  while (guard++ < 50) {
-    let best: ValueBox | undefined
-    let bestValue = 0
-    for (const box of faction.valueBoxes) {
-      if (coveredTypes(box) < 2) continue
-      const value = usefulValue(box)
-      // Only take the box if the units it covers would cost at least as much
-      // bought individually — i.e. the box genuinely saves (or breaks even on)
-      // money — and prefer the box that saves the most.
-      if (value >= box.priceEUR && value > bestValue) {
-        best = box
-        bestValue = value
+  // Consume the chosen boxes: subtract their contents from needs; the rest is spare.
+  for (const box of faction.valueBoxes) {
+    const qty = counts.get(box.id) ?? 0
+    for (let k = 0; k < qty; k++) {
+      for (const b of box.builds) {
+        const need = needs.get(b.unitId)
+        const used = need ? Math.min(b.models, need.modelsNeeded) : 0
+        if (need) need.modelsNeeded -= used
+        addSpare(b.unitId, b.models - used)
       }
     }
-    if (!best) break
-
-    // Consume the box: subtract its contents from needs; the rest is spare.
-    for (const b of best.builds) {
-      const need = needs.get(b.unitId)
-      const used = need ? Math.min(b.models, need.modelsNeeded) : 0
-      if (need) need.modelsNeeded -= used
-      addSpare(b.unitId, b.models - used)
-    }
-    valueBoxCounts.set(best.id, (valueBoxCounts.get(best.id) ?? 0) + 1)
+    if (qty > 0) valueBoxCounts.set(box.id, qty)
   }
 
   for (const [boxId, qty] of valueBoxCounts) {
-    const box = faction.valueBoxes.find((b) => b.id === boxId)!
+    const box: ValueBox = faction.valueBoxes.find((b) => b.id === boxId)!
     lines.push({
       name: box.name,
       quantity: qty,

@@ -29,13 +29,22 @@ export function isLeader(u: Unit): boolean {
 
 /**
  * Maximum matching of `leaders` to `guards`: for each leader, the index of the
- * guard it leads, or -1. Leaders earlier in the array get first pick.
+ * guard it leads, or -1. Leaders earlier in the array get first pick, and each
+ * leader tries units in the order of its `leads` list (its preference — e.g.
+ * Huron Blackheart always takes his Masters of the Maelstrom when both are in).
  */
 export function matchLeaders(leaders: Unit[], guards: Unit[]): number[] {
   const owner: number[] = guards.map(() => -1)
+  const order = leaders.map((l) =>
+    guards
+      .map((g, i) => ({ i, rank: l.leads?.indexOf(g.id) ?? -1 }))
+      .filter((x) => x.rank >= 0)
+      .sort((a, b) => a.rank - b.rank)
+      .map((x) => x.i),
+  )
   const tryLeader = (li: number, seen: boolean[]): boolean => {
-    for (let g = 0; g < guards.length; g++) {
-      if (seen[g] || !leaders[li].leads?.includes(guards[g].id)) continue
+    for (const g of order[li]) {
+      if (seen[g]) continue
       seen[g] = true
       if (owner[g] < 0 || tryLeader(owner[g], seen)) {
         owner[g] = li

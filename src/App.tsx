@@ -581,6 +581,11 @@ const TAG_LABELS: Record<UnitTag, string> = {
   toxin: 'toxins and spores',
   artillery: 'bio-artillery',
   fast: 'fast bioforms',
+  daemon: 'daemons and the Possessed',
+  cultist: 'cultists',
+  daemonengine: 'daemon engines',
+  heavy: 'heavy weapons',
+  corsair: 'Red Corsairs',
 }
 
 /** "bikes, speeders and Chapter units" — a faction's identity, strongest first. */
