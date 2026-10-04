@@ -74,6 +74,7 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
   need a unit to lead + diminishing returns per HQ; leaders shown with their unit
   ("Attached units", `lib/attachments.ts`; `leads` order = pairing preference);
   squads roll for a Dedicated Transport by size × `Faction.transportChance`;
+  god armies hide shared daemon datasheets unless "Include daemon datasheets";
   value boxes chosen by exhaustive cheapest combination; box-only byproducts
   (`isBoxOnly`) costed after the kits that credit them. Users can tune composition in Advanced
   settings.

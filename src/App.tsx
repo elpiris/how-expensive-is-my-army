@@ -1,5 +1,5 @@
 import { Fragment, useMemo, useState, type CSSProperties } from 'react'
-import { factions, getFaction } from './data'
+import { daemonAllyIds, factions, getFaction, withoutDaemonAllies } from './data'
 import { generateList, generateEscalation, BRACKETS } from './lib/generateList'
 import { costList, discountedTotal, purchaseDelta, sumLines } from './lib/costList'
 import { attachAll, type UnitCopy } from './lib/attachments'
@@ -293,16 +293,21 @@ export default function App() {
   const [showAdvanced, setShowAdvanced] = useState(false)
   // User-tuned composition per faction (absent = the faction's recommended profile).
   const [customProfiles, setCustomProfiles] = useState<Record<string, FactionProfile>>({})
+  // "Include daemon datasheets" per base faction (god-aligned Chaos armies; off by default).
+  const [includeDaemons, setIncludeDaemons] = useState<Record<string, boolean>>({})
 
   const baseFaction = getFaction(factionId)!
   const parentId = baseFaction.parent ?? baseFaction.id
   const parentFaction = getFaction(parentId)!
   const customProfile = customProfiles[factionId]
-  // The faction as the generator sees it — with the user's profile swapped in.
-  const faction = useMemo<Faction>(
-    () => (customProfile ? { ...baseFaction, profile: customProfile } : baseFaction),
-    [baseFaction, customProfile],
-  )
+  const daemonIds = useMemo(() => daemonAllyIds(baseFaction), [baseFaction])
+  const daemonsOn = !!includeDaemons[parentId]
+  // The faction as the generator sees it — with the user's profile swapped in and
+  // the daemon-ally datasheets removed unless the user included them.
+  const faction = useMemo<Faction>(() => {
+    const f = customProfile ? { ...baseFaction, profile: customProfile } : baseFaction
+    return daemonIds.length && !daemonsOn ? withoutDaemonAllies(f) : f
+  }, [baseFaction, customProfile, daemonIds, daemonsOn])
 
   const quickList = useMemo(() => generateList(faction, bracket, seed), [faction, bracket, seed])
   const quickCost = useMemo(() => costList(quickList), [quickList])
@@ -399,6 +404,25 @@ export default function App() {
                     </option>
                   ))}
             </select>
+          </div>
+        )}
+
+        {daemonIds.length > 0 && (
+          <div className="control">
+            <label>Daemons</label>
+            <label
+              className="check"
+              title={`Allied daemons only allowed in a specific detachment: ${daemonIds
+                .map((id) => baseFaction.units.find((u) => u.id === id)?.name)
+                .join(', ')}`}
+            >
+              <input
+                type="checkbox"
+                checked={daemonsOn}
+                onChange={(e) => setIncludeDaemons((prev) => ({ ...prev, [parentId]: e.target.checked }))}
+              />
+              Include daemon datasheets
+            </label>
           </div>
         )}
 

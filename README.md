@@ -54,6 +54,9 @@ Built with **Vite + React + TypeScript**.
   Catachan Jungle Fighters (flamers, Ogryns, Sly Marbo), Death Korps of Krieg
   (artillery, Dreir), Militarum Tempestus (Scions, Valkyries) and the Armageddon
   Steel Legion (tank companies, super-heavies, Yarrick, Graves).
+- **Daemon allies off by default:** Death Guard, World Eaters, Emperor's Children and
+  Thousand Sons hide the datasheets they share with the Chaos Daemons (Plaguebearers,
+  Bloodthirsters…) unless "Include daemon datasheets" is ticked.
 - **Chaos Space Marine Legions:** Black Legion (Abaddon, Chosen, Terminators), Iron
   Warriors (tanks, daemon engines, Vashtorr, Kravek Morne), Night Lords (Raptors, Warp
   Talons, Nemesis Claw), Word Bearers (Dark Apostles, Possessed, Daemon Princes), Alpha

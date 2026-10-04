@@ -712,3 +712,21 @@ table.data tfoot td {
   color: var(--text);
   font-weight: 600;
 }
+
+/* Checkbox control (e.g. "Include daemon datasheets"). */
+.control label.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  color: var(--text);
+  font-size: 14px;
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: pointer;
+}
+.control label.check input {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+}

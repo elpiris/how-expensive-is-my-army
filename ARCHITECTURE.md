@@ -154,6 +154,11 @@ Key rules/knobs:
   WE / EC / Sororitas 0.5, Necrons 0.25, Custodes 0.2, Tyranids 0.1; Steel Legion
   0.9, Saim-Hann 0.6, Night Lords 0.3, Catachan / Krieg 0.25. The list view shows
   leader + unit + transport together (`attachAll`).
+- **Daemon allies** (`data/index.ts`: `daemonAllyIds` / `withoutDaemonAllies`) — the
+  god-aligned armies' datasheets shared with Chaos Daemons (matched by name; their
+  own Daemon Princes excepted) are removed unless the user ticks "Include daemon
+  datasheets" (App, per base faction, off by default): the rules only allow them in
+  a specific detachment, a concept the app leaves out.
 - **`pickWeight`** (Unit, default 1) — multiplier on the value-fill weight, for a
   family of datasheets that would each get their own chance (the 8 AM super-heavies
   at 1/8 share one chance). The Combat Patrol is only seeded when the faction can

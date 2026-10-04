@@ -86,3 +86,37 @@ export const factions: Faction[] = [
 export function getFaction(id: string): Faction | undefined {
   return factions.find((f) => f.id === id)
 }
+
+// Daemon allies — the god-aligned Chaos armies (Death Guard, World Eaters,
+// Emperor's Children, Thousand Sons) include datasheets shared with the Chaos
+// Daemons (Plaguebearers, Bloodthirsters…) that the rules only allow through a
+// specific detachment — a concept this app leaves out. The app excludes them
+// unless the user ticks "Include daemon datasheets". Matched by name against
+// the Chaos Daemons roster; the armies' own Daemon Princes are Heretic Astartes
+// datasheets, so they always stay.
+const normName = (s: string) => s.toLowerCase().replace(/[^a-z]/g, '')
+
+/** Ids of the faction's datasheets it shares with the Chaos Daemons. */
+export function daemonAllyIds(faction: Faction): string[] {
+  if (faction.id === chaosDaemons.id || faction.parent === chaosDaemons.id) return []
+  const daemonNames = new Set(chaosDaemons.units.map((u) => normName(u.name)))
+  return faction.units
+    .filter((u) => daemonNames.has(normName(u.name)) && !u.name.startsWith('Daemon Prince'))
+    .map((u) => u.id)
+}
+
+/** The faction without its daemon-ally datasheets (and any links to them). */
+export function withoutDaemonAllies(faction: Faction): Faction {
+  const drop = new Set(daemonAllyIds(faction))
+  if (!drop.size) return faction
+  return {
+    ...faction,
+    units: faction.units
+      .filter((u) => !drop.has(u.id))
+      .map((u) => ({
+        ...u,
+        ...(u.leads ? { leads: u.leads.filter((id) => !drop.has(id)) } : {}),
+        ...(u.transports ? { transports: u.transports.filter((id) => !drop.has(id)) } : {}),
+      })),
+  }
+}
