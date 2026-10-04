@@ -499,6 +499,10 @@ export const orks: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Vehicle', 'Walker'],
+      // Big walkers: one per army across Stompa / Gorkanaut / Morkanaut, and rare
+      // (great value, but Orks are a horde on transports — user, 2026-10-04).
+      exclusiveGroup: 'ork-big-walker',
+      pickWeight: 0.3,
       kit: { name: 'Gorkanaut / Morkanaut', priceEUR: 125, models: 1, verified: true },
     },
     {
@@ -510,6 +514,10 @@ export const orks: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Vehicle', 'Walker'],
+      // Big walkers: one per army across Stompa / Gorkanaut / Morkanaut, and rare
+      // (great value, but Orks are a horde on transports — user, 2026-10-04).
+      exclusiveGroup: 'ork-big-walker',
+      pickWeight: 0.3,
       kit: { name: 'Gorkanaut / Morkanaut', priceEUR: 125, models: 1, verified: true },
     },
     {
@@ -522,6 +530,10 @@ export const orks: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Vehicle', 'Walker', 'Titanic'],
+      // Big walkers: one per army across Stompa / Gorkanaut / Morkanaut, and rare
+      // (great value, but Orks are a horde on transports — user, 2026-10-04).
+      exclusiveGroup: 'ork-big-walker',
+      pickWeight: 0.03,
       kit: { name: 'Stompa', priceEUR: 125, models: 1, verified: true },
     },
     {
