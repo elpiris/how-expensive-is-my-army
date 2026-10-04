@@ -104,6 +104,13 @@ export interface Unit {
    * Pyrovore" kit is sold as itself → `false`).
    */
   boxOnly?: boolean
+  /**
+   * Multiplier on how often the value fill picks this unit (default 1). For a
+   * family of datasheets that would otherwise each get their own chance — e.g.
+   * the 8 Baneblade-chassis super-heavies at 1/8, so together they compete like
+   * one datasheet.
+   */
+  pickWeight?: number
   /** Standard box you buy to field this datasheet. */
   kit: Kit
 }
@@ -197,6 +204,10 @@ export type UnitTag =
   | 'daemonengine'
   | 'heavy'
   | 'corsair'
+  // Astra Militarum (Regiments)
+  | 'mechanised'
+  | 'superheavy'
+  | 'airborne'
 
 /**
  * What a faction is known for: tag → weight (1 = a nod, 3 = defining). With the

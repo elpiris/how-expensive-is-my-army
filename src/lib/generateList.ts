@@ -334,9 +334,12 @@ function augmentList(
 
   // 1. Combat Patrol — ensure its units are present, cheapest first, adding only
   //    what fits the budget (the rest waits for a bigger bracket). CP units are
-  //    exempt from the size cap.
+  //    exempt from the size cap. Only when the faction can field the whole box:
+  //    a sub-faction that excludes some of its units (a Catachan regiment can't
+  //    use the Cadian Combat Patrol's Kasrkin) doesn't force the leftovers in.
   const cp = faction.valueBoxes[0]
-  if (cp) {
+  const cpUsable = !!cp && cp.builds.every((b) => faction.units.some((u) => u.id === b.unitId))
+  if (cp && cpUsable) {
     const builds = cp.builds
       .map((b) => {
         const unit = faction.units.find((u) => u.id === b.unitId)
@@ -369,7 +372,11 @@ function augmentList(
       )
     }
   } else if (startedEmpty) {
-    notes.push('No Combat Patrol exists for this faction — built from individual kits.')
+    notes.push(
+      cp
+        ? `${cp.name} doesn't fit this sub-faction — built from individual kits.`
+        : 'No Combat Patrol exists for this faction — built from individual kits.',
+    )
   }
 
   // Use anything already paid for (e.g. escalation: last stage's spare box-mates).
@@ -415,7 +422,8 @@ function augmentList(
 
   // 4. Fill the rest with the best points-per-euro kits.
   const weight = (u: Unit, remaining: number) =>
-    appeal(u, remaining, 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5)) * profileFactor(u) * characterDecay(u)
+    appeal(u, remaining, 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5)) * profileFactor(u) * characterDecay(u) *
+    (u.pickWeight ?? 1)
   let guard = 0
   while (guard++ < 500) {
     if (target - pointsOf(entries) <= 0) break

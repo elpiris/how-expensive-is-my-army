@@ -28,6 +28,7 @@ src/
     craftworlds.ts    # Aeldari Craftworld sub-factions ({...aeldari, parent, identity})
     hiveFleets.ts     # Tyranid Hive Fleet sub-factions (same pattern)
     legions.ts        # CSM Legions (same pattern + legion-only units removed from the others)
+    regiments.ts      # AM Regiments (same as legions + BORROWS / PICK_WEIGHT overrides)
     spaceMarines/     # SM is special: shared base + one file per Chapter
       base.ts         #   baseUnits[], exclusive(), gettingStartedBox, darkAngelsCP,
                       #   heroesOfTheChapter, honouredOfTheChapter
@@ -144,6 +145,10 @@ Key rules/knobs:
   fill pick: anything `costList(...).spare` reports as paid-for but unfielded
   (unused value-box contents, kit leftovers, bonus `alsoBuilds` models) is fielded
   first as whole units, if legal and it fits — size-cap exempt, like CP units.
+- **`pickWeight`** (Unit, default 1) — multiplier on the value-fill weight, for a
+  family of datasheets that would each get their own chance (the 8 AM super-heavies
+  at 1/8 share one chance). The Combat Patrol is only seeded when the faction can
+  field every unit in it (a sub-faction may exclude some).
 - **`profileFactor`** — gentle multiplier: >1 when a category is under its target
   share, easing to a floor when over. Soft on purpose (HQ-led armies still field
   1–2 big leaders). Unshaped factions (no `profile`) get factor 1.

@@ -34,6 +34,7 @@ import { drukhari } from './drukhari'
 import { craftworlds } from './craftworlds'
 import { hiveFleets } from './hiveFleets'
 import { legions } from './legions'
+import { regiments } from './regiments'
 
 // Active factions, ordered by grand alliance (the dropdown groups them by
 // `category`). Space Marines ship as a base (Chapter-agnostic) force plus the
@@ -46,6 +47,7 @@ export const factions: Faction[] = [
   sororitas,
   mechanicus,
   astraMilitarum,
+  ...regiments,
   imperialKnights,
   greyKnights,
   spaceMarines,

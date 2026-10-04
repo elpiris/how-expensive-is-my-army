@@ -4,7 +4,8 @@ Running list of outstanding work. Data facts were last checked on the dates note
 Warhammer points and prices drift, so treat anything older with suspicion.
 
 Active dropdown groups (`Faction.category`):
-- **Imperium** — Custodes, Sororitas, Mechanicus, Astra Militarum, Imperial Knights,
+- **Imperium** — Custodes, Sororitas, Mechanicus, Astra Militarum (+ a **Regiment**
+  sub-selector: Cadian, Catachan, Krieg, Tempestus, Steel Legion), Imperial Knights,
   Grey Knights.
 - **Space Marines** — one entry + a **Chapter** sub-selector: no Chapter,
   Ultramarines, Imperial Fists, Salamanders, Iron Hands, White Scars, Raven Guard,
@@ -56,7 +57,15 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   (Leman Russ, Rogal Dorn, Manticore/Deathstrike, Hydra/Wyvern, Ogryns/Bullgryns/
   Bodyguard, Taurox/Prime, Baneblade ×5, Shadowsword ×3); Graves' €83 box builds
   both versions (one fielded); the Nork Deddog box adds 2 Ogryns. Limited
-  Battleforce Platoon skipped.
+  Battleforce Platoon skipped. Five **Regiment** sub-factions (`regiments.ts`,
+  2026-10-04): Cadian, Catachan, Krieg, Militarum Tempestus, Armageddon Steel
+  Legion — each regiment's command squad / troops / heavy weapons / famous hero are
+  regiment-only (Steel Legion borrows the Cadian infantry); abhumans, Rough Riders,
+  Commissars, Leontus, Nork, Gaunt's Ghosts shared (web-checked). The Cadian Combat
+  Patrol isn't seeded where it doesn't fully apply (accepted: those regiments cost
+  more, +13…24%). Super-heavies: max one per army (shared `exclusiveGroup`) and
+  `pickWeight` 1/8 each (Steel Legion 1/3): 24% of plain lists, 73% Steel Legion,
+  2–8% elsewhere.
 - **Imperial Knights — DONE (2026-10-03).** The 14 plastic datasheets (the 8 FW resin
   Knights omitted, as for Chaos Knights). Kits: Questoris €155 (Paladin / Errant /
   Gallant / Crusader / Warden / Defender), Dominus €156 (Castellan / Valiant),

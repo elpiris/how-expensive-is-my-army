@@ -50,6 +50,10 @@ Built with **Vite + React + TypeScript**.
   known for — its own units, and units matching its identity (bikes for White Scars,
   flamers and meltas for Salamanders, Terminators and Gravis for Imperial Fists…) —
   at about the same price as a pure value-for-money list.
+- **Astra Militarum Regiments:** Cadian Shock Troops (Creed, Kasrkin, Leman Russ),
+  Catachan Jungle Fighters (flamers, Ogryns, Sly Marbo), Death Korps of Krieg
+  (artillery, Dreir), Militarum Tempestus (Scions, Valkyries) and the Armageddon
+  Steel Legion (tank companies, super-heavies, Yarrick, Graves).
 - **Chaos Space Marine Legions:** Black Legion (Abaddon, Chosen, Terminators), Iron
   Warriors (tanks, daemon engines, Vashtorr, Kravek Morne), Night Lords (Raptors, Warp
   Talons, Nemesis Claw), Word Bearers (Dark Apostles, Possessed, Daemon Princes), Alpha
@@ -145,6 +149,7 @@ src/
     craftworlds.ts      # the 5 Aeldari Craftworld sub-factions
     hiveFleets.ts       # the 7 Tyranid Hive Fleet sub-factions
     legions.ts          # the 6 Chaos Space Marine Legion sub-factions
+    regiments.ts        # the 5 Astra Militarum Regiment sub-factions
     spaceMarines/       # base Codex roster + per-Chapter Faction files
       base.ts           #   shared roster + generic value boxes
       vanilla.ts        #   Space Marines, no Chapter
