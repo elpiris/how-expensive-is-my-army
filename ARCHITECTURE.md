@@ -149,8 +149,10 @@ Key rules/knobs:
   for a Dedicated Transport as it enters the list: chance =
   `Faction.transportChance` (default 0.35) × (squad + leader points ÷ 250), capped
   at 90%; a leader joining later rolls again for the difference only. The
-  transport is picked by appeal among those that can carry it and fit (value
-  picks in the fill still happen). Bases: Orks / Drukhari 0.6, Marines / CSM / DG /
+  ride is mostly the cheapest that can carry it and fits (weight (cheapest /
+  cost)^3 — Rhinos over Land Raiders, flavour over value); transports get only
+  0.15× weight in the value fill; a second big transport (≥150 pts) is a 20%
+  chance, even when it's the only ride (Terminators). Bases: Orks / Drukhari 0.6, Marines / CSM / DG /
   WE / EC / Sororitas 0.5, Necrons 0.25, Custodes 0.2, Tyranids 0.1; Steel Legion
   0.9, Saim-Hann 0.6, Night Lords 0.3, Catachan / Krieg 0.25. The list view shows
   leader + unit + transport together (`attachAll`).

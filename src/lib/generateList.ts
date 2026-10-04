@@ -32,9 +32,9 @@ import type { UnitCategory } from '../types'
 // it enters the list, with a chance that grows with its points (squad + leader;
 // `Faction.transportChance` at 250 pts, capped at 90%) — a Chosen + Lord block
 // rides far more often than 10 Cultists. A leader joining later rolls again for
-// the difference only. The transport is picked by appeal among those that can
-// carry the squad and fit. Value-first transports (Land Raiders…) can still be
-// picked in the fill as before.
+// the difference only. The ride is mostly the cheapest that can carry the squad
+// and fits (Rhinos, not Land Raiders — flavour over value); transports are only
+// rarely picked on value in the fill, and a second big transport is rare.
 //
 // Leaders need a bodyguard: a character with a `leads` list only joins while a
 // unit it can lead is in the list and not yet led (one leader per unit, checked
@@ -83,6 +83,14 @@ const LEADER_CHANCE = 0.5
 const TRANSPORT_CHANCE = 0.35
 const TRANSPORT_REF_PTS = 250
 const TRANSPORT_MAX_CHANCE = 0.9
+// Which ride: the cheaper the more likely (Rhino over Land Raider), as weight
+// (cheapest / this)^RIDE_CHEAPNESS_POWER. Value-picked transports in the fill get
+// TRANSPORT_FILL_WEIGHT, and every big transport (>= BIG_TRANSPORT_PTS) after the
+// first is BIG_TRANSPORT_REPEAT times as likely (user: Land Raiders rarely twice).
+const RIDE_CHEAPNESS_POWER = 3
+const TRANSPORT_FILL_WEIGHT = 0.15
+const BIG_TRANSPORT_PTS = 150
+const BIG_TRANSPORT_REPEAT = 0.2
 const CHARACTER_DECAY = 0.5
 export const BRACKETS: PointsBracket[] = [500, 1000, 1500, 2000]
 const SIZE_CAP: Record<number, number> = { 500: 120, 1000: 200, 1500: 350, 2000: Infinity }
@@ -304,6 +312,9 @@ function augmentList(
     )
   const transportUnits = faction.units.filter((u) => u.role === 'transport' && u.transports?.length)
   const canRide = (u: Unit) => transportUnits.some((t) => t.transports!.includes(u.id))
+  const bigTransports = () =>
+    entries.filter((e) => e.unit.role === 'transport' && e.unit.points >= BIG_TRANSPORT_PTS).reduce((a, e) => a + e.count, 0)
+  const bigRepeat = (t: Unit) => (t.points >= BIG_TRANSPORT_PTS && bigTransports() > 0 ? BIG_TRANSPORT_REPEAT : 1)
   const rolled = new Map<string, number>()
   const mounted = new Set<string>()
   const blocks = () => {
@@ -336,8 +347,15 @@ function augmentList(
           nextCopyCost(t) <= remaining &&
           comboOK(t, remaining),
       )
-      const pick = pickWeighted(options, (t) => appeal(t, remaining, 1) * (t.pickWeight ?? 1), rand)
+      const cheapest = Math.min(...options.map((t) => nextCopyCost(t)))
+      const pick = pickWeighted(
+        options,
+        (t) => Math.pow(cheapest / nextCopyCost(t), RIDE_CHEAPNESS_POWER) * (t.pickWeight ?? 1),
+        rand,
+      )
       if (!pick) continue
+      // A second big transport is rare even when it's the only ride (Terminators).
+      if (bigRepeat(pick) < 1 && rand() >= bigRepeat(pick)) continue
       addPick(pick, remaining)
       mounted.add(key)
     }
@@ -488,7 +506,8 @@ function augmentList(
   // 4. Fill the rest with the best points-per-euro kits.
   const weight = (u: Unit, remaining: number) =>
     appeal(u, remaining, 3) * (0.6 + 0.4 * ((u.flavor ?? 1) / 5)) * profileFactor(u) * characterDecay(u) *
-    (u.pickWeight ?? 1)
+    (u.pickWeight ?? 1) *
+    (u.role === 'transport' ? TRANSPORT_FILL_WEIGHT * bigRepeat(u) : 1)
   let guard = 0
   while (guard++ < 500) {
     if (target - pointsOf(entries) <= 0) break
