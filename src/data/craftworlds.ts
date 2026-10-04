@@ -16,7 +16,9 @@ import { aeldari } from './aeldari'
 // Illic Nightspear (Alaitoc) is no longer in the MFM, so Alaitoc has none.
 // ---------------------------------------------------------------------------
 
-const craftworld = (c: Pick<Faction, 'id' | 'name' | 'identity' | 'signature' | 'profile' | 'blurb'>): Faction => ({
+const craftworld = (
+  c: Pick<Faction, 'id' | 'name' | 'identity' | 'signature' | 'profile' | 'blurb' | 'transportChance'>,
+): Faction => ({
   ...aeldari,
   ...c,
   parent: aeldari.id,
@@ -51,6 +53,7 @@ export const saimHann = craftworld({
   name: 'Saim-Hann',
   // The Wild Riders: jetbikes, Vypers and Skyrunner seers.
   identity: { jetbike: 3, gravtank: 1, aspect: 1 },
+  transportChance: 0.6, // Wave Serpents and Falcons
   profile: { character: 2, infantry: 2.5, mounted: 4, vehicle: 2, monster: 0.5 },
   blurb:
     'The Wild Riders. Saim-Hann strike from the saddle — jetbike squadrons, Vypers and Skyrunner seers that hit and vanish before the foe can react.',

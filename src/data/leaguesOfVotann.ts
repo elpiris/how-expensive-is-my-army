@@ -18,6 +18,7 @@ export const leaguesOfVotann: Faction = {
   name: 'Leagues of Votann',
   system: 'w40k',
   category: 'xenos',
+  transportChance: 0.4,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Tough, well-armed infantry backed by bikes, walkers and heavy transports.

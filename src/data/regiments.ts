@@ -51,7 +51,7 @@ const BORROWS: Record<string, string[]> = {
 }
 
 const regiment = (
-  r: Pick<Faction, 'id' | 'name' | 'identity' | 'signature' | 'profile' | 'blurb' | 'flavour'>,
+  r: Pick<Faction, 'id' | 'name' | 'identity' | 'signature' | 'profile' | 'blurb' | 'flavour' | 'transportChance'>,
 ): Faction => {
   const othersOnly = new Set(
     Object.entries(REGIMENT_ONLY)
@@ -94,6 +94,7 @@ export const catachan = regiment({
   name: 'Catachan Jungle Fighters',
   // Close-quarters killers: flamers, knives, Ogryns, scouts and Sly Marbo.
   identity: { melee: 2, flamer: 2, stealth: 1 },
+  transportChance: 0.25, // on foot through the jungle
   signature: ['sly-marbo'],
   profile: { character: 1.5, infantry: 6, mounted: 0.5, vehicle: 2.5 },
   blurb:
@@ -105,6 +106,7 @@ export const krieg = regiment({
   name: 'Death Korps of Krieg',
   // Attrition and siege: Death Korps lines under massed artillery.
   identity: { artillery: 3, heavy: 1 },
+  transportChance: 0.25, // trench lines, on foot
   signature: ['lord-marshal-dreir'],
   profile: { character: 1.5, infantry: 4.5, mounted: 1, vehicle: 4 },
   blurb:
@@ -128,8 +130,9 @@ export const steelLegion = regiment({
   name: 'Armageddon Steel Legion',
   // Mechanised war: Chimera-borne infantry, tank companies and super-heavies.
   identity: { mechanised: 3, tank: 2, superheavy: 3 },
+  transportChance: 0.9, // Chimera-borne infantry
   signature: ['yarrick', 'commissar-graves'],
-  profile: { character: 1.5, infantry: 3, mounted: 0.5, vehicle: 6 },
+  profile: { character: 1.5, infantry: 4, mounted: 0.5, vehicle: 5 },
   blurb:
     'The Steel Legion of Armageddon go to war mechanised — Chimera-borne infantry, Leman Russ companies and Baneblades, with Commissar Yarrick at their head.',
 })

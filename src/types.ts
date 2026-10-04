@@ -260,6 +260,12 @@ export interface Faction {
    * gets too pricey (Aeldari Craftworlds use 0.5).
    */
   flavour?: number
+  /**
+   * Base chance (at a 250-pt squad, leader included) that a squad which can ride
+   * gets a Dedicated Transport; scales with the squad's points, capped at 90%.
+   * Default 0.35 — higher for armies famous for riding (Orks, Marines…).
+   */
+  transportChance?: number
   blurb?: string
   units: Unit[]
   valueBoxes: ValueBox[]

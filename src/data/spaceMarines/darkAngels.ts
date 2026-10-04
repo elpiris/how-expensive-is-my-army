@@ -123,6 +123,7 @@ export const darkAngels: Faction = {
   name: 'Dark Angels',
   system: 'w40k',
   category: 'space-marines',
+  transportChance: 0.5,
   parent: 'space-marines',
   chapter: 'non-codex',
   lastVerified: '2026-10-03',

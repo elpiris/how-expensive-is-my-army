@@ -17,6 +17,7 @@ export const emperorsChildren: Faction = {
   name: "Emperor's Children",
   system: 'w40k',
   category: 'chaos',
+  transportChance: 0.5,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Swift, excessive warbands: sonic and blade infantry, daemon engines, Slaanesh daemons.

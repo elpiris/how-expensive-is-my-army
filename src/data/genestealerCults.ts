@@ -19,6 +19,7 @@ export const genestealerCults: Faction = {
   name: 'Genestealer Cults',
   system: 'w40k',
   category: 'xenos',
+  transportChance: 0.4,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Swarms of hybrid infantry under many cult leaders, with mining vehicles and bikes.

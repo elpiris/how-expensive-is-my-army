@@ -2,7 +2,7 @@ import { Fragment, useMemo, useState, type CSSProperties } from 'react'
 import { factions, getFaction } from './data'
 import { generateList, generateEscalation, BRACKETS } from './lib/generateList'
 import { costList, discountedTotal, purchaseDelta, sumLines } from './lib/costList'
-import { attachLeaders, type UnitCopy } from './lib/attachments'
+import { attachAll, type UnitCopy } from './lib/attachments'
 import {
   copyPoints,
   copySurcharge,
@@ -60,14 +60,18 @@ function lineFactor(line: PurchaseLine, pct: DiscountPercent): number {
 }
 
 /**
- * List sections, as per-copy rows: leaders shown together with the unit they
- * lead ("Attached units"), then the unattached characters, battleline and the rest.
+ * List sections, as per-copy rows: each unit shown together with its leader and
+ * the transport carrying it ("Attached units"), then the unattached characters,
+ * battleline and the rest (incl. transports with nothing to carry).
  */
 function groupRows(entries: ListEntry[]): { label: string; rows: UnitCopy[][] }[] {
-  const { attached, rest } = attachLeaders(entries)
+  const { groups: attached, rest } = attachAll(entries)
   const single = (cs: UnitCopy[]) => cs.map((c) => [c])
   const groups = [
-    { label: 'Attached units', rows: attached.map((a) => [a.leader, a.unit]) },
+    {
+      label: 'Attached units',
+      rows: attached.map((a) => [a.leader, a.unit, a.transport].filter((c): c is UnitCopy => !!c)),
+    },
     { label: 'Characters', rows: single(rest.filter((c) => isCharacter(c.unit))) },
     {
       label: 'Battleline',
@@ -142,11 +146,21 @@ function ListPanel({ list }: { list: GeneratedList }) {
                       >
                         <td>
                           {j > 0 && (
-                            <span className="led-mark" title="Led by the character above">
+                            <span
+                              className="led-mark"
+                              title={
+                                unit.role === 'transport'
+                                  ? 'Transport carrying the unit above'
+                                  : 'Led by the character above'
+                              }
+                            >
                               ↳
                             </span>
                           )}
                           {unit.epicHero && <span className="tag epic">Epic</span>}
+                          {row.length > 1 && unit.role === 'transport' && (
+                            <span className="tag transport">Transport</span>
+                          )}
                           {unit.name}
                           {unit.wargear && (
                             <span className="wg">

@@ -66,6 +66,41 @@ export function copiesOf(entries: ListEntry[]): UnitCopy[] {
   return entries.flatMap((e) => Array.from({ length: e.count }, (_, i) => ({ unit: e.unit, copy: i + 1 })))
 }
 
+/** A unit with whatever is attached to it: its leader and/or the transport carrying it. */
+export interface UnitGroup {
+  leader?: UnitCopy
+  unit: UnitCopy
+  transport?: UnitCopy
+}
+
+/**
+ * Leaders paired with their units (`attachLeaders`), then each transport assigned
+ * to a unit it can carry — the most valuable blocks (unit + leader) first, as the
+ * generator mounts the priciest squads most often. Returns the groups with
+ * anything attached, and the remaining loose copies.
+ */
+export function attachAll(entries: ListEntry[]): { groups: UnitGroup[]; rest: UnitCopy[] } {
+  const { attached, rest } = attachLeaders(entries)
+  const blockPts = (g: UnitGroup) => g.unit.unit.points + (g.leader?.unit.points ?? 0)
+  const blocks: UnitGroup[] = [
+    ...attached.map((a) => ({ leader: a.leader, unit: a.unit })),
+    ...rest.filter((c) => !isCharacter(c.unit) && c.unit.role !== 'transport').map((c) => ({ unit: c })),
+  ].sort((a, b) => blockPts(b) - blockPts(a))
+  const transports = rest.filter((c) => c.unit.role === 'transport').sort((a, b) => b.unit.points - a.unit.points)
+  const loose: UnitCopy[] = []
+  for (const t of transports) {
+    const g = blocks.find((b) => !b.transport && t.unit.transports?.includes(b.unit.unit.id))
+    if (g) g.transport = t
+    else loose.push(t)
+  }
+  const groups = blocks.filter((b) => b.leader || b.transport)
+  const grouped = new Set(groups.map((g) => g.unit))
+  return {
+    groups,
+    rest: [...rest.filter((c) => c.unit.role !== 'transport' && !grouped.has(c)), ...loose],
+  }
+}
+
 /**
  * Split a list into leader + led-unit pairs and the remaining unattached copies.
  * The priciest leaders pick first, so a big hero is shown with its unit when

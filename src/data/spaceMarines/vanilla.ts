@@ -7,6 +7,7 @@ export const spaceMarines: Faction = {
   name: 'Space Marines',
   system: 'w40k',
   category: 'space-marines',
+  transportChance: 0.5,
   subfactionLabel: 'Chapter',
   lastVerified: '2026-10-03',
   pointsVerified: true,

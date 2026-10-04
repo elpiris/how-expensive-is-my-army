@@ -22,6 +22,7 @@ export const aeldari: Faction = {
   name: 'Aeldari',
   system: 'w40k',
   category: 'xenos',
+  transportChance: 0.4,
   subfactionLabel: 'Craftworld',
   lastVerified: '2026-10-02',
   pointsVerified: true,

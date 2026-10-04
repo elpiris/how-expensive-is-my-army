@@ -23,7 +23,7 @@ const LEGION_ONLY: Record<string, string[]> = {
 }
 
 const legion = (
-  l: Pick<Faction, 'id' | 'name' | 'identity' | 'signature' | 'profile' | 'blurb' | 'flavour'>,
+  l: Pick<Faction, 'id' | 'name' | 'identity' | 'signature' | 'profile' | 'blurb' | 'flavour' | 'transportChance'>,
 ): Faction => {
   const othersOnly = new Set(
     Object.entries(LEGION_ONLY)
@@ -75,6 +75,7 @@ export const nightLords = legion({
   name: 'Night Lords',
   // Terror troops: Raptors, Warp Talons and the Nemesis Claw.
   identity: { jump: 3 },
+  transportChance: 0.3, // they fly in
   // Jump troops are only middling value, so lean further to flavour (user wants
   // far more Raptors / Warp Talons / jump-pack Lords, 2026-10-04).
   flavour: 0.75,

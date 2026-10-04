@@ -1,5 +1,5 @@
 import type { Faction, GeneratedList, ListEntry, PointsBracket, Unit } from '../types'
-import { copiesOf, isLeader, matchLeaders } from './attachments'
+import { attachLeaders, copiesOf, isLeader, matchLeaders } from './attachments'
 import { costList } from './costList'
 import {
   copyPoints,
@@ -27,6 +27,14 @@ import type { UnitCategory } from '../types'
 // the list escalates); (2) leaders for leadable units; (3) guarantee a
 // character; (4) value fill. Battleline is not forced — it competes on value /
 // flavour like everything else.
+//
+// Transports: each squad that can ride rolls once for a Dedicated Transport as
+// it enters the list, with a chance that grows with its points (squad + leader;
+// `Faction.transportChance` at 250 pts, capped at 90%) — a Chosen + Lord block
+// rides far more often than 10 Cultists. A leader joining later rolls again for
+// the difference only. The transport is picked by appeal among those that can
+// carry the squad and fit. Value-first transports (Land Raiders…) can still be
+// picked in the fill as before.
 //
 // Leaders need a bodyguard: a character with a `leads` list only joins while a
 // unit it can lead is in the list and not yet led (one leader per unit, checked
@@ -71,6 +79,10 @@ import type { UnitCategory } from '../types'
 // ---------------------------------------------------------------------------
 
 const LEADER_CHANCE = 0.5
+// Transports: base chance for a 250-pt squad (leader included), scaled by points.
+const TRANSPORT_CHANCE = 0.35
+const TRANSPORT_REF_PTS = 250
+const TRANSPORT_MAX_CHANCE = 0.9
 const CHARACTER_DECAY = 0.5
 export const BRACKETS: PointsBracket[] = [500, 1000, 1500, 2000]
 const SIZE_CAP: Record<number, number> = { 500: 120, 1000: 200, 1500: 350, 2000: Infinity }
@@ -283,6 +295,56 @@ function augmentList(
     for (const m of mates) addUnit(entries, m.unit, m.n)
   }
 
+  // Transports for squads (see header). `rolled` remembers the block points each
+  // squad copy last rolled at; `mounted` the copies given a ride here.
+  const transportChance = (pts: number) =>
+    Math.min(
+      TRANSPORT_MAX_CHANCE,
+      ((faction.transportChance ?? TRANSPORT_CHANCE) * pts) / TRANSPORT_REF_PTS,
+    )
+  const transportUnits = faction.units.filter((u) => u.role === 'transport' && u.transports?.length)
+  const canRide = (u: Unit) => transportUnits.some((t) => t.transports!.includes(u.id))
+  const rolled = new Map<string, number>()
+  const mounted = new Set<string>()
+  const blocks = () => {
+    const { attached, rest } = attachLeaders(entries)
+    return [
+      ...attached.map((a) => ({ c: a.unit, pts: copyPoints(a.unit.unit, a.unit.copy) + copyPoints(a.leader.unit, a.leader.copy) })),
+      ...rest.filter((c) => !isCharacter(c.unit)).map((c) => ({ c, pts: copyPoints(c.unit, c.copy) })),
+    ]
+      .filter((b) => canRide(b.c.unit))
+      .sort((a, b) => b.pts - a.pts)
+  }
+  const rideCheck = () => {
+    if (!transportUnits.length) return
+    for (const { c, pts } of blocks()) {
+      const key = `${c.unit.id}#${c.copy}`
+      const prev = rolled.get(key) ?? 0
+      if (mounted.has(key) || pts <= prev) continue
+      rolled.set(key, pts)
+      const p0 = transportChance(prev)
+      const p = (transportChance(pts) - p0) / (1 - p0)
+      if (rand() >= p) continue
+      const remaining = target - pointsOf(entries)
+      const options = transportUnits.filter(
+        (t) =>
+          t.transports!.includes(c.unit.id) &&
+          transportOK(t) &&
+          withinSize(t) &&
+          groupFree(t) &&
+          countIn(entries, t.id) < capFor(t) &&
+          nextCopyCost(t) <= remaining &&
+          comboOK(t, remaining),
+      )
+      const pick = pickWeighted(options, (t) => appeal(t, remaining, 1) * (t.pickWeight ?? 1), rand)
+      if (!pick) continue
+      addPick(pick, remaining)
+      mounted.add(key)
+    }
+  }
+  // Escalation: squads carried over from the last stage already rolled.
+  for (const { c, pts } of blocks()) rolled.set(`${c.unit.id}#${c.copy}`, pts)
+
   // Field one whole spare unit (paid-for but unused models), if any is legal and
   // fits; the biggest first so the most bought value gets used. True if added.
   const fieldSpare = (): boolean => {
@@ -408,6 +470,9 @@ function augmentList(
     if (leader) addPick(leader, remaining)
   }
 
+  // Rides for the squads so far (Combat Patrol, spares, leaders attached).
+  rideCheck()
+
   // 3. Guarantee at least one character — one with a unit to lead if possible.
   if (!entries.some((e) => isCharacter(e.unit))) {
     const remaining = target - pointsOf(entries)
@@ -428,7 +493,10 @@ function augmentList(
   while (guard++ < 500) {
     if (target - pointsOf(entries) <= 0) break
     // Paid-for-but-unused units always come before new purchases.
-    if (fieldSpare()) continue
+    if (fieldSpare()) {
+      rideCheck()
+      continue
+    }
     const remaining = target - pointsOf(entries)
     const legal = faction.units.filter(
       (u) =>
@@ -444,6 +512,7 @@ function augmentList(
     const pick = pickWeighted(legal, (u) => weight(u, remaining), rand)
     if (!pick) break
     addPick(pick, remaining)
+    rideCheck()
   }
 
   const total = pointsOf(entries)

@@ -23,6 +23,7 @@ export const chaosSpaceMarines: Faction = {
   name: 'Chaos Space Marines',
   system: 'w40k',
   category: 'chaos',
+  transportChance: 0.5,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   subfactionLabel: 'Legion',

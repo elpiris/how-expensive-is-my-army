@@ -18,6 +18,7 @@ export const thousandSons: Faction = {
   name: 'Thousand Sons',
   system: 'w40k',
   category: 'chaos',
+  transportChance: 0.4,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Sorcerer-led Rubric cabals, Tzaangor warherds and the daemons of Tzeentch.

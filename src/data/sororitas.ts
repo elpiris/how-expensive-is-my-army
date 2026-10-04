@@ -17,6 +17,7 @@ export const sororitas: Faction = {
   name: 'Adepta Sororitas',
   system: 'w40k',
   category: 'imperium',
+  transportChance: 0.5,
   lastVerified: '2026-10-02',
   pointsVerified: true,
   // Massed Sisters + holy war machines, a few leading characters.

@@ -30,6 +30,7 @@ export const custodes: Faction = {
   name: 'Adeptus Custodes',
   system: 'w40k',
   category: 'imperium',
+  transportChance: 0.2,
   lastVerified: '2026-10-02',
   pointsVerified: true,
   ignoreSizeCap: true,

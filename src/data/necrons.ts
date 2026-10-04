@@ -20,6 +20,7 @@ export const necrons: Faction = {
   name: 'Necrons',
   system: 'w40k',
   category: 'xenos',
+  transportChance: 0.25,
   lastVerified: '2026-10-02',
   pointsVerified: true,
   // Reanimating infantry legions + Canoptek constructs + vehicles, C'tan apex.

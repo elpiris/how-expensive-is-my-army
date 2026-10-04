@@ -17,6 +17,7 @@ export const drukhari: Faction = {
   name: 'Drukhari',
   system: 'w40k',
   category: 'xenos',
+  transportChance: 0.6,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Fast raiding parties in skimmer transports, with Coven pain engines.

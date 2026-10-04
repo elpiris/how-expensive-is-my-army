@@ -19,6 +19,7 @@ export const worldEaters: Faction = {
   name: 'World Eaters',
   system: 'w40k',
   category: 'chaos',
+  transportChance: 0.5,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Relentless melee infantry, Juggernaut-riding lords, daemon engines and Khorne daemons.

@@ -35,6 +35,7 @@ export const tyranids: Faction = {
   name: 'Tyranids',
   system: 'w40k',
   category: 'xenos',
+  transportChance: 0.1,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   subfactionLabel: 'Hive Fleet',

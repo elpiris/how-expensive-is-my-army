@@ -22,6 +22,7 @@ export const greyKnights: Faction = {
   name: 'Grey Knights',
   system: 'w40k',
   category: 'imperium',
+  transportChance: 0.4,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Elite psyker infantry and Terminators, Dreadknights, few vehicles.

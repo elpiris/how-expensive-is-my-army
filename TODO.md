@@ -232,6 +232,9 @@ MFM list minus the FW Thunderhawk) reused by each Chapter; Chapters are sub-fact
 - More Chapters (Deathwatch — low priority; Crimson Fists, Black Dragons… not modelled).
 
 ## Model / rules refinements
+- **Transport carry lists:** review each transport's `transports` per faction —
+  some carriable units are missing (e.g. Masters of the Maelstrom on the Chaos Land
+  Raider). Transport chances per faction are first guesses (2026-10-04).
 - **Flavour for other factions:** only SM Chapters, Aeldari Craftworlds and Tyranid
   Hive Fleets have
   `tags` / `identity`; the rest stay value-first. Tag them (and add identities or

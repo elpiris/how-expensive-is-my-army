@@ -21,6 +21,7 @@ export const orks: Faction = {
   name: 'Orks',
   system: 'w40k',
   category: 'xenos',
+  transportChance: 0.6,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Green tide: mobs of Boyz, ramshackle vehicles and big walkers, loud bosses.

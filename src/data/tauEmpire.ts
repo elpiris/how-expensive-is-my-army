@@ -19,6 +19,7 @@ export const tauEmpire: Faction = {
   name: "T'au Empire",
   system: 'w40k',
   category: 'xenos',
+  transportChance: 0.4,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   // Gunline infantry, battlesuits and grav-tanks; Kroot auxiliaries.

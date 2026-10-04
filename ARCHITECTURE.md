@@ -145,6 +145,15 @@ Key rules/knobs:
   fill pick: anything `costList(...).spare` reports as paid-for but unfielded
   (unused value-box contents, kit leftovers, bonus `alsoBuilds` models) is fielded
   first as whole units, if legal and it fits — size-cap exempt, like CP units.
+- **Transports** (`rideCheck`, 2026-10-04) — each squad that can ride rolls once
+  for a Dedicated Transport as it enters the list: chance =
+  `Faction.transportChance` (default 0.35) × (squad + leader points ÷ 250), capped
+  at 90%; a leader joining later rolls again for the difference only. The
+  transport is picked by appeal among those that can carry it and fit (value
+  picks in the fill still happen). Bases: Orks / Drukhari 0.6, Marines / CSM / DG /
+  WE / EC / Sororitas 0.5, Necrons 0.25, Custodes 0.2, Tyranids 0.1; Steel Legion
+  0.9, Saim-Hann 0.6, Night Lords 0.3, Catachan / Krieg 0.25. The list view shows
+  leader + unit + transport together (`attachAll`).
 - **`pickWeight`** (Unit, default 1) — multiplier on the value-fill weight, for a
   family of datasheets that would each get their own chance (the 8 AM super-heavies
   at 1/8 share one chance). The Combat Patrol is only seeded when the faction can

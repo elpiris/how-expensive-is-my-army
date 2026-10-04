@@ -18,6 +18,7 @@ export const deathGuard: Faction = {
   name: 'Death Guard',
   system: 'w40k',
   category: 'chaos',
+  transportChance: 0.5,
   lastVerified: '2026-10-02',
   pointsVerified: true,
   // Resilient Plague Marine infantry + daemon engines, with Nurgle monsters apex.

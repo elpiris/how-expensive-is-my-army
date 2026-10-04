@@ -21,6 +21,7 @@ export const astraMilitarum: Faction = {
   name: 'Astra Militarum',
   system: 'w40k',
   category: 'imperium',
+  transportChance: 0.4,
   lastVerified: '2026-10-03',
   pointsVerified: true,
   subfactionLabel: 'Regiment',
