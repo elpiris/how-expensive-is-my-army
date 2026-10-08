@@ -35,6 +35,7 @@ import { craftworlds } from './craftworlds'
 import { hiveFleets } from './hiveFleets'
 import { legions } from './legions'
 import { regiments } from './regiments'
+import { septs } from './septs'
 
 // Active factions, ordered by grand alliance (the dropdown groups them by
 // `category`). Space Marines ship as a base (Chapter-agnostic) force plus the
@@ -78,6 +79,7 @@ export const factions: Faction[] = [
   aeldari,
   ...craftworlds,
   tauEmpire,
+  ...septs,
   leaguesOfVotann,
   genestealerCults,
   drukhari,

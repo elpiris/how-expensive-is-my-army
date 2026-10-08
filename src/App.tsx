@@ -618,7 +618,7 @@ const TAG_LABELS: Record<UnitTag, string> = {
   ambush: 'ambushers',
   toxin: 'toxins and spores',
   artillery: 'artillery',
-  fast: 'fast bioforms',
+  fast: 'fast units',
   daemon: 'daemons and the Possessed',
   cultist: 'cultists',
   daemonengine: 'daemon engines',
@@ -627,6 +627,9 @@ const TAG_LABELS: Record<UnitTag, string> = {
   mechanised: 'mechanised units',
   superheavy: 'super-heavy tanks',
   airborne: 'drop troops',
+  battlesuit: 'battlesuits',
+  firewarrior: 'Fire Warriors',
+  kroot: 'Kroot',
 }
 
 /** "bikes, speeders and Chapter units" — a faction's identity, strongest first. */

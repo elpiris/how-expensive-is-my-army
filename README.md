@@ -26,7 +26,7 @@ Built with **Vite + React + TypeScript**.
     Knights, Emperor's Children,
     World Eaters, Thousand Sons, Chaos Daemons
   - **Xenos** — Necrons, Tyranids (+ a **Hive Fleet** dropdown), Aeldari (+ a
-    **Craftworld** dropdown), T'au Empire,
+    **Craftworld** dropdown), T'au Empire (+ a **Sept** dropdown),
     Leagues of Votann, Genestealer Cults, Drukhari, Orks
 - **Two modes:**
   - **Quick list** — pick a faction + points bracket (500 / 1000 / 1500 / 2000)
@@ -50,6 +50,9 @@ Built with **Vite + React + TypeScript**.
   known for — its own units, and units matching its identity (bikes for White Scars,
   flamers and meltas for Salamanders, Terminators and Gravis for Imperial Fists…) —
   at about the same price as a pure value-for-money list.
+- **T'au Septs:** T'au Sept (Shadowsun, Fire Warriors), Farsight Enclaves (Farsight,
+  battlesuits), Vior'la (fast strikes), Bork'an (long-range guns) and a Kroot Hunting
+  Pack (Kroot with T'au gunships in support).
 - **Astra Militarum Regiments:** Cadian Shock Troops (Creed, Kasrkin, Leman Russ),
   Catachan Jungle Fighters (flamers, Ogryns, Sly Marbo), Death Korps of Krieg
   (artillery, Dreir), Militarum Tempestus (Scions, Valkyries) and the Armageddon
@@ -153,6 +156,7 @@ src/
     hiveFleets.ts       # the 7 Tyranid Hive Fleet sub-factions
     legions.ts          # the 6 Chaos Space Marine Legion sub-factions
     regiments.ts        # the 5 Astra Militarum Regiment sub-factions
+    septs.ts            # the 5 T'au Sept sub-factions (incl. Kroot Hunting Pack)
     spaceMarines/       # base Codex roster + per-Chapter Faction files
       base.ts           #   shared roster + generic value boxes
       vanilla.ts        #   Space Marines, no Chapter

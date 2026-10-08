@@ -208,6 +208,10 @@ export type UnitTag =
   | 'mechanised'
   | 'superheavy'
   | 'airborne'
+  // T'au Empire (Septs)
+  | 'battlesuit'
+  | 'firewarrior'
+  | 'kroot'
 
 /**
  * What a faction is known for: tag → weight (1 = a nod, 3 = defining). With the

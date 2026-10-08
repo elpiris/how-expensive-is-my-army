@@ -17,7 +17,8 @@ Active dropdown groups (`Faction.category`):
 - **Xenos** — Necrons, Tyranids (+ a **Hive Fleet** sub-selector: Behemoth, Kraken,
   Leviathan, Gorgon, Jormungandr, Hydra, Kronos), Aeldari (+ a **Craftworld**
   sub-selector: Biel-Tan,
-  Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire, Leagues of Votann, Genestealer
+  Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire (+ a **Sept** sub-selector: T'au
+  Sept, Farsight Enclaves, Vior'la, Bork'an, Kroot Hunting Pack), Leagues of Votann, Genestealer
   Cults, Drukhari, Orks.
 
 Architecture overview: [ARCHITECTURE.md](ARCHITECTURE.md).
@@ -159,7 +160,11 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   (Enforcer / Coldstar), Crisis €74/3 (Fireknife / Starscythe / Sunforge),
   Hammerhead / Sky Ray €64, Razorshark / Sun Shark €74; Stealth Suits and Vespid in
   Kill Team boxes (€56.50, 5 / 10). Combat Patrol (€139: Enforcer Commander,
-  Devilfish, 10 Breachers, 10 Pathfinders).
+  Devilfish, 10 Breachers, 10 Pathfinders). Five **Sept** sub-factions (`septs.ts`,
+  2026-10-08): T'au Sept (Shadowsun-only), Farsight Enclaves (Farsight-only), Vior'la,
+  Bork'an, Kroot Hunting Pack (heavily Kroot + T'au gun support, flavour 0.75; +16%).
+  Stormsurge: one per army, `pickWeight` 0.2 (Bork'an 0.6) — 13% of plain lists,
+  66% Bork'an.
 - **Leagues of Votann — DONE (2026-10-03).** All 22 MFM datasheets; every kit price
   from the en-EU grid, box sizes / sharing confirmed by the user (Steeljacks €51/3
   either loadout, Kapricus Defender / Carrier €52, Grimnyr box = 3 models, Iron-master

@@ -61,9 +61,9 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
   **Missing (low priority):** Imperial Agents + Deathwatch.
 - **Sub-factions** (`parent` + a second dropdown): 10 SM Chapters (6 Codex + DA, BT,
   SW, BA; generic SM boxes incl. DA CP, Heroes / Honoured of the Chapter), 5
-  Aeldari Craftworlds, 7 Tyranid Hive Fleets, 6 CSM Legions and 5 AM Regiments
-  (Legions / Regiments have sub-faction-only units). All dropdowns are alphabetical ("No specific …" first).
-- **Flavour:** SM, Aeldari, Tyranid and CSM units are tagged; Chapters have an
+  Aeldari Craftworlds, 7 Tyranid Hive Fleets, 6 CSM Legions, 5 AM Regiments and
+  5 T'au Septs (Legions / Regiments / Septs have sub-faction-only units). All dropdowns are alphabetical ("No specific …" first).
+- **Flavour:** SM, Aeldari, Tyranid, CSM, AM and T'au units are tagged; Chapters have an
   `identity` (full flavour), Craftworlds / Hive Fleets / Legions an identity +
   signature units (`flavour: 0.5`; Gorgon, Night Lords 0.75); plain Tyranids have
   a light identity (0.3); other factions are value-first.
