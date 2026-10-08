@@ -31,6 +31,7 @@ src/
     regiments.ts      # AM Regiments (same as legions + BORROWS / PICK_WEIGHT overrides)
     septs.ts          # T'au Septs (same pattern + PICK_WEIGHT overrides)
     drukhariForces.ts # Drukhari Kabal / Wych Cult / Coven (favoured only, like Craftworlds)
+    clans.ts          # Ork Clans (favoured only)
     spaceMarines/     # SM is special: shared base + one file per Chapter
       base.ts         #   baseUnits[], exclusive(), gettingStartedBox, darkAngelsCP,
                       #   heroesOfTheChapter, honouredOfTheChapter

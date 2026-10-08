@@ -37,6 +37,7 @@ import { legions } from './legions'
 import { regiments } from './regiments'
 import { septs } from './septs'
 import { drukhariForces } from './drukhariForces'
+import { clans } from './clans'
 
 // Active factions, ordered by grand alliance (the dropdown groups them by
 // `category`). Space Marines ship as a base (Chapter-agnostic) force plus the
@@ -75,6 +76,7 @@ export const factions: Faction[] = [
   // Xenos
   necrons,
   orks,
+  ...clans,
   tyranids,
   ...hiveFleets,
   aeldari,

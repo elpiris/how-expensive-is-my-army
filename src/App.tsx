@@ -633,6 +633,8 @@ const TAG_LABELS: Record<UnitTag, string> = {
   kabal: 'Kabal warriors',
   wych: 'Wych Cult gladiators',
   coven: 'Haemonculus Coven horrors',
+  mek: 'Meks and looted tech',
+  beast: 'beasts and squigs',
 }
 
 /** "bikes, speeders and Chapter units" — a faction's identity, strongest first. */

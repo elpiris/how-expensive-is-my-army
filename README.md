@@ -28,7 +28,7 @@ Built with **Vite + React + TypeScript**.
   - **Xenos** — Necrons, Tyranids (+ a **Hive Fleet** dropdown), Aeldari (+ a
     **Craftworld** dropdown), T'au Empire (+ a **Sept** dropdown),
     Leagues of Votann, Genestealer Cults, Drukhari (+ a **Kabal / Cult / Coven**
-    dropdown), Orks
+    dropdown), Orks (+ a **Clan** dropdown)
 - **Two modes:**
   - **Quick list** — pick a faction + points bracket (500 / 1000 / 1500 / 2000)
     and get one list. Reroll for a new take.
@@ -159,6 +159,7 @@ src/
     regiments.ts        # the 5 Astra Militarum Regiment sub-factions
     septs.ts            # the 5 T'au Sept sub-factions (incl. Kroot Hunting Pack)
     drukhariForces.ts   # Drukhari Kabal / Wych Cult / Haemonculus Coven
+    clans.ts            # the 7 Ork Clan sub-factions
     spaceMarines/       # base Codex roster + per-Chapter Faction files
       base.ts           #   shared roster + generic value boxes
       vanilla.ts        #   Space Marines, no Chapter

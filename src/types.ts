@@ -216,6 +216,9 @@ export type UnitTag =
   | 'kabal'
   | 'wych'
   | 'coven'
+  // Orks (Clans)
+  | 'mek'
+  | 'beast'
 
 /**
  * What a faction is known for: tag → weight (1 = a nod, 3 = defining). With the

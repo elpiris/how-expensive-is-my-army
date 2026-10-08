@@ -19,7 +19,8 @@ Active dropdown groups (`Faction.category`):
   sub-selector: Biel-Tan,
   Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire (+ a **Sept** sub-selector: T'au
   Sept, Farsight Enclaves, Vior'la, Bork'an, Kroot Hunting Pack), Leagues of Votann, Genestealer
-  Cults, Drukhari (+ a **Kabal / Cult / Coven** sub-selector), Orks.
+  Cults, Drukhari (+ a **Kabal / Cult / Coven** sub-selector), Orks (+ a **Clan**
+  sub-selector).
 
 Architecture overview: [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -193,6 +194,9 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   Shared kits: Battlewagon / Gunwagon, Kill / Hunta Rig, Wartrakk / Warbuggy,
   Gorkanaut / Morkanaut €125, the jet kit €77, Mek Gunz, Kill Team Breaka Boyz /
   Tankbustas €56.50/6, Meganobz / Big Mek in MA €60/3.
+  Seven **Clan** sub-factions (`clans.ts`, 2026-10-08): Goffs (Ghazghkull), Evil Sunz
+  (Wazdakka, transport 0.8), Bad Moons (Nazdreg + Meganobz), Deathskulls, Snakebites
+  (Mozrog), Blood Axes (Snikrot), Freebooterz — favoured only; +1…19% at 2000.
 - **TODO — Exodites:** Clanblade (70 pts, leads Dragon Knights), Stonesinger (55,
   supports Dragon Knights), Leystalker (75), Dragon Knights (3 models 85 / 3rd+ 95)
   are in the MFM but only sold in a Kill Team box for now. Add them (tag `exodite`)
