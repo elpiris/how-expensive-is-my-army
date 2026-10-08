@@ -19,7 +19,7 @@ Active dropdown groups (`Faction.category`):
   sub-selector: Biel-Tan,
   Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire (+ a **Sept** sub-selector: T'au
   Sept, Farsight Enclaves, Vior'la, Bork'an, Kroot Hunting Pack), Leagues of Votann, Genestealer
-  Cults, Drukhari, Orks.
+  Cults, Drukhari (+ a **Kabal / Cult / Coven** sub-selector), Orks.
 
 Architecture overview: [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -180,6 +180,11 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   user) except Hand of the Archon (Kill Team box, temporarily unavailable → ≈ €56.50).
   Shared kits: Talos / Cronos €53, Scourges €34/5 (both loadouts); Mandrakes in a
   Kill Team box. Combat Patrol (€139: Haemonculus, Cronos, Talos, 10 Wracks).
+  Three **Kabal / Cult / Coven** sub-factions (`drukhariForces.ts`, 2026-10-08):
+  Kabal (Lady Malys), Wych Cult (Lelith), Haemonculus Coven — favoured only, not
+  exclusive (small roster; everyone keeps the Coven Combat Patrol). Coven lists max
+  out its 4 datasheets, so the rest is mixed. Aircraft (~80% of plain lists) left
+  uncapped on purpose.
 - **Orks — DONE (2026-10-03).** 52 datasheets (the MFM's 55 minus Big'ed Bossbunka
   terrain, the FW Gargantuan Squiggoth and the Runtherd — no kit on sale); every
   price verified (grid + user; "Classic" made-to-order kits not used). Value box:

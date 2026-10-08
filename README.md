@@ -27,7 +27,8 @@ Built with **Vite + React + TypeScript**.
     World Eaters, Thousand Sons, Chaos Daemons
   - **Xenos** — Necrons, Tyranids (+ a **Hive Fleet** dropdown), Aeldari (+ a
     **Craftworld** dropdown), T'au Empire (+ a **Sept** dropdown),
-    Leagues of Votann, Genestealer Cults, Drukhari, Orks
+    Leagues of Votann, Genestealer Cults, Drukhari (+ a **Kabal / Cult / Coven**
+    dropdown), Orks
 - **Two modes:**
   - **Quick list** — pick a faction + points bracket (500 / 1000 / 1500 / 2000)
     and get one list. Reroll for a new take.
@@ -157,6 +158,7 @@ src/
     legions.ts          # the 6 Chaos Space Marine Legion sub-factions
     regiments.ts        # the 5 Astra Militarum Regiment sub-factions
     septs.ts            # the 5 T'au Sept sub-factions (incl. Kroot Hunting Pack)
+    drukhariForces.ts   # Drukhari Kabal / Wych Cult / Haemonculus Coven
     spaceMarines/       # base Codex roster + per-Chapter Faction files
       base.ts           #   shared roster + generic value boxes
       vanilla.ts        #   Space Marines, no Chapter

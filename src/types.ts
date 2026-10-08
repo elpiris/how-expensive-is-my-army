@@ -212,6 +212,10 @@ export type UnitTag =
   | 'battlesuit'
   | 'firewarrior'
   | 'kroot'
+  // Drukhari (Kabal / Wych Cult / Haemonculus Coven)
+  | 'kabal'
+  | 'wych'
+  | 'coven'
 
 /**
  * What a faction is known for: tag → weight (1 = a nod, 3 = defining). With the
