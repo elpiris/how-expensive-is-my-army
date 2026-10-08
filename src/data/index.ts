@@ -38,6 +38,7 @@ import { regiments } from './regiments'
 import { septs } from './septs'
 import { drukhariForces } from './drukhariForces'
 import { clans } from './clans'
+import { orders } from './orders'
 
 // Active factions, ordered by grand alliance (the dropdown groups them by
 // `category`). Space Marines ship as a base (Chapter-agnostic) force plus the
@@ -48,6 +49,7 @@ export const factions: Faction[] = [
   // Imperium
   custodes,
   sororitas,
+  ...orders,
   mechanicus,
   astraMilitarum,
   ...regiments,

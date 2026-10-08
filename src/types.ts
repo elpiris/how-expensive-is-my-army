@@ -219,6 +219,9 @@ export type UnitTag =
   // Orks (Clans)
   | 'mek'
   | 'beast'
+  // Adepta Sororitas (Orders)
+  | 'faithful'
+  | 'penitent'
 
 /**
  * What a faction is known for: tag → weight (1 = a nod, 3 = defining). With the

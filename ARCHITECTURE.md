@@ -32,6 +32,7 @@ src/
     septs.ts          # T'au Septs (same pattern + PICK_WEIGHT overrides)
     drukhariForces.ts # Drukhari Kabal / Wych Cult / Coven (favoured only, like Craftworlds)
     clans.ts          # Ork Clans (favoured only)
+    orders.ts         # Sororitas Orders (favoured only)
     spaceMarines/     # SM is special: shared base + one file per Chapter
       base.ts         #   baseUnits[], exclusive(), gettingStartedBox, darkAngelsCP,
                       #   heroesOfTheChapter, honouredOfTheChapter
@@ -153,7 +154,8 @@ Key rules/knobs:
   `Faction.transportChance` (default 0.35) × (squad + leader points ÷ 250), capped
   at 90%; a leader joining later rolls again for the difference only. The
   ride is mostly the cheapest that can carry it and fits (weight (cheapest /
-  cost)^3 — Rhinos over Land Raiders, flavour over value); transports get only
+  cost)^3 — Rhinos over Land Raiders, flavour over value — × the sub-faction's
+  themeScore^(1.5·flavour), so Sacred Rose favours Immolators); transports get only
   0.15× weight in the value fill; a second big transport (≥150 pts) is a 20%
   chance, even when it's the only ride (Terminators). Bases: Orks / Drukhari 0.6, Marines / CSM / DG /
   WE / EC / Sororitas 0.5, Necrons 0.25, Custodes 0.2, Tyranids 0.1; Steel Legion

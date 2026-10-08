@@ -635,6 +635,8 @@ const TAG_LABELS: Record<UnitTag, string> = {
   coven: 'Haemonculus Coven horrors',
   mek: 'Meks and looted tech',
   beast: 'beasts and squigs',
+  faithful: 'Battle Sisters squads',
+  penitent: 'penitents and Engines of Redemption',
 }
 
 /** "bikes, speeders and Chapter units" — a faction's identity, strongest first. */

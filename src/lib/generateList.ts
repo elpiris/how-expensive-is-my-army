@@ -33,7 +33,8 @@ import type { UnitCategory } from '../types'
 // `Faction.transportChance` at 250 pts, capped at 90%) — a Chosen + Lord block
 // rides far more often than 10 Cultists. A leader joining later rolls again for
 // the difference only. The ride is mostly the cheapest that can carry the squad
-// and fits (Rhinos, not Land Raiders — flavour over value); transports are only
+// and fits (Rhinos, not Land Raiders — flavour over value), weighted by the
+// sub-faction's theme too (Immolators for Sacred Rose); transports are only
 // rarely picked on value in the fill, and a second big transport is rare.
 //
 // Leaders need a bodyguard: a character with a `leads` list only joins while a
@@ -350,7 +351,12 @@ function augmentList(
       const cheapest = Math.min(...options.map((t) => nextCopyCost(t)))
       const pick = pickWeighted(
         options,
-        (t) => Math.pow(cheapest / nextCopyCost(t), RIDE_CHEAPNESS_POWER) * (t.pickWeight ?? 1),
+        (t) =>
+          Math.pow(cheapest / nextCopyCost(t), RIDE_CHEAPNESS_POWER) *
+          // The sub-faction's taste counts too (Sacred Rose → Immolators,
+          // Steel Legion → Chimeras), as in every other pick.
+          Math.pow(themeScore(faction, t), 1.5 * flavour) *
+          (t.pickWeight ?? 1),
         rand,
       )
       if (!pick) continue

@@ -4,7 +4,7 @@ Running list of outstanding work. Data facts were last checked on the dates note
 Warhammer points and prices drift, so treat anything older with suspicion.
 
 Active dropdown groups (`Faction.category`):
-- **Imperium** — Custodes, Sororitas, Mechanicus, Astra Militarum (+ a **Regiment**
+- **Imperium** — Custodes, Sororitas (+ an **Order** sub-selector), Mechanicus, Astra Militarum (+ a **Regiment**
   sub-selector: Cadian, Catachan, Krieg, Tempestus, Steel Legion), Imperial Knights,
   Grey Knights.
 - **Space Marines** — one entry + a **Chapter** sub-selector: no Chapter,
@@ -49,6 +49,10 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
 - **Adepta Sororitas — DONE (2026-10-02).** Full 33-datasheet MFM roster; the foot
   Canoness and the Seraphim/Zephyrim box aren't currently sold → best-effort. Combat
   Patrol (€139: Canoness, 5 Sacresants, 10 Battle Sisters, 10 Arco-flagellants).
+  Four **Order** sub-factions (`orders.ts`, 2026-10-08): Our Martyred Lady (Junith,
+  Triumph of Saint Katherine), Valorous Heart (penitents), Bloody Rose (melee), Sacred
+  Rose (flamers, Immolators) — favoured only; Argent Shroud / Ebon Chalice left out
+  (preferences too vague).
 - **Adeptus Mechanicus — DONE (2026-10-02).** Full 34-datasheet MFM roster; every
   kit verified (Tech-Priest Enginseer €34 confirmed 2026-10-03; the Cybernetica
   Datasmith's kit is the Kastelan box). Combat Patrol (€139: Manipulus, 3 Serberys
