@@ -49,7 +49,7 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 - Don't reintroduce the deleted `src/data/spaceMarines.ts` — SM is now the
   `spaceMarines/` folder.
 - End commit messages with:
-  `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
+  `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`
 
 ## Current state (2026-10-04)
 - **Factions:** 21 non-SM factions + Space Marines, all with full MFM rosters (FW /
