@@ -282,6 +282,13 @@ function ShopPanel({
   )
 }
 
+/**
+ * The "Advanced settings" composition sliders are hidden for now (2026-10-09): the
+ * factions + sub-factions shape lists well enough, and the panel's "favours …" line
+ * no longer reflects the sub-factions. Kept in code — see TODO.md before reviving.
+ */
+const SHOW_ADVANCED = false
+
 export default function App() {
   const [factionId, setFactionId] = useState(factions[0].id)
   // Last sub-faction picked per base faction — restored when the base is re-selected.
@@ -483,6 +490,7 @@ export default function App() {
         </div>
       </section>
 
+      {SHOW_ADVANCED && (
       <div className="adv-toggle-row">
         <button
           className="adv-toggle"
@@ -494,7 +502,8 @@ export default function App() {
           {customProfile && <span className="tag custom">Custom mix</span>}
         </button>
       </div>
-      {showAdvanced && (
+      )}
+      {SHOW_ADVANCED && showAdvanced && (
         <AdvancedSettings
           faction={baseFaction}
           profile={customProfile ?? baseFaction.profile ?? {}}

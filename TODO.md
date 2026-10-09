@@ -305,6 +305,13 @@ MFM list minus the FW Thunderhawk) reused by each Chapter; Chapters are sub-fact
   `VITE_SUPABASE_URL` ended in `/rest/v1/`; the app now tolerates that.
 
 ## Features / scope (backlog)
+- **Advanced settings (hidden 2026-10-09, `SHOW_ADVANCED` in `App.tsx`):** the
+  composition sliders (share of points per unit type, per faction) are hidden — the
+  factions + sub-factions shape lists well enough, and its "X favour …" line
+  (identity tags) no longer shows properly for the sub-factions. Decide: delete it
+  (state `customProfiles`, `AdvancedSettings`, `favouredText`, the `.adv*` styles and
+  the `custom_profile` feedback field), or rework it (e.g. a few presets per army, or
+  showing what the selected sub-faction favours next to the dropdown).
 - Restore a **competitive-list** mode (curated event netlists) — `competitiveLists`
   data is still in the Necron/Tyranid files, just unused.
 - **Low-priority factions:** Imperial Agents, Deathwatch (see above).

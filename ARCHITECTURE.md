@@ -226,8 +226,8 @@ The app opens on `factions[0]` (Adeptus Custodes).
 escalation surcharge tag `.esc`), grouped Attached units (each leader + the unit it
 leads, via `attachLeaders`; priciest leaders pick first) / Characters / Battleline / Other.
 `ShopPanel` renders the buy list with per-line discounts (online-only struck/exempt).
-`SummaryBar` (top) shows pay / RRP / cost-per-point. **Advanced settings**
-(collapsed by default) renders `AdvancedSettings`: one slider per `UnitCategory`
+`SummaryBar` (top) shows pay / RRP / cost-per-point. **Advanced settings** — hidden
+since 2026-10-09 (`SHOW_ADVANCED = false`; see TODO.md) — renders `AdvancedSettings`: one slider per `UnitCategory`
 present in the roster, defaulting to `faction.profile` (recommended value marked on
 the track). Edits live in `customProfiles[factionId]` and are swapped into a copy of
 the faction before generation; matching the recommendation again drops the override.

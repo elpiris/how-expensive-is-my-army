@@ -44,9 +44,8 @@ Built with **Vite + React + TypeScript**.
   of points across characters / infantry / mounted / vehicles / monsters), so lists
   come out in-character — Tyranids lean on monsters + swarms, Chaos Knights are all
   walkers, Mechanicus/Custodes favour troops and machines over HQs — rather than
-  every army defaulting to the same mix. An on-demand **Advanced settings** panel
-  exposes the profile as sliders (recommended values marked + one-click reset), so
-  users can slant a list toward characters, infantry, vehicles, etc.
+  every army defaulting to the same mix. (An **Advanced settings** panel exposing the
+  profile as sliders exists in code but is hidden for now — see TODO.md.)
 - **Flavourful Space Marine Chapters:** Chapter lists favour what the Chapter is
   known for — its own units, and units matching its identity (bikes for White Scars,
   flamers and meltas for Salamanders, Terminators and Gravis for Imperial Fists…) —
