@@ -42,9 +42,6 @@ body {
   font-size: clamp(28px, 5vw, 42px);
   letter-spacing: 0.5px;
 }
-.coin {
-  filter: drop-shadow(0 2px 6px rgba(212, 175, 55, 0.5));
-}
 .tagline {
   color: var(--muted);
   max-width: 620px;

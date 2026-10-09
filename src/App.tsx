@@ -320,7 +320,7 @@ export default function App() {
     <div className="app">
       <header className="hero">
         <h1>
-          <span className="coin">💰</span> How Expensive Is My Army?
+          How Expensive Is My Army?
         </h1>
         <p className="tagline">
           Auto-build a Warhammer&nbsp;40,000 army and price it in euros — Combat Patrols included to
