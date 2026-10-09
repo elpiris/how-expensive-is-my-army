@@ -24,7 +24,7 @@ Built with **Vite + React + TypeScript**.
     the Chapter is chosen in a second **Chapter** dropdown that appears beside it.
   - **Chaos** — Death Guard, Chaos Space Marines (+ a **Legion** dropdown), Chaos
     Knights, Emperor's Children,
-    World Eaters, Thousand Sons, Chaos Daemons
+    World Eaters, Thousand Sons, Chaos Daemons (+ a **God** dropdown)
   - **Xenos** — Necrons (+ a **Force** dropdown), Tyranids (+ a **Hive Fleet** dropdown), Aeldari (+ a
     **Craftworld** dropdown), T'au Empire (+ a **Sept** dropdown),
     Leagues of Votann, Genestealer Cults, Drukhari (+ a **Kabal / Cult / Coven**
@@ -164,6 +164,7 @@ src/
     necronForces.ts     # Necron Destroyer Cult / Canoptek Court / Awakened Dynasty
     mechanicusForces.ts # Mechanicus Skitarii Hunter Cohort / Cult Mechanicus
     custodesForces.ts   # Custodes Shield Host / Talons of the Emperor / Solar Spearhead
+    daemonGods.ts       # Chaos Daemons Khorne / Tzeentch / Nurgle / Slaanesh
     spaceMarines/       # base Codex roster + per-Chapter Faction files
       base.ts           #   shared roster + generic value boxes
       vanilla.ts        #   Space Marines, no Chapter

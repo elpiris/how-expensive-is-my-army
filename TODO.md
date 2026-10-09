@@ -14,7 +14,7 @@ Active dropdown groups (`Faction.category`):
 - **Chaos** — Death Guard, Chaos Space Marines (+ a **Legion** sub-selector: Black
   Legion, Iron Warriors, Night Lords, Word Bearers, Alpha Legion, Red Corsairs),
   Chaos Knights, Emperor's Children,
-  World Eaters, Thousand Sons, Chaos Daemons.
+  World Eaters, Thousand Sons, Chaos Daemons (+ a **God** sub-selector).
 - **Xenos** — Necrons (+ a **Force** sub-selector), Tyranids (+ a **Hive Fleet** sub-selector: Behemoth, Kraken,
   Leviathan, Gorgon, Jormungandr, Hydra, Kronos), Aeldari (+ a **Craftworld**
   sub-selector: Biel-Tan,
@@ -135,6 +135,9 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   (like the Craftworlds).
 
 **Xenos**
+  Four **God** sub-factions (`daemonGods.ts`, 2026-10-09): Khorne, Tzeentch, Nurgle,
+  Slaanesh — exclusive (each god's daemons + the undivided Be'lakor / Daemon Princes
+  of Chaos / Soul Grinder at pickWeight 0.3).
 - **Necrons — DONE (2026-10-08).** 49 datasheets — the whole MFM list minus the FW
   Seraptek Heavy Construct and the Convergence of Dominion (terrain-like). Every price
   confirmed with the user (Imotekh €38.50, Trazyn €25, Silent King €140.50, Deceiver
@@ -271,11 +274,12 @@ MFM list minus the FW Thunderhawk) reused by each Chapter; Chapters are sub-fact
   Raider). Transport chances per faction are first guesses (2026-10-04).
 - **Sub-faction backlog (ranked 2026-10-08):** done — SM Chapters, Craftworlds, Hive
   Fleets, CSM Legions, AM Regiments, T'au Septs, Drukhari forces, Ork Clans, Sororitas
-  Orders, Necron / Mechanicus / Custodes Forces. Next, clear unit pools:
+  Orders, Necron / Mechanicus / Custodes Forces, Daemon Gods. Previously next, clear unit pools:
   1. ~~Necrons~~ — done 2026-10-08 (Destroyer Cult / Canoptek Court / Awakened Dynasty).
   2. ~~Adeptus Mechanicus~~ — done 2026-10-09 (Skitarii Hunter Cohort / Cult Mechanicus).
   3. ~~Adeptus Custodes~~ — done 2026-10-09 (Shield Host / Talons / Solar Spearhead).
-  4. **Chaos Daemons** by god — clear but low priority (user).
+  4. ~~Chaos Daemons~~ — done 2026-10-09 (Khorne / Tzeentch / Nurgle / Slaanesh).
+  **Sub-factions are complete** for every army with a meaningful split.
   Leave for the future (would barely change lists): Imperial / Chaos Knight houses,
   Grey Knight brotherhoods, Death Guard plague companies / Thousand Sons cults (the
   god armies already have the daemon toggle), World Eaters, Emperor's Children,

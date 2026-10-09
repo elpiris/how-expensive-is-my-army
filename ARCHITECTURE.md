@@ -36,6 +36,7 @@ src/
     necronForces.ts   # Necron Forces (favoured only)
     mechanicusForces.ts # Mechanicus Skitarii / Cult (favoured only)
     custodesForces.ts # Custodes Shield Host / Talons / Solar Spearhead (favoured only)
+    daemonGods.ts     # Daemon Gods (exclusive; undivided units at pickWeight 0.3)
     spaceMarines/     # SM is special: shared base + one file per Chapter
       base.ts         #   baseUnits[], exclusive(), gettingStartedBox, darkAngelsCP,
                       #   heroesOfTheChapter, honouredOfTheChapter

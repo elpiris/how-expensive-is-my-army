@@ -21,6 +21,7 @@ export const chaosDaemons: Faction = {
   category: 'chaos',
   lastVerified: '2026-10-03',
   pointsVerified: true,
+  subfactionLabel: 'God',
   // Daemon hordes under towering Greater Daemons and their heralds.
   profile: { character: 2.5, infantry: 4, mounted: 2, vehicle: 1, monster: 2.5 },
   blurb:
