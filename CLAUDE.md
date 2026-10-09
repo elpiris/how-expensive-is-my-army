@@ -63,10 +63,10 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
   SW, BA; generic SM boxes incl. DA CP, Heroes / Honoured of the Chapter), 5
   Aeldari Craftworlds, 7 Tyranid Hive Fleets, 6 CSM Legions, 5 AM Regiments and
   5 T'au Septs, 3 Drukhari forces, 7 Ork Clans, 4 Sororitas Orders, 3 Necron
-  Forces (Legions /
+  Forces, 2 Mechanicus Forces (Legions /
   Regiments / Septs have
   sub-faction-only units). All dropdowns are alphabetical ("No specific …" first).
-- **Flavour:** SM, Aeldari, Tyranid, CSM, AM, T'au, Drukhari, Ork, Sororitas and Necron units are tagged; Chapters have an
+- **Flavour:** SM, Aeldari, Tyranid, CSM, AM, T'au, Drukhari, Ork, Sororitas, Necron and Mechanicus units are tagged; Chapters have an
   `identity` (full flavour), Craftworlds / Hive Fleets / Legions an identity +
   signature units (`flavour: 0.5`; Gorgon, Night Lords 0.75); plain Tyranids have
   a light identity (0.3); other factions are value-first.
@@ -84,9 +84,8 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 - **Everything is committed and pushed** (`main`); the working tree is clean.
 
 ## Next steps (suggested, see TODO.md)
-1. Sub-faction backlog in TODO.md ("Model / rules refinements"): Mechanicus
-   (Skitarii vs Cult), Custodes (Shield Host vs Talons), Chaos Daemons by god (low
-   prio); the rest can wait. Open CSM ideas in TODO.md.
+1. Sub-faction backlog in TODO.md ("Model / rules refinements"): Custodes (Shield
+   Host vs Talons), Chaos Daemons by god (low prio); the rest can wait. Open CSM ideas in TODO.md.
 2. Re-confirm prices periodically (points / prices drift).
 3. Low-priority factions (Imperial Agents, Deathwatch) and the Exodites once sold.
 4. Features: competitive-list mode, list export / shareable URL, per-unit value.

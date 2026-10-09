@@ -4,7 +4,8 @@ Running list of outstanding work. Data facts were last checked on the dates note
 Warhammer points and prices drift, so treat anything older with suspicion.
 
 Active dropdown groups (`Faction.category`):
-- **Imperium** — Custodes, Sororitas (+ an **Order** sub-selector), Mechanicus, Astra Militarum (+ a **Regiment**
+- **Imperium** — Custodes, Sororitas (+ an **Order** sub-selector), Mechanicus (+ a
+  **Force** sub-selector), Astra Militarum (+ a **Regiment**
   sub-selector: Cadian, Catachan, Krieg, Tempestus, Steel Legion), Imperial Knights,
   Grey Knights.
 - **Space Marines** — one entry + a **Chapter** sub-selector: no Chapter,
@@ -57,6 +58,9 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   kit verified (Tech-Priest Enginseer €34 confirmed 2026-10-03; the Cybernetica
   Datasmith's kit is the Kastelan box). Combat Patrol (€139: Manipulus, 3 Serberys
   Sulphurhounds, 5 Pteraxii Sterylizors, 10 Skitarii Vanguard).
+  Two **Force** sub-factions (`mechanicusForces.ts`, 2026-10-09): Skitarii Hunter
+  Cohort (+21% — walkers / Sicarians are poor value) and Cult Mechanicus (Cawl; −8%)
+  — favoured only; both keep the mixed Combat Patrol.
 - **Astra Militarum — DONE (2026-10-03).** 70 of the MFM's 72 datasheets (Aegis
   Defence Line and the FW Avenger left out); every kit price verified. Combat Patrol
   (€139: Cadian Command Squad, 10 Kasrkin, 10 Rough Riders). Shared kits pooled
@@ -264,11 +268,9 @@ MFM list minus the FW Thunderhawk) reused by each Chapter; Chapters are sub-fact
   Raider). Transport chances per faction are first guesses (2026-10-04).
 - **Sub-faction backlog (ranked 2026-10-08):** done — SM Chapters, Craftworlds, Hive
   Fleets, CSM Legions, AM Regiments, T'au Septs, Drukhari forces, Ork Clans, Sororitas
-  Orders, Necron Forces. Next, clear unit pools:
+  Orders, Necron Forces, Mechanicus Forces. Next, clear unit pools:
   1. ~~Necrons~~ — done 2026-10-08 (Destroyer Cult / Canoptek Court / Awakened Dynasty).
-  2. **Adeptus Mechanicus** — Skitarii (Rangers, Vanguard, Ironstriders, Duneriders) vs
-     Cult Mechanicus (Kataphrons, Kastelans, Electro-Priests, Tech-Priests); forge
-     worlds too subtle.
+  2. ~~Adeptus Mechanicus~~ — done 2026-10-09 (Skitarii Hunter Cohort / Cult Mechanicus).
   3. **Adeptus Custodes** — Shield Host vs Talons of the Emperor (Sisters of Silence).
   4. **Chaos Daemons** by god — clear but low priority (user).
   Leave for the future (would barely change lists): Imperial / Chaos Knight houses,

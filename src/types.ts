@@ -226,6 +226,9 @@ export type UnitTag =
   | 'destroyer'
   | 'canoptek'
   | 'legion'
+  // Adeptus Mechanicus
+  | 'skitarii'
+  | 'cult'
 
 /**
  * What a faction is known for: tag → weight (1 = a nod, 3 = defining). With the

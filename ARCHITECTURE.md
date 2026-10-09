@@ -34,6 +34,7 @@ src/
     clans.ts          # Ork Clans (favoured only)
     orders.ts         # Sororitas Orders (favoured only)
     necronForces.ts   # Necron Forces (favoured only)
+    mechanicusForces.ts # Mechanicus Skitarii / Cult (favoured only)
     spaceMarines/     # SM is special: shared base + one file per Chapter
       base.ts         #   baseUnits[], exclusive(), gettingStartedBox, darkAngelsCP,
                       #   heroesOfTheChapter, honouredOfTheChapter

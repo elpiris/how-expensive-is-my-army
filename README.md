@@ -14,7 +14,7 @@ Built with **Vite + React + TypeScript**.
 ## Features
 
 - **Factions**, grouped in the dropdown (alphabetical within each group):
-  - **Imperium** — Adeptus Custodes, Adepta Sororitas (+ an **Order** dropdown), Adeptus Mechanicus, Astra Militarum,
+  - **Imperium** — Adeptus Custodes, Adepta Sororitas (+ an **Order** dropdown), Adeptus Mechanicus (+ a **Force** dropdown), Astra Militarum,
     Imperial Knights, Grey Knights
   - **Space Marines** (own group) — a **Chapter system**: a base, Chapter-agnostic
     roster, plus Codex-compliant Chapters that share that base + their own characters
@@ -162,6 +162,7 @@ src/
     clans.ts            # the 7 Ork Clan sub-factions
     orders.ts           # the 4 Adepta Sororitas Order sub-factions
     necronForces.ts     # Necron Destroyer Cult / Canoptek Court / Awakened Dynasty
+    mechanicusForces.ts # Mechanicus Skitarii Hunter Cohort / Cult Mechanicus
     spaceMarines/       # base Codex roster + per-Chapter Faction files
       base.ts           #   shared roster + generic value boxes
       vanilla.ts        #   Space Marines, no Chapter
