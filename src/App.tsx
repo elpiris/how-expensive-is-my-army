@@ -3,6 +3,7 @@ import { daemonAllyIds, factions, getFaction, withoutDaemonAllies } from './data
 import { generateList, generateEscalation, BRACKETS } from './lib/generateList'
 import { costList, discountedTotal, purchaseDelta, sumLines } from './lib/costList'
 import { attachAll, type UnitCopy } from './lib/attachments'
+import { FeedbackPanel } from './Feedback'
 import {
   copyPoints,
   copySurcharge,
@@ -541,6 +542,19 @@ export default function App() {
           discount={discount}
         />
       )}
+
+      <FeedbackPanel
+        context={{
+          list: appMode === 'quick' ? quickList : stages[stageIndex],
+          priceEUR: (appMode === 'quick' ? quickCost : stageCosts[stageIndex]).rrpTotalEUR,
+          mode: appMode,
+          stage: appMode === 'escalation' ? stageIndex : null,
+          seed,
+          discount,
+          includeDaemons: daemonIds.length ? daemonsOn : null,
+          customProfile: customProfile ?? null,
+        }}
+      />
 
       <footer className="foot">
         <p>

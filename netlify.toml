@@ -1,0 +1,7 @@
+# Netlify build settings (see DEPLOY.md). Every push to `main` rebuilds the site.
+[build]
+  command = "VITE_COMMIT_REF=$COMMIT_REF npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"

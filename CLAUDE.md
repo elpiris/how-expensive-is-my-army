@@ -81,6 +81,8 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
   value boxes chosen by exhaustive cheapest combination; box-only byproducts
   (`isBoxOnly`) costed after the kits that credit them. Users can tune composition in Advanced
   settings.
+- **Live** at <https://howexpensiveismyarmy.netlify.app/> — Netlify rebuilds on every
+  push to `main`. In-app feedback goes to a Supabase `feedback` table (DEPLOY.md).
 - **Everything is committed and pushed** (`main`); the working tree is clean.
 
 ## Next steps (suggested, see TODO.md)

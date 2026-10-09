@@ -236,6 +236,19 @@ list favours (e.g. "White Scars favour bikes, speeders…").
 Theming via CSS vars in
 `styles.css` (dark only).
 
+## Feedback + hosting
+
+- **Feedback** (`src/Feedback.tsx`, `src/lib/feedback.ts`): a panel under the list —
+  "This list" (👍/👎 + comment) or "The app". Each row carries the list's settings
+  (faction, mode, points, stage, seed, discount, daemon toggle, custom profile), the
+  units shown, price and `APP_VERSION` (package version + deployed commit), so a rated
+  list can be regenerated. Sent with `fetch` to Supabase's REST API using
+  `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY`; the table
+  (`supabase/feedback.sql`) only allows anonymous INSERTs (RLS). Without the env
+  vars the payload is logged to the console.
+- **Hosting**: Netlify builds `main` on every push (`netlify.toml`); live at
+  <https://howexpensiveismyarmy.netlify.app/>. Step-by-step in `DEPLOY.md`.
+
 ## Adding data
 
 - **A unit:** add a `Unit` to a faction's `units`. Give `pointsEscalated`+`escalateAt`

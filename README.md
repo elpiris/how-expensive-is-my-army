@@ -58,6 +58,10 @@ Built with **Vite + React + TypeScript**.
   Catachan Jungle Fighters (flamers, Ogryns, Sly Marbo), Death Korps of Krieg
   (artillery, Dreir), Militarum Tempestus (Scions, Valkyries) and the Armageddon
   Steel Legion (tank companies, super-heavies, Yarrick, Graves).
+- **Feedback:** a panel under every list — rate it 👍 / 👎 with an optional comment, or
+  send general feedback. Stored in a Supabase table with the list's settings so it can
+  be reproduced (see [DEPLOY.md](DEPLOY.md)). Live at
+  <https://howexpensiveismyarmy.netlify.app/>.
 - **Daemon allies off by default:** Death Guard, World Eaters, Emperor's Children and
   Thousand Sons hide the datasheets they share with the Chaos Daemons (Plaguebearers,
   Bloodthirsters…) unless "Include daemon datasheets" is ticked.

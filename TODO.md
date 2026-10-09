@@ -291,6 +291,18 @@ MFM list minus the FW Thunderhawk) reused by each Chapter; Chapters are sub-fact
 - Optional: a **floor that skips very-low-value units** in the fill unless nothing
   better fits, to make cheap filler even rarer.
 
+## Launch (2026-10-09)
+- [x] Feedback in the app — "Rate this list" (👍/👎 + comment) and general app feedback,
+  stored in a Supabase `feedback` table (`supabase/feedback.sql`, insert-only for
+  visitors); without env vars it logs to the console. Code: `src/Feedback.tsx`,
+  `src/lib/feedback.ts`.
+- [ ] **User: create the table in Supabase** — paste `supabase/feedback.sql` into the
+  SQL Editor and run it; note the Project URL + anon key (DEPLOY.md §1).
+- [x] **User: publish on Netlify** — live at <https://howexpensiveismyarmy.netlify.app/>
+  (2026-10-09); env vars `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` (DEPLOY.md §2).
+- [ ] **Claude: verify the live site** — load it, send a test rating, confirm the row
+  lands in the table (DEPLOY.md §3); then remove the test row.
+
 ## Features / scope (backlog)
 - Restore a **competitive-list** mode (curated event netlists) — `competitiveLists`
   data is still in the Necron/Tyranid files, just unused.
