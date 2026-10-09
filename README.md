@@ -25,7 +25,7 @@ Built with **Vite + React + TypeScript**.
   - **Chaos** — Death Guard, Chaos Space Marines (+ a **Legion** dropdown), Chaos
     Knights, Emperor's Children,
     World Eaters, Thousand Sons, Chaos Daemons
-  - **Xenos** — Necrons, Tyranids (+ a **Hive Fleet** dropdown), Aeldari (+ a
+  - **Xenos** — Necrons (+ a **Force** dropdown), Tyranids (+ a **Hive Fleet** dropdown), Aeldari (+ a
     **Craftworld** dropdown), T'au Empire (+ a **Sept** dropdown),
     Leagues of Votann, Genestealer Cults, Drukhari (+ a **Kabal / Cult / Coven**
     dropdown), Orks (+ a **Clan** dropdown)
@@ -161,6 +161,7 @@ src/
     drukhariForces.ts   # Drukhari Kabal / Wych Cult / Haemonculus Coven
     clans.ts            # the 7 Ork Clan sub-factions
     orders.ts           # the 4 Adepta Sororitas Order sub-factions
+    necronForces.ts     # Necron Destroyer Cult / Canoptek Court / Awakened Dynasty
     spaceMarines/       # base Codex roster + per-Chapter Faction files
       base.ts           #   shared roster + generic value boxes
       vanilla.ts        #   Space Marines, no Chapter

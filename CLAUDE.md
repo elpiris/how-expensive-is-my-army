@@ -51,7 +51,7 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 - End commit messages with:
   `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`
 
-## Current state (2026-10-04)
+## Current state (2026-10-09)
 - **Factions:** 21 non-SM factions + Space Marines, all with full MFM rosters (FW /
   terrain / discontinued kits left out), verified en-EU prices, real value boxes and
   composition profiles. Imperium: Custodes, Sororitas, Mechanicus, Astra Militarum,
@@ -62,10 +62,11 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 - **Sub-factions** (`parent` + a second dropdown): 10 SM Chapters (6 Codex + DA, BT,
   SW, BA; generic SM boxes incl. DA CP, Heroes / Honoured of the Chapter), 5
   Aeldari Craftworlds, 7 Tyranid Hive Fleets, 6 CSM Legions, 5 AM Regiments and
-  5 T'au Septs, 3 Drukhari forces, 7 Ork Clans, 4 Sororitas Orders (Legions /
+  5 T'au Septs, 3 Drukhari forces, 7 Ork Clans, 4 Sororitas Orders, 3 Necron
+  Forces (Legions /
   Regiments / Septs have
   sub-faction-only units). All dropdowns are alphabetical ("No specific …" first).
-- **Flavour:** SM, Aeldari, Tyranid, CSM, AM, T'au, Drukhari, Ork and Sororitas units are tagged; Chapters have an
+- **Flavour:** SM, Aeldari, Tyranid, CSM, AM, T'au, Drukhari, Ork, Sororitas and Necron units are tagged; Chapters have an
   `identity` (full flavour), Craftworlds / Hive Fleets / Legions an identity +
   signature units (`flavour: 0.5`; Gorgon, Night Lords 0.75); plain Tyranids have
   a light identity (0.3); other factions are value-first.
@@ -83,9 +84,9 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 - **Everything is committed and pushed** (`main`); the working tree is clean.
 
 ## Next steps (suggested, see TODO.md)
-1. Flavour / sub-factions for more armies — e.g. Chaos Daemons by god (Khorne /
-   Tzeentch / Nurgle / Slaanesh), Orks by clan, Astra Militarum regiments: tag
-   units, add `identity`, check prices don't jump. Open CSM ideas in TODO.md.
-2. Re-confirm the older best-effort kits (Necrons: Imotekh, Trazyn, Reanimator).
+1. Sub-faction backlog in TODO.md ("Model / rules refinements"): Mechanicus
+   (Skitarii vs Cult), Custodes (Shield Host vs Talons), Chaos Daemons by god (low
+   prio); the rest can wait. Open CSM ideas in TODO.md.
+2. Re-confirm prices periodically (points / prices drift).
 3. Low-priority factions (Imperial Agents, Deathwatch) and the Exodites once sold.
 4. Features: competitive-list mode, list export / shareable URL, per-unit value.

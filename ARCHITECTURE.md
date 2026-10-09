@@ -33,6 +33,7 @@ src/
     drukhariForces.ts # Drukhari Kabal / Wych Cult / Coven (favoured only, like Craftworlds)
     clans.ts          # Ork Clans (favoured only)
     orders.ts         # Sororitas Orders (favoured only)
+    necronForces.ts   # Necron Forces (favoured only)
     spaceMarines/     # SM is special: shared base + one file per Chapter
       base.ts         #   baseUnits[], exclusive(), gettingStartedBox, darkAngelsCP,
                       #   heroesOfTheChapter, honouredOfTheChapter

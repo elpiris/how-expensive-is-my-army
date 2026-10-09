@@ -14,7 +14,7 @@ Active dropdown groups (`Faction.category`):
   Legion, Iron Warriors, Night Lords, Word Bearers, Alpha Legion, Red Corsairs),
   Chaos Knights, Emperor's Children,
   World Eaters, Thousand Sons, Chaos Daemons.
-- **Xenos** — Necrons, Tyranids (+ a **Hive Fleet** sub-selector: Behemoth, Kraken,
+- **Xenos** — Necrons (+ a **Force** sub-selector), Tyranids (+ a **Hive Fleet** sub-selector: Behemoth, Kraken,
   Leviathan, Gorgon, Jormungandr, Hydra, Kronos), Aeldari (+ a **Craftworld**
   sub-selector: Biel-Tan,
   Ulthwé, Saim-Hann, Iyanden, Alaitoc), T'au Empire (+ a **Sept** sub-selector: T'au
@@ -128,9 +128,18 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   (like the Craftworlds).
 
 **Xenos**
-- **Necrons — DONE (2026-10-02).** ~34-unit roster from the 52-datasheet MFM; prices
-  re-verified. A few units best-effort (Imotekh, Trazyn, Reanimator); Canoptek
-  Scarabs come with the Necron Warriors box (`alsoBuilds`).
+- **Necrons — DONE (2026-10-08).** 49 datasheets — the whole MFM list minus the FW
+  Seraptek Heavy Construct and the Convergence of Dominion (terrain-like). Every price
+  confirmed with the user (Imotekh €38.50, Trazyn €25, Silent King €140.50, Deceiver
+  €43 resin; Lokhust Lord kitbashed from a Heavy Destroyer, ≈). Combo boxes: Necrons
+  Royal Court €107.50 (Skorpekh Lord, Reanimator, Plasmancer, 2 Cryptothralls),
+  Kill Team: Canoptek Circle €64 (2 Tomb Crawlers, Geomancer, 5 Macrocytes),
+  Obelisk & Transcendent C'tan €160 (both; or a Tesseract Vault); Scarabs come with
+  the Warriors box; Doom Scythe = Night Scythe kit. Value boxes: Combat Patrol (€139)
+  and Battleforce: Necron Host (€212). Deceiver `pickWeight` 0.03 (7.7 pts/€), Obelisk
+  one per army + 0.08 with its C'tan box-mate. Three **Force** sub-factions
+  (`necronForces.ts`): Destroyer Cult, Canoptek Court (Szeras), Awakened Dynasty
+  (Imotekh, Silent King) — favoured only; C'tan stay common (user).
 - **Tyranids — DONE (2026-10-03).** All 50 MFM datasheets except the FW Bio-Titans
   (Harridan, Hierophant); every price verified except The Red Terror (Kill Team box
   only, ≈ €60). Ripper Swarms are single bases whose kit is the Termagants box;
@@ -253,12 +262,21 @@ MFM list minus the FW Thunderhawk) reused by each Chapter; Chapters are sub-fact
 - **Transport carry lists:** review each transport's `transports` per faction —
   some carriable units are missing (e.g. Masters of the Maelstrom on the Chaos Land
   Raider). Transport chances per faction are first guesses (2026-10-04).
-- **Flavour for other factions:** only SM Chapters, Aeldari Craftworlds and Tyranid
-  Hive Fleets have
-  `tags` / `identity`; the rest stay value-first. Tag them (and add identities or
-  sub-factions — e.g. Astra Militarum regiments, Chaos Daemon gods) for flavourful
-  lists; check prices don't jump (Custodes went +47% when flavour relied on the
-  generic `flavor` rating alone).
+- **Sub-faction backlog (ranked 2026-10-08):** done — SM Chapters, Craftworlds, Hive
+  Fleets, CSM Legions, AM Regiments, T'au Septs, Drukhari forces, Ork Clans, Sororitas
+  Orders, Necron Forces. Next, clear unit pools:
+  1. ~~Necrons~~ — done 2026-10-08 (Destroyer Cult / Canoptek Court / Awakened Dynasty).
+  2. **Adeptus Mechanicus** — Skitarii (Rangers, Vanguard, Ironstriders, Duneriders) vs
+     Cult Mechanicus (Kataphrons, Kastelans, Electro-Priests, Tech-Priests); forge
+     worlds too subtle.
+  3. **Adeptus Custodes** — Shield Host vs Talons of the Emperor (Sisters of Silence).
+  4. **Chaos Daemons** by god — clear but low priority (user).
+  Leave for the future (would barely change lists): Imperial / Chaos Knight houses,
+  Grey Knight brotherhoods, Death Guard plague companies / Thousand Sons cults (the
+  god armies already have the daemon toggle), World Eaters, Emperor's Children,
+  Votann leagues, GSC creeds (Brood Brothers AM allies not modelled).
+  Recipe: tag units, add an `identity` + profile per sub-faction (exclusive units only
+  where the lore splits rosters), check prices don't jump, show frequency tables.
 - **Combo boxes** whose extra units aren't in the roster aren't credited (e.g.
   Necrons Royal Court; the DG "Chosen of Mortarion" box's Champion).
 - Optional: a **floor that skips very-low-value units** in the fill unless nothing

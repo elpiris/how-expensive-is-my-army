@@ -222,6 +222,10 @@ export type UnitTag =
   // Adepta Sororitas (Orders)
   | 'faithful'
   | 'penitent'
+  // Necrons
+  | 'destroyer'
+  | 'canoptek'
+  | 'legion'
 
 /**
  * What a faction is known for: tag → weight (1 = a nod, 3 = defining). With the

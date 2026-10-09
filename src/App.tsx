@@ -637,6 +637,9 @@ const TAG_LABELS: Record<UnitTag, string> = {
   beast: 'beasts and squigs',
   faithful: 'Battle Sisters squads',
   penitent: 'penitents and Engines of Redemption',
+  destroyer: 'Destroyer Cult',
+  canoptek: 'Canoptek constructs',
+  legion: 'Necron legions and nobles',
 }
 
 /** "bikes, speeders and Chapter units" — a faction's identity, strongest first. */

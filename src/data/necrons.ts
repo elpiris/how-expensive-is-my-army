@@ -1,18 +1,27 @@
 import type { Faction } from '../types'
 
 // ---------------------------------------------------------------------------
-// NECRONS (Xenos)  — full roster, fine-tuned 2026-10-02
-// Points: from the Munitorum Field Manual (11th ed) 2026-10-02 (escalation +
-//   highest-cost wargear). Comprehensive core roster of the 52-datasheet index
-//   (omitting Forge World, terrain and the rarest named characters).
+// NECRONS (Xenos)  — full roster, fine-tuned 2026-10-02, completed 2026-10-08
+// Points: from the Munitorum Field Manual (11th ed) 2026-10-08 (escalation +
+//   highest-cost wargear). The whole MFM list except the Forge World Seraptek Heavy
+//   Construct and the Convergence of Dominion (terrain-like Starsteles). 2026-10-08
+//   added the Silent King, Nekrosor Ammentar, C'tan Shard of the Deceiver (resin,
+//   €43), Skorpekh Lord, Lokhust Lord (kitbashed from a Heavy Destroyer, ≈),
+//   Chronomancer, Geomancer, Overlord with Translocation Shroud, Cryptothralls,
+//   Canoptek Macrocytes / Spyders / Tomb Crawlers, Triarch Stalker, Doom Scythe
+//   (Night Scythe kit), Obelisk and Tesseract Vault. Prices confirmed with the
+//   user: Imotekh €38.50, Trazyn €25. Combo boxes: Necrons Royal Court €107.50
+//   (only source of the Skorpekh Lord, Reanimator and Cryptothralls; + Plasmancer),
+//   Kill Team: Canoptek Circle €64 (only source of the Tomb Crawlers, Geomancer and
+//   Macrocytes), Obelisk & Transcendent C'tan €160 (both; or a Tesseract Vault).
 // Prices: RE-VERIFIED on warhammer.com en-EU (2026-10-02) — several had drifted
 //   from the 2026-09-10 pass (Necron Warriors €42→43, Immortals €37→38.50,
 //   C'tan €105→107.50, Combat Patrol €135→139, etc.). Canoptek Scarabs aren't
 //   sold on their own (they come in the Warriors box / Combat Patrol) so their
-//   price stays a placeholder (≈). A few units not surfaced in the grid are
-//   best-effort (Imotekh, Trazyn, Canoptek Reanimator).
+//   kit is the Warriors box (like Tyranid Rippers).
 // Combat Patrol: Necrons (€139) — contents confirmed earlier (Overlord, Doomstalker,
 //   3 Skorpekh Destroyers, 10 Necron Warriors, 3 Canoptek Scarabs).
+// Battleforce: Necron Host (€212) — product page 2026-10-08.
 // ---------------------------------------------------------------------------
 
 export const necrons: Faction = {
@@ -21,8 +30,9 @@ export const necrons: Faction = {
   system: 'w40k',
   category: 'xenos',
   transportChance: 0.25,
-  lastVerified: '2026-10-02',
+  lastVerified: '2026-10-08',
   pointsVerified: true,
+  subfactionLabel: 'Force',
   // Reanimating infantry legions + Canoptek constructs + vehicles, C'tan apex.
   profile: { character: 1.5, infantry: 4.5, mounted: 1, vehicle: 2.5, monster: 1 },
   blurb:
@@ -50,7 +60,7 @@ export const necrons: Faction = {
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Epic Hero'],
       leads: ['immortals', 'lychguard', 'necron-warriors'],
-      kit: { name: 'Imotekh the Stormlord', priceEUR: 34, models: 1 },
+      kit: { name: 'Imotekh the Stormlord', priceEUR: 38.5, models: 1, verified: true },
     },
     {
       id: 'trazyn',
@@ -62,7 +72,7 @@ export const necrons: Faction = {
       flavor: 4,
       keywords: ['Character', 'Infantry', 'Epic Hero'],
       leads: ['immortals', 'lychguard', 'necron-warriors'],
-      kit: { name: 'Trazyn the Infinite', priceEUR: 28, models: 1 },
+      kit: { name: 'Trazyn the Infinite', priceEUR: 25, models: 1, verified: true },
     },
     // --- C'tan Shards (monsters) ---
     {
@@ -98,8 +108,18 @@ export const necrons: Faction = {
       models: 1,
       flavor: 4,
       keywords: ['Character', 'Monster'],
-      // The "Obelisk & Transcendent C'tan" kit (€160) builds either.
-      kit: { name: 'Obelisk & Transcendent C’tan', priceEUR: 160, models: 1, verified: true, onlineOnly: true },
+      // The "Obelisk & Transcendent C'tan" kit (€160) builds both (or a Tesseract Vault).
+      // Rare, as picking it brings the Obelisk along (see Obelisk).
+      pickWeight: 0.08,
+      boxOnly: false,
+      kit: {
+        name: 'Obelisk & Transcendent C’tan',
+        priceEUR: 160,
+        models: 1,
+        verified: true,
+        onlineOnly: true,
+        alsoBuilds: [{ unitId: 'obelisk', models: 1 }],
+      },
     },
     // --- Characters ---
     {
@@ -109,6 +129,7 @@ export const necrons: Faction = {
       points: 90,
       models: 1,
       flavor: 4,
+      tags: ['legion'],
       keywords: ['Character', 'Infantry', 'Leader'],
       leads: ['immortals', 'lychguard', 'necron-warriors'],
       kit: { name: 'Overlord with Tachyon Arrow', priceEUR: 34.5, models: 1, verified: true, onlineOnly: true },
@@ -120,6 +141,7 @@ export const necrons: Faction = {
       points: 50,
       models: 1,
       flavor: 3,
+      tags: ['legion'],
       keywords: ['Character', 'Infantry', 'Leader'],
       leads: ['immortals', 'necron-warriors'],
       kit: { name: 'Royal Warden', priceEUR: 34, models: 1, verified: true },
@@ -145,6 +167,7 @@ export const necrons: Faction = {
       escalateAt: 2,
       models: 1,
       flavor: 3,
+      tags: ['canoptek'],
       keywords: ['Character', 'Infantry', 'Leader'],
       leads: ['immortals', 'lychguard'],
       kit: { name: 'Cryptek', priceEUR: 34, models: 1, verified: true },
@@ -167,6 +190,7 @@ export const necrons: Faction = {
       points: 75,
       models: 1,
       flavor: 3,
+      tags: ['destroyer'],
       keywords: ['Character', 'Infantry'],
       kit: { name: 'Hexmark Destroyer', priceEUR: 34, models: 1, verified: true },
     },
@@ -188,6 +212,7 @@ export const necrons: Faction = {
       points: 120,
       models: 1,
       flavor: 3,
+      tags: ['legion'],
       keywords: ['Character', 'Vehicle'],
       kit: { name: 'Catacomb Command Barge', priceEUR: 51, models: 1, verified: true },
     },
@@ -199,6 +224,7 @@ export const necrons: Faction = {
       points: 85,
       models: 10,
       flavor: 4,
+      tags: ['legion'],
       keywords: ['Battleline', 'Infantry'],
       // The Necron Warriors box also builds 3 Canoptek Scarab Swarms.
       kit: {
@@ -216,6 +242,7 @@ export const necrons: Faction = {
       points: 65,
       models: 5,
       flavor: 3,
+      tags: ['legion'],
       keywords: ['Battleline', 'Infantry'],
       kit: { name: 'Immortals', priceEUR: 38.5, models: 5, verified: true },
     },
@@ -227,6 +254,7 @@ export const necrons: Faction = {
       points: 80,
       models: 5,
       flavor: 4,
+      tags: ['legion'],
       keywords: ['Infantry'],
       kit: { name: 'Lychguard', priceEUR: 51, models: 5, verified: true },
     },
@@ -239,6 +267,7 @@ export const necrons: Faction = {
       pointsEscalated: 70,
       models: 5,
       flavor: 3,
+      tags: ['legion'],
       keywords: ['Infantry'],
       kit: { name: 'Deathmarks', priceEUR: 38.5, models: 5, verified: true },
     },
@@ -259,6 +288,7 @@ export const necrons: Faction = {
       points: 80,
       models: 5,
       flavor: 3,
+      tags: ['legion'],
       keywords: ['Infantry', 'Fly'],
       kit: { name: 'Triarch Praetorians', priceEUR: 51, models: 5, verified: true },
     },
@@ -271,6 +301,7 @@ export const necrons: Faction = {
       pointsEscalated: 95,
       models: 3,
       flavor: 4,
+      tags: ['destroyer'],
       keywords: ['Infantry'],
       kit: { name: 'Skorpekh Destroyers', priceEUR: 53, models: 3, verified: true },
     },
@@ -283,6 +314,7 @@ export const necrons: Faction = {
       pointsEscalated: 90,
       models: 3,
       flavor: 3,
+      tags: ['destroyer'],
       keywords: ['Infantry'],
       kit: { name: 'Ophydian Destroyers', priceEUR: 53, models: 3, verified: true },
     },
@@ -295,6 +327,7 @@ export const necrons: Faction = {
       pointsEscalated: 110,
       models: 3,
       flavor: 3,
+      tags: ['destroyer'],
       keywords: ['Infantry', 'Fly'],
       kit: { name: 'Lokhust Destroyer Squadron', priceEUR: 51, models: 3, verified: true },
     },
@@ -307,6 +340,7 @@ export const necrons: Faction = {
       pointsEscalated: 60,
       models: 1,
       flavor: 3,
+      tags: ['destroyer'],
       keywords: ['Infantry', 'Fly'],
       kit: { name: 'Lokhust Heavy Destroyer', priceEUR: 34, models: 1, verified: true },
     },
@@ -318,9 +352,17 @@ export const necrons: Faction = {
       points: 40,
       models: 3,
       flavor: 3,
+      tags: ['canoptek'],
       keywords: ['Swarm', 'Canoptek'],
-      // Not sold on their own — 3 come in the Necron Warriors box / Combat Patrol.
-      kit: { name: 'Canoptek Scarab Swarms', priceEUR: 30, models: 3 },
+      // Not sold on their own — 3 come in the Necron Warriors box (its kit, like
+      // Tyranid Rippers) / the Combat Patrol.
+      kit: {
+        name: 'Necron Warriors',
+        priceEUR: 43,
+        models: 3,
+        verified: true,
+        alsoBuilds: [{ unitId: 'necron-warriors', models: 10 }],
+      },
     },
     {
       id: 'canoptek-wraiths',
@@ -332,6 +374,7 @@ export const necrons: Faction = {
       escalateAt: 2,
       models: 3,
       flavor: 3,
+      tags: ['canoptek'],
       keywords: ['Beast', 'Canoptek'],
       kit: { name: 'Canoptek Wraiths', priceEUR: 53, models: 3, verified: true },
     },
@@ -354,9 +397,18 @@ export const necrons: Faction = {
       points: 75,
       models: 1,
       flavor: 3,
+      tags: ['canoptek'],
       keywords: ['Vehicle', 'Canoptek'],
       // Comes in the Kill Team: Canoptek Circle box — standalone price best-effort.
-      kit: { name: 'Canoptek Reanimator', priceEUR: 40, models: 1 },
+      // Necrons Royal Court (€107.50): Skorpekh Lord, Reanimator, Plasmancer, 2
+      // Cryptothralls — the only source of the Lord, Reanimator and Cryptothralls.
+      kit: {
+        name: 'Necrons Royal Court',
+        priceEUR: 107.5,
+        models: 1,
+        verified: true,
+        alsoBuilds: [{ unitId: 'skorpekh-lord', models: 1 }, { unitId: 'cryptothralls', models: 2 }, { unitId: 'plasmancer', models: 1 }],
+      },
     },
     {
       id: 'doomstalker',
@@ -365,6 +417,7 @@ export const necrons: Faction = {
       points: 130,
       models: 1,
       flavor: 4,
+      tags: ['canoptek'],
       keywords: ['Vehicle', 'Walker', 'Canoptek'],
       kit: { name: 'Canoptek Doomstalker', priceEUR: 43, models: 1, verified: true },
     },
@@ -412,6 +465,7 @@ export const necrons: Faction = {
       points: 100,
       models: 1,
       flavor: 3,
+      tags: ['legion'],
       keywords: ['Vehicle', 'Transport'],
       // Carries 10 Necron Warrior models (+1 infantry character).
       transports: ['necron-warriors'],
@@ -428,6 +482,257 @@ export const necrons: Faction = {
       transports: ['necron-warriors', 'immortals', 'lychguard', 'deathmarks', 'flayed-ones', 'triarch-praetorians'],
       kit: { name: 'Night Scythe', priceEUR: 64, models: 1, verified: true },
     },
+    // --- Added 2026-10-08 (roster completed from the MFM) ---
+    {
+      id: 'silent-king',
+      name: 'The Silent King',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 420,
+      models: 3,
+      flavor: 5,
+      keywords: ['Character', 'Vehicle', 'Epic Hero'],
+      kit: { name: 'The Silent King', priceEUR: 140.5, models: 3, verified: true },
+    },
+    {
+      id: 'nekrosor-ammentar',
+      name: 'Nekrosor Ammentar',
+      role: 'epic-hero',
+      epicHero: true,
+      points: 195,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Epic Hero'],
+      kit: { name: 'Nekrosor Ammentar', priceEUR: 52, models: 1, verified: true },
+    },
+    {
+      id: 'ctan-deceiver',
+      name: 'C’tan Shard of the Deceiver',
+      role: 'monster',
+      points: 330,
+      models: 1,
+      flavor: 4,
+      keywords: ['Character', 'Monster', 'Epic Hero'],
+      epicHero: true,
+      // Resin kit — 330 pts for €43 (7.7 pts/€) made it a default pick that made
+      // Necrons look cheap; rare like the Stompa / Stormsurge.
+      pickWeight: 0.03,
+      kit: { name: 'C’tan Shard of the Deceiver', priceEUR: 43, models: 1, verified: true },
+    },
+    {
+      id: 'skorpekh-lord',
+      name: 'Skorpekh Lord',
+      role: 'character',
+      // MFM: "1st to 2nd 95 / 3rd + 105".
+      points: 95,
+      pointsEscalated: 105,
+      models: 1,
+      flavor: 4,
+      tags: ['destroyer'],
+      keywords: ['Character', 'Infantry', 'Destroyer Cult', 'Leader'],
+      leads: ['skorpekh-destroyers'],
+      // Necrons Royal Court (€107.50): Skorpekh Lord, Reanimator, Plasmancer, 2
+      // Cryptothralls — the only source of the Lord, Reanimator and Cryptothralls.
+      kit: {
+        name: 'Necrons Royal Court',
+        priceEUR: 107.5,
+        models: 1,
+        verified: true,
+        alsoBuilds: [{ unitId: 'canoptek-reanimator', models: 1 }, { unitId: 'cryptothralls', models: 2 }, { unitId: 'plasmancer', models: 1 }],
+      },
+    },
+    {
+      id: 'lokhust-lord',
+      name: 'Lokhust Lord',
+      role: 'character',
+      points: 80,
+      models: 1,
+      flavor: 3,
+      tags: ['destroyer'],
+      keywords: ['Character', 'Mounted', 'Destroyer Cult', 'Leader'],
+      leads: ['lokhust-destroyers', 'lokhust-heavy-destroyers'],
+      // No longer sold — kitbashed from a Lokhust Heavy Destroyer (pooled, ≈).
+      kit: { name: 'Lokhust Heavy Destroyer', priceEUR: 34, models: 1 },
+    },
+    {
+      id: 'chronomancer',
+      name: 'Chronomancer',
+      role: 'character',
+      // MFM: "1st unit 70 / 2nd + 80"; SUPPORT for Immortals / Warriors.
+      points: 70,
+      pointsEscalated: 80,
+      escalateAt: 2,
+      models: 1,
+      flavor: 3,
+      keywords: ['Character', 'Infantry', 'Cryptek'],
+      leads: ['immortals', 'necron-warriors'],
+      kit: { name: 'Chronomancer', priceEUR: 36, models: 1, verified: true },
+    },
+    {
+      id: 'geomancer',
+      name: 'Geomancer',
+      role: 'character',
+      // MFM: SUPPORT for Macrocytes / Immortals / Warriors.
+      points: 75,
+      models: 1,
+      flavor: 3,
+      tags: ['canoptek'],
+      keywords: ['Character', 'Infantry', 'Cryptek'],
+      leads: ['macrocytes', 'immortals', 'necron-warriors'],
+      // Kill Team: Canoptek Circle (€64): 2 Tomb Crawlers, a Geomancer, 5 Macrocytes —
+      // their only source.
+      kit: {
+        name: 'Kill Team: Canoptek Circle',
+        priceEUR: 64,
+        models: 1,
+        verified: true,
+        alsoBuilds: [{ unitId: 'tomb-crawlers', models: 2 }, { unitId: 'macrocytes', models: 5 }],
+      },
+    },
+    {
+      id: 'overlord-shroud',
+      name: 'Overlord with Translocation Shroud',
+      role: 'character',
+      points: 90,
+      models: 1,
+      flavor: 3,
+      tags: ['legion'],
+      keywords: ['Character', 'Infantry', 'Leader'],
+      leads: ['immortals', 'lychguard', 'necron-warriors'],
+      kit: { name: 'Overlord with Translocation Shroud', priceEUR: 34.5, models: 1, verified: true },
+    },
+    {
+      id: 'cryptothralls',
+      name: 'Cryptothralls',
+      role: 'infantry',
+      points: 60,
+      models: 2,
+      flavor: 3,
+      tags: ['canoptek'],
+      keywords: ['Infantry', 'Canoptek'],
+      // Necrons Royal Court (€107.50): Skorpekh Lord, Reanimator, Plasmancer, 2
+      // Cryptothralls — the only source of the Lord, Reanimator and Cryptothralls.
+      kit: {
+        name: 'Necrons Royal Court',
+        priceEUR: 107.5,
+        models: 2,
+        verified: true,
+        alsoBuilds: [{ unitId: 'skorpekh-lord', models: 1 }, { unitId: 'canoptek-reanimator', models: 1 }, { unitId: 'plasmancer', models: 1 }],
+      },
+    },
+    {
+      id: 'macrocytes',
+      name: 'Canoptek Macrocytes',
+      role: 'infantry',
+      points: 70,
+      models: 5,
+      flavor: 3,
+      tags: ['canoptek'],
+      keywords: ['Infantry', 'Canoptek'],
+      // Kill Team: Canoptek Circle (€64): 2 Tomb Crawlers, a Geomancer, 5 Macrocytes —
+      // their only source.
+      kit: {
+        name: 'Kill Team: Canoptek Circle',
+        priceEUR: 64,
+        models: 5,
+        verified: true,
+        alsoBuilds: [{ unitId: 'tomb-crawlers', models: 2 }, { unitId: 'geomancer', models: 1 }],
+      },
+    },
+    {
+      id: 'tomb-crawlers',
+      name: 'Canoptek Tomb Crawlers',
+      role: 'infantry',
+      points: 60,
+      models: 2,
+      flavor: 3,
+      tags: ['canoptek'],
+      keywords: ['Canoptek'],
+      // Kill Team: Canoptek Circle (€64): 2 Tomb Crawlers, a Geomancer, 5 Macrocytes —
+      // their only source.
+      kit: {
+        name: 'Kill Team: Canoptek Circle',
+        priceEUR: 64,
+        models: 2,
+        verified: true,
+        alsoBuilds: [{ unitId: 'geomancer', models: 1 }, { unitId: 'macrocytes', models: 5 }],
+      },
+    },
+    {
+      id: 'canoptek-spyders',
+      name: 'Canoptek Spyders',
+      role: 'monster',
+      // MFM: 1 model 65 / 2 models 110 (fielded singly).
+      points: 65,
+      models: 1,
+      flavor: 3,
+      tags: ['canoptek'],
+      keywords: ['Monster', 'Canoptek'],
+      kit: { name: 'Canoptek Spyder', priceEUR: 38.5, models: 1, verified: true },
+    },
+    {
+      id: 'triarch-stalker',
+      name: 'Triarch Stalker',
+      role: 'vehicle',
+      // MFM: "1st to 2nd 110 / 3rd + 120".
+      points: 110,
+      pointsEscalated: 120,
+      models: 1,
+      flavor: 3,
+      tags: ['legion'],
+      keywords: ['Vehicle', 'Walker'],
+      kit: { name: 'Triarch Stalker', priceEUR: 53, models: 1, verified: true },
+    },
+    {
+      id: 'doom-scythe',
+      name: 'Doom Scythe',
+      role: 'vehicle',
+      points: 200,
+      models: 1,
+      flavor: 3,
+      keywords: ['Vehicle', 'Aircraft', 'Fly'],
+      // Same kit as the Night Scythe (pooled).
+      kit: { name: 'Night Scythe', priceEUR: 64, models: 1, verified: true },
+    },
+    {
+      id: 'obelisk',
+      name: 'Obelisk',
+      role: 'vehicle',
+      // MFM: "1st unit 280 / 2nd + 310".
+      points: 280,
+      pointsEscalated: 310,
+      escalateAt: 2,
+      models: 1,
+      flavor: 4,
+      keywords: ['Vehicle', 'Titanic'],
+      boxOnly: false,
+      // Hard to manoeuvre: one per army and rare (user, 2026-10-08) — with its
+      // Transcendent C'tan box-mate (also 0.08) it was in half of all lists.
+      exclusiveGroup: 'obelisk',
+      pickWeight: 0.08,
+      // Built together with a Transcendent C'tan from one €160 box.
+      kit: {
+        name: 'Obelisk & Transcendent C’tan',
+        priceEUR: 160,
+        models: 1,
+        verified: true,
+        onlineOnly: true,
+        alsoBuilds: [{ unitId: 'transcendent-ctan', models: 1 }],
+      },
+    },
+    {
+      id: 'tesseract-vault',
+      name: 'Tesseract Vault',
+      role: 'vehicle',
+      // MFM: "1st unit 465 / 2nd + 505". Same €160 box as Obelisk + C'tan, built as one Vault.
+      points: 465,
+      pointsEscalated: 505,
+      escalateAt: 2,
+      models: 1,
+      flavor: 4,
+      keywords: ['Vehicle', 'Titanic'],
+      kit: { name: 'Tesseract Vault', priceEUR: 160, models: 1, verified: true },
+    },
   ],
   valueBoxes: [
     {
@@ -443,6 +748,22 @@ export const necrons: Faction = {
         { unitId: 'skorpekh-destroyers', models: 3 },
         { unitId: 'necron-warriors', models: 10 },
         { unitId: 'canoptek-scarabs', models: 3 },
+      ],
+    },
+    {
+      id: 'battleforce-necron-host',
+      name: 'Battleforce: Necron Host',
+      priceEUR: 212,
+      verified: true,
+      url: 'https://www.warhammer.com/en-EU/shop/battleforce-necron-host-2026',
+      // The barge can also be built as an Annihilation Barge.
+      builds: [
+        { unitId: 'catacomb-command-barge', models: 1 },
+        { unitId: 'doomstalker', models: 1 },
+        { unitId: 'ophydian-destroyers', models: 3 },
+        { unitId: 'flayed-ones', models: 5 },
+        { unitId: 'necron-warriors', models: 20 },
+        { unitId: 'canoptek-scarabs', models: 6 },
       ],
     },
   ],
