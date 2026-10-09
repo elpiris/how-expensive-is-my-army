@@ -9,7 +9,11 @@ import pkg from '../../package.json'
 // without them (local dev) the payload is logged to the console instead.
 // ---------------------------------------------------------------------------
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined
+// Tolerate a project URL pasted with a trailing slash or the "/rest/v1/" suffix.
+const SUPABASE_URL = (import.meta.env.VITE_SUPABASE_URL as string | undefined)
+  ?.trim()
+  .replace(/\/+$/, '')
+  .replace(/\/rest\/v1$/, '')
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
 
 /** "0.1.0+abc1234" — package version + the deployed commit (Netlify sets it). */
