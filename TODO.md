@@ -4,7 +4,7 @@ Running list of outstanding work. Data facts were last checked on the dates note
 Warhammer points and prices drift, so treat anything older with suspicion.
 
 Active dropdown groups (`Faction.category`):
-- **Imperium** — Custodes, Sororitas (+ an **Order** sub-selector), Mechanicus (+ a
+- **Imperium** — Custodes (+ a **Force** sub-selector), Sororitas (+ an **Order** sub-selector), Mechanicus (+ a
   **Force** sub-selector), Astra Militarum (+ a **Regiment**
   sub-selector: Cadian, Catachan, Krieg, Tempestus, Steel Legion), Imperial Knights,
   Grey Knights.
@@ -47,6 +47,9 @@ confirmed with the user one kit at a time. Remaining data work: the few best-eff
   Agamatus, Caladius, both FW Contemptors, Telemon, Pallas, Coronus, Anathema
   Rhino, Knight-Centura) stay best-effort. **GW discontinued the Custodes Combat
   Patrol** — no value box (`ignoreSizeCap` lets its 200+pt troops field below 2000).
+  Three **Force** sub-factions (`custodesForces.ts`, 2026-10-09): Shield Host
+  (Trajann), Talons of the Emperor (Valerian + Aleya, Sisters of Silence; flavour
+  0.75, +21%), Solar Spearhead (jetbikes, grav-tanks, Dreadnoughts) — favoured only.
 - **Adepta Sororitas — DONE (2026-10-02).** Full 33-datasheet MFM roster; the foot
   Canoness and the Seraphim/Zephyrim box aren't currently sold → best-effort. Combat
   Patrol (€139: Canoness, 5 Sacresants, 10 Battle Sisters, 10 Arco-flagellants).
@@ -268,10 +271,10 @@ MFM list minus the FW Thunderhawk) reused by each Chapter; Chapters are sub-fact
   Raider). Transport chances per faction are first guesses (2026-10-04).
 - **Sub-faction backlog (ranked 2026-10-08):** done — SM Chapters, Craftworlds, Hive
   Fleets, CSM Legions, AM Regiments, T'au Septs, Drukhari forces, Ork Clans, Sororitas
-  Orders, Necron Forces, Mechanicus Forces. Next, clear unit pools:
+  Orders, Necron / Mechanicus / Custodes Forces. Next, clear unit pools:
   1. ~~Necrons~~ — done 2026-10-08 (Destroyer Cult / Canoptek Court / Awakened Dynasty).
   2. ~~Adeptus Mechanicus~~ — done 2026-10-09 (Skitarii Hunter Cohort / Cult Mechanicus).
-  3. **Adeptus Custodes** — Shield Host vs Talons of the Emperor (Sisters of Silence).
+  3. ~~Adeptus Custodes~~ — done 2026-10-09 (Shield Host / Talons / Solar Spearhead).
   4. **Chaos Daemons** by god — clear but low priority (user).
   Leave for the future (would barely change lists): Imperial / Chaos Knight houses,
   Grey Knight brotherhoods, Death Guard plague companies / Thousand Sons cults (the

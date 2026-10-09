@@ -41,6 +41,7 @@ import { clans } from './clans'
 import { orders } from './orders'
 import { necronForces } from './necronForces'
 import { mechanicusForces } from './mechanicusForces'
+import { custodesForces } from './custodesForces'
 
 // Active factions, ordered by grand alliance (the dropdown groups them by
 // `category`). Space Marines ship as a base (Chapter-agnostic) force plus the
@@ -50,6 +51,7 @@ import { mechanicusForces } from './mechanicusForces'
 export const factions: Faction[] = [
   // Imperium
   custodes,
+  ...custodesForces,
   sororitas,
   ...orders,
   mechanicus,

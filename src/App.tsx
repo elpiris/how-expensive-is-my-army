@@ -642,6 +642,8 @@ const TAG_LABELS: Record<UnitTag, string> = {
   legion: 'Necron legions and nobles',
   skitarii: 'Skitarii',
   cult: 'Cult Mechanicus',
+  custodian: 'Custodian Guard',
+  sisters: 'Sisters of Silence',
 }
 
 /** "bikes, speeders and Chapter units" — a faction's identity, strongest first. */
