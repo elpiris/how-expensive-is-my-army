@@ -40,8 +40,16 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
   `transports` / `alsoBuilds` / value-box `unitId` exists in the faction; 300 seeds ×
   500/1000/1500/2000 + escalation never exceed the target; every unit gets picked;
   the faction's first value box is bought; average € per bracket looks sane.
-- **Don't edit the dev server's files mid-write:** Vite once cached an empty
-  `base.ts` read mid-edit — if the app shows a missing-export error, `touch` the file.
+- **Sub-faction checks:** the same throwaway-script approach, run over the base
+  faction and its sub-factions: integrity + € per bracket + a "% of 2000-pt lists per
+  unit" table + a couple of example lists. Show the user that table and examples
+  before committing tuning (that's how every sub-faction was signed off).
+- **Vite caches files edited in quick succession:** after editing data/lib files,
+  `touch` them before checking in the browser — a stale module once hid a cap that
+  was correct on disk (and an empty `base.ts` was cached mid-edit before).
+- **Deploys:** every push to `main` redeploys the live site on Netlify (~1 min). Check
+  the live bundle carries the new commit (`APP_VERSION` = version + commit) before
+  testing there.
 
 ## Conventions
 - Match the existing data-file style (header comment noting sources + dates; bump
@@ -51,43 +59,60 @@ the boxes to buy in euros. Pure front-end over **hand-curated data** (no backend
 - End commit messages with:
   `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`
 
-## Current state (2026-10-09)
+## Current state (2026-10-09, end of session)
+- **Live** at <https://howexpensiveismyarmy.netlify.app/> (Netlify, public). In-app
+  **feedback** (👍/👎 per list + general) lands in a Supabase `feedback` table that
+  only accepts anonymous inserts — the user reads it in the Supabase dashboard; each
+  row has faction / mode / points / stage / seed so the list can be regenerated
+  (setup + reading guide in DEPLOY.md). Free Supabase projects pause after ~1 week
+  idle (Restore in the dashboard).
 - **Factions:** 21 non-SM factions + Space Marines, all with full MFM rosters (FW /
-  terrain / discontinued kits left out), verified en-EU prices, real value boxes and
-  composition profiles. Imperium: Custodes, Sororitas, Mechanicus, Astra Militarum,
-  Imperial Knights, Grey Knights. Chaos: Death Guard, CSM, Chaos Knights, Emperor's
-  Children, World Eaters, Thousand Sons, Chaos Daemons. Xenos: Necrons, Tyranids,
-  Aeldari, T'au, Votann, GSC, Drukhari, Orks — every main MFM army.
-  **Missing (low priority):** Imperial Agents + Deathwatch.
-- **Sub-factions** (`parent` + a second dropdown): 10 SM Chapters (6 Codex + DA, BT,
-  SW, BA; generic SM boxes incl. DA CP, Heroes / Honoured of the Chapter), 5
-  Aeldari Craftworlds, 7 Tyranid Hive Fleets, 6 CSM Legions, 5 AM Regiments and
-  5 T'au Septs, 3 Drukhari forces, 7 Ork Clans, 4 Sororitas Orders, 3 Necron
-  Forces, 2 Mechanicus Forces, 3 Custodes Forces, 4 Daemon Gods (Legions /
-  Regiments / Septs / Daemon Gods have
-  sub-faction-only units). All dropdowns are alphabetical ("No specific …" first).
-- **Flavour:** SM, Aeldari, Tyranid, CSM, AM, T'au, Drukhari, Ork, Sororitas, Necron, Mechanicus and Custodes units are tagged; Chapters have an
-  `identity` (full flavour), Craftworlds / Hive Fleets / Legions an identity +
-  signature units (`flavour: 0.5`; Gorgon, Night Lords 0.75); plain Tyranids have
-  a light identity (0.3); other factions are value-first.
-- **The user plays Tyranids and Chaos Space Marines** — tune those with them: show
-  pick-frequency tables + example lists before committing.
+  terrain left out), verified en-EU prices (a handful of kitbash / Kill-Team-only
+  units stay "≈"), real value boxes (Combat Patrols, Battleforces, combo boxes such as
+  Necron Royal Court / Canoptek Circle, Huron + Masters, Venomcrawler + Obliterators)
+  and composition profiles. Tyranids, CSM and Necrons were completed from the MFM
+  this session. **Missing (low priority):** Imperial Agents, Deathwatch.
+- **Sub-factions — complete** (`parent` + a second dropdown, alphabetical, "No
+  specific …" first): SM Chapters (10), Aeldari Craftworlds (5), Tyranid Hive Fleets
+  (7), CSM Legions (6), AM Regiments (5), T'au Septs (5), Drukhari forces (3), Ork
+  Clans (7), Sororitas Orders (4), Necron Forces (3), Mechanicus Forces (2), Custodes
+  Forces (3), Chaos Daemon Gods (4). Two patterns:
+  - *Exclusive* (lore splits the roster): Legions, Regiments, Septs (only Shadowsun /
+    Farsight), Daemon Gods — the helper drops other sub-factions' units and their
+    `leads` / `transports` links; plain faction keeps everything.
+  - *Favoured only* (same models, different style): Craftworlds, Hive Fleets,
+    Drukhari, Clans, Orders, Necron / Mechanicus / Custodes Forces — `identity` tag
+    weights + `signature` units + own profile, `flavour` 0.5 (0.75 where the themed
+    units are poor value: Gorgon, Night Lords, Kroot, Talons).
+  The rest (Knights, Grey Knights, Votann, GSC, DG/WE/EC/TS) were judged not worth
+  splitting (TODO.md). The god armies instead have an "Include daemon datasheets"
+  checkbox (off by default).
+- **Tuning tools** (use these, not new mechanisms): `exclusiveGroup` = one per army
+  across a family (Norns, Tervigon, Masters of the Maelstrom, AM super-heavies, Ork
+  big walkers, Stormsurge, Obelisk); `pickWeight` = rarer in the value fill (huge or
+  absurdly cheap models that made armies look cheap: Stompa 0.03, Deceiver 0.03,
+  super-heavies 1/8, Stormsurge 0.2, Obelisk 0.08; sub-faction overrides via
+  `PICK_WEIGHT`); `profile` shares (drop a category to stop it being filled, e.g.
+  Slaanesh vehicles); `flavor` rating; `boxOnly` override.
 - **Generator/costing:** combo boxes valued whole; paid-for spares fielded first;
-  shared kits pooled; CP seeded round-robin; no battleline minimum; characters
-  need a unit to lead + diminishing returns per HQ; leaders shown with their unit
-  ("Attached units", `lib/attachments.ts`; `leads` order = pairing preference);
-  squads roll for a Dedicated Transport by size × `Faction.transportChance`;
-  god armies hide shared daemon datasheets unless "Include daemon datasheets";
-  value boxes chosen by exhaustive cheapest combination; box-only byproducts
-  (`isBoxOnly`) costed after the kits that credit them. Users can tune composition in Advanced
-  settings.
-- **Live** at <https://howexpensiveismyarmy.netlify.app/> — Netlify rebuilds on every
-  push to `main`. In-app feedback goes to a Supabase `feedback` table (DEPLOY.md).
+  shared kits pooled; CP seeded only when the faction can field all of it; no
+  battleline minimum; characters need a unit to lead + diminishing returns per HQ;
+  leaders + transports shown with their unit ("Attached units", `lib/attachments.ts`;
+  `leads` order = pairing preference); squads roll for a Dedicated Transport by size ×
+  `Faction.transportChance`, preferring cheap rides (Rhino over Land Raider) and the
+  sub-faction's taste; value boxes chosen by exhaustive cheapest combination;
+  box-only byproducts (`isBoxOnly`) costed after the kits that credit them; Spore
+  Mines from Biovores / Sporocysts aren't counted (spawned in game).
+- **The user plays Tyranids and Chaos Space Marines** (and knows the rules well):
+  defer to their calls there; show frequency tables + example lists first.
 - **Everything is committed and pushed** (`main`); the working tree is clean.
 
 ## Next steps (suggested, see TODO.md)
-1. Sub-factions are complete for every army with a meaningful split; the rest
-   (Knights, Grey Knights, Votann, GSC, DG/WE/EC/TS) can wait — see TODO.md. Open CSM ideas in TODO.md.
-2. Re-confirm prices periodically (points / prices drift).
-3. Low-priority factions (Imperial Agents, Deathwatch) and the Exodites once sold.
-4. Features: competitive-list mode, list export / shareable URL, per-unit value.
+1. Watch the incoming feedback (Supabase → Table Editor → `feedback`) and tune the
+   lists people downvote — reproduce them from the row's faction / points / seed.
+2. Re-confirm prices / points periodically (they drift); `lastVerified` per faction.
+3. Open ideas in TODO.md: CSM (Obliterators' daemon tag in Word Bearers, one Daemon
+   Prince per army?, Black Legion psykers, Haarken), transport carry-list review.
+4. Low-priority factions (Imperial Agents, Deathwatch), the Exodites once sold.
+5. Features: list export / shareable URL (feedback already stores seeds), competitive
+   mode, per-unit value display.
